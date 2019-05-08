@@ -1,0 +1,16 @@
+{
+    "/con": {
+      "target": "http://[::1]:4600",
+      "secure": false
+    },
+    
+    "/details":{
+      "target": "http://[::1]:4600",
+      "secure": false
+    },
+
+    "/bioData":{
+      "target":"http://[::1]:4600",
+      "secure":false
+    }
+}

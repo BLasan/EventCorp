@@ -1,0 +1,26 @@
+
+$colors:(
+   
+    "mattBlackLight":"#303337",
+    "mattBlackDark":"#212121",
+    "mattGray":"#878d8d",
+    "mattRed":"#ec6271",
+    
+);
+
+@each $colorName,$colorValue in $colors {
+    
+    .bg-#{$colorName}{
+        background-color: #{$colorValue};
+    }
+
+    .text-#{$colorName}{
+        color:#{$colorValue};
+
+    }
+}
+
+body{
+    @extend .bg-mattBlackDark;
+    @extend .text-mattGray;
+}

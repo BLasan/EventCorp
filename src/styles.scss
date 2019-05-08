@@ -1,0 +1,60 @@
+
+$colors:(
+   
+    "mattBlackLight":"#303337",
+    "mattBlackDark":"#212121",
+    "mattGray":"#878d8d",
+    "mattRed":"#ec6271",
+    
+);
+
+@each $colorName,$colorValue in $colors {
+    
+    .bg-#{$colorName}{
+        background-color: #{$colorValue};
+    }
+
+    .text-#{$colorName}{
+        color:#{$colorValue};
+
+    }
+}
+
+body{
+    @extend .bg-mattBlackDark;
+    @extend .text-mattGray;
+}
+
+.nav-link{
+
+    display: block;
+    white-space: nowrap;
+    .icon{
+        margin-right: rem(4px);
+        font-size: rem(30px);
+        vertical-align: middle;
+        height: rem(32px);
+        width: rem(32px);
+        @extend .text-mattGray;
+        display: inline-flex;
+        justify-content:center;
+        align-items: center;
+    }
+
+    .text{
+        font-size: 15px;
+        @extend .text-mattGray;
+    }
+
+   
+}
+
+ /* You can add global styles to this file, and also import other style files */
+ .box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+ /* ngAlert customization */
+ .app-level-alert {
+   padding-top: 10px;
+ }
+
+
