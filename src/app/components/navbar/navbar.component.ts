@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
+import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import {onIdentify} from '../../../scripts/side_bar.js';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
     private listTitles: any[];
+    getUser:String='';
+    isAdmin:boolean=false;
     count=0;
     location: Location;
       mobile_menu_visible: any = 0;
@@ -22,7 +26,16 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
-      this.listTitles = ROUTES.filter(listTitle => listTitle);
+      
+      this.getUser=onIdentify();
+      if(this.getUser=='artist')
+      this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+
+      else{
+        this.listTitles = ROUTES.filter(listTitle => listTitle);
+        this.isAdmin=true;
+      }
+     
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {

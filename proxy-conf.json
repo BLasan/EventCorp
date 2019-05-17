@@ -12,5 +12,15 @@
     "/bioData":{
       "target":"http://[::1]:4600",
       "secure":false
+    },
+
+    "/albumData":{
+      "target":"http://[::1]:4600",
+      "secure":false
+    },
+
+    "/upload":{
+      "target":"http://[::1]:4600",
+      "secure":false
     }
 }

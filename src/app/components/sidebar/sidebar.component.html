@@ -20,7 +20,8 @@
       </span>
     </form>
     <ul class="nav navbar-nav nav-mobile-menu">
-        <li class="nav-item">
+         <!-- if admin -->
+        <li class="nav-item" *ngIf="isAdmin">
             <a class="nav-link" href="#pablo">
                 <i class="material-icons">dashboard</i>
                 <p>
@@ -28,6 +29,16 @@
                 </p>
             </a>
         </li>
+           <!-- if not admin -->
+        <li class="nav-item" *ngIf="!isAdmin">
+                <a class="nav-link" href="#pablo">
+                    <i class="material-icons">home</i>
+                    <p>
+                        <span class="d-lg-none d-md-block">Stats</span>
+                    </p>
+                </a>
+            </li>
+            <!-- end if else -->
         <li class="nav-item dropdown">
             <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">notifications</i>

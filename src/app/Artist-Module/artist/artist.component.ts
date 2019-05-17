@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 
-//declare function  call():any;
+declare function  call():any;
 
 @Component({
   selector: 'app-artist',
@@ -24,6 +24,7 @@ export class ArtistComponent implements OnInit {
 
   ngOnInit() {
      
+    call();
   
     this.socket=io('http://localhost:4600/form',{path:'/form',reconnect:true,forceNew:true});
     this.socket.on('update_form',data=>{
@@ -39,16 +40,16 @@ export class ArtistComponent implements OnInit {
       this.bio_data=data;
     });
 
-   /* this.socket2=io('http://localhost:4600/album_data',{path:'/album_data',reconnect:true,forceNew:true});
+    this.socket2=io('http://localhost:4600/album_data',{path:'/album_data',reconnect:true,forceNew:true});
     this.socket2.on('update_album',data=>{
       console.log("connected3");
       this.album_data=data;
     })
 
-     */
+     
   
   
-   /* this.socket1=io('http://localhost:4600/bio_data',{path:'/bio_data',reconnect:true,forceNew:true});
+    this.socket1=io('http://localhost:4600/bio_data',{path:'/bio_data',reconnect:true,forceNew:true});
     this.socket1.on('update_bio',data=>{
      
       this.bio_data=data;
@@ -56,7 +57,7 @@ export class ArtistComponent implements OnInit {
     
 
     }); 
-    */
+    
   }
 
   }

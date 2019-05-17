@@ -30,6 +30,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './form/form.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { ArtistComponent } from './Artist-Module/artist/artist.component';
+import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
+import { TestComponent } from './test/test.component';
+import { ArtistCalendarComponent } from './Artist-Module/artist-calendar/artist-calendar.component';
+import { ArtistNotificationComponent } from './Artist-Module/artist-notification/artist-notification.component';
+import { ArtistRequestComponent } from './Artist-Module/artist-request/artist-request.component';
 
 
 @NgModule({
@@ -43,9 +48,7 @@ import { ArtistComponent } from './Artist-Module/artist/artist.component';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAyionl_j2DMognkRUOTrk56sLxOdeYpww'
-    })
+   
   ],
   declarations: [
     AppComponent,
@@ -53,7 +56,8 @@ import { ArtistComponent } from './Artist-Module/artist/artist.component';
     ListEmployeeComponent,
     CreateEmployeeComponent,
     FormComponent,
-    ArtistComponent
+    ArtistLayoutComponent,
+    TestComponent,
 
   ],
 

@@ -1,45 +1,11 @@
 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0" >
-              <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-          </div>
-        </nav>
-
- 
-        <div class="container" style="margin-top: 50px">
+<div class="main-content">
+    <div class="container-fluid">
             <div class="row">
               <div class="col-sm-4">
                   <div class="card" style="width: 20rem;">
+
+                    <!-- uploading profile picture -->
                       <img id="pro" class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW32gY3M0OVknIG1waIM6Cx91aoeMm_Op_sbhQiBjA2fHsSZld" alt="Card image cap" style="height:20rem">
                       <div class="card-body">
                           <div class="form-group">
@@ -52,6 +18,7 @@
                       </div>
                       </div>
                     </div>
+                <!-- end upload profile picture -->
 
                     <div class="row">
 
@@ -96,11 +63,12 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" (click)="form1.submit();isReceived()" id="modalSubmit">Save changes</button>
+          <button type="submit" class="btn btn-primary" (click)="form1.submit()" id="modalSubmit">Save changes</button>
         </div>
       </div>
     </div>
   </div>
+      <!-- end model -->
 
   </div>
 
@@ -120,9 +88,10 @@
   </div>
               
               <div class="col-sm-8">
-                  <div class="card" style="width: 34rem;">
+                  <div class="card">
                       <div class="card-body" style="background-color:lightslategray">
 
+                            <!-- user details form -->
                           <form #form action="details" method="POST">
                               <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -414,12 +383,15 @@
                                     <input type="password"  [ngClass]="{'is-invalid':form_data[1].validPassword==false}" class="form-control" id="re_enter" name="re_enter">
                                   </div>
                               </div>
+                           
                               <div class="form-group">
                                   <div class="g-recaptcha" data-sitekey="6Le6daAUAAAAAMxeTFsChfQW2ItOf4lEllkgl8RD"></div>
                               </div>
+                            
                              
                               <button type="submit" class="btn btn-primary"  (click)="form.submit()" id="submitBtn">Sign in</button>
                             </form>
+                              <!-- end form -->
                       </div>
                     </div>
                     
@@ -436,8 +408,8 @@
             <div class="col-sm-8" >
 
               <div class="row">
-              <div class="col-sm-4">
-                  
+              <div class="col-md-4">
+              
                   <button type="button" class="btn btn-round btn-outline-default" id="addAlbum" style="margin-top:110px"  data-toggle="modal" data-target="#album" ><img src="../../../assets/img/add.png"  /><b style="color:white!important">ADD NEW ALBUM</b></button>
 
                   <!-- Modal -->
@@ -452,7 +424,7 @@
                           </div>
                           <div class="modal-body">
                           
-                              <form #form2 action="albumData" method="POST"  enctype="application/x-www-form-urlencoded">
+                              <form #form2 action="albumData" method="POST"  enctype="multipart/form-data">
                                   <div class="form-group">
                                     <label for="title" class="col-form-label"><b style="color:#878d8d!important">Title:</b></label>
                                     <input type="text" class="form-control" name="album_title" id="title" placeholder="@title">
@@ -465,19 +437,21 @@
                                       <label for="location" class="col-form-label"><b style="color:#878d8d!important">Venue:</b></label>
                                       <input type="text" class="form-control" name="album_location" id="location" placeholder="Venue">
                                     </div>
-
+                                    <div class="form-group">
+                                      <div class="input-group">
+                                    <button type="button" class="btn btn-primary btn-circle" id="album_video" style="background-color:aqua!important"><img src="../../../assets/img/videos.png"  /></button><input type="file" id="albumVideo" style="display:hidden" multiple>
+                                     
+                                    <button type="button" class="btn btn-primary btn-circle" id="album_image" style="background-color:aqua!important"><img src="../../../assets/img/images.png"  /></button><input type="file" id="albumImage" style="display:hidden" name="myImage" accept="image/*">
+                                      </div>
+                                  </div>
+                                 
                                 </form>
 
-                                <div class="form-group">
-                                    <div class="input-group">
-                                  <button type="button" class="btn btn-primary btn-circle" id="album_video" style="background-color:aqua!important"><img src="../../../assets/img/videos.png"  /></button><input type="file" id="albumVideo" style="display:hidden" multiple>
-                                   
-                                  <button type="button" class="btn btn-primary btn-circle" id="album_image" style="background-color:aqua!important"><img src="../../../assets/img/images.png"  /></button><input type="file" id="albumImage" style="display:hidden" multiple>
-                                    </div>
-                                </div>
+                               
                   
                           </div>
                           <div class="modal-footer">
+                          
                             <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary" (click)="form2.submit()" id="modalSubmit2">Save changes</button>
                           </div>
@@ -485,23 +459,22 @@
                       </div>
                     </div>
                <!--- End Modal -->
-
-          
+            
               </div>
 
 
-              <div class="col-sm-4">
+              <div class="col-md-8">
 
                   
-                  <div class="card" style="width: 25rem;height: 300px">
+                  <div class="card" style="height: 400px">
       
-                      <span class="border border-danger"  style="width: 25rem!important;height: 300px!important">
+                      <span class="border border-danger"  style="height: 400px!important">
                       <div class="card-header card-header-danger"><b style="text-align:center!important">YOUR ALBUMS</b></div>
                          
                   <div class="card-body" style="background-color:white">     
                         <p id="initialText" ><b style="color:black!important">{{initialText}}</b></p>                        
                   <div id="divVideo"> 
-                  <div class="scrollbar scrollbar-primary" id="scroll" style="width:20rem;margin-left:-2.8px;display:none">
+                  <div class="scrollbar scrollbar-primary" id="scroll" style="width:20rem;height:300px;margin-left:2px;display:none">
                   <div class="force-overflow">
                  <ul class="list-group" id="list"> </ul>  
                  </div>
@@ -514,15 +487,172 @@
               
             </div>
 
-            </div>      
-
-
-
-
-
-
-
-            </div>
-
-
+            </div>  
+            </div> 
            </div>
+            
+            <!-- adding carousals-->
+             <div class="row">
+               <div class="col-sm-4"></div>
+               <div class="col-sm-8">
+                   <div class="row">
+                     <div class="col-md-4">
+                      <!-- adding carousal images -->
+                  <div class="card" style="height:300px">
+      
+                      <span class="border border-danger"  style="height: 400px!important">
+                      <div class="card-header card-header-danger" style="height:200px!important;width:200px;margin-left: -10px">
+
+                          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                              <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                              </ol>
+                              <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW32gY3M0OVknIG1waIM6Cx91aoeMm_Op_sbhQiBjA2fHsSZld" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                  <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item">
+                                  <img src="..." class="d-block w-100" alt="...">
+                                </div>
+                              </div>
+                              <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                              </a>
+                              <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                              </a>
+                            </div>
+                      </div>
+                         
+                  <div class="card-body" style="background-color:white">     
+                        <p id="initialText" ><b style="color:black!important">YOUR IMAGES</b></p>                        
+                  <div id="divVideo"> 
+                  <div class="scrollbar scrollbar-primary" id="scroll" style="width:20rem;height:300px;margin-left:2px;display:none">
+                  <div class="force-overflow">
+                 <ul class="list-group" id="list"> </ul>  
+                 </div>
+                 </div>
+                 </div>
+                 </div>
+                     </span>
+
+                </div>
+                   
+                     </div>
+                     <!-- end of image carousal -->
+
+                     <div class="col-md-4">
+                        <!-- adding carousal videos -->
+                    <div class="card" style="height:300px">
+        
+                        <span class="border border-danger"  style="height: 400px!important">
+                        <div class="card-header card-header-danger" style="height:200px!important;width:200px;margin-left: -10px">
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW32gY3M0OVknIG1waIM6Cx91aoeMm_Op_sbhQiBjA2fHsSZld" class="d-block w-100" alt="...">
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="..." class="d-block w-100" alt="...">
+                                  </div>
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="sr-only">Next</span>
+                                </a>
+                              </div>
+                        </div>
+                           
+                    <div class="card-body" style="background-color:white">     
+                          <p id="initialText" ><b style="color:black!important">YOUR VIDEOS</b></p>                        
+                    <div id="divVideo"> 
+                    <div class="scrollbar scrollbar-primary" id="scroll" style="width:20rem;height:300px;margin-left:2px;display:none">
+                    <div class="force-overflow">
+                   <ul class="list-group" id="list"> </ul>  
+                   </div>
+                   </div>
+                   </div>
+                   </div>
+                       </span>
+  
+                  </div>
+                     
+                       </div>
+                       <!-- end of video carousal -->
+
+                       <div class="col-md-4">
+                          <!-- adding carousal songs-->
+                      <div class="card" style="height:300px">
+          
+                          <span class="border border-danger"  style="height: 400px!important">
+                              <div class="card-header card-header-danger" style="height:200px!important;width:200px;margin-left: -10px">
+                                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                      <ol class="carousel-indicators">
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                      </ol>
+                                      <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW32gY3M0OVknIG1waIM6Cx91aoeMm_Op_sbhQiBjA2fHsSZld" class="d-block w-100" alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                          <img src="..." class="d-block w-100" alt="...">
+                                        </div>
+                                        <div class="carousel-item">
+                                          <img src="..." class="d-block w-100" alt="...">
+                                        </div>
+                                      </div>
+                                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                      </a>
+                                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                      </a>
+                                    </div>
+                              </div>
+                             
+                      <div class="card-body" style="background-color:white">     
+                            <p id="initialText" ><b style="color:black!important">YOUR SONGS</b></p>                        
+                      <div id="divVideo"> 
+                      <div class="scrollbar scrollbar-primary" id="scroll" style="width:20rem;height:300px;margin-left:2px;display:none">
+                      <div class="force-overflow">
+                     <ul class="list-group" id="list"> </ul>  
+                     </div>
+                     </div>
+                     </div>
+                     </div>
+                         </span>
+    
+                    </div>
+                       
+                         </div>
+                          <!-- end songs carousals -->
+                     </div>
+                   </div>
+               </div>
+            
+            </div>
+      </div>
+      

@@ -13,6 +13,8 @@
   const server=http.Server(app);
   //const http1=require('http');
   //const server1=http1.Server(app);
+  const multer=require('multer');
+  const ejs=require('ejs');
   var io = require('socket.io')(server, { path: '/form' }).listen(server);
   
   var id=0,isValid=false;
@@ -24,10 +26,25 @@
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
   const RECAPTCHA_SECRET = "6Le6daAUAAAAAD-dA1jOUI_dZKVg2z7v4MDFfl9p";
+  
+
+  const storage=multer.diskStorage({destination:function(req,res,cb){
+    cb(null,'storage/')
+  },
+
+  filename:function(req,file,cb){
+    cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
+    console.log('hi');
+  }
+
+});
+
+
+const upload=multer({storage:storage});
 
   // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
-var firebase = require("firebase/app");
+  var firebase = require("firebase/app");
 
 // Add the Firebase products that you want to use
 require("firebase/auth");
@@ -67,19 +84,18 @@ var actionCodeSettings = {
 };
 
 
-
-firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
-  .then(function() {
-    console.log('sent')
-    // The link was successfully sent. Inform the user.
-    // Save the email locally so you don't need to ask the user for it again
-    // if they open the link on the same device.
-   // window.localStorage.setItem('emailForSignIn', email);
-  })
-  .catch(function(error) {
-    console.log('Error')
-    // Some error occurred, you can inspect the code: error.code
-  });
+// firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
+//   .then(function() {
+//     console.log('sent')
+//     // The link was successfully sent. Inform the user.
+//     // Save the email locally so you don't need to ask the user for it again
+//     // if they open the link on the same device.
+//    // window.localStorage.setItem('emailForSignIn', email);
+//   })
+//   .catch(function(error) {
+//     console.log('Error')
+//     // Some error occurred, you can inspect the code: error.code
+//   });
 
 
 
@@ -136,10 +152,6 @@ firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
          var contact=req.body.contact;
          var re_enter=req.body.re_enter;
 
-       
-         
-         console.log(contact);
-
          req.check('email', 'Required').notEmpty();
          req.check('password','Enter minimum 6 characters').isLength({min:6}).notEmpty();
          req.check('name','Required').notEmpty();
@@ -158,7 +170,7 @@ firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
           matchPsw=true;
          }
          console.log(errors);
-         if(errors && matchPsw){
+         if(errors || matchPsw){
          if(errors[0].param=='email')
          validEmail=false;
 
@@ -171,8 +183,10 @@ firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
          if(errors[0].param=='city')
          validCity=false;
 
-         if(errors[0].param=='contact')
+         if(errors[0].param=='contact'){
          validContact=false;
+         console.log(validContact,"validContact")
+         }
 
          if(errors[0].param=='password'|| (artist_psw!=re_enter))
          validPassword=false;
@@ -223,11 +237,12 @@ firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
 
             }
 
-         });
-
+        
         });
 
+      });
 
+  
 
         app.post('/bioData',urlencodedParser,function(req,res){
           
@@ -246,13 +261,33 @@ firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
 
           res.redirect('/artist');
 
-
-
         });
 
-        app.post('/albumData',urlencodedParser,(req,res)=>{
 
+
+
+              //get album data
+      
+        app.post('/albumData', upload.single('myImage'),urlencodedParser,(req,res,next)=>{
+          console.log('ji');
           var album_title=req.body.album_title;
+          var album_date=req.body.album_date;
+          var album_location=req.body.album_location;
+          var album_details=[{"title":album_title,"date":album_date,"location":album_location}];
+          const file = req.file;
+          console.log('File',file);
+          if (!file) {
+            const error = new Error('Please upload a file')
+            error.httpStatusCode = 400
+            return next(error)
+          }
+
+          res.redirect('/artist');
+            // res.send(file)
+
+        
+
+     /*     var album_title=req.body.album_title;
           var album_date=req.body.album_date;
           var album_location=req.body.album_location;
 
@@ -264,13 +299,25 @@ firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
             socket.emit('update_album',album_details);
           });
 
+
+
           res.redirect('/artist');
 
 
-
-
-
+*/
         });
+
+
+        // app.post('/upload', upload.single('myImage'),urlencodedParser,(req, res, next) => {
+        //   const file = req.file
+        //   if (!file) {
+        //     const error = new Error('Please upload a file')
+        //     error.httpStatusCode = 400
+        //     return next(error)
+        //   }
+        //     res.send(file)
+          
+        // })
 
        
 

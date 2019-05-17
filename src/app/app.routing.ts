@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,6 +13,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import { FormComponent } from './form/form.component';
 import { ArtistComponent } from './Artist-Module/artist/artist.component';
+import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
+import { TestComponent } from './test/test.component';
 //import {ArtistComponent} from './Artist-Module/artist/artist.component';
 const routes: Routes =[
   {
@@ -22,10 +24,20 @@ const routes: Routes =[
   }, 
 
   {
-    path:'artist',
-    component:ArtistComponent
+    path:'test',
+    component:TestComponent,
   },
-  
+
+  {
+    path: '',
+    component: ArtistLayoutComponent,
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
+  }]},
+
+
  {
     path: '',
     component: AdminLayoutComponent,
