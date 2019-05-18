@@ -35,6 +35,7 @@ import { TestComponent } from './test/test.component';
 import { ArtistCalendarComponent } from './Artist-Module/artist-calendar/artist-calendar.component';
 import { ArtistNotificationComponent } from './Artist-Module/artist-notification/artist-notification.component';
 import { ArtistRequestComponent } from './Artist-Module/artist-request/artist-request.component';
+import { ArtistHomeComponent } from './Artist-Module/artist-home/artist-home.component';
 
 
 @NgModule({
@@ -58,7 +59,6 @@ import { ArtistRequestComponent } from './Artist-Module/artist-request/artist-re
     FormComponent,
     ArtistLayoutComponent,
     TestComponent,
-
   ],
 
   providers: [],
