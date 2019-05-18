@@ -12,6 +12,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FullCalendarModule } from 'ng-fullcalendar';
 import {ArtistNotificationComponent} from 'app/Artist-Module/artist-notification/artist-notification.component'; 
 import {ArtistRequestComponent} from 'app/Artist-Module/artist-request/artist-request.component';
+import {ArtistHomeComponent} from 'app/Artist-Module/artist-home/artist-home.component';
 import {
     MatButtonModule,
     MatInputModule,
@@ -38,7 +39,8 @@ import {
      ArtistComponent,
      ArtistCalendarComponent,
      ArtistNotificationComponent,
-     ArtistRequestComponent
+     ArtistRequestComponent,
+     ArtistHomeComponent
     ],
    
   })
