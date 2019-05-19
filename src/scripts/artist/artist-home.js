@@ -24,6 +24,12 @@ function get_calendar(day_no,days){
     var td=document.createElement('td');
     td.innerHTML="SMTWTFS"[c];
     td.setAttribute('style','padding:5px');
+    td.setAttribute('id',c);
+    if(c==0 || c==6)
+    td.setAttribute('style','color:red');
+
+    else
+    td.setAttribute('style','color:#212121');
     tr.appendChild(td);
   }
 

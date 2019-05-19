@@ -1,5 +1,4 @@
-
-
+  const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
   const express=require('express');
   var Request = require("request");
   const path=require('path');
@@ -29,76 +28,18 @@
   
 
   const storage=multer.diskStorage({destination:function(req,res,cb){
-    cb(null,'storage/')
+    cb(null,'./src/assets/storage/images')
   },
 
   filename:function(req,file,cb){
     cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
-    console.log('hi');
+    // console.log('hi');
   }
 
 });
 
-
-const upload=multer({storage:storage});
-
-  // Firebase App (the core Firebase SDK) is always required and
-// must be listed before other Firebase SDKs
-  var firebase = require("firebase/app");
-
-// Add the Firebase products that you want to use
-require("firebase/auth");
-require("firebase/firestore");
-
-// TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
-  authDomain: "eventcorppro.firebaseapp.com",
-  databaseURL: "https://eventcorppro.firebaseio.com",
-  projectId: "eventcorppro",
-  storageBucket: "eventcorppro.appspot.com",
-  messagingSenderId: "886719532814",
-  appId: "1:886719532814:web:9424058ace3d13af"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-firebase.auth().createUserWithEmailAndPassword("benuraab@gmail.com","benura").catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-
-  console.log(errorCode,"+",errorMessage);
-  // ...
-});
-
-
-var actionCodeSettings = {
-  // URL you want to redirect back to. The domain (www.example.com) for this
-  // URL must be whitelisted in the Firebase Console.
-  url: 'http://localhost:4200',
-  // This must be true.
-  handleCodeInApp: true,
-  
-};
-
-
-// firebase.auth().sendSignInLinkToEmail("benuraab@gmail.com",actionCodeSettings)
-//   .then(function() {
-//     console.log('sent')
-//     // The link was successfully sent. Inform the user.
-//     // Save the email locally so you don't need to ask the user for it again
-//     // if they open the link on the same device.
-//    // window.localStorage.setItem('emailForSignIn', email);
-//   })
-//   .catch(function(error) {
-//     console.log('Error')
-//     // Some error occurred, you can inspect the code: error.code
-//   });
-
-
-
+    const upload=multer({storage:storage});
+      
       app.post('/con',urlencodedParser,function (req, res) {
           password = req.body.password;
           repassword=req.body.re_submission;
@@ -141,6 +82,7 @@ var actionCodeSettings = {
   
         });
 
+
         app.post('/details',urlencodedParser,function(req,res){
          
          var artist_psw=req.body.password;
@@ -169,7 +111,7 @@ var actionCodeSettings = {
 
           matchPsw=true;
          }
-         console.log(errors);
+         console.log(errors+"E");
          if(errors || matchPsw){
          if(errors[0].param=='email')
          validEmail=false;
@@ -192,53 +134,93 @@ var actionCodeSettings = {
          validPassword=false;
          }
 
-         var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
-         recaptcha_url += "secret=" + RECAPTCHA_SECRET + "&";
-
-         recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
-         recaptcha_url += "remoteip=" + req.connection.remoteAddress;
-         Request(recaptcha_url, function(error, resp, body) {
-             body = JSON.parse(body);
-             if(body.success !== undefined && !body.success) {
+        //  var recaptcha_url = "https://www.google.com/recaptcha/api/siteverify?";
+        //  recaptcha_url += "secret=" + RECAPTCHA_SECRET + "&";
+        //  recaptcha_url += "response=" + req.body["g-recaptcha-response"] + "&";
+        //  recaptcha_url += "remoteip=" + req.connection.remoteAddress;
+        //  Request(recaptcha_url, function(error, resp, body) {
+        //      body = JSON.parse(body);
+        //      if(body.success !== undefined && !body.success) {
              
-                 return res.send({ "message": "Captcha validation failed" });
-             }
-             console.log(body);
-             console.log(validPassword);
-            // res.header("Content-Type", "application/json").send(body);
+        //          return res.send({ "message": "Captcha validation failed" });
+        //      }
+        //      console.log(body);
+        //      console.log(validPassword);
+        //     // res.header("Content-Type", "application/json").send(body);
 
-            if(validPassword && body.success==true && !errors){
-            console.log('Correct');
-            req.session.success = true;
-            res.redirect('/artist');
-            console.log(name+'f');
-            var det=[{"name":null,"address":null,"city":null,"email":" ","country":null,"contact":" "},
+        //     if(validPassword && body.success==true && !errors){
+        //     console.log('Correct');
+        //     req.session.success = true;
+        //     res.redirect('/artist');
+        //     console.log(name+'f');
+        //     var det=[{"name":null,"address":null,"city":null,"email":" ","country":null,"contact":" "},
+        //     {"validName":validName,"validAddress":validAddress,"validCity":validCity,"validEmail":validEmail,"validCountry":validCountry,"validContact":validContact,"validPassword":validPassword}];
+            
+        //     //insert data to firebase
+        //     var success_data=[{"name":name,"address":address,"city":city,"email":email,"country":country,"contact":contact}];
+        //     artist_insert_data.insertArtstInfo(success_data[0]);
+
+        //     io.of('/form').on('connection', socket=> {
+        //       console.log('connected:', socket.client.id);
+        //       socket.emit('update_form',det);
+        //     }); 
+
+        //     }
+
+        //     else{
+        //       console.log(email);
+        //       console.log(validContact);
+        //       var details=[{"name":name,"address":address,"city":city,"email":email,"country":country,"contact":contact},
+        //       {"validName":validName,"validAddress":validAddress,"validCity":validCity,"validEmail":validEmail,"validCountry":validCountry,"validContact":validContact,"validPassword":validPassword}];
+
+        //       io.of('/form').on('connection', socket=> {
+        //         console.log('connected:', socket.client.id);
+        //         socket.emit('update_form',details);
+        //       }); 
+
+        //       res.redirect('/artist');
+
+        //     }
+
+        
+        // });
+
+  
+        if(validPassword && !errors){
+          console.log('Correct');
+
+          var det=[{"name":null,"address":null,"city":null,"email":" ","country":null,"contact":" "},
+          {"validName":validName,"validAddress":validAddress,"validCity":validCity,"validEmail":validEmail,"validCountry":validCountry,"validContact":validContact,"validPassword":validPassword}];
+          
+          //insert data to firebase
+          var success_data=[{"name":name,"address":address,"city":city,"email":email,"country":country,"contact":contact}];
+
+          //insert data to firebase
+          artist_insert_data.insertArtstInfo(success_data[0]);
+
+          io.of('/form').on('connection', socket=> {
+            console.log('connected:', socket.client.id);
+            socket.emit('update_form',det);
+          }); 
+
+          res.redirect('/artist');
+
+          }
+
+          else{
+            console.log(email);
+            console.log(validContact);
+            var details=[{"name":name,"address":address,"city":city,"email":email,"country":country,"contact":contact},
             {"validName":validName,"validAddress":validAddress,"validCity":validCity,"validEmail":validEmail,"validCountry":validCountry,"validContact":validContact,"validPassword":validPassword}];
 
             io.of('/form').on('connection', socket=> {
               console.log('connected:', socket.client.id);
-              socket.emit('update_form',det);
+              socket.emit('update_form',details);
             }); 
 
-            }
+            res.redirect('/artist');
 
-            else{
-              console.log(email);
-              console.log(validContact);
-              var details=[{"name":name,"address":address,"city":city,"email":email,"country":country,"contact":contact},
-              {"validName":validName,"validAddress":validAddress,"validCity":validCity,"validEmail":validEmail,"validCountry":validCountry,"validContact":validContact,"validPassword":validPassword}];
-
-              io.of('/form').on('connection', socket=> {
-                console.log('connected:', socket.client.id);
-                socket.emit('update_form',details);
-              }); 
-
-              res.redirect('/artist');
-
-            }
-
-        
-        });
+          }
 
       });
 
@@ -252,6 +234,9 @@ var actionCodeSettings = {
           var bio=req.body.bio;
           console.log(req.body.company);
           var bio_details=[{"company":company,"web_site":web_site,"location":location,"bio":bio}];
+    
+          //insert data to firebase
+           artist_insert_data.insertBio(bio_details);
 
           io = require('socket.io')(server, { path: '/bio_data' }).listen(server);
           io.of('/bio_data').on('connection', socket=> {
@@ -265,46 +250,38 @@ var actionCodeSettings = {
 
 
 
-
               //get album data
       
         app.post('/albumData', upload.single('myImage'),urlencodedParser,(req,res,next)=>{
-          console.log('ji');
+          // console.log('ji');
           var album_title=req.body.album_title;
           var album_date=req.body.album_date;
           var album_location=req.body.album_location;
-          var album_details=[{"title":album_title,"date":album_date,"location":album_location}];
           const file = req.file;
+          var path_file="../../../assets/storage/images/"+file.filename;
+          var album_details=[{"title":album_title,"date":album_date,"location":album_location,"path":path_file}];
+
+          //insert data to firebase
+          artist_insert_data.insertAlbumData(album_details[0]);
+
           console.log('File',file);
           if (!file) {
             const error = new Error('Please upload a file')
             error.httpStatusCode = 400
             return next(error)
           }
+          var album_details=[{"title":album_title,"date":album_date,"location":album_location,"path":path_file}];
+          io = require('socket.io')(server, { path: '/album_data' }).listen(server);
+          io.of('/album_data').on('connection', socket=> {
+            console.log('connected:', socket.client.id);
+            socket.emit('update_album',album_details);
+          }); 
+
 
           res.redirect('/artist');
             // res.send(file)
 
-        
-
-     /*     var album_title=req.body.album_title;
-          var album_date=req.body.album_date;
-          var album_location=req.body.album_location;
-
-          var album_details=[{"title":album_title,"date":album_date,"location":album_location}];
-
-          io = require('socket.io')(server, { path: '/album_data' }).listen(server);
-          io.of('/album_data').on('connection',socket=>{
-            console.log('connected:',socket.client.id);
-            socket.emit('update_album',album_details);
-          });
-
-
-
-          res.redirect('/artist');
-
-
-*/
+      
         });
 
 
