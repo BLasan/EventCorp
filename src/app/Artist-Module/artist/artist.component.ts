@@ -15,7 +15,7 @@ export class ArtistComponent implements OnInit {
   socket2:any;
   initialText:String="<Empty List>"
   bio_data:any=[{"company":null,"web_site":null,"location":null,"bio":null}];
-  album_data:any=[{"title":null,"date":null,"location":null}];
+  album_data:any=[{"title":null,"date":null,"location":null,"path":null}];
   
   
   constructor() { 
@@ -24,7 +24,7 @@ export class ArtistComponent implements OnInit {
 
   ngOnInit() {
      
-    call();
+    // call();
   
     this.socket=io('http://localhost:4600/form',{path:'/form',reconnect:true,forceNew:true});
     this.socket.on('update_form',data=>{
@@ -44,20 +44,10 @@ export class ArtistComponent implements OnInit {
     this.socket2.on('update_album',data=>{
       console.log("connected3");
       this.album_data=data;
+      console.log(data[0].path);
     })
 
      
-  
-  
-    this.socket1=io('http://localhost:4600/bio_data',{path:'/bio_data',reconnect:true,forceNew:true});
-    this.socket1.on('update_bio',data=>{
-     
-      this.bio_data=data;
-      console.log(this.bio_data[0].company);
-    
-
-    }); 
-    
   }
 
   }
