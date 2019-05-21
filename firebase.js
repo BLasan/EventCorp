@@ -1,5 +1,6 @@
 exports.firebaseInit=function(){
 var firebase = require("firebase/app");
+const functions = require('firebase/functions');
 
 // Add the Firebase products that you want to use
 require("firebase/auth");

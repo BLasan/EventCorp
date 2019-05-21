@@ -14,7 +14,7 @@ import { UpgradeComponent } from './upgrade/upgrade.component';
 import { FormComponent } from './form/form.component';
 import { ArtistComponent } from './Artist-Module/artist/artist.component';
 import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
-import { TestComponent } from './test/test.component';
+
 //import {ArtistComponent} from './Artist-Module/artist/artist.component';
 const routes: Routes =[
   {
@@ -22,11 +22,6 @@ const routes: Routes =[
     redirectTo: 'dashboard',
     pathMatch: 'full',
   }, 
-
-  {
-    path:'test',
-    component:TestComponent,
-  },
 
   {
     path: '',
