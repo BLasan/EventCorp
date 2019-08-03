@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {IssuesService} from '../issues.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs-compat/operator/map';
@@ -12,7 +11,7 @@ export class IconsComponent implements OnInit {
 
   gets:any=[];
 
-  constructor(private issueService:IssuesService) {
+  constructor() {
 
    }
 
@@ -26,12 +25,7 @@ export class IconsComponent implements OnInit {
   ngOnInit() {
 
 
-    this.issueService.getAllPosts().subscribe(gets=>{
-      
-      console.log(gets);
-      this.gets=gets;
-
-    })
+   
    
 }
 }

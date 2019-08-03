@@ -76,10 +76,10 @@
 
     <div class="card" style="width:23rem;background-color:#303337!important ">
         <div class="card-body">
-            <label for="company" class="col-form-label" ><b style="color:white!important">Company</b></label> <label style="margin-left:10px"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data[0].company}}</label><br>
-            <label for="location" class="col-form-label"><b style="color:white!important">Location</b></label><label style="margin-left:15px!important"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data[0].location}}</label><br>
-            <label for="web_site" class="col-form-label"><b style="color:white!important">Web-Site</b></label><label style="margin-left:11px"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data[0].web_site}}</label><br>
-            <label for="about" class="col-form-label"><b style="color:white!important">About</b></label><label style="margin-left:30px"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data[0].bio}}</label><br>
+            <label for="company" class="col-form-label" ><b style="color:white!important">Company</b></label> <label style="margin-left:10px"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data.company}}</label><br>
+            <label for="location" class="col-form-label"><b style="color:white!important">Location</b></label><label style="margin-left:15px!important"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data.location}}</label><br>
+            <label for="web_site" class="col-form-label"><b style="color:white!important">Web-Site</b></label><label style="margin-left:11px"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data.web_site}}</label><br>
+            <label for="about" class="col-form-label"><b style="color:white!important">About</b></label><label style="margin-left:30px"><b style="color:white!important">:</b></label><label style="color:white!important;margin-left:26px">{{bio_data.bio}}</label><br>
       
     </div>
   </div>
@@ -439,7 +439,7 @@
                                     </div>
                                     <div class="form-group">
                                       <div class="input-group">
-                                    <button type="button" class="btn btn-primary btn-circle" id="album_video" style="background-color:aqua!important"><img src="../../../assets/img/videos.png"  /></button><input type="file" id="albumVideo" style="display:hidden" multiple>
+                                    <button type="button" class="btn btn-primary btn-circle" id="album_video" style="background-color:aqua!important"><img src="../../../assets/img/videos.png"  /></button><input type="file" id="albumVideo" style="display:hidden" multiple accept="video/mp4,video/x-m4v,video/*">
                                      
                                     <button type="button" class="btn btn-primary btn-circle" id="album_image" style="background-color:aqua!important"><img src="../../../assets/img/images.png"  /></button><input type="file" id="albumImage" style="display:hidden" name="myImage" accept="image/*">
                                       </div>
@@ -478,18 +478,15 @@
                   <div class="force-overflow">
                  <ul class="list-group" id="list"> </ul>  
                  </div>
-                 </div>
-                 </div>
-                 </div>
-                     </span>
-
                 </div>
-              
+               </div>
+              </div>
+             </span>
             </div>
-
-            </div>  
-            </div> 
-           </div>
+          </div>
+        </div>  
+      </div> 
+     </div>
             
             <!-- adding carousals-->
              <div class="row">
@@ -589,14 +586,12 @@
                     <div class="force-overflow">
                    <ul class="list-group" id="list"> </ul>  
                    </div>
-                   </div>
-                   </div>
-                   </div>
-                       </span>
-  
                   </div>
-                     
-                       </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
                        <!-- end of video carousal -->
 
                        <div class="col-md-4">
@@ -640,19 +635,16 @@
                       <div class="force-overflow">
                      <ul class="list-group" id="list"> </ul>  
                      </div>
-                     </div>
-                     </div>
-                     </div>
-                         </span>
-    
                     </div>
-                       
-                         </div>
+                  </div>
+                </div>
+              </span>    
+            </div>          
+          </div>
                           <!-- end songs carousals -->
-                     </div>
-                   </div>
-               </div>
-            
-            </div>
+        </div>
       </div>
+    </div>  
+  </div>
+</div>
       

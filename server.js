@@ -1,4 +1,5 @@
-  const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
+   const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
+  // const artist_get_data=require('./src/scripts/artist/artist_get_data');
   const express=require('express');
   var Request = require("request");
   const path=require('path');
@@ -270,7 +271,7 @@
             error.httpStatusCode = 400
             return next(error)
           }
-          var album_details=[{"title":album_title,"date":album_date,"location":album_location,"path":path_file}];
+
           io = require('socket.io')(server, { path: '/album_data' }).listen(server);
           io.of('/album_data').on('connection', socket=> {
             console.log('connected:', socket.client.id);

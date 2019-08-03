@@ -28,11 +28,8 @@
               "node_modules/open-iconic/font/css/open-iconic-bootstrap.css",
               "node_modules/@theo4u/ng-alert/style.css",
               "src/assets/css/demo.css",
-              "src/styles.scss",
-              "packages/core/main.css",
-              "packages/daygrid/main.css",
-              "packages/timegrid/main.css",
-              "packages/list/main.css"
+              "src/styles.scss"
+             
             
             ],
             "scripts": [
@@ -47,12 +44,8 @@
               "node_modules/chartist/dist/chartist.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "packages/core/main.js",
-              "packages/interaction/main.js",
-              "packages/daygrid/main.js",
-              "packages/timegrid/main.js",
-              "packages/list/main.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              
             ]
           },
           "configurations": {

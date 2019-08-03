@@ -21,6 +21,7 @@ import {
     MatTooltipModule,
     MatSelectModule
   } from '@angular/material';
+  import { SupplierLayoutRoutes } from './supplier.routing';
 
   @NgModule({
     imports: [
