@@ -12,6 +12,12 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './form/form.component';
 import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
+import { OrganizerHomeComponent } from './organizer-home/organizer-home.component';
+import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
+import { CustomerHomeComponent } from './Customer-Module/customer-home/customer-home.component';
+import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
+import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 
 
 
@@ -33,6 +39,12 @@ import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.com
     AdminLayoutComponent,
     FormComponent,
     ArtistLayoutComponent,
+    OrganizerHomeComponent,
+    CustomerLayoutComponent,
+    CustomerHomeComponent,
+    OrganizerLayoutComponent,
+    SupplierLayoutComponent,
+    LocationOwnerLayoutComponent,
   ],
 
   providers: [],

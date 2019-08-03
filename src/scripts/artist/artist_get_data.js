@@ -50,7 +50,7 @@ exports.getArtistInfo=function(){
 
 exports.getAlbumData=function(){
 
-    var docRef = database.collection('Artist-Bio').doc('benuraab@gmail.com');
+    var docRef = database.collection('Album-Data').doc('benuraab@gmail.com');
 
     docRef.get().then(async function(doc) {
         if (doc.exists) {

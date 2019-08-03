@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
-import {getBioData,removeStorage} from '../../../scripts/artist/artist_get_data';
+import {getBioData,removeStorage,getAlbumData} from '../../../scripts/artist/artist_get_data';
 
 // declare function removeStorage():any;
 
@@ -37,13 +37,13 @@ export class ArtistComponent implements OnInit {
     //remove the storage
     removeStorage();
   
-    // this.socket=io('http://localhost:4600/form',{path:'/form',reconnect:true,forceNew:true});
-    // this.socket.on('update_form',data=>{
-    //   console.log("connected1");
-    //   this.form_data=data;
-    //   console.log(this.form_data[0].name);
+    this.socket=io('http://localhost:4600/form',{path:'/form',reconnect:true,forceNew:true});
+    this.socket.on('update_form',data=>{
+      console.log("connected1");
+      this.form_data=data;
+      console.log(this.form_data[0].name);
     
-    // });
+    });
 
     // this.socket1=io('http://localhost:4600/bio_data',{path:'/bio_data',reconnect:true,forceNew:true});
     // this.socket1.on('update_bio',data=>{
