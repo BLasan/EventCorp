@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {onIdentify} from '../../../scripts/side_bar.js';
+import { filter } from 'rxjs-compat/operator/filter';
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -28,6 +29,18 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
+export const ROUTES2:RouteInfo[]=[
+  { path: '/organizer-home', title: 'Home',  icon: 'home', class: '' },
+];
+
+export const ROUTES3:RouteInfo[]=[
+  { path: '/location-owner-home', title: 'Home',  icon: 'home', class: '' },
+];
+
+export const ROUTES4:RouteInfo[]=[
+  { path: '/supplier-home', title: 'Home',  icon: 'home', class: '' },
+]
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -44,7 +57,12 @@ export class SidebarComponent implements OnInit {
     this.getUser=onIdentify();
     if(this.getUser=='artist')
     this.menuItems = ROUTES1.filter(menuItem => menuItem);
-
+    else if(this.getUser=='organizer')
+    this.menuItems=ROUTES2.filter(menuItem=>menuItem);
+    else if(this.getUser=='location-owner')
+    this.menuItems=ROUTES3.filter(menuItem=>menuItem);
+    else if(this.getUser=='supplier')
+    this.menuItems=ROUTES4.filter(menuItem=>menuItem);
     else{
     this.menuItems = ROUTES.filter(menuItem => menuItem);
     this.isAdmin=true;
