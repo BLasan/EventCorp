@@ -18,6 +18,7 @@ import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layo
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
+import { VenueProfileComponent } from './venue-profile/venue-profile.component'
 
 //import {ArtistComponent} from './Artist-Module/artist/artist.component';
 const routes: Routes =[
@@ -25,7 +26,7 @@ const routes: Routes =[
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full',
-  }, 
+  },
 
   {
     path: '',
@@ -80,6 +81,7 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
+  {path: 'venueProfile' , component: VenueProfileComponent},
 
 
 
@@ -92,7 +94,7 @@ const routes: Routes =[
      { path: 'maps',           component: MapsComponent },
      { path: 'notifications',  component: NotificationsComponent },
      { path: 'upgrade',        component: UpgradeComponent },
-     
+
 */
 ];
 

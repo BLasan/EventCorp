@@ -16,6 +16,7 @@ import { CustomerLayoutComponent} from './layouts/customer-layout/customer-layou
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-l
     LocationOwnerLayoutComponent,
     SupplierLayoutComponent,
     OrganizerLayoutComponent,
+    VenueProfileComponent,
 
   ],
 
