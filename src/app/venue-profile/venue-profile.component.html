@@ -47,18 +47,18 @@
 
             <table class="table table-light text-center">
               <!-- <thead> -->
-                <tr>
-                  <th scope="col">Seating Capacity</th>
-                  <td>1500</td>
+              <tr>
+                <th scope="col">Seating Capacity</th>
+                <td>1500</td>
 
-                </tr>
+              </tr>
               <!-- </thead> -->
               <tbody>
                 <tr>
                   <th scope="col">Air Conditioned</th>
-                  <td><i class="material-icons" >
-                    check
-                  </i></td>
+                  <td><i class="material-icons">
+                      check
+                    </i></td>
 
                 </tr>
                 <tr>
@@ -75,7 +75,35 @@
                   <td colspan="2"><button type="button" name="event_calendar" class="btn btn-primary">Event Calendar</button></td>
                 </tr>
                 <tr>
-                  <td colspan="2"><button type="button" name="seating_plan" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Seating Plan</button></td>
+                  <td colspan="2"><button type="button" name="seating_plan" class="btn btn-primary" data-toggle="modal" data-target="#seating_plan_modal">Seating Plan</button>
+                      <div class="modal fade" id="seating_plan_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Seating Plan</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <h3>Ground Floor</h3>
+                              <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_groundfloor.jpg" class="img-fluid" alt="Responsive image">
+
+                              <h3>First Balcony</h3>
+                              <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_firstBalcony.jpg" class="img-fluid" alt="Responsive image">
+
+                              <h3>Second Balcony</h3>
+                              <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_secondBalcony.jpg" class="img-fluid" alt="Responsive image">
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div></td>
+
                 </tr>
                 <tr>
                   <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button></td>
@@ -86,6 +114,7 @@
               </tbody>
             </table>
 
+
           </div>
 
 
@@ -95,17 +124,20 @@
 
 
       </div>
-
-
-
-
-
-      <app-footer></app-footer>
     </div>
 
+
+
+
+
+    <app-footer></app-footer>
   </div>
 
-  <!-- <h1 class="ml-1">Nelum Pokuna</h1>
+</div>
+
+
+
+<!-- <h1 class="ml-1">Nelum Pokuna</h1>
 <div class="row">
   < <div class="card-group text-center align-middle">
     <div class="card border-dark">
@@ -145,7 +177,7 @@
 </div>
 
 <!-- 2nd row------------------------------------------------------------------------- -->
-  <!-- <div class="container">
+<!-- <div class="container">
 
 <div class="row">
   <div class="card col-3">
