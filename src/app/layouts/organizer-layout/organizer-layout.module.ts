@@ -16,7 +16,7 @@ import {
     MatSelectModule
   } from '@angular/material';
 import { OrganizerLayoutRoutes } from './organizer.routing';
-import { OrganizerHomeComponent } from 'app/Organizer-Module/organizer-home/organizer-home.component';
+import { OrganizerHomeComponent } from '../../Modules/Organizer-Module/organizer-home/organizer-home.component';
 
   @NgModule({
     imports: [

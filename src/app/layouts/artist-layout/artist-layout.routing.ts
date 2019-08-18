@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { ArtistComponent } from 'app/Artist-Module/artist/artist.component';
-import { ArtistCalendarComponent } from 'app/Artist-Module/artist-calendar/artist-calendar.component';
-import { ArtistNotificationComponent } from 'app/Artist-Module/artist-notification/artist-notification.component';
-import { ArtistRequestComponent } from 'app/Artist-Module/artist-request/artist-request.component';
-import { ArtistHomeComponent } from 'app/Artist-Module/artist-home/artist-home.component';
+import { ArtistComponent } from '../../Modules/Artist-Module/artist/artist.component';
+import { ArtistCalendarComponent } from '../../Modules/Artist-Module/artist-calendar/artist-calendar.component';
+import { ArtistNotificationComponent } from '../../Modules/Artist-Module/artist-notification/artist-notification.component';
+import { ArtistRequestComponent } from '../../Modules/Artist-Module/artist-request/artist-request.component';
+import { ArtistHomeComponent } from '../../Modules/Artist-Module/artist-home/artist-home.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
