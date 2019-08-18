@@ -1,5 +1,6 @@
    const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
   // const artist_get_data=require('./src/scripts/artist/artist_get_data');
+  // require('../EventCorp/src/scripts/organizer/paypal-backend')
   const express=require('express');
   var Request = require("request");
   const path=require('path');

@@ -4,7 +4,7 @@
       "secure": false
     },
     
-    "/details":{
+    "/user_details":{
       "target": "http://[::1]:4600",
       "secure": false
     },

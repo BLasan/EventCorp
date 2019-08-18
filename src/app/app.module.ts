@@ -10,12 +10,13 @@ import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormComponent } from './form/form.component';
+// import { FormComponent } from './Modules/Admin-Module/form/form.component';
 import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
 import { CustomerLayoutComponent} from './layouts/customer-layout/customer-layout.component';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.component';
 
 
 @NgModule({
@@ -34,12 +35,12 @@ import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-l
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    FormComponent,
+    // FormComponent,
     ArtistLayoutComponent,
-    CustomerLayoutComponent,
-    LocationOwnerLayoutComponent,
-    SupplierLayoutComponent,
-    OrganizerLayoutComponent,
+    // CustomerLayoutComponent,
+    // LocationOwnerLayoutComponent,
+    // SupplierLayoutComponent,
+    // OrganizerLayoutComponent,
 
   ],
 

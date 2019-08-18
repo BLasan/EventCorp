@@ -13,7 +13,7 @@ import {
   } from '@angular/material';
 
 import { from } from 'rxjs';
-import { CustomerHomeComponent } from 'app/Customer-Module/customer-home/customer-home.component';
+import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-home/customer-home.component';
 
   @NgModule({
     imports: [

@@ -54,19 +54,18 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.getUser=onIdentify();
-    if(this.getUser=='artist')
+    // if(this.getUser=='artist')
     this.menuItems = ROUTES1.filter(menuItem => menuItem);
-    else if(this.getUser=='organizer')
-    this.menuItems=ROUTES2.filter(menuItem=>menuItem);
-    else if(this.getUser=='location-owner')
-    this.menuItems=ROUTES3.filter(menuItem=>menuItem);
-    else if(this.getUser=='supplier')
-    this.menuItems=ROUTES4.filter(menuItem=>menuItem);
-    else{
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
-    this.isAdmin=true;
-    }
+    // else if(this.getUser=='organizer')
+    // this.menuItems=ROUTES2.filter(menuItem=>menuItem);
+    // else if(this.getUser=='location-owner')
+    // this.menuItems=ROUTES3.filter(menuItem=>menuItem);
+    // else if(this.getUser=='supplier')
+    // this.menuItems=ROUTES4.filter(menuItem=>menuItem);
+    // else{
+    // this.menuItems = ROUTES.filter(menuItem => menuItem);
+    // this.isAdmin=true;
+    // }
   }
   isMobileMenu() {
       if ($(window).width() > 991) {
