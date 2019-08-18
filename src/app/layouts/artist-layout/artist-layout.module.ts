@@ -9,6 +9,7 @@ import { ArtistNotificationComponent } from '../../Modules/Artist-Module/artist-
 import { ArtistRequestComponent } from '../../Modules/Artist-Module/artist-request/artist-request.component';
 import { ArtistHomeComponent } from '../../Modules/Artist-Module/artist-home/artist-home.component';
 import { CalendarComponent } from 'ng-fullcalendar';
+
 import {
     MatButtonModule,
     MatInputModule,
@@ -21,6 +22,7 @@ import {
     MatCalendar,
     
   } from '@angular/material';
+import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
  
 
   @NgModule({
@@ -45,7 +47,8 @@ import {
      ArtistNotificationComponent,
      ArtistRequestComponent,
      ArtistHomeComponent,
-     CalendarComponent
+     CalendarComponent,
+     PaypalPaymentComponent
     ],
    
   })

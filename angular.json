@@ -28,10 +28,7 @@
               "node_modules/open-iconic/font/css/open-iconic-bootstrap.css",
               "node_modules/@theo4u/ng-alert/style.css",
               "src/assets/css/demo.css",
-              "src/styles.scss",
-              "src/fullcalendar/bootstrap/main.css",
-              "src/fullcalendar/core/main.css",
-              "src/fullcalendar/daygrid/main.css"
+              "src/styles.scss"
             ],
             "scripts": [
            
@@ -102,9 +99,7 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js",
-              "src/scripts/side_bar.js",
-              "src/fullcalendar/core/main.js",
-              "src/fullcalendar/daygrid/main.js"
+              "src/scripts/side_bar.js"
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",

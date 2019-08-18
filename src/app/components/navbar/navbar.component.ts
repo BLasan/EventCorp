@@ -27,14 +27,16 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(){
       
-      this.getUser=onIdentify();
-      if(this.getUser=='artist')
-      this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+    //   this.getUser=onIdentify();
+    this.listTitles=ROUTES1.filter(listTitle=>listTitle);
 
-      else{
-        this.listTitles = ROUTES.filter(listTitle => listTitle);
-        this.isAdmin=true;
-      }
+    //   if(this.getUser=='artist')
+    //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+
+    //   else{
+    //     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    //     this.isAdmin=true;
+    //   }
      
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];

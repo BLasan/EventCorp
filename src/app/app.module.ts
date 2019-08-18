@@ -16,6 +16,7 @@ import { CustomerLayoutComponent} from './layouts/customer-layout/customer-layou
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.component';
 
 
 @NgModule({
