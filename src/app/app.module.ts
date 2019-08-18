@@ -17,6 +17,7 @@ import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/lo
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { VenueProfileComponent } from './venue-profile/venue-profile.component';
     SupplierLayoutComponent,
     OrganizerLayoutComponent,
     VenueProfileComponent,
+    VenueCalendarComponent,
 
   ],
 
