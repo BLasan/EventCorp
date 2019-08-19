@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { start } from 'repl';
+import { VenueCalendarService } from 'app/venue-calendar.service';
+
 
 @Component({
   selector: 'app-venue-calendar',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VenueCalendarComponent implements OnInit {
 
-  constructor() { }
+  calendarEvents:any[]=[];
+  calendarPlugins=[dayGridPlugin];
+
+  constructor(private svc:VenueCalendarService) { }
 
   ngOnInit() {
+    this.svc.getData().subscribe(data=> this.calendarEvents=data);
+
   }
 
 }
