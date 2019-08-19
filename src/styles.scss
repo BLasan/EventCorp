@@ -1,15 +1,17 @@
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
 
 $colors:(
-   
+
     "mattBlackLight":"#303337",
     "mattBlackDark":"#212121",
     "mattGray":"#878d8d",
     "mattRed":"#ec6271",
-    
+
 );
 
 @each $colorName,$colorValue in $colors {
-    
+
     .bg-#{$colorName}{
         background-color: #{$colorValue};
     }
@@ -20,10 +22,10 @@ $colors:(
     }
 }
 
-body{
-    @extend .bg-mattBlackDark;
-    @extend .text-mattGray;
-}
+// body{
+//     @extend .bg-mattBlackDark;
+//     @extend .text-mattGray;
+// }
 
 .nav-link{
 
@@ -46,7 +48,7 @@ body{
         @extend .text-mattGray;
     }
 
-   
+
 }
 
  /* You can add global styles to this file, and also import other style files */
@@ -56,5 +58,3 @@ body{
  .app-level-alert {
    padding-top: 10px;
  }
-
-
