@@ -18,6 +18,7 @@ import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layo
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-cale
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-   
+    FullCalendarModule,
+
   ],
   declarations: [
     AppComponent,
