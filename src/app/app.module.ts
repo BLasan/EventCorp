@@ -19,6 +19,9 @@ import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-l
 import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -33,6 +36,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     RouterModule,
     AppRoutingModule,
     FullCalendarModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
 
   ],
   declarations: [
