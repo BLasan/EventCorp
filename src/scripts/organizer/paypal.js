@@ -5,7 +5,7 @@ exports.paypalClient=function(){
             return actions.order.create({
                 purchase_units: [{
                     amount: {
-                        value: '0.01'
+                        value: '20.00'
                     }
                 }]
             });
@@ -16,9 +16,9 @@ exports.paypalClient=function(){
             return actions.order.capture().then(function(details) {
                 // Show a success message to the buyer
                 alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                alert(data)
             });
         }
-      
       
       }).render('#paypal-button-container');
 }

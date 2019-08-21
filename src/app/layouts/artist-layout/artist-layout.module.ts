@@ -23,6 +23,7 @@ import {
     
   } from '@angular/material';
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
+import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
  
 
   @NgModule({
@@ -48,7 +49,8 @@ import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-paymen
      ArtistRequestComponent,
      ArtistHomeComponent,
      CalendarComponent,
-     PaypalPaymentComponent
+     PaypalPaymentComponent,
+     ViewBookingInfoComponent
     ],
    
   })

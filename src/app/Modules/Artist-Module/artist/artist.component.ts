@@ -12,13 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 
 export class ArtistComponent implements OnInit {
-  form_data:any=[{"name":null,"address":null,"city":null,"email":" ","country":null,"contact":" "},{"validName":true,"validAddress":true,"validCity":true,"validEmail":true,"validCountry":true,"validContact":true,"validPassword":true}];
-  socket:any;
-  socket1:any;
-  socket2:any;
-  initialText:String="<Empty List>"
-  bio_data:any={"company":null,"web_site":null,"location":null,"bio":null};
-  album_data:any=[{"title":null,"date":null,"location":null,"path":null}];
+  
   form: any;
 
   constructor() { 
