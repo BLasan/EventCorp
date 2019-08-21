@@ -4,6 +4,7 @@ import { ArtistCalendarComponent } from 'app/Artist-Module/artist-calendar/artis
 import { ArtistNotificationComponent } from 'app/Artist-Module/artist-notification/artist-notification.component';
 import { ArtistRequestComponent } from 'app/Artist-Module/artist-request/artist-request.component';
 import { ArtistHomeComponent } from 'app/Artist-Module/artist-home/artist-home.component';
+import { VenueProfileComponent } from 'app/venue-profile/venue-profile.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -11,6 +12,7 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'artist-calendar', component:ArtistCalendarComponent},
     { path:'artist-notification' , component:ArtistNotificationComponent},
     { path:'artist-request' ,component:ArtistRequestComponent},
-    { path:'artist-home' ,component:ArtistHomeComponent}
+    { path:'artist-home' ,component:ArtistHomeComponent},
+    { path: 'venueProfile',component:VenueProfileComponent }
    
 ];

@@ -18,7 +18,7 @@ import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layo
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
-import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+// import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 
 //import {ArtistComponent} from './Artist-Module/artist/artist.component';
@@ -82,7 +82,7 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
-  {path: 'venueProfile' , component: VenueProfileComponent},
+  // {path: 'venueProfile' , component: VenueProfileComponent},
   {path: 'venueCalendar' , component: VenueCalendarComponent},
 
 

@@ -13,6 +13,7 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import {ArtistNotificationComponent} from 'app/Artist-Module/artist-notification/artist-notification.component'; 
 import {ArtistRequestComponent} from 'app/Artist-Module/artist-request/artist-request.component';
 import {ArtistHomeComponent} from 'app/Artist-Module/artist-home/artist-home.component';
+import { VenueProfileComponent } from '../../venue-profile/venue-profile.component'
 import {
     MatButtonModule,
     MatInputModule,
@@ -41,7 +42,8 @@ import {
      ArtistCalendarComponent,
      ArtistNotificationComponent,
      ArtistRequestComponent,
-     ArtistHomeComponent
+     ArtistHomeComponent,
+     VenueProfileComponent
     ],
    
   })

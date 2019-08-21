@@ -16,7 +16,7 @@ import { CustomerLayoutComponent} from './layouts/customer-layout/customer-layou
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
-import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+// import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AngularFireModule } from '@angular/fire';
@@ -49,7 +49,7 @@ import { environment } from '../environments/environment';
     LocationOwnerLayoutComponent,
     SupplierLayoutComponent,
     OrganizerLayoutComponent,
-    VenueProfileComponent,
+    // VenueProfileComponent,
     VenueCalendarComponent,
 
   ],
