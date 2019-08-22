@@ -1,7 +1,7 @@
 
     <div class="main-content">
       <div class="container-fluid">
-        <h1 class="ml-1">Nelum Pokuna</h1>
+        <h1 class="ml-1" *ngFor = 'let venue of venues | async'>{{ venue.Name }}</h1>
         <div class="row">
 
           <div class="col-6">
@@ -35,31 +35,34 @@
 
           <div class="col-6">
 
-            <table class="table table-light text-center">
+            <table class="table table-light text-center" *ngFor = 'let venuek of venues | async'>
               <!-- <thead> -->
               <tr>
                 <th scope="col">Seating Capacity</th>
-                <td>1500</td>
+                <td>{{ venuek.seating_capacity }}</td>
 
               </tr>
               <!-- </thead> -->
               <tbody>
                 <tr>
                   <th scope="col">Air Conditioned</th>
-                  <td><i class="material-icons">
+                  <td *ngIf = 'venuek.ac == "Yes"'><i class="material-icons">
                       check
+                    </i></td>
+                    <td *ngIf = 'venuek.ac == "No"'><i class="material-icons">
+                      clear
                     </i></td>
 
                 </tr>
                 <tr>
                   <th scope="col">Fee</th>
 
-                  <td>Rs. 1,000,000</td>
+                  <td>{{ venuek.fee }}</td>
 
                 </tr>
                 <tr>
                   <th scope="col">Car Parking</th>
-                  <td>Available</td>
+                  <td>{{ venuek.car_parking }}</td>
                 </tr>
                 <tr>
                   <td colspan="2"><a routerLink="/venueCalendar"><button type="button" name="event_calendar" class="btn btn-primary">Event Calendar</button></a></td>
