@@ -13,7 +13,8 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import {ArtistNotificationComponent} from 'app/Artist-Module/artist-notification/artist-notification.component'; 
 import {ArtistRequestComponent} from 'app/Artist-Module/artist-request/artist-request.component';
 import {ArtistHomeComponent} from 'app/Artist-Module/artist-home/artist-home.component';
-import { VenueProfileComponent } from '../../venue-profile/venue-profile.component'
+import { VenueProfileComponent } from '../../venue-profile/venue-profile.component';
+import { VenueReservationFormComponent } from '../../venue-module/venue-reservation-form/venue-reservation-form.component';
 import {
     MatButtonModule,
     MatInputModule,
@@ -43,7 +44,8 @@ import {
      ArtistNotificationComponent,
      ArtistRequestComponent,
      ArtistHomeComponent,
-     VenueProfileComponent
+     VenueProfileComponent,
+     VenueReservationFormComponent
     ],
    
   })

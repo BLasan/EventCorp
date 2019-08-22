@@ -5,6 +5,7 @@ import { ArtistNotificationComponent } from 'app/Artist-Module/artist-notificati
 import { ArtistRequestComponent } from 'app/Artist-Module/artist-request/artist-request.component';
 import { ArtistHomeComponent } from 'app/Artist-Module/artist-home/artist-home.component';
 import { VenueProfileComponent } from 'app/venue-profile/venue-profile.component';
+import { VenueReservationFormComponent } from 'app/venue-module/venue-reservation-form/venue-reservation-form.component'
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -13,6 +14,7 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'artist-notification' , component:ArtistNotificationComponent},
     { path:'artist-request' ,component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
-    { path: 'venueProfile',component:VenueProfileComponent }
+    { path: 'venueProfile',component:VenueProfileComponent },
+    { path: 'venue-reservation-form', component:VenueReservationFormComponent}
    
 ];
