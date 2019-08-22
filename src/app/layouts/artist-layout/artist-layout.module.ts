@@ -9,7 +9,7 @@ import { ArtistNotificationComponent } from '../../Modules/Artist-Module/artist-
 import { ArtistRequestComponent } from '../../Modules/Artist-Module/artist-request/artist-request.component';
 import { ArtistHomeComponent } from '../../Modules/Artist-Module/artist-home/artist-home.component';
 import { CalendarComponent } from 'ng-fullcalendar';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
     MatButtonModule,
     MatInputModule,
@@ -20,10 +20,14 @@ import {
     MatCardModule,
     MatListModule,
     MatCalendar,
-    
+    MatDatepicker,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule
   } from '@angular/material';
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
+import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
  
 
   @NgModule({
@@ -40,7 +44,10 @@ import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking
       MatCardModule,
       MatListModule,
       ReactiveFormsModule,
-
+      MatDatepickerModule,
+      MatNativeDateModule,
+      MatChipsModule,
+      NgbModule
     ],
     declarations: [
      ArtistComponent,
@@ -50,7 +57,8 @@ import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking
      ArtistHomeComponent,
      CalendarComponent,
      PaypalPaymentComponent,
-     ViewBookingInfoComponent
+     ViewBookingInfoComponent,
+     RatingSystemComponent
     ],
    
   })

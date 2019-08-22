@@ -22,7 +22,6 @@ export const ROUTES: RouteInfo[] = [
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
-  { path: '/artist-notification', title: 'Notifications',  icon: 'notifications', class: '' },
   { path: '/artist-request', title: 'Booking Requests',  icon: 'view_list', class: '' },
   { path: '/artist', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '#', title: 'Settings',  icon: 'settings', class: '' },

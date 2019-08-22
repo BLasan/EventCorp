@@ -8,6 +8,7 @@
                         <p class="card-category">Handle the requests</p>
                     </div>
                     <div class="card-body" style="background-color:#878d8d">
+                      <div class="table-scroll">
                       <table class="table table-dark">
                         <thead>
                           <tr>
@@ -26,10 +27,11 @@
                             <td>{{data.contact}}</td>
                             <td>{{data.description}}</td>
                             <td> <a href="view_booking_info" title="view" id="view_request"><i class="material-icons" style="width:20!important;height:20!important;margin-top:2px;color: azure">toc</i></a></td>
-                            <td> <button class="buttont" title="delete" style="width:3;height:3;background-color:#303337!important" id="delete_request"><i class="material-icons" style="width:20!important;height:20!important">delete_forever</i></button></td>
+                            <td> <a href="#" title="delete" id="delete_request" (click)="deleteRequest()"><i class="material-icons" style="width:20!important;height:20!important;color:red">delete_forever</i></a></td>
                           </tr>
                         </tbody>
                       </table>
+                      </div>
                   </div>
               </div>
           </div>

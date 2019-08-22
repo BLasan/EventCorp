@@ -43,7 +43,9 @@
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/scripts/side_bar.js"
+              "src/scripts/side_bar.js",
+              "src/scripts/search_bar_activate.js",
+              "src/scripts/rating_system.js"
             ]
           },
           "configurations": {
@@ -99,7 +101,9 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js",
-              "src/scripts/side_bar.js"
+              "src/scripts/side_bar.js",
+              "src/scripts/search_bar_activate.js",
+              "src/scripts/rating_system.js"
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",

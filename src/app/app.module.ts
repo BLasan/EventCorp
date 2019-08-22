@@ -18,6 +18,7 @@ import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layo
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from './Modules/Artist-Module/view-booking-info/view-booking-info.component';
+import { RatingSystemComponent } from './Modules/rating-system/rating-system.component';
 
 
 @NgModule({
