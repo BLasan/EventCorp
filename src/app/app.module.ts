@@ -19,7 +19,8 @@ import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-l
 import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from './Modules/Artist-Module/view-booking-info/view-booking-info.component';
 import { RatingSystemComponent } from './Modules/rating-system/rating-system.component';
-
+import { SearchUserComponent } from './Modules/search-user/search-user.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 @NgModule({
   imports: [
@@ -32,13 +33,14 @@ import { RatingSystemComponent } from './Modules/rating-system/rating-system.com
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-   
+    NgxMatSelectSearchModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     // FormComponent,
     ArtistLayoutComponent,
+    SearchUserComponent,
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,

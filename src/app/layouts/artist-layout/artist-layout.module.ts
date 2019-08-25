@@ -23,12 +23,14 @@ import {
     MatDatepicker,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatChipsModule
+    MatChipsModule,
   } from '@angular/material';
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
 import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
- 
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
+
 
   @NgModule({
     imports: [
@@ -47,7 +49,8 @@ import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.c
       MatDatepickerModule,
       MatNativeDateModule,
       MatChipsModule,
-      NgbModule
+      NgbModule,
+      NgxMatSelectSearchModule
     ],
     declarations: [
      ArtistComponent,

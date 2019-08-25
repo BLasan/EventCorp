@@ -45,7 +45,8 @@
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/scripts/side_bar.js",
               "src/scripts/search_bar_activate.js",
-              "src/scripts/rating_system.js"
+              "src/scripts/rating_system.js",
+              "src/scripts/image_uploader.js"
             ]
           },
           "configurations": {
@@ -103,7 +104,8 @@
               "node_modules/chartist/dist/chartist.js",
               "src/scripts/side_bar.js",
               "src/scripts/search_bar_activate.js",
-              "src/scripts/rating_system.js"
+              "src/scripts/rating_system.js",
+              "src/scripts/image_uploader.js"
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
