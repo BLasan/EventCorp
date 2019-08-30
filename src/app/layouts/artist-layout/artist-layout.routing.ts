@@ -7,15 +7,14 @@ import { ArtistHomeComponent } from '../../Modules/Artist-Module/artist-home/art
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
 import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
+import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
     { path: 'artist',   component:ArtistComponent },
     { path:'artist-calendar', component:ArtistCalendarComponent},
-    { path:'artist-notification' , component:ArtistNotificationComponent},
+    { path:'notifications' , component:ArtistNotificationComponent},
     { path:'artist-request' ,component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
-    { path:'view_booking_info' ,component:ViewBookingInfoComponent},
-    { path:'artist-notifications' ,component:ArtistNotificationComponent},
-    { path:'rating-system' ,component:RatingSystemComponent}
+    { path:'view_booking_info' ,component:ViewBookingInfoComponent}
 ];

@@ -46,7 +46,9 @@
               "src/scripts/side_bar.js",
               "src/scripts/search_bar_activate.js",
               "src/scripts/rating_system.js",
-              "src/scripts/image_uploader.js"
+              "src/scripts/image_uploader.js",
+              "src/scripts/state_data.js",
+              "src/scripts/redirect_to.js"
             ]
           },
           "configurations": {
@@ -105,7 +107,9 @@
               "src/scripts/side_bar.js",
               "src/scripts/search_bar_activate.js",
               "src/scripts/rating_system.js",
-              "src/scripts/image_uploader.js"
+              "src/scripts/image_uploader.js",
+              "src/scripts/state_data.js",
+              "src/scripts/redirect_to.js"
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",

@@ -1,0 +1,197 @@
+<!-- <div class="main-content">
+  <div class="container-fluid">
+    <div id="login-box">
+      <div class="left">
+        <h1>Sign up</h1>  
+        <input type="text" name="username" placeholder="Username" />
+        <input type="text" name="email" placeholder="E-mail" />
+        <input type="password" name="password" placeholder="Password" />
+        <input type="password" name="password2" placeholder="Retype password" /> 
+        <input type="submit" name="signup_submit" value="Sign me up" />
+      </div>  
+      <div class="right">
+        <span class="loginwith">Sign in with<br />social network</span>    
+        <button class="social-signin facebook">Log in with facebook</button>
+        <button class="social-signin twitter">Log in with Twitter</button>
+        <button class="social-signin google">Log in with Google+</button>
+      </div>
+      <div class="or">OR</div>
+    </div>
+  </div>
+</div> -->
+
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <mat-card style="margin-top:50px;margin-bottom:50px">
+          <mat-card-title>Sign Up</mat-card-title>
+            <mat-card-content>
+              <form [formGroup]="form" #form1 action="sign_up" method="POST" enctype="application/x-www-form-urlencoded">
+                <mat-form-field>
+                  <input matInput placeholder="User Name" formControlName="user_name" name="user_name" required>
+                  <mat-error *ngIf="hasError('user_name', 'required')">User Name is required</mat-error>
+                </mat-form-field>  
+                <mat-form-field>
+                  <input matInput placeholder="User Email" type="email" formControlName="user_email" name="user_email" required>
+                  <mat-error *ngIf="hasError('user_email', 'required')">Email is required</mat-error>
+                  <mat-error *ngIf="hasError('user_email', 'email')">Must be a valid email</mat-error>
+                </mat-form-field>  
+                <mat-form-field>
+                  <mat-select placeholder="Role" formControlName="role" name="role" required #roleSelect>
+                    <mat-option value="organizer">Organizer</mat-option>
+                    <mat-option value="artist">Artist</mat-option>
+                    <mat-option value="supplier">Supplier</mat-option>
+                    <mat-option value="venue_owner">Venue Owner</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="hasError('role', 'required')">Please select a role</mat-error>
+                </mat-form-field> 
+                <mat-form-field>
+                  <input matInput placeholder="Address Line 1" formControlName="address1" name="address1" required>
+                  <mat-error *ngIf="hasError('address1', 'required')">Address field is required</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Address Line 2 (optional)" name="address2">
+                </mat-form-field>
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field>
+                      <input matInput placeholder="City" formControlName="city" name="city" required>
+                      <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-select placeholder="State" formControlName="state" name="state" required #stateSelect>
+                        <mat-option *ngFor="let states of states" [value]="states">{{states}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="hasError('state', 'required')">Please select a state</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                      <mat-select placeholder="+94" style="margin-top:10px;width:50px" name="country_code" #codeSelect>
+                        <mat-option value="lkr" selected>+94</mat-option>
+                      </mat-select>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field style="margin-left:-50px;width:160px">
+                      <input matInput placeholder="Contact" maxlength="9" formControlName="contact" name="contact" required>
+                      <mat-error *ngIf="hasError('contact', 'required')">Contact is required</mat-error>
+                      <mat-error *ngIf="hasError('contact', 'minlength')">Must contain 9 digits</mat-error>
+                      <!-- <mat-error *ngIf="hasError('contact', 'valid_contact')">Not a valid contact</mat-error> -->
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4"></div>
+                </div>
+                <mat-form-field>
+                  <input matInput placeholder="Password" type="password" formControlName="user_password" name="user_password" required>
+                  <mat-error *ngIf="hasError('user_password', 'required')">Password is required</mat-error>
+                  <mat-error *ngIf="hasError('user_password', 'minlength')">Must contains at least 6 characters</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Re Enter Password" type="password" formControlName="password_verify" name="password_verify" required>
+                  <mat-error *ngIf="hasError('password_verify', 'required')">Re-Enter password</mat-error>
+                  <mat-error *ngIf="hasError('password_verify', 'notequal')">Password not matching</mat-error>
+                </mat-form-field>
+                <input style="display: none" value="" name="role_sel" id="role_sel">
+                <input style="display: none" value="" name="countryCode_sel" id="countryCode_sel">
+                <input style="display: none" value="" name="state_sel" id="state_sel">
+                <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="form1.submit()">Sign Up</button>
+              </form>
+            </mat-card-content>
+        </mat-card>     
+      </div>  
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <mat-card style="margin-top:50px;margin-bottom:50px">
+          <mat-card-title>Sign Up</mat-card-title>
+            <mat-card-content>
+              <form [formGroup]="form">
+                <mat-form-field>
+                  <input matInput placeholder="User Name" formControlName="user_name" name="user_name" required>
+                  <mat-error *ngIf="hasError('user_name', 'required')">User Name is required</mat-error>
+                </mat-form-field>  
+                <mat-form-field>
+                  <input matInput placeholder="User Email" type="email" formControlName="user_email" name="user_email" required>
+                  <mat-error *ngIf="hasError('user_email', 'required')">Email is required</mat-error>
+                  <mat-error *ngIf="hasError('user_email', 'email')">Must be a valid email</mat-error>
+                </mat-form-field>  
+                <mat-form-field>
+                  <mat-select placeholder="Role" formControlName="role" name="role" required>
+                    <mat-option value="organizer">Organizer</mat-option>
+                    <mat-option value="artist">Artist</mat-option>
+                    <mat-option value="supplier">Supplier</mat-option>
+                    <mat-option value="venue_owner">Venue Owner</mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="hasError('role', 'required')">Please select a role</mat-error>
+                </mat-form-field> 
+                <mat-form-field>
+                  <input matInput placeholder="Address Line 1" formControlName="address1" name="address1" required>
+                  <mat-error *ngIf="hasError('address1', 'required')">Address field is required</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Address Line 2 (optional)" name="address2" formControlName="address2">
+                </mat-form-field>
+                <div class="row">
+                  <div class="col-6">
+                    <mat-form-field>
+                      <input matInput placeholder="City" formControlName="city" name="city" required>
+                      <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-6">
+                    <mat-form-field>
+                      <mat-select placeholder="State" formControlName="state" name="state" required>
+                        <mat-option *ngFor="let states of states" [value]="states">{{states}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="hasError('state', 'required')">Please select a state</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                   <div class="col-4">
+                    <mat-select placeholder="+94" style="margin-top:10px;width:50px" formControlName="country_code" name="country_code">
+                      <mat-option value="lkr">+94</mat-option>
+                      <mat-error *ngIf="hasError('country_code', 'required')">Country code is required</mat-error>
+                    </mat-select>
+                  </div> 
+                  <div class="col-4">
+                    <mat-form-field style="margin-left:-50px;width:160px">
+                      <input matInput placeholder="Contact" maxlength="9" formControlName="contact" name="contact" required>
+                      <mat-error *ngIf="hasError('contact', 'required')">Contact is required</mat-error>
+                      <mat-error *ngIf="hasError('contact', 'minlength')">Not a valid contact</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4"></div>
+                </div>
+                <mat-form-field>
+                  <input matInput placeholder="Password" type="password" formControlName="user_password" name="user_password" required>
+                  <mat-error *ngIf="hasError('user_password', 'required')">Password is required</mat-error>
+                  <mat-error *ngIf="hasError('user_password', 'minlength')">Must contains at least 6 characters</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput placeholder="Re Enter Password" type="password" formControlName="password_verify" name="password_verify" required>
+                  <mat-error *ngIf="hasError('password_verify', 'required')">Re-Enter password</mat-error>
+                  <mat-error *ngIf="hasError('password_verify', 'notequal')">Password not matching</mat-error>
+                </mat-form-field> 
+                <button mat-raised-button color="accent" [disabled]="!form.valid">Sign Up</button>
+              </form>
+            </mat-card-content>
+        </mat-card>     
+      </div>  
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</div> -->

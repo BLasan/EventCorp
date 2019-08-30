@@ -30,6 +30,7 @@ import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking
 import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
+import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 
 
   @NgModule({
@@ -59,9 +60,10 @@ import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
      ArtistRequestComponent,
      ArtistHomeComponent,
      CalendarComponent,
-     PaypalPaymentComponent,
+    //  PaypalPaymentComponent,
      ViewBookingInfoComponent,
-     RatingSystemComponent
+    //  RatingSystemComponent,
+    //  NotificationsComponent
     ],
    
   })

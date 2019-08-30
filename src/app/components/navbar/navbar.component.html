@@ -18,8 +18,8 @@
                         <div class="ripple-container"></div>
                     </button>
                     <div class="search-result" style="display:none" id="search_dropdown">
-                        <ul *ngFor="let employee of employee|searchFilter:searchText">
-                            <li>{{employee.name}}</li>
+                        <ul class="list-group" *ngFor="let employee of employee|searchFilter:searchText" style="list-style: none;padding: 2px">
+                            <li class="list-group-item">{{employee.name}}</li>
                         </ul>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                 </li> -->
                   <!-- if not admin -->
                 <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="#" title="home">
                             <i class="material-icons " style="color:#878d8d">home</i>
                             <p>
                                 <span class="d-lg-none d-md-block">Home</span>
@@ -45,20 +45,21 @@
                     </li>
                     <!-- end if else-->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- <a class="nav-link" href="notifications" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                            <a class="nav-link" href="notifications" id="navbarDropdownMenuLink" title="notifications">
                         <i class="material-icons"  style="color:#878d8d">notifications</i>
                         <span class="notification">{{count}}</span>
                         <p>
                             <span class="d-lg-none d-md-block">Notifications</span>
                         </p>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                    <!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Mike John responded to your email</a>
                         <a class="dropdown-item" href="#">You have 5 new tasks</a>
                         <a class="dropdown-item" href="#">You're now friend with Andrew</a>
                         <a class="dropdown-item" href="#">Another Notification</a>
                         <a class="dropdown-item" href="#">Another One</a>
-                    </div>
+                    </div> -->
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
