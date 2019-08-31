@@ -27,6 +27,23 @@ import { AuthGuardOrganizerService } from './services/Authentication/authGuard_o
 import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
 import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { OnlineChatComponent } from './Modules/online-chat/online-chat.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MatListItem, MatListModule } from '@angular/material';
+import { ChatService } from './services/chat.service';
+
+const config = {
+  apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
+  authDomain: "eventcorppro.firebaseapp.com",
+  databaseURL: "https://eventcorppro.firebaseio.com",
+  projectId: "eventcorppro",
+  storageBucket: "eventcorppro.appspot.com",
+  messagingSenderId: "886719532814",
+  appId: "1:886719532814:web:9424058ace3d13af"
+};
 
 @NgModule({
   imports: [
@@ -42,7 +59,12 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     NgxMatSelectSearchModule,
     SharedComponentsModule,
     CustomerNavbarModule,
-    LoginSignupModule
+    LoginSignupModule,
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule, // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule,// storage
+    MatListModule
   ],
   declarations: [
     AppComponent,
@@ -51,6 +73,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     // FormComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
+    OnlineChatComponent,
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
@@ -58,7 +81,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
+import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component';
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
@@ -29,7 +29,20 @@ export class NavbarComponent implements OnInit {
     ngOnInit(){
       
     //   this.getUser=onIdentify();
+    if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn'))
     this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+
+    else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+
+    else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES4.filter(listTitle=>listTitle);
+
+    else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES.filter(listTitle=>listTitle);
+
+    else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES3.filter(listTitle=>listTitle);
 
     //   if(this.getUser=='artist')
     //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);
@@ -131,18 +144,12 @@ export class NavbarComponent implements OnInit {
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
-      titlee = titlee.split('/').pop();
+    //   titlee = titlee.split('/').pop();
 
       for(var item = 0; item < this.listTitles.length; item++){
           if(this.listTitles[item].path === titlee){
               return this.listTitles[item].title;
           }
       }
-      if(titlee=='/settings')
-      return 'Settings';
-      else 
-      return 'Update'
-      
-      return 'Dashboard';
     }
 }

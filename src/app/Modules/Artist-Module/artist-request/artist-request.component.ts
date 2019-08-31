@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {deactivate_searchBar} from '../../../../scripts/search_bar_activate'
 @Component({
   selector: 'app-artist-request',
   templateUrl: './artist-request.component.html',
@@ -11,6 +11,7 @@ export class ArtistRequestComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    deactivate_searchBar();
   }
 
 }

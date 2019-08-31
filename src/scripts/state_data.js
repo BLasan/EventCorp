@@ -24,4 +24,6 @@ export var states=[
  'Hambantota',
  'Matara',
  'Galle'
-]
+];
+
+export default {states}

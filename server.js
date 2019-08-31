@@ -14,6 +14,7 @@
   const multer=require('multer');
   const ejs=require('ejs');
   var io = require('socket.io')(server, { path: '/form' }).listen(server);
+  var io1= require('socket.io').listen(server);
   const bcrypt = require('bcrypt');
   const saltRounds = 10;
   app.use(body.json());
@@ -327,6 +328,7 @@
 
 
 
+        //login-credentials
         app.post('/login_credentials',urlencodedParser,function(req,res){
           var email=req.body[0];
           var password=req.body[1];
@@ -336,14 +338,23 @@
 
           login_credentials.check_credentials(email,password,res);
 
-        })
+        });
 
-       
 
+
+    
   console.log('Listening to 4600');
-  
-  
   server.listen(4600);
+  io1.on('connection',(socket)=>{
+
+    socket.on('join',function(data){
+      socket.join(data.room);
+      console.log('New connection made '+data.user);
+      socket.broadcast.to(data.room).emit('new user joined',{user:data.user,message:'has joined'});
+      
+    });
+
+  });
 
 
    

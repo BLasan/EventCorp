@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
+import {image_uploader} from '../../../../scripts/image_uploader'
 // import {getBioData,removeStorage,getAlbumData} from '../../../scripts/artist/artist_get_data';
 
 // declare function removeStorage():any;
@@ -21,7 +23,7 @@ export class ArtistComponent implements OnInit {
 
 
   ngOnInit() {
-
+    deactivate_searchBar()
     this.form=new FormGroup({
       f_name:new FormControl('',Validators.required),
       l_name:new FormControl('',[Validators.required]),
@@ -31,6 +33,8 @@ export class ArtistComponent implements OnInit {
       email:new FormControl('',[Validators.email,Validators.required])
       // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
     });
+
+    image_uploader();
      
   }
 

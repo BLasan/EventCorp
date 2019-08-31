@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {deactivate_searchBar} from '../../../../scripts/search_bar_activate.js'
 @Component({
   selector: 'app-view-booking-info',
   templateUrl: './view-booking-info.component.html',
@@ -10,6 +10,7 @@ export class ViewBookingInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    deactivate_searchBar();
   }
 
 }

@@ -13,6 +13,7 @@ import {getRole} from './services/select_role.service';
 import { AuthGuardAdminService } from './services/Authentication/authGuard_admin.service';
 import { AuthGuardArtistService } from './services/Authentication/authGuard_artist.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { OnlineChatComponent } from './Modules/online-chat/online-chat.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -104,6 +105,10 @@ const routes: Routes =[
   {
     path:'page-not-found',
     component:ErrorPageComponent
+  },
+  {
+    path:'chat-app',
+    component:OnlineChatComponent
   },
   {
     path:'**',

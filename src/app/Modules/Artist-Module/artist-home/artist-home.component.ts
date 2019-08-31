@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {loadCalendar} from '../../../../scripts/artist/artist-home'
-declare function activate_searchBar();
+import {activate_searchBar} from '../../../../scripts/search_bar_activate'
 @Component({
   selector: 'app-artist-home',
   templateUrl: './artist-home.component.html',
@@ -12,7 +12,7 @@ export class ArtistHomeComponent implements OnInit {
 
   ngOnInit() {
     loadCalendar();
-    activate_searchBar()
+    activate_searchBar();
   }
 
 }

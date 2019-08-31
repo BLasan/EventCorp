@@ -1,7 +1,7 @@
  import { Component, OnInit } from '@angular/core';
  import {calendar} from '../../../../scripts/artist/artist_calendar.js'
  import { FormGroup, FormControl, Validators } from '@angular/forms';
- declare function deactivate_searchBar();
+ import {deactivate_searchBar} from '../../../../scripts/search_bar_activate'
 @Component({
   selector: 'app-artist-calendar',
   templateUrl: './artist-calendar.component.html',
