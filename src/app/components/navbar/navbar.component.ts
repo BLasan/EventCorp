@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     getUser:String='';
     isAdmin:boolean=false;
+    employee:any=[{name:'Benura'},{name:'Abcde'}]
     count=0;
     location: Location;
       mobile_menu_visible: any = 0;
@@ -128,7 +129,7 @@ export class NavbarComponent implements OnInit {
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
-          titlee = titlee.slice( 2 );
+          titlee = titlee.slice( 1 );
       }
       titlee = titlee.split('/').pop();
 
@@ -137,6 +138,11 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
+      if(titlee=='/settings')
+      return 'Settings';
+      else 
+      return 'Update'
+      
       return 'Dashboard';
     }
 }

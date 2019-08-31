@@ -1,9 +1,8 @@
-   const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
-  // const artist_get_data=require('./src/scripts/artist/artist_get_data');
-  // require('../EventCorp/src/scripts/organizer/paypal-backend')
+  // const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
   const express=require('express');
   var Request = require("request");
   const path=require('path');
+  const cors = require('cors');
   const app=express();
   var fs=require('fs');
   const ExpressValidator = require('express-validator');
@@ -12,21 +11,24 @@
   var urlencodedParser = body.urlencoded({ extended: false });
   const http=require('http');
   const server=http.Server(app);
-  //const http1=require('http');
-  //const server1=http1.Server(app);
   const multer=require('multer');
   const ejs=require('ejs');
   var io = require('socket.io')(server, { path: '/form' }).listen(server);
-  
-  var id=0,isValid=false;
+  const bcrypt = require('bcrypt');
+  const saltRounds = 10;
   app.use(body.json());
   app.use(ExpressValidator());
   app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
   app.use(express.static('src'));
+  app.use(cors())
   var password='',repassword='',name='',email='',country='';
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
   const RECAPTCHA_SECRET = "6Le6daAUAAAAAD-dA1jOUI_dZKVg2z7v4MDFfl9p";
+  // const grpc = require('grpc')
+  // const protoLoader = require('@grpc/proto-loader')
+  // const packageDefinition = protoLoader.loadSync('notes.proto');
+  // const notesProto = grpc.loadPackageDefinition(packageDefinition);
   
 
   const storage=multer.diskStorage({destination:function(req,res,cb){
@@ -297,6 +299,44 @@
         //     res.send(file)
           
         // })
+
+
+        app.post('/sign_up',urlencodedParser,function(req,res){
+
+          console.log('hello')
+          var user_name=req.body.user_name;
+          var user_email=req.body.user_email;
+          var role=req.body.role_sel;
+          var address1=req.body.address1;
+          var address2=req.body.address2;
+          var city=req.body.city;
+          var state=req.body.state_sel;
+          var country_code=req.body.countryCode_sel;
+          var contact=req.body.contact;
+          var user_password=req.body.user_password;
+          const user_signup=require('./src/scripts/signup');
+
+          bcrypt.hash(user_password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash}]
+            user_signup.signup(data[0]);
+            res.redirect('login');
+          });
+          
+        });
+
+
+
+        app.post('/login_credentials',urlencodedParser,function(req,res){
+          var email=req.body[0];
+          var password=req.body[1];
+          console.log(email)
+
+          const login_credentials=require('./src/scripts/check_credentials');
+
+          login_credentials.check_credentials(email,password,res);
+
+        })
 
        
 

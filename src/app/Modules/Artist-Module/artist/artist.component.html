@@ -2,25 +2,28 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                <mat-card>
-                    <mat-card-title-group>
-                        <mat-card-title>Upload Picture</mat-card-title>
-                    </mat-card-title-group>
-                    <mat-card-header>
-                        <div class="image_hover">
-                            <a href="#" id="profile_picture">
-                                <img mat-card-md-image mat-card-avatar src="assets/img/faces/pro_img.png" style="margin-left:60px">
-                            </a>
-                            <div class="overlay">
-                                <button class="btn btn-primary" id="uploader">Add</button>
+                <div class="card card-profile">
+                    <!-- <div class="card-avatar"> -->
+                        <div class="img">
+                            <div class="card-avatar overlays" id="overlay">
+                                <button class="btn btn-primary" id="image_uploader">Add</button>
                                 <button class="btn btn-danger" id="remove">Remove</button>
                             </div>
+                            <a href="#">
+                                <img src="./assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                            </a>
                         </div>
-                    </mat-card-header>
-                    <mat-card-content>
-                        My Bio Data
-                    </mat-card-content>
-                </mat-card>
+                    <!-- </div> -->
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                        <h4 class="card-title">Alec Thompson</h4>
+                        <p class="card-description">
+                                Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                        </p>
+                        <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                    </div>
+                </div>
+            </div>
       <!-- <div class="card card-user">
         <div class="image">
           <img src="assets/img/damir-bosnjak.jpg" alt="Profile Picture" id="test">
@@ -55,7 +58,6 @@
           </div>
         </div>
       </div> -->
-            </div>
             <div class="col-md-8">
                 <mat-card style="background-color:#303337">
                     <mat-card-title style="color:white">Profile Info</mat-card-title>
@@ -113,6 +115,7 @@
                                     </div>
                                 </div>
                             </div> -->
+                            <input type="file" id="profile_img" name="profile_img" style="display:none" accept="image/*"> 
                             <button mat-raised-button type="submit" id="submitBtn" (click)="profile_form.submit()" color="primary">Update</button>
                         </form>
                     </mat-card-content>

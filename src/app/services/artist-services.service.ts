@@ -13,5 +13,7 @@ export class ArtistServicesService {
   loadData(){
 
   }
+
+  
   
 }

@@ -12,12 +12,21 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { ReactiveFormsModule } from '@angular/forms';
 // import { FormComponent } from './Modules/Admin-Module/form/form.component';
 import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
-import { CustomerLayoutComponent} from './layouts/customer-layout/customer-layout.component';
-import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
-import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
-import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
-import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.component';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
+import { HomePageComponent } from './Modules/home-page/home-page.component';
+import { CustomerNavbarComponent } from './customer-components/customer-navbar/customer-navbar.component';
+import { CustomerNavbarModule } from './customer-components/customer-navbar/customer-navbar.module';
+import { CustomerLayoutComponent } from './layouts/customer-layout/customer-layout.component';
+import { LoginComponent } from './Login-SignUp/login/login.component';
+import { SignupComponent } from './Login-SignUp/signup/signup.component';
+import { LoginSignupModule } from './Login-SignUp/login-signup.module';
+import { AuthGuardAdminService } from './services/Authentication/authGuard_admin.service';
+import { AuthGuardArtistService } from './services/Authentication/authGuard_artist.service';
+import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
+import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
+import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   imports: [
@@ -30,13 +39,18 @@ import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-   
+    NgxMatSelectSearchModule,
+    SharedComponentsModule,
+    CustomerNavbarModule,
+    LoginSignupModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    CustomerLayoutComponent,
     // FormComponent,
     ArtistLayoutComponent,
+    ErrorPageComponent,
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
@@ -44,7 +58,7 @@ import { PaypalPaymentComponent } from './Modules/paypal-payment/paypal-payment.
 
   ],
 
-  providers: [],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

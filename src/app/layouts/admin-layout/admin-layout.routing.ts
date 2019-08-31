@@ -6,7 +6,7 @@ import { TableListComponent } from '../../Modules/Admin-Module/table-list/table-
 import { TypographyComponent } from '../../Modules/Admin-Module/typography/typography.component';
 import { MapsComponent } from '../../Modules/Admin-Module/maps/maps.component';
 import { IconsComponent } from '../../Modules/Admin-Module/icons/icons.component';
-import { NotificationsComponent } from '../../Modules/Admin-Module/notifications/notifications.component';
+import { AdminNotificationsComponent } from '../../Modules/Admin-Module/admin-notifications/admin-notifications.component';
 import { UpgradeComponent } from '../../Modules/Admin-Module/upgrade/upgrade.component';
 
 export const AdminLayoutRoutes: Routes = [
@@ -17,6 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
+    { path: 'notifications',  component: AdminNotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
 ];

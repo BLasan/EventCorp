@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {onIdentify} from '../../../scripts/side_bar.js';
 import { filter } from 'rxjs-compat/operator/filter';
+import { getRole } from 'app/services/select_role.service.js';
 declare const $: any;
 declare interface RouteInfo {
     path: string;
@@ -22,10 +23,9 @@ export const ROUTES: RouteInfo[] = [
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
-  { path: '/artist-notification', title: 'Notifications',  icon: 'notifications', class: '' },
   { path: '/artist-request', title: 'Booking Requests',  icon: 'view_list', class: '' },
   { path: '/artist', title: 'Edit Profile',  icon: 'file_copy', class: '' },
-  { path: '#', title: 'Settings',  icon: 'settings', class: '' },
+  { path: 'settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
@@ -54,19 +54,24 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // if(this.getUser=='artist')
+   
+    if(getRole()=='artist')
     this.menuItems = ROUTES1.filter(menuItem => menuItem);
-    // else if(this.getUser=='organizer')
-    // this.menuItems=ROUTES2.filter(menuItem=>menuItem);
-    // else if(this.getUser=='location-owner')
-    // this.menuItems=ROUTES3.filter(menuItem=>menuItem);
-    // else if(this.getUser=='supplier')
-    // this.menuItems=ROUTES4.filter(menuItem=>menuItem);
-    // else{
-    // this.menuItems = ROUTES.filter(menuItem => menuItem);
-    // this.isAdmin=true;
-    // }
+
+    else if(getRole()=='organizer')
+    this.menuItems=ROUTES2.filter(menuItem=>menuItem)
+
+    else if(getRole()=='admin')
+    this.menuItems=ROUTES.filter(menuItem=>menuItem)
+
+    else if(getRole()=='venue_owner')
+    this.menuItems=ROUTES3.filter(menuItem=>menuItem)
+
+    else if(getRole()=='supplier')
+    this.menuItems=ROUTES4.filter(menuItem=>menuItem)
+   
   }
+
   isMobileMenu() {
       if ($(window).width() > 991) {
           return false;

@@ -9,7 +9,9 @@ import {
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatToolbarModule,
+    MatIconModule
   } from '@angular/material';
 
 import { from } from 'rxjs';
@@ -26,6 +28,9 @@ import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-ho
       MatInputModule,
       MatSelectModule,
       MatTooltipModule,
+      MatToolbarModule,
+      MatIconModule,
+      MatButtonModule
     ],
     declarations: [
      CustomerHomeComponent
