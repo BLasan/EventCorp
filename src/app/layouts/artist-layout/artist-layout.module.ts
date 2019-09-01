@@ -13,6 +13,10 @@ import { FullCalendarModule } from 'ng-fullcalendar';
 import {ArtistNotificationComponent} from 'app/Artist-Module/artist-notification/artist-notification.component'; 
 import {ArtistRequestComponent} from 'app/Artist-Module/artist-request/artist-request.component';
 import {ArtistHomeComponent} from 'app/Artist-Module/artist-home/artist-home.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatGridListModule} from '@angular/material/grid-list';
+
+// import {MatMomentDateModule } from '@angular/material-moment-adapter';
 import { VenueProfileComponent } from '../../venue-profile/venue-profile.component';
 import { VenueReservationFormComponent } from '../../venue-module/venue-reservation-form/venue-reservation-form.component';
 import {
@@ -21,7 +25,8 @@ import {
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatNativeDateModule
   } from '@angular/material';
  
 
@@ -36,7 +41,11 @@ import {
       MatInputModule,
       MatSelectModule,
       MatTooltipModule,
-      FullCalendarModule
+      FullCalendarModule,
+      ReactiveFormsModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
+      MatGridListModule
     ],
     declarations: [
      ArtistComponent,
@@ -47,6 +56,8 @@ import {
      VenueProfileComponent,
      VenueReservationFormComponent
     ],
+
+    providers: [MatDatepickerModule],
    
   })
   

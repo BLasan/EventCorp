@@ -22,6 +22,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+
 
 
 @NgModule({
@@ -37,7 +40,9 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     FullCalendarModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 
   ],
   declarations: [

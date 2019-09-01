@@ -16,7 +16,9 @@ export class VenueCalendarService {
       tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
       map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
         let data:any=event;
-        data.start = data.start.toDate();
+        data.start = data.event_start.toDate();
+        data.end = data.event_end.toDate();
+        data.end++;
         return data;
 
       }))
