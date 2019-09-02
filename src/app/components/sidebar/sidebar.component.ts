@@ -26,6 +26,7 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/artist-request', title: 'Booking Requests',  icon: 'view_list', class: '' },
   { path: '/artist', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '#', title: 'Settings',  icon: 'settings', class: '' },
+  { path: '/venueHome', title: 'Venue Home',  icon: 'file_copy', class: '' },
   { path: '/venueProfile', title: 'Venue Profile',  icon: 'file_copy', class: '' },
   { path: '/venueCalendar', title: 'Venue Calendar',  icon: 'file_copy', class: '' },
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },

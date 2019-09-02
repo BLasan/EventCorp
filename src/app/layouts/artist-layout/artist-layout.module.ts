@@ -17,6 +17,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 // import {MatMomentDateModule } from '@angular/material-moment-adapter';
+import { VenueHomeComponent } from '../../venue-module/venue-home/venue-home.component';
 import { VenueProfileComponent } from '../../venue-profile/venue-profile.component';
 import { VenueReservationFormComponent } from '../../venue-module/venue-reservation-form/venue-reservation-form.component';
 import {
@@ -54,7 +55,8 @@ import {
      ArtistRequestComponent,
      ArtistHomeComponent,
      VenueProfileComponent,
-     VenueReservationFormComponent
+     VenueReservationFormComponent,
+     VenueHomeComponent
     ],
 
     providers: [MatDatepickerModule],

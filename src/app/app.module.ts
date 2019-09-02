@@ -24,7 +24,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
+// import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
 
 
 
@@ -57,7 +57,7 @@ import { VenueHomeComponent } from './venue-module/venue-home/venue-home.compone
     OrganizerLayoutComponent,
     // VenueProfileComponent,
     VenueCalendarComponent,
-    VenueHomeComponent,
+    // VenueHomeComponent,
 
   ],
 
