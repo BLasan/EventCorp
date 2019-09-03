@@ -17,6 +17,13 @@
   var io1= require('socket.io').listen(server);
   const bcrypt = require('bcrypt');
   const saltRounds = 10;
+  const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
+
+  //initialize firebase
+  var firebase=firebaseInit.firebaseInit();
+  var database=firebase.firestore();
+
+
   app.use(body.json());
   app.use(ExpressValidator());
   app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
@@ -304,7 +311,9 @@
 
         app.post('/sign_up',urlencodedParser,function(req,res){
 
-          console.log('hello')
+          console.log('hello');
+          var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+          var token = randomToken(40);
           var user_name=req.body.user_name;
           var user_email=req.body.user_email;
           var role=req.body.role_sel;
@@ -316,12 +325,17 @@
           var contact=req.body.contact;
           var user_password=req.body.user_password;
           const user_signup=require('./src/scripts/signup');
+          console.log(user_password)
 
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash}]
-            user_signup.signup(data[0]);
-            res.redirect('login');
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,user_token:token}]
+            const result=user_signup.signup(data[0],database);
+            console.log(result)
+            if(result==1)
+            res.json({success:true});
+            else
+            res.json({success:false});
           });
           
         });
@@ -336,16 +350,81 @@
 
           const login_credentials=require('./src/scripts/check_credentials');
 
-          login_credentials.check_credentials(email,password,res);
+          login_credentials.check_credentials(email,password,res,database);
 
         });
 
 
 
+        //add-ratings
+        app.post('/add_rating',urlencodedParser,function(req,res){
+          var rating=req.body.rating;
+          var token=req.body.token;
+          console.log(rating)
+          const add_ratings=require('./src/scripts/rating');
+          const result=add_ratings.add_ratings(rating,database,token);
+          if(result==1)
+           res.json({success:true});
+
+          else
+           res.json({success:false});
+
+        });
+
+
+
+
+        //add-comment
+        app.post('/add_comment',urlencodedParser,function(req,res){
+          var comment=req.body.comment;
+          var user_id=req.body.user_id;
+          var user_name=req.body.user_name;
+          var timeStamp=req.body.timeStamp;
+          const add_comments=require('./src/scripts/comments_backend');
+          const returned_val=add_comments.add_comment(comment,user_id,user_name,timeStamp,database);
+          console.log(returned_val)
+          if(returned_val==1)
+            res.json({success:true});
+          else
+            res.json({success:false});
+        });
+
+
+
+
+        //load-comment
+        app.get('/load_comment/:token',urlencodedParser,function(req,res){
+          var token=req.params.token;
+          const load_comments=require('./src/scripts/comments_backend');
+          load_comments.load_comment(token,database,res);
+        })
+
+
+
+        //load-users
+        app.post('/load_users',urlencodedParser,function(req,res){
+          var user_role=req.body.user_role;
+          console.log(user_role)
+          const load_users=require('./src/scripts/load_all_users');
+          load_users.user_info(user_role,res,database);
+
+        });
+
+
+
+        //load-user-ratings
+        app.get('/load_user_ratings/:token',urlencodedParser,function(req,res){
+          var user_token=req.params.token;
+          console.log(user_token);
+          const load_ratings=require('./src/scripts/rating');
+          load_ratings.load_ratings(user_token,database,res);
+
+        })
+
     
-  console.log('Listening to 4600');
-  server.listen(4600);
-  io1.on('connection',(socket)=>{
+      console.log('Listening to 4600');
+      server.listen(4600);
+      io1.on('connection',(socket)=>{
 
     socket.on('join',function(data){
       socket.join(data.room);

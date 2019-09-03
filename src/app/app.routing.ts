@@ -14,6 +14,7 @@ import { AuthGuardAdminService } from './services/Authentication/authGuard_admin
 import { AuthGuardArtistService } from './services/Authentication/authGuard_artist.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { OnlineChatComponent } from './Modules/online-chat/online-chat.component';
+import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -38,6 +39,10 @@ const routes: Routes =[
   {
     path:'settings',
     component:SettingsComponent
+  },
+  {
+    path:'ratings/:token',
+    component:RatingSystemComponent
   },
   {
     path: '',

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
-import { MatFormFieldModule, MatButtonModule, MatSelectModule, MatInputModule, MatCardModule, MatIconModule } from '@angular/material';
+import { MatFormFieldModule, MatButtonModule, MatSelectModule, MatInputModule, MatCardModule, MatIconModule, MatCheckboxModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NotifierModule } from 'angular-notifier';
 @NgModule({
@@ -17,7 +17,8 @@ import { NotifierModule } from 'angular-notifier';
     ReactiveFormsModule,
     FormsModule,
     MatIconModule,
-    NotifierModule
+    NotifierModule,
+    MatCheckboxModule
   ],
   exports:[SignupComponent,LoginComponent]
 })

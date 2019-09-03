@@ -4,14 +4,15 @@ import { PipeTransform, Pipe } from '@angular/core';
     name:'searchFilter'
 })
 export class SearchFilterPipe implements PipeTransform{
-    transform(employees:any[],searchText:string):any[]{
-        if(!employees) return [];
+    transform(users:any[],searchText:string):any[]{
+        if(!users) return [];
         if(!searchText) return []
 
         searchText = searchText.toLowerCase();
-        document.getElementById('search_dropdown').removeAttribute('style')
-        return employees.filter(employee=>{
-            return employee.name.toLowerCase().includes(searchText)
+        document.getElementById('search_dropdown').removeAttribute('style');
+        return users.filter(user=>{
+           
+            return user.user_name.toLowerCase().includes(searchText);
         })
     }
 }

@@ -4,6 +4,7 @@ import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import {onIdentify} from '../../../scripts/side_bar.js';
+import { SearchUserService } from 'app/services/search_user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,14 +15,16 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     getUser:String='';
     isAdmin:boolean=false;
-    employee:any=[{name:'Benura'},{name:'Abcde'}]
+    user:any;
+    emp:any=[{age:'abdcc'}]
     count=0;
+    role:string;
     location: Location;
       mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,  private element: ElementRef, private router: Router , private _search_user:SearchUserService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -29,9 +32,10 @@ export class NavbarComponent implements OnInit {
     ngOnInit(){
       
     //   this.getUser=onIdentify();
-    if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES1.filter(listTitle=>listTitle);
-
+    if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+    }
+  
     else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn'))
     this.listTitles=ROUTES2.filter(listTitle=>listTitle);
 
@@ -43,6 +47,11 @@ export class NavbarComponent implements OnInit {
 
     else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn'))
     this.listTitles=ROUTES3.filter(listTitle=>listTitle);
+
+    this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
+        this.user=data;
+        console.log(this.user);
+    });
 
     //   if(this.getUser=='artist')
     //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);

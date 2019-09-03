@@ -7,7 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFilterPipe } from './navbar/search-filter.pipe';
-import { MatListModule } from '@angular/material';
+import { MatListModule, MatDividerModule } from '@angular/material';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import { MatListModule } from '@angular/material';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule
   ],
   declarations: [
     FooterComponent,

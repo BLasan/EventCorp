@@ -28,18 +28,19 @@
         <mat-card style="margin-top:50px;margin-bottom:50px">
           <mat-card-title>Sign Up</mat-card-title>
             <mat-card-content>
-              <form [formGroup]="form" #form1 action="sign_up" method="POST" enctype="application/x-www-form-urlencoded">
+              <form [formGroup]="form">
+                <h5 *ngIf="success==false" style="background-color:red">Error signup</h5>
                 <mat-form-field>
-                  <input matInput placeholder="User Name" formControlName="user_name" name="user_name" required>
+                  <input matInput placeholder="User Name" formControlName="user_name" name="user_name" id="user_name" required>
                   <mat-error *ngIf="hasError('user_name', 'required')">User Name is required</mat-error>
                 </mat-form-field>  
                 <mat-form-field>
-                  <input matInput placeholder="User Email" type="email" formControlName="user_email" name="user_email" required>
+                  <input matInput placeholder="User Email" type="email" formControlName="user_email" name="user_email" id="user_email" required>
                   <mat-error *ngIf="hasError('user_email', 'required')">Email is required</mat-error>
                   <mat-error *ngIf="hasError('user_email', 'email')">Must be a valid email</mat-error>
                 </mat-form-field>  
                 <mat-form-field>
-                  <mat-select placeholder="Role" formControlName="role" name="role" required #roleSelect>
+                  <mat-select placeholder="Role" formControlName="role" name="role" id="role" required #roleSelect>
                     <mat-option value="organizer">Organizer</mat-option>
                     <mat-option value="artist">Artist</mat-option>
                     <mat-option value="supplier">Supplier</mat-option>
@@ -48,22 +49,22 @@
                   <mat-error *ngIf="hasError('role', 'required')">Please select a role</mat-error>
                 </mat-form-field> 
                 <mat-form-field>
-                  <input matInput placeholder="Address Line 1" formControlName="address1" name="address1" required>
+                  <input matInput placeholder="Address Line 1" formControlName="address1" name="address1" id="address1" required>
                   <mat-error *ngIf="hasError('address1', 'required')">Address field is required</mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput placeholder="Address Line 2 (optional)" name="address2">
+                  <input matInput placeholder="Address Line 2 (optional)" name="address2" id="address2">
                 </mat-form-field>
                 <div class="row">
                   <div class="col-6">
                     <mat-form-field>
-                      <input matInput placeholder="City" formControlName="city" name="city" required>
+                      <input matInput placeholder="City" formControlName="city" name="city" id="city" required>
                       <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-6">
                     <mat-form-field>
-                      <mat-select placeholder="State" formControlName="state" name="state" required #stateSelect>
+                      <mat-select placeholder="State" formControlName="state" name="state" id="state" required #stateSelect>
                         <mat-option *ngFor="let states of states" [value]="states">{{states}}</mat-option>
                       </mat-select>
                       <mat-error *ngIf="hasError('state', 'required')">Please select a state</mat-error>
@@ -72,13 +73,13 @@
                 </div>
                 <div class="row">
                   <div class="col-4">
-                      <mat-select placeholder="+94" style="margin-top:10px;width:50px" name="country_code" #codeSelect>
+                      <mat-select placeholder="+94" style="margin-top:10px;width:50px" name="country_code" id="country_code" #codeSelect>
                         <mat-option value="lkr" selected>+94</mat-option>
                       </mat-select>
                   </div>
                   <div class="col-4">
                     <mat-form-field style="margin-left:-50px;width:160px">
-                      <input matInput placeholder="Contact" maxlength="9" formControlName="contact" name="contact" required>
+                      <input matInput placeholder="Contact" maxlength="9" formControlName="contact" name="contact" id="contact" required>
                       <mat-error *ngIf="hasError('contact', 'required')">Contact is required</mat-error>
                       <mat-error *ngIf="hasError('contact', 'minlength')">Must contain 9 digits</mat-error>
                       <!-- <mat-error *ngIf="hasError('contact', 'valid_contact')">Not a valid contact</mat-error> -->
@@ -87,7 +88,7 @@
                   <div class="col-4"></div>
                 </div>
                 <mat-form-field>
-                  <input matInput placeholder="Password" type="password" formControlName="user_password" name="user_password" required>
+                  <input matInput placeholder="Password" type="password" formControlName="user_password" name="user_password" id="user_password" required>
                   <mat-error *ngIf="hasError('user_password', 'required')">Password is required</mat-error>
                   <mat-error *ngIf="hasError('user_password', 'minlength')">Must contains at least 6 characters</mat-error>
                 </mat-form-field>
@@ -99,7 +100,7 @@
                 <input style="display: none" value="" name="role_sel" id="role_sel">
                 <input style="display: none" value="" name="countryCode_sel" id="countryCode_sel">
                 <input style="display: none" value="" name="state_sel" id="state_sel">
-                <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="form1.submit()">Sign Up</button>
+                <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="signUp()">Sign Up</button>
               </form>
             </mat-card-content>
         </mat-card>     
@@ -108,6 +109,7 @@
     </div>
   </div>
 </div>
+<a style="display:none" id="redirect_login" href=""></a>
 
 
 <!-- <div class="main-content">

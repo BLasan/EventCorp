@@ -6,8 +6,8 @@
                     <!-- <div class="card-avatar"> -->
                         <div class="img">
                             <div class="card-avatar overlays" id="overlay">
-                                <button class="btn btn-primary" id="image_uploader">Add</button>
-                                <button class="btn btn-danger" id="remove">Remove</button>
+                                <button class="btn btn-primary" id="image_uploader" (click)="upload_image()">Add</button>
+                                <button class="btn btn-danger" id="remove" (click)="remove_image()">Remove</button>
                             </div>
                             <a href="#">
                                 <img src="./assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>

@@ -32,7 +32,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { MatListItem, MatListModule } from '@angular/material';
+import { MatListItem, MatListModule, MatSnackBarModule } from '@angular/material';
 import { ChatService } from './services/chat.service';
 
 const config = {
@@ -64,7 +64,8 @@ const config = {
     AngularFirestoreModule, // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule,// storage
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   declarations: [
     AppComponent,
