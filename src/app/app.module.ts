@@ -34,6 +34,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatListItem, MatListModule, MatSnackBarModule } from '@angular/material';
 import { ChatService } from './services/chat.service';
+import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
 
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
@@ -75,6 +76,7 @@ const config = {
     ArtistLayoutComponent,
     ErrorPageComponent,
     OnlineChatComponent,
+    PaypalPaymentComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,

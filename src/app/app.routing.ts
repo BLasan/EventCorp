@@ -15,6 +15,7 @@ import { AuthGuardArtistService } from './services/Authentication/authGuard_arti
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { OnlineChatComponent } from './Modules/online-chat/online-chat.component';
 import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
+import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -60,7 +61,10 @@ const routes: Routes =[
     path:'signup',
     component:SignupComponent
   },
-  
+  {
+    path:'payment',
+    component:PaypalPaymentComponent
+  },
 
   // {
   //   path: '',

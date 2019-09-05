@@ -64,8 +64,10 @@
         <p style="display: none" id="remove_items">view comment <a href="" id="remove_commments" (click)="remove()"><i class="material-icons" style="color: black">arrow_drop_up</i></a></p>
         <mat-list style="display: none" id="comments">
           <div *ngFor="let comments of comments_prev">
-            <small align="center">{{comments.timeStamp}}</small>
-            <mat-list-item>{{comments.name}}: {{comments.comment}}</mat-list-item>
+            <mat-list-item>
+              <p style="font-size: 14px;margin-left: -15px"><b>{{comments.name}}:</b>{{comments.timeStamp |  date: 'yyyy-MM-dd HH:mm a'}}</p>
+              <p>{{comments.comment}}</p>
+            </mat-list-item>
             <mat-divider></mat-divider>
           </div>
           <!-- <mat-list-item>Item 2</mat-list-item>

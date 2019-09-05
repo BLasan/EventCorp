@@ -53,7 +53,8 @@ import {
     PaypalPaymentComponent,
     RatingSystemComponent,
     SearchUserComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    PaypalPaymentComponent
   ]
 })
 export class SharedComponentsModule { }
