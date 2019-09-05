@@ -1,0 +1,101 @@
+<!-- <div class="main-content"> 
+  <div class="containe-fluid" id="container1">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+        <div class="card ">
+            <div class="card-header">
+                <h4 class="text-xs-center">Skills<span class="glyphicon glyphicon-saved float-xs-right"></span></h4>
+            </div>
+            <div class="card-block text-xs-center">
+                <p class="lead">
+                    <strong>Technology Overview</strong>
+                </p>
+            </div>
+            <ul class="list-group list-group-flush text-xs-center">
+                <li class="list-group-item">
+                    <div class="skillLineDefault">
+                        <div class="skill float-xs-left text-xs-center">HTML5</div>
+                        <div class="rating" id="rate1"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-xs-center">
+                    <div class="skillLineDefault">
+                        <div class="skill float-xs-left text-xs-center">CSS</div>
+                        <div class="rating" id="rate2"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-xs-center">
+                    <div class="skillLineDefault">
+                        <div class="skill float-xs-left text-xs-center">jQuery</div>
+                        <div class="rating" id="rate3"></div>
+                    </div>
+                </li>
+                <li class="list-group-item text-xs-center">
+                    <div class="skillLineDefault">
+                        <div class="skill float-xs-left text-xs-center">C#</div>
+                        <div class="rating" id="rate4"></div>
+                    </div>
+                </li>
+            </ul>
+            <div class="card-footer text-xs-center">
+                <button type="button" class="btn btn-primary btn-lg btn-block">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</div> -->
+<div class="main-content">
+  <div class="container-fluid">
+    <mat-card style="width:25rem">
+      <mat-card-title style="color:blue"><b>Rate User</b></mat-card-title>
+      <mat-card-content>
+        <img mat-card-image src="assets/img/faces/pro_img.png" alt="user_image">
+          <hr>
+        <p><b>Name</b></p>
+        <p><b>Role</b></p>
+        <p><b>Events</b></p>
+        <p><b>Rating</b></p>
+        <hr>
+        <p><b>Post a comment:</b></p>
+        <p id="load_items">view comment <a href="" id="load_commments" (click)="load()"><i class="material-icons" style="color: black">arrow_drop_down_circle</i></a></p>
+        <p style="display: none" id="remove_items">view comment <a href="" id="remove_commments" (click)="remove()"><i class="material-icons" style="color: black">arrow_drop_up</i></a></p>
+        <mat-list style="display: none" id="comments">
+          <div *ngFor="let comments of comments_prev">
+            <mat-list-item>
+              <p style="font-size: 14px;margin-left: -15px"><b>{{comments.name}}:</b>{{comments.timeStamp |  date: 'yyyy-MM-dd HH:mm a'}}</p>
+              <p>{{comments.comment}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
+          <!-- <mat-list-item>Item 2</mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item>Item 3</mat-list-item> -->
+        </mat-list>          
+        <mat-form-field>
+          <textarea matInput placeholder="Post your comment here" [(ngModel)]="myComment" ></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="accent" (click)="postComment()">Post</button>
+        <hr>
+        <p><b>Review your Rate</b></p>
+        <ngb-rating [(rate)]="currentRate">
+          <ng-template let-fill="fill" let-index="index">
+            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+          </ng-template>
+        </ngb-rating>
+        <hr>
+        <div class="row">
+          <div class="col-md-4">
+            Stars: <b>{{currentRate}}</b>
+          </div>
+          <div class="col-md-4">
+            <button mat-raised-button style="background-color: green" (click)="rateUser()">Rate</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

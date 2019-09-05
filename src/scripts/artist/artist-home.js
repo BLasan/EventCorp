@@ -16,6 +16,7 @@ export function loadCalendar(){
   document.getElementById('calendar-dates').appendChild(calendar);
 }
 
+
 function get_calendar(day_no,days){
 
   var table=document.createElement('table');

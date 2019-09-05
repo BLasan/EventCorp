@@ -4,7 +4,7 @@
       "secure": false
     },
     
-    "/details":{
+    "/user_details":{
       "target": "http://[::1]:4600",
       "secure": false
     },
@@ -20,6 +20,11 @@
     },
 
     "/upload":{
+      "target":"http://[::1]:4600",
+      "secure":false
+    },
+    
+    "/sign_up":{
       "target":"http://[::1]:4600",
       "secure":false
     }

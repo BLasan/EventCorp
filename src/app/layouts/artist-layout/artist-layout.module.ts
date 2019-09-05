@@ -3,25 +3,35 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ArtistLayoutRoutes } from './artist-layout.routing';
-import { ArtistComponent } from 'app/Artist-Module/artist/artist.component';
-import {ArtistCalendarComponent} from 'app/Artist-Module/artist-calendar/artist-calendar.component';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { FullCalendarModule } from 'ng-fullcalendar';
-import {ArtistNotificationComponent} from 'app/Artist-Module/artist-notification/artist-notification.component'; 
-import {ArtistRequestComponent} from 'app/Artist-Module/artist-request/artist-request.component';
-import {ArtistHomeComponent} from 'app/Artist-Module/artist-home/artist-home.component';
+import { ArtistComponent } from '../../Modules/Artist-Module/artist/artist.component';
+import { ArtistCalendarComponent } from '../../Modules/Artist-Module/artist-calendar/artist-calendar.component';
+import { ArtistNotificationComponent } from '../../Modules/Artist-Module/artist-notification/artist-notification.component';
+import { ArtistRequestComponent } from '../../Modules/Artist-Module/artist-request/artist-request.component';
+import { ArtistHomeComponent } from '../../Modules/Artist-Module/artist-home/artist-home.component';
+import { CalendarComponent } from 'ng-fullcalendar';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {
     MatButtonModule,
     MatInputModule,
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCardModule,
+    MatListModule,
+    MatCalendar,
+    MatDatepicker,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
   } from '@angular/material';
- 
+import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
+import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
+import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
+import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
+
 
   @NgModule({
     imports: [
@@ -34,14 +44,26 @@ import {
       MatInputModule,
       MatSelectModule,
       MatTooltipModule,
-      FullCalendarModule
+      MatCardModule,
+      MatListModule,
+      ReactiveFormsModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
+      MatChipsModule,
+      NgbModule,
+      NgxMatSelectSearchModule
     ],
     declarations: [
      ArtistComponent,
      ArtistCalendarComponent,
      ArtistNotificationComponent,
      ArtistRequestComponent,
-     ArtistHomeComponent
+     ArtistHomeComponent,
+     CalendarComponent,
+    //  PaypalPaymentComponent,
+     ViewBookingInfoComponent,
+    //  RatingSystemComponent,
+    //  NotificationsComponent
     ],
    
   })

@@ -1,8 +1,8 @@
-   const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
-  // const artist_get_data=require('./src/scripts/artist/artist_get_data');
+  // const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
   const express=require('express');
   var Request = require("request");
   const path=require('path');
+  const cors = require('cors');
   const app=express();
   var fs=require('fs');
   const ExpressValidator = require('express-validator');
@@ -11,21 +11,32 @@
   var urlencodedParser = body.urlencoded({ extended: false });
   const http=require('http');
   const server=http.Server(app);
-  //const http1=require('http');
-  //const server1=http1.Server(app);
   const multer=require('multer');
   const ejs=require('ejs');
   var io = require('socket.io')(server, { path: '/form' }).listen(server);
-  
-  var id=0,isValid=false;
+  var io1= require('socket.io').listen(server);
+  const bcrypt = require('bcrypt');
+  const saltRounds = 10;
+  const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
+
+  //initialize firebase
+  var firebase=firebaseInit.firebaseInit();
+  var database=firebase.firestore();
+
+
   app.use(body.json());
   app.use(ExpressValidator());
   app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
   app.use(express.static('src'));
+  app.use(cors())
   var password='',repassword='',name='',email='',country='';
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
   const RECAPTCHA_SECRET = "6Le6daAUAAAAAD-dA1jOUI_dZKVg2z7v4MDFfl9p";
+  // const grpc = require('grpc')
+  // const protoLoader = require('@grpc/proto-loader')
+  // const packageDefinition = protoLoader.loadSync('notes.proto');
+  // const notesProto = grpc.loadPackageDefinition(packageDefinition);
   
 
   const storage=multer.diskStorage({destination:function(req,res,cb){
@@ -297,12 +308,132 @@
           
         // })
 
-       
 
-  console.log('Listening to 4600');
-  
-  
-  server.listen(4600);
+        app.post('/sign_up',urlencodedParser,function(req,res){
+
+          console.log('hello');
+          var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+          var token = randomToken(40);
+          var user_name=req.body.user_name;
+          var user_email=req.body.user_email;
+          var role=req.body.role_sel;
+          var address1=req.body.address1;
+          var address2=req.body.address2;
+          var city=req.body.city;
+          var state=req.body.state_sel;
+          var country_code=req.body.countryCode_sel;
+          var contact=req.body.contact;
+          var user_password=req.body.user_password;
+          const user_signup=require('./src/scripts/signup');
+          console.log(user_password)
+
+          bcrypt.hash(user_password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,user_token:token}]
+            const result=user_signup.signup(data[0],database);
+            console.log(result)
+            if(result==1)
+            res.json({success:true});
+            else
+            res.json({success:false});
+          });
+          
+        });
+
+
+
+        //login-credentials
+        app.post('/login_credentials',urlencodedParser,function(req,res){
+          var email=req.body[0];
+          var password=req.body[1];
+          console.log(email)
+
+          const login_credentials=require('./src/scripts/check_credentials');
+
+          login_credentials.check_credentials(email,password,res,database);
+
+        });
+
+
+
+        //add-ratings
+        app.post('/add_rating',urlencodedParser,function(req,res){
+          var rating=req.body.rating;
+          var token=req.body.token;
+          console.log(rating)
+          const add_ratings=require('./src/scripts/rating');
+          const result=add_ratings.add_ratings(rating,database,token);
+          if(result==1)
+           res.json({success:true});
+
+          else
+           res.json({success:false});
+
+        });
+
+
+
+
+        //add-comment
+        app.post('/add_comment',urlencodedParser,function(req,res){
+          var comment=req.body.comment;
+          var user_id=req.body.user_id;
+          var user_name=req.body.user_name;
+          var timeStamp=req.body.timeStamp;
+          const add_comments=require('./src/scripts/comments_backend');
+          const returned_val=add_comments.add_comment(comment,user_id,user_name,timeStamp,database);
+          console.log(returned_val)
+          if(returned_val==1)
+            res.json({success:true});
+          else
+            res.json({success:false});
+        });
+
+
+
+
+        //load-comment
+        app.get('/load_comment/:token',urlencodedParser,function(req,res){
+          var token=req.params.token;
+          const load_comments=require('./src/scripts/comments_backend');
+          load_comments.load_comment(token,database,res);
+        })
+
+
+
+        //load-users
+        app.post('/load_users',urlencodedParser,function(req,res){
+          var user_role=req.body.user_role;
+          console.log(user_role)
+          const load_users=require('./src/scripts/load_all_users');
+          load_users.user_info(user_role,res,database);
+
+        });
+
+
+
+        //load-user-ratings
+        app.get('/load_user_ratings/:token',urlencodedParser,function(req,res){
+          var user_token=req.params.token;
+          console.log(user_token);
+          const load_ratings=require('./src/scripts/rating');
+          load_ratings.load_ratings(user_token,database,res);
+
+        })
+
+    
+      console.log('Listening to 4600');
+      server.listen(4600);
+      io1.on('connection',(socket)=>{
+
+    socket.on('join',function(data){
+      socket.join(data.room);
+      console.log('New connection made '+data.user);
+      socket.broadcast.to(data.room).emit('new user joined',{user:data.user,message:'has joined'});
+      
+    });
+
+  });
 
 
    

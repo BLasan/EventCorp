@@ -3,14 +3,15 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
+
+import { DashboardComponent } from '../../Modules/Admin-Module/dashboard/dashboard.component';
+import { UserProfileComponent } from '../../Modules/Admin-Module/user-profile/user-profile.component';
+import { TableListComponent } from '../../Modules/Admin-Module/table-list/table-list.component';
+import { TypographyComponent } from '../../Modules/Admin-Module/typography/typography.component';
+import { MapsComponent } from '../../Modules/Admin-Module/maps/maps.component';
+import { IconsComponent } from '../../Modules/Admin-Module/icons/icons.component';
+import { UpgradeComponent } from '../../Modules/Admin-Module/upgrade/upgrade.component';
+import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 
 import {
   MatButtonModule,
@@ -20,6 +21,7 @@ import {
   MatTooltipModule,
   MatSelectModule
 } from '@angular/material';
+import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-notifications/admin-notifications.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +41,7 @@ import {
     TypographyComponent,
     IconsComponent,
     MapsComponent,
-    NotificationsComponent,
+    AdminNotificationsComponent,
     UpgradeComponent,
   ]
 })

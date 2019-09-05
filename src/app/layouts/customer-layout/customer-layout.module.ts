@@ -9,11 +9,13 @@ import {
     MatRippleModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatToolbarModule,
+    MatIconModule
   } from '@angular/material';
 
 import { from } from 'rxjs';
-import { CustomerHomeComponent } from 'app/Customer-Module/customer-home/customer-home.component';
+import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-home/customer-home.component';
 
   @NgModule({
     imports: [
@@ -26,6 +28,9 @@ import { CustomerHomeComponent } from 'app/Customer-Module/customer-home/custome
       MatInputModule,
       MatSelectModule,
       MatTooltipModule,
+      MatToolbarModule,
+      MatIconModule,
+      MatButtonModule
     ],
     declarations: [
      CustomerHomeComponent

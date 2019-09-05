@@ -15,10 +15,15 @@ export class AdminLayoutComponent implements OnInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
+  isAdmin:boolean=true;
 
   constructor( public location: Location, private router: Router) {}
 
   ngOnInit() {
+    //   if(localStorage.getItem('role')!='admin' || localStorage.getItem('loggedIn')!='true'){
+    //       this.isAdmin=false;
+    //   }
+
       const isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
       if (isWindows && !document.getElementsByTagName('body')[0].classList.contains('sidebar-mini')) {

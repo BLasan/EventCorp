@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { OrganizerHomeComponent } from 'app/Organizer-Module/organizer-home/organizer-home.component';
+import { OrganizerHomeComponent } from '../../Modules/Organizer-Module/organizer-home/organizer-home.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [

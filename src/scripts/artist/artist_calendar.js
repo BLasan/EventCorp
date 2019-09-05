@@ -1,6 +1,5 @@
-export function calendar(){
+exports.calendar=function(){
     var calendarEl = document.getElementById('calendar');
-  
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
       header: {
