@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatListModule, MatNavList, MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatListModule, MatNavList, MatToolbarModule, MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerNavbarComponent } from './customer-navbar.component';
 
@@ -14,7 +14,9 @@ import { CustomerNavbarComponent } from './customer-navbar.component';
     NgbModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   declarations: [
     CustomerNavbarComponent

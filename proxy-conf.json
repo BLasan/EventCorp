@@ -27,5 +27,10 @@
     "/sign_up":{
       "target":"http://[::1]:4600",
       "secure":false
+    },
+    
+    "/create_new_event":{
+      "target":"http://[::1]:4600",
+      "secure":false
     }
 }

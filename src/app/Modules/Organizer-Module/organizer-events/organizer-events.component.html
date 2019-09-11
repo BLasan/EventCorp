@@ -8,7 +8,7 @@
         <mat-card style="background-color:#303337">
           <mat-card-title style="color:red">Add New Event</mat-card-title>
             <mat-card-content>
-              <form #form1 action="add_event" name="add_event_form" method="POST" [formGroup]="form">
+              <form #form1 action="create_new_event" name="create_event" method="POST" [formGroup]="form">
                 <mat-form-field>
                   <input matInput placeholder="Event Name" name="event_name" formControlName='event_name'>
                   <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
@@ -30,11 +30,11 @@
                 <div class="row">
                   <div class="col-4">
                     <mat-form-field>
-                      <mat-select [formControl]="bankMultiCtrl" placeholder="Artists" [multiple]="true" #multiSelect>
+                      <mat-select [formControl]="artist_data" placeholder="Artists" [multiple]="true">
                         <mat-select-trigger>
-                          {{bankMultiCtrl.value ? bankMultiCtrl.value[0] : ''}}
-                          <span *ngIf="bankMultiCtrl.value?.length > 1" class="example-additional-selection">
-                            (+{{bankMultiCtrl.value.length - 1}} {{bankMultiCtrl.value?.length === 2 ? 'other' : 'others'}})
+                          {{artist_data.value ? artist_data.value[0] : ''}}
+                          <span *ngIf="artist_data.value?.length > 1" class="example-additional-selection">
+                            (+{{artist_data.value.length - 1}} {{artist_data.value?.length === 2 ? 'other' : 'others'}})
                           </span>
                         </mat-select-trigger>
                         <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
@@ -46,11 +46,11 @@
                   </div>
                   <div class="col-4">
                     <mat-form-field>
-                      <mat-select [formControl]="bankMultiCtrl" placeholder="Suppliers" [multiple]="true" #multiSelect>
+                      <mat-select [formControl]="supplier_data" placeholder="Suppliers" [multiple]="true" #multiSelect>
                         <mat-select-trigger>
-                          {{bankMultiCtrl.value ? bankMultiCtrl.value[0] : ''}}
-                          <span *ngIf="bankMultiCtrl.value?.length > 1" class="example-additional-selection">
-                            (+{{bankMultiCtrl.value.length - 1}} {{bankMultiCtrl.value?.length === 2 ? 'other' : 'others'}})
+                          {{supplier_data.value ? supplier_data.value[0] : ''}}
+                          <span *ngIf="supplier_data.value?.length > 1" class="example-additional-selection">
+                            (+{{supplier_data.value.length - 1}} {{supplier_data.value?.length === 2 ? 'other' : 'others'}})
                           </span>
                         </mat-select-trigger>
                         <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
@@ -62,11 +62,11 @@
                   </div>
                   <div class="col-4">
                     <mat-form-field>
-                      <mat-select [formControl]="bankMultiCtrl" placeholder="Venue Owners" [multiple]="true" #multiSelect>
+                      <mat-select [formControl]="venue_owner_data" placeholder="Venue Owners" [multiple]="true" #multiSelect>
                         <mat-select-trigger>
-                          {{bankMultiCtrl.value ? bankMultiCtrl.value[0] : ''}}
-                          <span *ngIf="bankMultiCtrl.value?.length > 1" class="example-additional-selection">
-                            (+{{bankMultiCtrl.value.length - 1}} {{bankMultiCtrl.value?.length === 2 ? 'other' : 'others'}})
+                          {{venue_owner_data.value ? venue_owner_data.value[0] : ''}}
+                          <span *ngIf="venue_owner_data.value?.length > 1" class="example-additional-selection">
+                            (+{{venue_owner_data.value.length - 1}} {{venue_owner_data.value?.length === 2 ? 'other' : 'others'}})
                           </span>
                         </mat-select-trigger>
                         <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
@@ -77,7 +77,11 @@
                     </mat-form-field>  
                   </div>
                 </div>
-                <button mat-raised-button color="accent" name="submit" (click)="form1.submit()">Add</button>
+                <input [value]="artist_data.value" type="text" name="artists[]" style="display: none">
+                <input [value]="venue_owner_data.value" type="text" name="venue_owners[]" style="display: none">
+                <input [value]="supplier_data.value" type="text" name="suppliers[]" style="display: none">
+                <input [value]="user_name" type="text" name="user_name" style="display: none">
+                <button mat-raised-button color="accent" (click)="form1.submit()">Add</button>
               </form>
             </mat-card-content>
         </mat-card> 

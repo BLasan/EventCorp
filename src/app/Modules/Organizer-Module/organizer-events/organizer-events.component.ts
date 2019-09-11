@@ -5,25 +5,32 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { OrganizerServiceService } from 'app/services/organizer_services.service';
 @Component({
   selector: 'app-organizer-events',
   templateUrl: './organizer-events.component.html',
   styleUrls: ['./organizer-events.component.scss']
 })
 export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
-  @ViewChild('multiSelect') multiSelect: MatSelect;
+  // @ViewChild('multiSelect') multiSelect: MatSelect;
   form: any;
+  user_events:any;
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  public artist_data: FormControl = new FormControl();
+  public venue_owner_data: FormControl = new FormControl();
+  public supplier_data: FormControl = new FormControl();
   public bankMultiCtrl: FormControl = new FormControl();
   public bankMultiFilterCtrl: FormControl = new FormControl();
   public filteredBanksMulti: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
   protected _onDestroy = new Subject<void>();
-
-  constructor() { }
+  user_name:string;
+  constructor(private _organizer_services:OrganizerServiceService) { }
  
   ngOnInit() {
-    calendar();
+    // calendar();
     deactivate_searchBar();
+    this.user_name=localStorage.getItem('user_name');
+    this.loadUserEvents(this.user_name);
     this.filteredBanksMulti.next(this.toppingList.slice());
     this.form=new FormGroup({
       event_name:new FormControl('',Validators.required),
@@ -69,6 +76,14 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     this.filteredBanksMulti.next(
       this.toppingList.filter(list=>list.toLowerCase().indexOf(search) > -1)
     );
+  }
+
+  loadUserEvents(user_name:string){
+    this._organizer_services.loadEvents(user_name).subscribe((data)=>{
+    this.user_events=data;
+    console.log(this.user_events);
+    calendar(this.user_events);
+    });
   }
 
 

@@ -19,6 +19,7 @@
   const saltRounds = 10;
   const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
   const verify_user_token=require('./src/scripts/verify_user_token');
+  const organizer_event=require('./src/scripts/organizer/create_new_event');
   //initialize firebase
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
@@ -136,7 +137,6 @@
 
          if(errors[0].param=='name')
          validName=false;
-
          if(errors[0].param=='country')
          validCountry=false;
 
@@ -383,6 +383,32 @@
 
 
 
+        //create new event
+        app.post('/create_new_event',urlencodedParser,function(req,res){
+          var event_name=req.body.event_name;
+          var venue=req.body.venue;
+          var date=req.body.date;
+          console.log(date);
+          var time=req.body.time;
+          console.log(time);
+          var artists=req.body['artists[]'];
+          var artist_array=artists.split(',');
+          console.log(artist_array);
+          var venue_owners=req.body['venue_owners[]'].split(',');
+          var suppliers=req.body['suppliers[]'].split(',');
+          console.log('Venue:',venue_owners);
+          console.log('Supp:',suppliers);
+          var user_name=req.body.user_name;
+          console.log(user_name);
+          const data={event_name:event_name,venue:venue,date:date,time:time,artists:artist_array,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name};
+          var result=organizer_event.create_new_event(data,database);
+          if(result) res.redirect('organizer-events');
+          else res.send('Error Inserting');
+        })
+
+
+
+
         //add-comment
         app.post('/add_comment',urlencodedParser,function(req,res){
           var comment=req.body.comment;
@@ -427,6 +453,15 @@
           console.log(user_token);
           ratings.load_ratings(user_token,database,res);
 
+        });
+
+
+
+        //load events
+        app.post('/load_events',urlencodedParser,function(req,res){
+          var user_name=req.body[0];
+          console.log(user_name)
+          organizer_event.get_event_data(user_name,database,res);
         })
 
     
