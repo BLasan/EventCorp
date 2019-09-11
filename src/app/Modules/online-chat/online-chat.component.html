@@ -5,10 +5,6 @@
   
 </div>
 
-<input type="text" [(ngModel)]="message" placeholder="Your message..">
-
-<button (click)="newMessage(message)">Send message</button>
-
 <div class="main-content">
   <div class="container-fluid">
     <button class="open-button" (click)="openChat()">Open Form</button>
@@ -16,8 +12,8 @@
           <div class="form-container">
             <form>
               <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" id="user">
-              <input [(ngModel)]="room" [ngModelOptions]="{standalone: true}" id="room">
-              <button type="button" id="submit" (click)="join()">OK</button>
+              <input [(ngModel)]="message" [ngModelOptions]="{standalone: true}" id="room">
+              <button type="button" id="submit" (click)="sendMessage()">OK</button>
             </form>
             <mat-list role="list">
               <mat-list-item role="listitem">Item 1</mat-list-item>

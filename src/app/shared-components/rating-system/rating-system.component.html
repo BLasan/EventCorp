@@ -80,9 +80,9 @@
         <button mat-raised-button color="accent" (click)="postComment()">Post</button>
         <hr>
         <p><b>Review your Rate</b></p>
-        <ngb-rating [(rate)]="currentRate">
+        <ngb-rating [(rate)]="currentRate" max="5">
           <ng-template let-fill="fill" let-index="index">
-            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
           </ng-template>
         </ngb-rating>
         <hr>
@@ -98,4 +98,4 @@
     </mat-card>
   </div>
 </div>
-
+<!-- <app-online-chat [user_auth]="search_token"></app-online-chat> -->

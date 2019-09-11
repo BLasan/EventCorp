@@ -8,7 +8,7 @@ import {bind_scroll} from '../../../scripts/user_comments';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
-  styleUrls: ['./rating-system.component.scss']
+  styleUrls: ['./rating-system.component.scss'],
 })
 export class RatingSystemComponent implements OnInit {
   currentRate:any=0;
@@ -19,6 +19,7 @@ export class RatingSystemComponent implements OnInit {
   rating_data:any;
   user_comments:any;
   comments_prev:any;
+  current_rate:any;
   constructor(private rating:RateUserService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute) { }
 
   ngOnInit() {
@@ -59,12 +60,12 @@ export class RatingSystemComponent implements OnInit {
       console.log(this.success)
       if(this.success.success==true){
         this.loadComments();
-        this._snackBar.open("Successfully Rated","Done", {
+        this._snackBar.open("Successfully Posted","Done", {
           duration: 2000,
         });
       }
       else{
-        this._snackBar.open("Unsuccessfull ratings","Rate again", {
+        this._snackBar.open("Unsuccessfull posting","Post again", {
           duration: 3000,
         });
       }
@@ -77,6 +78,7 @@ export class RatingSystemComponent implements OnInit {
       console.log(this.search_token)
       this.rating.load_ratings(this.search_token).subscribe(data=>{
         this.ratings=data;
+        console.log(this.ratings.success)
         if(this.ratings.success==true){
           this.rating_data=this.ratings.data;
           // console.log(this.rating_data);

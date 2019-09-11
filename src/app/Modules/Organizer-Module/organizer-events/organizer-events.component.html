@@ -1,0 +1,87 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div id='calendar'></div>
+    </div>
+    <div class="row" style="margin-top:50px;margin-left:50px">
+      <div class="col-md-6">
+        <mat-card style="background-color:#303337">
+          <mat-card-title style="color:red">Add New Event</mat-card-title>
+            <mat-card-content>
+              <form #form1 action="add_event" name="add_event_form" method="POST" [formGroup]="form">
+                <mat-form-field>
+                  <input matInput placeholder="Event Name" name="event_name" formControlName='event_name'>
+                  <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
+                </mat-form-field>    
+                <mat-form-field>
+                  <input matInput placeholder="Venue" name="venue" formControlName='venue'>
+                  <mat-error *ngIf="hasError('venue', 'required')"><small>Venue is required</small></mat-error>
+                </mat-form-field>   
+                <mat-form-field color="accent">
+                  <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" formControlName='date'>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="hasError('date', 'required')"><small>is required</small></mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <input matInput type="time" placeholder="Time" name="time" formControlName='time'>
+                  <mat-error *ngIf="hasError('time', 'required')"><small>Time is required</small></mat-error>
+                </mat-form-field>
+                <div class="row">
+                  <div class="col-4">
+                    <mat-form-field>
+                      <mat-select [formControl]="bankMultiCtrl" placeholder="Artists" [multiple]="true" #multiSelect>
+                        <mat-select-trigger>
+                          {{bankMultiCtrl.value ? bankMultiCtrl.value[0] : ''}}
+                          <span *ngIf="bankMultiCtrl.value?.length > 1" class="example-additional-selection">
+                            (+{{bankMultiCtrl.value.length - 1}} {{bankMultiCtrl.value?.length === 2 ? 'other' : 'others'}})
+                          </span>
+                        </mat-select-trigger>
+                        <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+                        <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+                          {{bank}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>  
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field>
+                      <mat-select [formControl]="bankMultiCtrl" placeholder="Suppliers" [multiple]="true" #multiSelect>
+                        <mat-select-trigger>
+                          {{bankMultiCtrl.value ? bankMultiCtrl.value[0] : ''}}
+                          <span *ngIf="bankMultiCtrl.value?.length > 1" class="example-additional-selection">
+                            (+{{bankMultiCtrl.value.length - 1}} {{bankMultiCtrl.value?.length === 2 ? 'other' : 'others'}})
+                          </span>
+                        </mat-select-trigger>
+                        <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+                        <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+                          {{bank}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>  
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field>
+                      <mat-select [formControl]="bankMultiCtrl" placeholder="Venue Owners" [multiple]="true" #multiSelect>
+                        <mat-select-trigger>
+                          {{bankMultiCtrl.value ? bankMultiCtrl.value[0] : ''}}
+                          <span *ngIf="bankMultiCtrl.value?.length > 1" class="example-additional-selection">
+                            (+{{bankMultiCtrl.value.length - 1}} {{bankMultiCtrl.value?.length === 2 ? 'other' : 'others'}})
+                          </span>
+                        </mat-select-trigger>
+                        <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+                        <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+                          {{bank}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>  
+                  </div>
+                </div>
+                <button mat-raised-button color="accent" name="submit" (click)="form1.submit()">Add</button>
+              </form>
+            </mat-card-content>
+        </mat-card> 
+      </div>
+    </div>
+  </div>
+</div>

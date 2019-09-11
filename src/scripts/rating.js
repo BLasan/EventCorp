@@ -5,6 +5,7 @@
 exports.add_ratings=function(rating,database,token){
 
     var ratings = database.collection('ratings').doc(token).set({rating:rating});
+    console.log(ratings);
     if(ratings){ 
         return 1;
     }
@@ -19,7 +20,7 @@ exports.load_ratings=function(token,database,res){
     var docRef = database.collection('ratings').doc(token);
     docRef.get().then(async function(doc) {
         console.log(doc.data())
-        if (doc.data()=="{}") {
+        if (!doc.data()) {
             console.log('No matching documents.');
             res.json({success:false}); 
          } 

@@ -14,10 +14,15 @@ export class ChatService {
         this.socket.emit('join',data);
     }
 
+    sendMessage(message:string="Welcome"){
+        this.socket.emit('chat',message);
+    }
+
     newUserJoined(){
         console.log('initial')
         let observable=new Observable<{user:String,message:String}>(observer=>{
-            this.socket.on('new user joined',(data)=>{
+            this.socket.on('new user',(data)=>{
+                console.log(data);
                 observer.next(data);
             });
             return ()=> {this.socket.disconnect()}

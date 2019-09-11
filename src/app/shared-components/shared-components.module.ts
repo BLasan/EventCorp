@@ -21,7 +21,9 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatChipsModule,
+  MatListItem,
 } from '@angular/material';
+import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import {
     MatNativeDateModule,
     MatChipsModule,
     NgbModule,
+    OnlineChatModule
   ],
   exports:[
     SettingsComponent,

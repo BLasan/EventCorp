@@ -12,6 +12,7 @@ export class AuthGuardOrganizerService implements CanActivate {
     
     const isLoggedIn=localStorage.getItem('loggedIn');
     const role=localStorage.getItem('role');
+    console.log(isLoggedIn)
     if (isLoggedIn=='true' && role=='organizer') {
       return true;
     } else {

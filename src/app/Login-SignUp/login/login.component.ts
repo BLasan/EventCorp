@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
           this.login_service.activateRememberUser(email);
         }
         else this.login_service.destroyRememberUser();
-
         redirect_to(this.validation.role);
       }
      

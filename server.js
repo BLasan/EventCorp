@@ -18,11 +18,17 @@
   const bcrypt = require('bcrypt');
   const saltRounds = 10;
   const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
-
+  const verify_user_token=require('./src/scripts/verify_user_token');
   //initialize firebase
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
 
+
+
+
+
+  const login_credentials=require('./src/scripts/check_credentials');
+  const ratings=require('./src/scripts/rating');
 
   app.use(body.json());
   app.use(ExpressValidator());
@@ -329,7 +335,7 @@
 
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,user_token:token}]
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash}]
             const result=user_signup.signup(data[0],database);
             console.log(result)
             if(result==1)
@@ -344,14 +350,12 @@
 
         //login-credentials
         app.post('/login_credentials',urlencodedParser,function(req,res){
+
           var email=req.body[0];
           var password=req.body[1];
-          console.log(email)
-
-          const login_credentials=require('./src/scripts/check_credentials');
-
-          login_credentials.check_credentials(email,password,res,database);
-
+          console.log(email);
+          const user={email:email,password:password};
+          login_credentials.check_credentials(email,password,res,database,user);
         });
 
 
@@ -360,14 +364,19 @@
         app.post('/add_rating',urlencodedParser,function(req,res){
           var rating=req.body.rating;
           var token=req.body.token;
-          console.log(rating)
-          const add_ratings=require('./src/scripts/rating');
-          const result=add_ratings.add_ratings(rating,database,token);
-          if(result==1)
-           res.json({success:true});
+          console.log(rating);
+          try{
+            // var decoded = jwt.verify(token, 'secret-key');
+            const result=ratings.add_ratings(rating,database,token);
+            if(result==1)
+             res.json({success:true,auth_data:decoded.user});
+  
+            else
+             res.json({success:false});
 
-          else
-           res.json({success:false});
+          }catch(err){
+            res.send(err);
+          }
 
         });
 
@@ -404,7 +413,7 @@
         //load-users
         app.post('/load_users',urlencodedParser,function(req,res){
           var user_role=req.body.user_role;
-          console.log(user_role)
+          console.log(user_role);
           const load_users=require('./src/scripts/load_all_users');
           load_users.user_info(user_role,res,database);
 
@@ -416,8 +425,7 @@
         app.get('/load_user_ratings/:token',urlencodedParser,function(req,res){
           var user_token=req.params.token;
           console.log(user_token);
-          const load_ratings=require('./src/scripts/rating');
-          load_ratings.load_ratings(user_token,database,res);
+          ratings.load_ratings(user_token,database,res);
 
         })
 
@@ -427,10 +435,11 @@
       io1.on('connection',(socket)=>{
 
     socket.on('join',function(data){
+      if(data.message=="Welcome")
       socket.join(data.room);
-      console.log('New connection made '+data.user);
-      socket.broadcast.to(data.room).emit('new user joined',{user:data.user,message:'has joined'});
-      
+      console.log('New connection made '+data.user+' '+data.message);
+      socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message});
+
     });
 
   });

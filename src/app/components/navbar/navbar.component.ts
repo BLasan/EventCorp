@@ -5,6 +5,7 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { Router } from '@angular/router';
 import {onIdentify} from '../../../scripts/side_bar.js';
 import { SearchUserService } from 'app/services/search_user.service';
+import { LoginService } from 'app/services/login.services';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(location: Location,  private element: ElementRef, private router: Router , private _search_user:SearchUserService) {
+    constructor(location: Location,  private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -160,5 +161,9 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
+    }
+
+    logoutUser(){
+        this._loginService.logOut();
     }
 }
