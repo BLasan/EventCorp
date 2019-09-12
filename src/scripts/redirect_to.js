@@ -1,7 +1,7 @@
 exports.redirect_to=function(role){
 
     // var role=$('#user_role').val();
-    // alert(role)
+     alert(role)
 
     if(role=='artist'){
         $('#redirect_link').attr('href','/artist-home');

@@ -77,11 +77,39 @@
                     </mat-form-field>  
                   </div>
                 </div>
+                <div class="row" style="margin-top:5px">
+                  <div class="col-3">
+                    <a mat-fab style="background-color:aqua" href="#" id="image_uploader" (click)="upload_images()" name="image_uploader"><img src="assets/img/images.png" style="margin-top:-5px" title="upload_images" alt="upload-images"></a><input type="file" id="imgInp" name="imgInp" style="display:none" accept="image/*" multiple>   
+                  </div>
+                  <div class="col-3">
+                    <a mat-fab style="background-color:aqua" href="#" id="video_uploader" (click)="upload_video()" name="video_uploader"><img src="assets/img/video.png" style="margin-top:-5px" title="upload_video" alt="upload-video"></a><input type="file" id="videoInp" name="videoInp" style="display: none" accept="video/*">
+                  </div>
+                  <div class="col-3"></div>
+                  <div class="col-3"></div>
+                </div>
+                <div class="row" style="margin-top:5px" id="img_row">
+                  <div class="col-3">
+                      <div style="width:60px;height:60px" name="imageUploaded" id="imageUploaded">
+                          <div id="container">
+                              <img src="" name="image" id="image">
+                              <button mat-raised-button class="btn1" id="del" style="display: none" ><i class="material-icons">delete_forever</i></button>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- <div class="col-3">
+                      <div name="videoUploaded" id="videoUploaded">
+                          <video src="" id="myVideo" controls style="display: none"></video>
+                          <button mat-raised-button class="btn1" id="del_video" style="display: none" ><i class="material-icons">delete_forever</i></button>
+                      </div> 
+                  </div> -->
+                  
+              </div>
                 <input [value]="artist_data.value" type="text" name="artists[]" style="display: none">
                 <input [value]="venue_owner_data.value" type="text" name="venue_owners[]" style="display: none">
                 <input [value]="supplier_data.value" type="text" name="suppliers[]" style="display: none">
                 <input [value]="user_name" type="text" name="user_name" style="display: none">
-                <button mat-raised-button color="accent" (click)="form1.submit()">Add</button>
+                
+                <button mat-raised-button color="accent" (click)="form1.submit()" style="margin-top:25px">Add</button>
               </form>
             </mat-card-content>
         </mat-card> 

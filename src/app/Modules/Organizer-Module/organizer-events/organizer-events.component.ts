@@ -6,6 +6,7 @@ import { MatSelect } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { OrganizerServiceService } from 'app/services/organizer_services.service';
+import {upload_images,upload_video} from '../../../../scripts/image_uploader';
 @Component({
   selector: 'app-organizer-events',
   templateUrl: './organizer-events.component.html',
@@ -84,6 +85,14 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     console.log(this.user_events);
     calendar(this.user_events);
     });
+  }
+
+  upload_images(){
+    upload_images();
+  }
+
+  upload_video(){
+    upload_video();
   }
 
 
