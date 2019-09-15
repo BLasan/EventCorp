@@ -55,10 +55,10 @@ const routes: Routes =[
     path:'settings',
     component:SettingsComponent
   },
-  {
-    path:'ratings/:token',
-    component:RatingSystemComponent
-  },
+  // {
+  //   path:'ratings/:token',
+  //   component:RatingSystemComponent
+  // },
   {
     path: '',
     component: CustomerLayoutComponent,

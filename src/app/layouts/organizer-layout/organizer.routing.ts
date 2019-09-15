@@ -4,6 +4,7 @@ import { OrganizerEventsComponent } from 'app/Modules/Organizer-Module/organizer
 import { OrganizerProfileComponent } from 'app/Modules/Organizer-Module/organizer-profile/organizer-profile.component';
 import { OrganizerNotificationsComponent } from 'app/Modules/Organizer-Module/organizer-notifications/organizer-notifications.component';
 import { OrganizerSettingsComponent } from 'app/Modules/Organizer-Module/organizer-settings/organizer-settings.component';
+import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -12,5 +13,6 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'organizer-events',component:OrganizerEventsComponent},
     { path:'organizer-profile',component:OrganizerProfileComponent},
     { path:'organizer-notification',component:OrganizerNotificationsComponent},
-    { path:'organizer-settings',component:OrganizerSettingsComponent}
+    { path:'organizer-settings',component:OrganizerSettingsComponent},
+    { path:'ratings/:token',component:RatingSystemComponent},
 ];

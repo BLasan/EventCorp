@@ -45,19 +45,21 @@
   // const packageDefinition = protoLoader.loadSync('notes.proto');
   // const notesProto = grpc.loadPackageDefinition(packageDefinition);
   
-
-  const storage=multer.diskStorage({destination:function(req,res,cb){
-    cb(null,'./src/assets/storage/images')
+  const storage_organizer=multer.diskStorage({destination:function(req,file,cb){
+    console.log(file.mimetype)
+    if(file.mimetype=="image/png")
+    cb(null,'./src/storage/organizer/images')
+    else
+    cb(null,'./src/storage/organizer/videos')
+   
   },
-
   filename:function(req,file,cb){
-    cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
-    // console.log('hi');
+     cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
+    //  console.log(req.files);
   }
-
 });
 
-    const upload=multer({storage:storage});
+    const upload=multer({storage:storage_organizer});
       
       app.post('/con',urlencodedParser,function (req, res) {
           password = req.body.password;
@@ -356,6 +358,7 @@
           console.log(email);
           const user={email:email,password:password};
           login_credentials.check_credentials(email,password,res,database,user);
+
         });
 
 
@@ -384,23 +387,43 @@
 
 
         //create new event
-        app.post('/create_new_event',urlencodedParser,function(req,res){
+        app.post('/create_new_event',upload.any(),urlencodedParser,function(req,res){
+
+          if(req.files[0]==null || req.files[1]==null){
+            video_path=null;
+            image_path=null;
+          }
+
+          else if(req.files[0]==null){
+            video_path="storage/organizer/videos/"+req.files[1].filename;
+          }
+
+          else if(req.files[1]==null){
+            image_path="storage/organizer/images/"+req.files[0].filename;
+          }
+
+          else{
+            video_path="storage/organizer/videos/"+req.files[1].filename;
+            image_path="storage/organizer/images/"+req.files[0].filename;
+          }
+
           var event_name=req.body.event_name;
           var venue=req.body.venue;
           var date=req.body.date;
           console.log(date);
+          console.log(image_path)
           var time=req.body.time;
           console.log(time);
-          var artists=req.body['artists[]'];
-          var artist_array=artists.split(',');
-          console.log(artist_array);
+          var artists=req.body.artists;
+          console.log(typeof(artists[0]));
+          console.log(artists.split(',')) 
           var venue_owners=req.body['venue_owners[]'].split(',');
           var suppliers=req.body['suppliers[]'].split(',');
           console.log('Venue:',venue_owners);
           console.log('Supp:',suppliers);
           var user_name=req.body.user_name;
           console.log(user_name);
-          const data={event_name:event_name,venue:venue,date:date,time:time,artists:artist_array,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name};
+          const data={event_name:event_name,venue:venue,date:date,time:time,artists:artist_array,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
           var result=organizer_event.create_new_event(data,database);
           if(result) res.redirect('organizer-events');
           else res.send('Error Inserting');
@@ -462,6 +485,52 @@
           var user_name=req.body[0];
           console.log(user_name)
           organizer_event.get_event_data(user_name,database,res);
+        });
+
+
+
+        //book-user
+        app.post('/book_user',urlencodedParser,function(req,res){
+          var searched_user=req.body[0];
+          var time=req.body[1];
+          var organizer=req.body[2];
+          console.log(organizer+' organizer');
+          const book_user=require('./src/scripts/organizer/book_user');
+          book_user.book_user(searched_user,time,organizer,database,res);
+
+        });
+
+
+
+        //get-all-booking details
+        app.post('/get_all_bookings',urlencodedParser,function(req,res){
+          var searched_user=req.body[0];
+          var organizer=req.body[1];
+          console.log(organizer)
+          const get_booking_details=require('./src/scripts/organizer/get_booking_details');
+          get_booking_details.get_booking_details(searched_user,organizer,database,res);
+
+        });
+
+
+        
+        //get-all-booking-notifications
+        app.post('/get_all_booking_notifications',urlencodedParser,function(req,res){
+          var organizer_email=req.body[0];
+          const get_all_bookings=require('./src/scripts/organizer/get_all_booking_details');
+          get_all_bookings.get_all_booking_details(organizer_email,database,res);
+
+        });
+
+
+        //delete-notifications
+        app.post('/mark_view_notifications',urlencodedParser,function(req,res){
+          var receiver_email=req.body[0];
+          var user_email=req.body[1];
+          console.log(user_email)
+          const mark_view=require('./src/scripts/organizer/mark_viewed_booking');
+          mark_view.mark_view( receiver_email,user_email,res,database);
+
         })
 
     

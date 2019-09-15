@@ -6,7 +6,7 @@ import { MatSelect } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { OrganizerServiceService } from 'app/services/organizer_services.service';
-import {upload_images,upload_video} from '../../../../scripts/image_uploader';
+import {upload_images,upload_video,delete_image,delete_video} from '../../../../scripts/event_image_uploader';
 @Component({
   selector: 'app-organizer-events',
   templateUrl: './organizer-events.component.html',
@@ -30,6 +30,10 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   ngOnInit() {
     // calendar();
     deactivate_searchBar();
+    upload_images();
+    upload_video();
+    delete_image();
+    delete_video();
     this.user_name=localStorage.getItem('user_name');
     this.loadUserEvents(this.user_name);
     this.filteredBanksMulti.next(this.toppingList.slice());
@@ -86,14 +90,5 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     calendar(this.user_events);
     });
   }
-
-  upload_images(){
-    upload_images();
-  }
-
-  upload_video(){
-    upload_video();
-  }
-
 
 }

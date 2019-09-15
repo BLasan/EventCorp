@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from 'app/services/notification.service';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -7,7 +8,13 @@ declare var $: any;
 })
 export class NotificationsComponent implements OnInit {
 
-  constructor() { }
+  notification:string="This is a new notification";
+  booking_details:any;
+  booking_data:any;
+  sent_bookings: boolean;
+  updated_data:any;
+  isUpdated:boolean;
+  constructor(private _notification:NotificationService) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
 
@@ -37,6 +44,35 @@ export class NotificationsComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.getRequestDetails();
   }
 
+  getRequestDetails(){
+    console.log('Hello')
+    let user_name=localStorage.getItem('user_name');
+    this._notification.get_booking_details(user_name).subscribe(data=>{
+      this.booking_details=data;
+      if(this.booking_details.isEmpty==false){
+        this.booking_data=this.booking_details.data;
+        console.log(this.booking_data);
+        
+      }
+    })
+}
+
+mark_view_booking_notification(receiver_email:string){
+  alert(receiver_email)
+  let user_name=localStorage.getItem('user_name');
+  this._notification.mark_viewed_notifications(receiver_email,user_name).subscribe(data=>{
+    this.updated_data=data;
+    this.isUpdated=this.updated_data.updated;
+    if(this.isUpdated){
+      console.log('Updated successfully');
+      this.getRequestDetails();
+    }
+    else{
+      console.log('Not upldated');
+    }
+  })
+}
 }

@@ -8,15 +8,15 @@
         <mat-card style="background-color:#303337">
           <mat-card-title style="color:red">Add New Event</mat-card-title>
             <mat-card-content>
-              <form #form1 action="create_new_event" name="create_event" method="POST" [formGroup]="form">
+              <form #form1 action="create_new_event" name="create_event" method="POST" [formGroup]="form" enctype="multipart/form-data">
                 <mat-form-field>
                   <input matInput placeholder="Event Name" name="event_name" formControlName='event_name'>
                   <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
                 </mat-form-field>    
-                <mat-form-field>
+                <!-- <mat-form-field>
                   <input matInput placeholder="Venue" name="venue" formControlName='venue'>
                   <mat-error *ngIf="hasError('venue', 'required')"><small>Venue is required</small></mat-error>
-                </mat-form-field>   
+                </mat-form-field>    -->
                 <mat-form-field color="accent">
                   <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" formControlName='date'>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -62,13 +62,10 @@
                   </div>
                   <div class="col-4">
                     <mat-form-field>
-                      <mat-select [formControl]="venue_owner_data" placeholder="Venue Owners" [multiple]="true" #multiSelect>
-                        <mat-select-trigger>
+                      <mat-select [formControl]="venue_owner_data" placeholder="Venues">
+                        <!-- <mat-select-trigger>
                           {{venue_owner_data.value ? venue_owner_data.value[0] : ''}}
-                          <span *ngIf="venue_owner_data.value?.length > 1" class="example-additional-selection">
-                            (+{{venue_owner_data.value.length - 1}} {{venue_owner_data.value?.length === 2 ? 'other' : 'others'}})
-                          </span>
-                        </mat-select-trigger>
+                        </mat-select-trigger> -->
                         <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
                         <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
                           {{bank}}
@@ -79,15 +76,15 @@
                 </div>
                 <div class="row" style="margin-top:5px">
                   <div class="col-3">
-                    <a mat-fab style="background-color:aqua" href="#" id="image_uploader" (click)="upload_images()" name="image_uploader"><img src="assets/img/images.png" style="margin-top:-5px" title="upload_images" alt="upload-images"></a><input type="file" id="imgInp" name="imgInp" style="display:none" accept="image/*" multiple>   
+                    <a mat-fab style="background-color:aqua" href="#" id="event_image_uploader" name="image_uploader"><img src="assets/img/images.png" style="margin-top:-5px" title="upload_images" alt="upload-images"></a><input type="file" id="imgInput" name="imgInput" style="display:none" accept="image/*">   
                   </div>
                   <div class="col-3">
-                    <a mat-fab style="background-color:aqua" href="#" id="video_uploader" (click)="upload_video()" name="video_uploader"><img src="assets/img/video.png" style="margin-top:-5px" title="upload_video" alt="upload-video"></a><input type="file" id="videoInp" name="videoInp" style="display: none" accept="video/*">
+                    <a mat-fab style="background-color:aqua" href="#" id="video_uploader" name="video_uploader"><img src="assets/img/video.png" style="margin-top:-5px" title="upload_video" alt="upload-video"></a><input type="file" id="videoInp" name="videoInp" style="display: none" accept="video/*">
                   </div>
                   <div class="col-3"></div>
                   <div class="col-3"></div>
                 </div>
-                <div class="row" style="margin-top:5px" id="img_row">
+                <div class="row" style="margin-top:5px">
                   <div class="col-3">
                       <div style="width:60px;height:60px" name="imageUploaded" id="imageUploaded">
                           <div id="container">
@@ -96,19 +93,17 @@
                           </div>
                       </div>
                   </div>
-                  <!-- <div class="col-3">
+                  <div class="col-3">
                       <div name="videoUploaded" id="videoUploaded">
                           <video src="" id="myVideo" controls style="display: none"></video>
                           <button mat-raised-button class="btn1" id="del_video" style="display: none" ><i class="material-icons">delete_forever</i></button>
                       </div> 
-                  </div> -->
-                  
+                  </div> 
               </div>
-                <input [value]="artist_data.value" type="text" name="artists[]" style="display: none">
-                <input [value]="venue_owner_data.value" type="text" name="venue_owners[]" style="display: none">
-                <input [value]="supplier_data.value" type="text" name="suppliers[]" style="display: none">
+                <input [value]="artist_data.value" type="text" name="artists" style="display: none">
+                <input [value]="venue_owner_data.value" type="text" name="venue_owners" style="display: none">
+                <input [value]="supplier_data.value" type="text" name="suppliers" style="display: none">
                 <input [value]="user_name" type="text" name="user_name" style="display: none">
-                
                 <button mat-raised-button color="accent" (click)="form1.submit()" style="margin-top:25px">Add</button>
               </form>
             </mat-card-content>
