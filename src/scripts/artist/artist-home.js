@@ -18,7 +18,6 @@ export function loadCalendar(){
 
 
 function get_calendar(day_no,days){
-
   var table=document.createElement('table');
   var tr=document.createElement('tr');
   for(var c=0;c<=6;c++){
@@ -58,7 +57,7 @@ function get_calendar(day_no,days){
   }
 
   table.appendChild(tr);
-
+  var today=new Date();
   for(var r=0;r<=6;r++){
     tr=document.createElement('tr');
     for(var c=0;c<=6;c++){
@@ -67,9 +66,14 @@ function get_calendar(day_no,days){
         return table;
       }
 
+      if(count==today.getDate()){
+        td.setAttribute('style','background-color:red;border-radius:50%;height:25px;width:25px;display:inline-block');
+      }
+
       var td=document.createElement('td');
       td.setAttribute('style','padding:5px');
       td.innerHTML=count;
+      if(count)
       count++;
       tr.appendChild(td);
     }
