@@ -77,3 +77,22 @@
   .send-box{
     border: 1px solid black;
   }
+
+  .avatar{
+    border-radius: 50%;
+  }
+
+  .avatar1{
+    border-radius: 50%;
+    float: right!important;
+    margin-left: 1000px;
+    margin-right:0px;
+  }
+
+  .list-group{
+    max-height: 400px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+    

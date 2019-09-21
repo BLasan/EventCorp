@@ -14,5 +14,5 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'organizer-profile',component:OrganizerProfileComponent},
     { path:'organizer-notification',component:OrganizerNotificationsComponent},
     { path:'organizer-settings',component:OrganizerSettingsComponent},
-    { path:'ratings/:token',component:RatingSystemComponent},
+    { path:'ratings/:name',component:RatingSystemComponent},
 ];

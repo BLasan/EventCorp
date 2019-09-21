@@ -366,13 +366,13 @@
         //add-ratings
         app.post('/add_rating',urlencodedParser,function(req,res){
           var rating=req.body.rating;
-          var token=req.body.token;
+          var email=req.body.email;
           console.log(rating);
           try{
             // var decoded = jwt.verify(token, 'secret-key');
-            const result=ratings.add_ratings(rating,database,token);
+            const result=ratings.add_ratings(rating,database,email,res);
             if(result==1)
-             res.json({success:true,auth_data:decoded.user});
+             res.json({success:true});
   
             else
              res.json({success:false});
@@ -471,10 +471,10 @@
 
 
         //load-user-ratings
-        app.get('/load_user_ratings/:token',urlencodedParser,function(req,res){
-          var user_token=req.params.token;
-          console.log(user_token);
-          ratings.load_ratings(user_token,database,res);
+        app.get('/load_user_ratings/:email',urlencodedParser,function(req,res){
+          var user_email=req.params.email;
+          console.log(user_email);
+          ratings.load_ratings(user_email,database,res);
 
         });
 

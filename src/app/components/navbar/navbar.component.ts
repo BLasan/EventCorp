@@ -51,6 +51,8 @@ export class NavbarComponent implements OnInit {
 
     this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
         this.user=data;
+        // if(localStorage.getItem('searched_user_email'))
+        //   localStorage.removeItem('searched_user_email');
         console.log(this.user);
     });
 
@@ -165,5 +167,12 @@ export class NavbarComponent implements OnInit {
 
     logoutUser(){
         this._loginService.logOut();
+        if(localStorage.getItem('searched_user_email'))
+         localStorage.removeItem('searched_user_email');
+    }
+
+    addUserEmail(email:string){
+        alert(email)
+        localStorage.setItem('searched_user_email',email);
     }
 }
