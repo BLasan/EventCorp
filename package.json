@@ -121,7 +121,6 @@
     "karma-cli": "1.0.1",
     "karma-coverage-istanbul-reporter": "1.4.2",
     "karma-jasmine": "1.1.1",
-    "nodemon": "^1.19.2",
     "protractor": "^6.0.0",
     "ts-node": "5.0.1",
     "tslint": "5.9.1",

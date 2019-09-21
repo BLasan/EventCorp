@@ -34,7 +34,8 @@ export class RatingSystemComponent implements OnInit {
   }
 
   rateUser(){
-    this.rating.rate_user(this.currentRate,this.search_token).subscribe(data=>{
+    alert(localStorage.getItem('searched_user_email'))
+    this.rating.rate_user(this.currentRate,localStorage.getItem('searched_user_email')).subscribe(data=>{
       this.success=data;
       if(this.success.success==true){
         this._snackBar.open("Successfully Rated","Done", {
@@ -80,9 +81,9 @@ export class RatingSystemComponent implements OnInit {
 
   loadUserRatings(){
     this.route.params.subscribe( params => {
-      this.search_token=params['token'];
+      this.search_token=params['name'];
       console.log(this.search_token)
-      this.rating.load_ratings(this.search_token).subscribe(data=>{
+      this.rating.load_ratings(localStorage.getItem('searched_user_email')).subscribe(data=>{
         this.ratings=data;
         console.log(this.ratings.success)
         if(this.ratings.success==true){
@@ -91,6 +92,7 @@ export class RatingSystemComponent implements OnInit {
           this.currentRate=this.rating_data.rating;
         }
         else console.log('Empty ratings');
+        
       })
   });
   }

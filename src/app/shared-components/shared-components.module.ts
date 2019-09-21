@@ -55,7 +55,8 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
     OnlineChatModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    OnlineChatModule
   ],
   exports:[
     SettingsComponent,

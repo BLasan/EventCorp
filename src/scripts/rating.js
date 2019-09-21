@@ -2,9 +2,9 @@
 // var firebase=firebaseInit.firebaseInit();
 //  var database=firebase.firestore();
 
-exports.add_ratings=function(rating,database,token){
+exports.add_ratings=function(rating,database,email){
 
-    var ratings = database.collection('ratings').doc(token).set({rating:rating});
+    var ratings = database.collection('ratings').doc(email).set({rating:rating});
     console.log(ratings);
     if(ratings){ 
         return 1;
@@ -15,9 +15,9 @@ exports.add_ratings=function(rating,database,token){
     }
 }
 
-exports.load_ratings=function(token,database,res){
-    console.log(token);
-    var docRef = database.collection('ratings').doc(token);
+exports.load_ratings=function(email,database,res){
+    console.log(email);
+    var docRef = database.collection('ratings').doc(email);
     docRef.get().then(async function(doc) {
         console.log(doc.data())
         if (!doc.data()) {

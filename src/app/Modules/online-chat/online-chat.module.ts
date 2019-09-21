@@ -18,7 +18,8 @@ import { OnlineChatComponent } from './online-chat.component';
     MatIconModule,
     NotifierModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    MatButtonModule
   ],
   exports:[OnlineChatComponent]
 })

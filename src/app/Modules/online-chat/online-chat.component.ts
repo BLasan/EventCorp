@@ -19,17 +19,18 @@ export class OnlineChatComponent implements OnInit {
   room:String;
   message:string="Welcome";
   messageArray:Array<{user:String,message:String}>=[];
-
+  senderArray:Array<{user:String,message:String}>=[];
   constructor(private chat_service:ChatService) {
     
    }
 
   ngOnInit() {
-    this.user=this.user_auth;
-    console.log(this.user_auth)
+    // this.user=this.user_auth;
+    this.user="sankhaya";
+  //  console.log(this.user_auth)
     // this.getChatData();
     this.chat_service.newUserJoined().subscribe(data=>{
-      // console.log(data)
+       console.log(data+"Data")
       this.messageArray.push(data);
     });
   }
@@ -57,6 +58,7 @@ export class OnlineChatComponent implements OnInit {
   // }
 
   openChat(){
+
     open_chat();
     this.join();
   }
@@ -66,15 +68,18 @@ export class OnlineChatComponent implements OnInit {
   }
 
   createRoom(){
-    var organizer=localStorage.getItem('user_token');
+    // var organizer=localStorage.getItem('user_token');
+    var organizer="benura";
     var searched_role=this.user;
     var room_id=organizer+"%"+searched_role;
     return room_id;
   }
 
   sendMessage(){
+    this.senderArray.push({user:"sankhaya",message:this.message});
     console.log(this.message);
     this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message});
+    this.message=" ";
   }
 
-}
+}8

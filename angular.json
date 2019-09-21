@@ -48,8 +48,7 @@
               "src/scripts/rating_system.js",
               "src/scripts/image_uploader.js",
               "src/scripts/state_data.js",
-              "src/scripts/redirect_to.js",
-              "src/scripts/artist/artist-home.js"
+              "src/scripts/redirect_to.js"
             ]
           },
           "configurations": {
@@ -110,8 +109,7 @@
               "src/scripts/rating_system.js",
               "src/scripts/image_uploader.js",
               "src/scripts/state_data.js",
-              "src/scripts/redirect_to.js",
-              "src/scripts/artist/artist-home.js"
+              "src/scripts/redirect_to.js"
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",

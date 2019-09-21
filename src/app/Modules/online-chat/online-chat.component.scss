@@ -65,3 +65,34 @@
   .form-container .btn:hover, .open-button:hover {
     opacity: 1;
   }
+
+  .message_send{
+    max-width: 300px;
+    width: 300px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+  }
+
+  .send-box{
+    border: 1px solid black;
+  }
+
+  .avatar{
+    border-radius: 50%;
+  }
+
+  .avatar1{
+    border-radius: 50%;
+    float: right!important;
+    margin-left: 1000px;
+    margin-right:0px;
+  }
+
+  .list-group{
+    max-height: 400px;
+    margin-bottom: 10px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+    

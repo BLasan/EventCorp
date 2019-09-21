@@ -10,7 +10,7 @@ exports.check_credentials=function(email,password,res,database,user){
 
     docRef.get().then(async function(doc) {
 
-        console.log(doc.data())
+        console.log(doc.data().password)
         console.log(password);
 
         if(doc.exists){

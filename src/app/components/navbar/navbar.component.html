@@ -19,7 +19,7 @@
                     </button>
                     <div class="search-result" style="display:none" id="search_dropdown">
                         <mat-list *ngFor="let user of user|searchFilter:searchText">
-                            <a href="ratings/{{user.user_token}}"><mat-list-item>{{user.user_name}}</mat-list-item></a>
+                            <a href="ratings/{{user.user_name}}" (click)="addUserEmail(user.email)"><mat-list-item>{{user.user_name}}</mat-list-item></a>
                             <mat-divider></mat-divider>
                         </mat-list>
                                   
