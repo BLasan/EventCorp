@@ -19,7 +19,7 @@ exports.load_ratings=function(email,database,res){
     console.log(email);
     var docRef = database.collection('ratings').doc(email);
     docRef.get().then(async function(doc) {
-        console.log(doc.data())
+       // console.log(doc.data())
         if (!doc.data()) {
             console.log('No matching documents.');
             res.json({success:false}); 

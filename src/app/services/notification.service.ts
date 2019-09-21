@@ -16,5 +16,9 @@ export class NotificationService {
     mark_viewed_notifications(receiver_email:string,user_name:string){
         return this.http.post(`${this._url}/mark_view_notifications`,[receiver_email,user_name]);
     }
+
+    get_message_notifications(organizer:string){
+        return this.http.post(`${this._url}/get_all_message_notifications`,[organizer]);
+    }
 }
 

@@ -2,31 +2,35 @@
 
 <div class="main-content">
   <div class="container-fluid"> -->
-      <div *ngFor="let message of messageArray">
+      <!-- <div *ngFor="let message of messageArray">
           {{message.user}}->{{message.message}}    
       </div>
       <div *ngFor="let message of senderArray">
           {{message.user}}->{{message.message}}    
-      </div>
+      </div> -->
     <button class="open-button" (click)="openChat()">Open Form</button>
       <div class="form-popup" id="chat" style="display: none">
           <div class="form-container message_send">
             <mat-list role="list" class="list-group">
-              <mat-list-item role="listitem">
-                <mat-icon mat-list-icon>
-                  <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" > 
-                 </mat-icon>
-                 <p mat-line style="margin-left:15px;margin-top:0px" >artist name</p>
-                 <p mat-line style="margin-left:15px">Message</p>
-              </mat-list-item>
-              <mat-divider></mat-divider>
-              <mat-list-item role="listitem">
-                <p mat-line>artist name</p>
-                <p mat-line>Message</p>
-                <mat-icon mat-list-icon >
-                  <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-10px;margin-right:-200px" class="avatar1" > 
-                </mat-icon>
-              </mat-list-item>
+              <div *ngFor="let message of messageArray">
+                <mat-list-item role="listitem" *ngIf="message.user==user">
+                  <mat-icon mat-list-icon>
+                    <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" > 
+                  </mat-icon>
+                  <p mat-line style="margin-left:15px;margin-top:-7px" >{{message.user}}</p>
+                  <p mat-line style="margin-left:15px">{{message.message}}</p>
+                       <!-- <span small>{{message.date}}</span> -->
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item role="listitem" *ngIf="message.user!=user">
+                  <p mat-line>{{message.user}}</p>
+                  <p mat-line>{{message.message}}</p>
+                  <!-- <span small>{{message.date}}</span> -->
+                  <mat-icon mat-list-icon >
+                    <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-10px;margin-right:-200px" class="avatar1" > 
+                  </mat-icon>
+                </mat-list-item>
+              </div>
             </mat-list> 
             <form>
               <div class="col-md-10 send-box">

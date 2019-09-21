@@ -337,7 +337,7 @@
 
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash}]
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout'}]
             const result=user_signup.signup(data[0],database);
             console.log(result)
             if(result==1)
@@ -367,7 +367,7 @@
         app.post('/add_rating',urlencodedParser,function(req,res){
           var rating=req.body.rating;
           var email=req.body.email;
-          console.log(rating);
+          console.log(email);
           try{
             // var decoded = jwt.verify(token, 'secret-key');
             const result=ratings.add_ratings(rating,database,email,res);
@@ -435,11 +435,11 @@
         //add-comment
         app.post('/add_comment',urlencodedParser,function(req,res){
           var comment=req.body.comment;
-          var user_id=req.body.user_id;
+          var user_email=req.body.user_email;
           var user_name=req.body.user_name;
           var timeStamp=req.body.timeStamp;
           const add_comments=require('./src/scripts/comments_backend');
-          const returned_val=add_comments.add_comment(comment,user_id,user_name,timeStamp,database);
+          const returned_val=add_comments.add_comment(comment,user_email,user_name,timeStamp,database);
           console.log(returned_val)
           if(returned_val==1)
             res.json({success:true});
@@ -451,10 +451,10 @@
 
 
         //load-comment
-        app.get('/load_comment/:token',urlencodedParser,function(req,res){
-          var token=req.params.token;
+        app.get('/load_comment/:email',urlencodedParser,function(req,res){
+          var email=req.params.email;
           const load_comments=require('./src/scripts/comments_backend');
-          load_comments.load_comment(token,database,res);
+          load_comments.load_comment(email,database,res);
         })
 
 
@@ -467,6 +467,17 @@
           load_users.user_info(user_role,res,database);
 
         });
+
+
+
+
+        //load-searched-user-data
+        app.get('/load_searched_user/:email',urlencodedParser,function(req,res){
+          var email=req.params.email;
+          console.log(email)
+          const get_details=require('./src/scripts/searched_user_details');
+          get_details.get_searched_user_details(email,res,database);
+        })
 
 
 
@@ -523,6 +534,14 @@
         });
 
 
+        //get-all-message-notifications
+        app.post('/get_all_message_notifications',urlencodedParser,function(req,res){
+          var organizer=req.body[0];
+          const message=require('./src/scripts/notifications_backend');
+          message.get_all_messages(organizer,database,res);
+        })
+
+
         //delete-notifications
         app.post('/mark_view_notifications',urlencodedParser,function(req,res){
           var receiver_email=req.body[0];
@@ -530,6 +549,38 @@
           console.log(user_email)
           const mark_view=require('./src/scripts/organizer/mark_viewed_booking');
           mark_view.mark_view( receiver_email,user_email,res,database);
+
+        });
+
+
+
+        //send-notifications
+        app.post('/send_notification',urlencodedParser,function(req,res){
+          var sender=req.body[0];
+          var receiver=req.body[1];
+          var roomId=req.body[2];
+          var date=req.body[3];
+          var receiver_name=req.body[4];
+          var sender_name=req.body[5];
+          var message=req.body[6];
+          const send_notification=require('./src/scripts/notifications_backend');
+          var success=send_notification.send_notification(sender,receiver,roomId,date,database,receiver_name,sender_name,message);
+          if(success==1){
+            res.json({success:true});
+          }
+          else{
+            res.json({success:false});
+          }
+        });
+
+
+
+        //get-user-status
+        app.post('/get_status',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          console.log(user+"EMAIL")
+          const get_data=require('./src/scripts/searched_user_details');
+          get_data.get_searched_user_details(user,res,database);
 
         })
 
@@ -542,7 +593,8 @@
       if(data.message=="Welcome")
       socket.join(data.room);
       console.log('New connection made '+data.user+' '+data.message);
-      socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message});
+      socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message,date:data.date});
+
 
     });
 

@@ -11,6 +11,8 @@ export class NotificationsComponent implements OnInit {
   notification:string="This is a new notification";
   booking_details:any;
   booking_data:any;
+  message_details:any;
+  message_data:any;
   sent_bookings: boolean;
   updated_data:any;
   isUpdated:boolean;
@@ -53,12 +55,23 @@ export class NotificationsComponent implements OnInit {
     this._notification.get_booking_details(user_name).subscribe(data=>{
       this.booking_details=data;
       if(this.booking_details.isEmpty==false){
-        this.booking_data=this.booking_details.data;
-        console.log(this.booking_data);
+        this.message_data=this.booking_details.data;
+        console.log(this.message_data);
         
       }
     })
 }
+
+   getMessageNotifications(){
+    let user_name=localStorage.getItem('user_name');
+    this._notification.get_message_notifications(user_name).subscribe(data=>{
+      this.message_details=data;
+      if(this.message_details.isEmpty==false){
+        this.booking_data=this.message_details.data;
+        console.log(this.booking_data);
+      }
+    })
+   }
 
 mark_view_booking_notification(receiver_email:string){
   alert(receiver_email)

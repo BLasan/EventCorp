@@ -6,6 +6,7 @@ import { CommentsService } from 'app/services/comments.service';
 import { ActivatedRoute } from '@angular/router';
 import {bind_scroll} from '../../../scripts/user_comments';
 import { BookingService } from 'app/services/booking.service';
+import {deactivate_searchBar} from '../../../scripts/search_bar_activate';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -25,16 +26,25 @@ export class RatingSystemComponent implements OnInit {
   booking_details:any;
   isProcessing:boolean=false;
   sent_bookings:boolean=false;
+  search_user_data:any;
+  searched_user_email:string;
+  viewer:string;
+  organizer_name:string;
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute) { }
 
   ngOnInit() {
+    this.searched_user_email=localStorage.getItem('searched_user_email');
+    this.viewer=localStorage.getItem('user_name');
+    this.organizer_name=localStorage.getItem('nameId');
+    deactivate_searchBar();
     this.getRequestDetails();
     this.loadUserRatings();
     this.loadComments();
+    this.getSearchedUserData();
   }
 
   rateUser(){
-    alert(localStorage.getItem('searched_user_email'))
+    //alert(localStorage.getItem('searched_user_email'))
     this.rating.rate_user(this.currentRate,localStorage.getItem('searched_user_email')).subscribe(data=>{
       this.success=data;
       if(this.success.success==true){
@@ -47,6 +57,7 @@ export class RatingSystemComponent implements OnInit {
           duration: 3000,
         });
       }
+      this.currentRate=0;
     })
   }
 
@@ -59,10 +70,10 @@ export class RatingSystemComponent implements OnInit {
   }
 
   postComment(){
-    let user_id=this.search_token;
-    let user_name=localStorage.getItem('nameId');
+   // let user_id=this.search_token;
+  
     let timeStamp=new Date();
-    this._comment.add_comment(this.myComment,user_id,user_name,timeStamp).subscribe(data=>{
+    this._comment.add_comment(this.myComment,localStorage.getItem('searched_user_email'),this.organizer_name,timeStamp).subscribe(data=>{
       this.success=data;
       console.log(this.success)
       if(this.success.success==true){
@@ -98,7 +109,7 @@ export class RatingSystemComponent implements OnInit {
   }
 
    loadComments(){
-     this._comment.load_comment(this.search_token).subscribe(data=>{
+     this._comment.load_comment(localStorage.getItem('searched_user_email')).subscribe(data=>{
        this.user_comments=data;
 
        if(this.user_comments.success==true){
@@ -119,7 +130,7 @@ export class RatingSystemComponent implements OnInit {
     let timeStamp=new Date();
     this.isProcessing=true;
     console.log(timeStamp)
-    this.booking.book_user(this.search_token,timeStamp,user_name).subscribe(data=>{
+    this.booking.book_user(localStorage.getItem('searched_user_email'),timeStamp,user_name).subscribe(data=>{
       this.success_booking=data;
       console.log(this.success_booking)
       if(this.success_booking.success==true){
@@ -140,7 +151,7 @@ export class RatingSystemComponent implements OnInit {
    getRequestDetails(){
      console.log('Hello')
     let user_name=localStorage.getItem('user_name');
-     this.booking.get_booking_details(user_name,this.search_token).subscribe(data=>{
+     this.booking.get_booking_details(user_name,localStorage.getItem('searched_user_email')).subscribe(data=>{
        this.booking_details=data;
        console.log(this.booking_details)
        if(this.booking_details.success){
@@ -157,5 +168,15 @@ export class RatingSystemComponent implements OnInit {
        }
      })
    }
+
+   getSearchedUserData(){
+     console.log("hrll")
+    this.rating.loadSearchedUserData(localStorage.getItem('searched_user_email')).subscribe(data=>{
+      console.log("GEtting")
+      this.search_user_data=data;
+     
+     console.log(this.search_user_data.status);
+    })
+  }
 
 }

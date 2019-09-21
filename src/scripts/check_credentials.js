@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 
 exports.check_credentials=function(email,password,res,database,user){
 
+    database.collection('register_user').doc(email).update({active_status:'login'})
     var docRef = database.collection('register_user').doc(email);
 
     docRef.get().then(async function(doc) {
