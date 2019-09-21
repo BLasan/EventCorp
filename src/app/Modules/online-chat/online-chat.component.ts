@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import {open_chat,close_chat} from '../../../scripts/online_chat';
 import { ChatService } from 'app/services/chat.service';
