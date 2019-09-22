@@ -31,6 +31,10 @@ export const ROUTES1: RouteInfo[] = [
 
 export const ROUTES2:RouteInfo[]=[
   { path: '/organizer-home', title: 'Home',  icon: 'home', class: '' },
+  { path:'/organizer-notification',title:'Notifications',icon:'notifications',class:''},
+  { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
+  { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
+  { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''}
 ];
 
 export const ROUTES3:RouteInfo[]=[

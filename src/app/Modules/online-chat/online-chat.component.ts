@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import {open_chat,close_chat} from '../../../scripts/online_chat';
 import { ChatService } from 'app/services/chat.service';
@@ -7,32 +6,39 @@ import { ChatService } from 'app/services/chat.service';
 @Component({
   selector: 'app-online-chat',
   templateUrl: './online-chat.component.html',
-  styleUrls: ['./online-chat.component.scss']
+  styleUrls: ['./online-chat.component.scss'],
 })
 export class OnlineChatComponent implements OnInit {
+
+  @Input() user_auth: string ;
 
   // messagesCollection: AngularFirestoreCollection<any>;
   // messages: Observable<any>;
   // count:number=0;
   user:String;
   room:String;
+  message:string="Welcome";
   messageArray:Array<{user:String,message:String}>=[];
-
-  constructor(private afs: AngularFirestore,private chat_service:ChatService) {
+  senderArray:Array<{user:String,message:String}>=[];
+  constructor(private chat_service:ChatService) {
     
    }
 
   ngOnInit() {
-    this.chat_service.newUserJoined().subscribe(data=>{
-      console.log(data)
-      this.messageArray.push(data);
-    })
+    // this.user=this.user_auth;
+    this.user="sankhaya";
+  //  console.log(this.user_auth)
     // this.getChatData();
+    this.chat_service.newUserJoined().subscribe(data=>{
+       console.log(data+"Data")
+      this.messageArray.push(data);
+    });
   }
 
   join(){
-    console.log(this.user)
-    this.chat_service.joinRoom({user:this.user,room:this.room})
+    console.log(this.user);
+    this.room=this.createRoom();
+    this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message});
   }
 
 
@@ -52,11 +58,28 @@ export class OnlineChatComponent implements OnInit {
   // }
 
   openChat(){
+
     open_chat();
+    this.join();
   }
 
   closeChat(){
     close_chat()
   }
 
-}
+  createRoom(){
+    // var organizer=localStorage.getItem('user_token');
+    var organizer="benura";
+    var searched_role=this.user;
+    var room_id=organizer+"%"+searched_role;
+    return room_id;
+  }
+
+  sendMessage(){
+    this.senderArray.push({user:"sankhaya",message:this.message});
+    console.log(this.message);
+    this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message});
+    this.message=" ";
+  }
+
+}8

@@ -1,31 +1,43 @@
-<h1>Real Time Chat</h1>
-
-<div *ngFor="let message of messageArray">
-  {{message.user}}
-  
-</div>
-
-<input type="text" [(ngModel)]="message" placeholder="Your message..">
-
-<button (click)="newMessage(message)">Send message</button>
+<!-- <h1>Real Time Chat</h1>
 
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container-fluid"> -->
+      <div *ngFor="let message of messageArray">
+          {{message.user}}->{{message.message}}    
+      </div>
+      <div *ngFor="let message of senderArray">
+          {{message.user}}->{{message.message}}    
+      </div>
     <button class="open-button" (click)="openChat()">Open Form</button>
       <div class="form-popup" id="chat" style="display: none">
-          <div class="form-container">
-            <form>
-              <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" id="user">
-              <input [(ngModel)]="room" [ngModelOptions]="{standalone: true}" id="room">
-              <button type="button" id="submit" (click)="join()">OK</button>
-            </form>
-            <mat-list role="list">
-              <mat-list-item role="listitem">Item 1</mat-list-item>
-              <mat-list-item role="listitem">Item 2</mat-list-item>
-              <mat-list-item role="listitem">Item 3</mat-list-item>
+          <div class="form-container message_send">
+            <mat-list role="list" class="list-group">
+              <mat-list-item role="listitem">
+                <mat-icon mat-list-icon>
+                  <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" > 
+                 </mat-icon>
+                 <p mat-line style="margin-left:15px;margin-top:0px" >artist name</p>
+                 <p mat-line style="margin-left:15px">Message</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item role="listitem">
+                <p mat-line>artist name</p>
+                <p mat-line>Message</p>
+                <mat-icon mat-list-icon >
+                  <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-10px;margin-right:-200px" class="avatar1" > 
+                </mat-icon>
+              </mat-list-item>
             </mat-list> 
+            <form>
+              <div class="col-md-10 send-box">
+                <mat-form-field>
+                  <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" id="user" style="display: none">
+                  <textarea matInput [(ngModel)]="message" [ngModelOptions]="{standalone: true}" id="room" (keyup.enter)="sendMessage()" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
+                </mat-form-field>
+              </div>
+            </form>
             <button type="button" class="btn cancel" (click)="closeChat()">Close</button>   
           </div>
       </div>
-  </div>
-</div>
+  <!-- </div>
+</div> -->

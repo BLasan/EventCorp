@@ -1,10 +1,9 @@
-<!-- <nav class="navbar navbar-expand-lg bg-success">
-    <div class="container">
+<!-- <nav class="navbar navbar-expand-lg nav-bar-dark bg-dark">
       <a class="navbar-brand" href="#">EventCorp</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-bar navbar-kebab"></span>
-      <span class="navbar-toggler-bar navbar-kebab"></span>
-      <span class="navbar-toggler-bar navbar-kebab"></span>
+      <button class="navbar-toggler" type="button" style="margin-right:10px" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
@@ -12,27 +11,62 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a href="#" class="nav-link" (click)="login()" id="login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Dropdown link
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
+            <a href="#" class="nav-link" (click)="signUp()" id="signup">Sign Up</a>
           </li>
         </ul>
       </div>
-    </div>
-  </nav>
- -->
-<mat-toolbar color="primary" class="nav-bar">
+  
+  </nav> -->
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" (click)="login()" id="login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link" (click)="signUp()" id="signup">Sign Up</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+<!-- <mat-toolbar color="primary" class="nav-bar">
     <div>Codeignitor</div>
     <div>
       <span>Home</span>
@@ -41,3 +75,32 @@
       <span><button mat-raised-button color="warn" (click)="signUp()">Sign Up</button></span>
     </div>
 </mat-toolbar>
+
+ <div style="height: 80vh;">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Responsive Navigation</span>
+        <span class="menu-spacer"></span>
+        <div fxShow="true" fxHide.lt-md>
+
+          <a href="#" mat-raised-button (click)="login()">Login</a>
+          <a href="#" mat-raised-button (click)="signUp()">Sign Up</a>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar> 
+  
+    <mat-sidenav-container fxFlexFill>
+      <mat-sidenav #sidenav>
+        <mat-nav-list>
+          <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+          <a href="#" mat-raised-button (click)="login()" id="login">Login</a>
+          <a href="#" mat-raised-button (click)="signUp()" id="signup">Sign Up</a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlexFill>Main content</mat-sidenav-content>
+    </mat-sidenav-container>
+  </div> -->
+  

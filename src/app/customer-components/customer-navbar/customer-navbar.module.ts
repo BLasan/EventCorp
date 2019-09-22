@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MatListModule, MatNavList, MatToolbarModule, MatIconModule, MatButtonModule } from '@angular/material';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatListModule, MatNavList, MatToolbarModule, MatIconModule, MatButtonModule, MatSidenavModule } from '@angular/material';
+import { NgbModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerNavbarComponent } from './customer-navbar.component';
-
-
+import {CssFlexLayoutModule} from 'angular-css-flex-layout';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,7 +15,11 @@ import { CustomerNavbarComponent } from './customer-navbar.component';
     NgbModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    BrowserAnimationsModule,
+    NgbCollapseModule
   ],
   declarations: [
     CustomerNavbarComponent

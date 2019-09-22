@@ -21,7 +21,12 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatChipsModule,
+  MatListItem,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
+  MatProgressBarModule,
 } from '@angular/material';
+import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 
 @NgModule({
   declarations: [
@@ -47,6 +52,11 @@ import {
     MatNativeDateModule,
     MatChipsModule,
     NgbModule,
+    OnlineChatModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    OnlineChatModule
   ],
   exports:[
     SettingsComponent,

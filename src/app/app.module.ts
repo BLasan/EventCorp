@@ -32,10 +32,17 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { MatListItem, MatListModule, MatSnackBarModule } from '@angular/material';
+import { MatListItem, MatListModule, MatSnackBarModule, MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatSliderModule, MatAutocompleteModule, MatButtonToggleModule, MatCheckboxModule, MatDialogModule, MatExpansionModule, MatGridListModule, MatIconModule, MatMenuModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatStepperModule } from '@angular/material';
 import { ChatService } from './services/chat.service';
 import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
-
+import { OnlineChatModule } from './Modules/online-chat/online-chat.module';
+import { OrganizerNotificationsComponent } from './Modules/Organizer-Module/organizer-notifications/organizer-notifications.component';
+import { OrganizerSettingsComponent } from './Modules/Organizer-Module/organizer-settings/organizer-settings.component';
+import { OrganizerEventsComponent } from './Modules/Organizer-Module/organizer-events/organizer-events.component';
+import { OrganizerProfileComponent } from './Modules/Organizer-Module/organizer-profile/organizer-profile.component';
+import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { CarouselModule } from 'ngx-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -57,30 +64,28 @@ const config = {
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    NgxMatSelectSearchModule,
     SharedComponentsModule,
     CustomerNavbarModule,
     LoginSignupModule,
-    AngularFireModule.initializeApp(config),
-    AngularFirestoreModule, // firestore
-    AngularFireAuthModule, // auth
-    AngularFireStorageModule,// storage
-    MatListModule,
-    MatSnackBarModule
+
+    // AngularFireModule.initializeApp(config),
+    // AngularFirestoreModule, // firestore
+    // AngularFireAuthModule, // auth
+    // AngularFireStorageModule,// storage
+    
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     CustomerLayoutComponent,
+    OrganizerLayoutComponent,
     // FormComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
-    OnlineChatComponent,
     PaypalPaymentComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
-    // OrganizerLayoutComponent,
 
   ],
 

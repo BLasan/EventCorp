@@ -3,14 +3,44 @@
         <div class="card">
             <div class="card-header card-header-danger">
                 <h3 class="card-title">Notifications</h3>
-                <p class="card-category">Handcrafted by our friend
+                <!-- <p class="card-category">Handcrafted by our friend
                     <a target="_blank" href="https://github.com/mouse0270">Robert McIntosh</a>. Please checkout the
                     <a href="http://bootstrap-notify.remabledesigns.com/" target="_blank">full documentation.</a>
-                </p>
+                </p> -->
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12" *ngFor="let booking_data of booking_data">
+                        <!-- <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
+                            <i class="material-icons" data-notify="icon">add_alert</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span><b>{{notification}}</b></span>
+                        </div>  -->
+                        <div class="alert alert-success alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Confirmed' && booking_data.view==false">
+                            <i class="material-icons" data-notify="icon">done_outline</i>
+                                <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.receiver_email)">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            <span><b> Success - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} has been accepted. Please visit this link for the payment</span>
+                        </div>  
+                        <div class="alert alert-danger alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Rejected' && booking_data.view==false">
+                            <i class="material-icons" data-notify="icon">report_problem</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.receiver_email)">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span><b> Success - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} has been rejected</span>
+                        </div>   
+                        <div class="alert alert-warning alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Pending' && booking_data.view==false">
+                            <i class="material-icons" data-notify="icon">info</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.receiver_email)">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span><b> Pending  - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} is not accepted yet.</span> 
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
                         <h4 class="card-title">Notifications Style</h4>
                         <div class="alert alert-info">
                             <span>This is a plain notification</span>
@@ -35,8 +65,8 @@
                             </button>
                             <span data-notify="message">This is a notification with close button and icon and have many lines. You can see that the icon and the close button are always vertically aligned. This is a beautiful notification. So you don't have to worry about the style.</span>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                    </div> -->
+                    <!-- <div class="col-md-6">
                         <h4 class="card-title">Notification states</h4>
                         <div class="alert alert-info">
                             <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -75,8 +105,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
+            </div> -->
+            <!-- <div class="col-md-12">
                 <div class="places-buttons">
                     <div class="row">
                         <div class="col-md-6 ml-auto mr-auto text-center">
@@ -117,7 +147,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+        </div>
+        <div class="row">
+ 
         </div>
     </div>
   </div>

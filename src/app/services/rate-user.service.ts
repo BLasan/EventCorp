@@ -9,13 +9,13 @@ export class RateUserService {
     
     constructor(private http: HttpClient) { }
 
-    rate_user(rating:any,token:any){
-        return this.http.post(`${this._url}/add_rating`,{rating:rating,token:token});
+    rate_user(rating:any,email:any){
+        return this.http.post(`${this._url}/add_rating`,{rating:rating,email:email});
     }
 
-    load_ratings(token:any){
+    load_ratings(email:any){
         // console.log(token);
-        return this.http.get(`${this._url}/load_user_ratings/${token}`);
+        return this.http.get(`${this._url}/load_user_ratings/${email}`);
     }
     
 }

@@ -16,6 +16,9 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { OnlineChatComponent } from './Modules/online-chat/online-chat.component';
 import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
 import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
+import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
+
 
 //var role=getRole();
 // if(role=='artist'){
@@ -30,6 +33,16 @@ const routes: Routes =[
 
   {
     path: '',
+    component: OrganizerLayoutComponent,
+    canActivate:[AuthGuardOrganizerService],
+    children: [
+        {
+      path: '',
+      loadChildren: './layouts/organizer-layout/organizer-layout.module#OrganizerLayoutModule'
+  }]},
+  
+  {
+    path: '',
     component: ArtistLayoutComponent,
     canActivate:[AuthGuardArtistService],
    children: [
@@ -37,18 +50,19 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
   }]},
+
   {
     path:'settings',
     component:SettingsComponent
   },
-  {
-    path:'ratings/:token',
-    component:RatingSystemComponent
-  },
+  // {
+  //   path:'ratings/:token',
+  //   component:RatingSystemComponent
+  // },
   {
     path: '',
     component: CustomerLayoutComponent,
-   children: [
+    children: [
         {
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
@@ -57,6 +71,7 @@ const routes: Routes =[
     path:'login',
     component:LoginComponent
   },
+
   {
     path:'signup',
     component:SignupComponent
