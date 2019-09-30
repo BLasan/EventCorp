@@ -575,6 +575,29 @@
 
 
 
+        //send-notifications
+        app.post('/send_notifications',urlencodedParser,function(req,res){
+          var sender=req.body[0];
+          var receiver=req.body[1];
+          var roomId=req.body[2];
+          var date=req.body[3];
+          var receiver_name=req.body[4];
+          var sender_name=req.body[5];
+          var message=req.body[6];
+          console.log("MESSAGE:"+message);
+          const send_notification=require('./src/scripts/user_chat');
+          var success=send_notification.send_notification(sender,receiver,roomId,date,database,receiver_name,sender_name,message);
+          if(success==1){
+            res.json({success:true});
+          }
+          else{
+            res.json({success:false});
+          }
+        });
+
+
+
+
         //get-user-status
         app.post('/get_status',urlencodedParser,function(req,res){
           var user=req.body[0];

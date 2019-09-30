@@ -41,6 +41,10 @@ export class ChatService {
         return this.http.post(`${this._url}/send_notification`,[sender,receiver,roomId,date,searched_user_name,organizer,message]);
     }
 
+    sendNotifications(receiver:string,sender:string,roomId:number,date:any,searched_user_name:string,organizer:string,message:any){
+        return this.http.post(`${this._url}/send_notifications`,[sender,receiver,roomId,date,searched_user_name,organizer,message]);
+    }
+
     getActiveStatus(user:string){
         return this.http.post(`${this._url}/get_status`,[user]);
     }

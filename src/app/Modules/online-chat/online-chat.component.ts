@@ -70,7 +70,24 @@ export class OnlineChatComponent implements OnInit {
   }
 
   closeChat(){
-    close_chat()
+    close_chat();
+    let room_id=this.createRoom();
+    let date=new Date();
+    let message_details:any;
+    this.chat_service.sendNotifications(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
+      message_details=data;
+      console.log("STATUS:"+message_details.success)
+      if(message_details.success){
+        this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+          duration: 3000,
+        });
+      }
+      else{
+        this._snackbar.open("Message sending error","OK", {
+          duration: 3000,
+        });
+      }
+    })
   }
 
   createRoom(){
@@ -88,23 +105,23 @@ export class OnlineChatComponent implements OnInit {
       let datas:any=data;
      // console.log(datas.status+":DATAS")
       this.active_status=datas.status;
-      if(this.active_status=="logout"){
-        let message_details:any;
-        this.chat_service.sendNotification(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.message).subscribe(data=>{
-          message_details=data;
-          console.log("STATUS:"+message_details.success)
-          if(message_details.success){
-            this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
-              duration: 3000,
-            });
-          }
-          else{
-            this._snackbar.open("Message sending error","OK", {
-              duration: 3000,
-            });
-          }
-        })
-      }
+      // if(this.active_status=="logout"){
+      //   let message_details:any;
+      //   this.chat_service.sendNotification(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.message).subscribe(data=>{
+      //     message_details=data;
+      //     console.log("STATUS:"+message_details.success)
+      //     if(message_details.success){
+      //       this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+      //         duration: 3000,
+      //       });
+      //     }
+      //     else{
+      //       this._snackbar.open("Message sending error","OK", {
+      //         duration: 3000,
+      //       });
+      //     }
+      //   })
+      // }
     })
 
     this.messageArray.push({user:this.user,message:this.message,date:date});
