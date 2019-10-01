@@ -48,6 +48,7 @@ export class RatingSystemComponent implements OnInit {
     this.rating.rate_user(this.currentRate,localStorage.getItem('searched_user_email')).subscribe(data=>{
       this.success=data;
       if(this.success.success==true){
+        // alert(this.currentRate)
         this._snackBar.open("Successfully Rated","Done", {
           duration: 2000,
         });
@@ -57,7 +58,7 @@ export class RatingSystemComponent implements OnInit {
           duration: 3000,
         });
       }
-      this.currentRate=0;
+      //this.currentRate=0;
     })
   }
 
@@ -101,6 +102,7 @@ export class RatingSystemComponent implements OnInit {
           this.rating_data=this.ratings.data;
           // console.log(this.rating_data);
           this.currentRate=this.rating_data.rating;
+          
         }
         else console.log('Empty ratings');
         

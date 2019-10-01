@@ -23,4 +23,8 @@ export class RateUserService {
         //console.log("rateMail"+email)
         return this.http.get(`${this._url}/load_searched_user/${email}`);
     }
+
+    get_top_users(){
+        return this.http.get(`${this._url}/get_top_users`);
+    }
 }

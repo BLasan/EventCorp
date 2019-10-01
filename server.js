@@ -370,13 +370,8 @@
           console.log(email);
           try{
             // var decoded = jwt.verify(token, 'secret-key');
-            const result=ratings.add_ratings(rating,database,email,res);
-            if(result==1)
-             res.json({success:true});
-  
-            else
-             res.json({success:false});
-
+          ratings.add_ratings(rating,database,email,res);
+        
           }catch(err){
             res.send(err);
           }
@@ -488,6 +483,14 @@
           ratings.load_ratings(user_email,database,res);
 
         });
+
+
+
+        //get top user ratings
+        app.get('/get_top_users',urlencodedParser,function(req,res){
+          const top_user=require('./src/scripts/top_user');
+          top_user.top_users(res,database);
+        })
 
 
 
