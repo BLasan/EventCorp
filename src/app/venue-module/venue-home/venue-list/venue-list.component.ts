@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSort } from '@angular/material';
 import { VenueHomeService } from '../venue-home.service';
+import {MatButtonModule} from '@angular/material/button';
 
 export interface PeriodicElement {
   name: string;
