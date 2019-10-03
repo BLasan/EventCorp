@@ -6,7 +6,7 @@ exports.book_user=function(searched_user,time,organzier,database,res){
             console.log("data;"+doc.user_name);
             get_receiver_details(searched_user,database,function(docs){
                 if(docs){
-                    console.log(docs[0].user_name+' -data2')
+                    console.log(docs+' -data2')
                     var contact=doc.contact;
                     var user_name=doc.user_name;
                     var receiver_email=docs[0].email;

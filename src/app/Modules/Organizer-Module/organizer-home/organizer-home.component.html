@@ -43,7 +43,7 @@
                 <mat-card style="margin-top:30px;margin-left:20px" *ngIf="top_artists.length!=0">
                     <mat-card-title>Top Artists</mat-card-title>
                         <mat-card-content>
-                            <mat-list [ngClass]="{'list-group':top_artists.length>5}" >
+                            <mat-list [ngClass]="{'list-group':top_artists.length>3}" >
                                 <a *ngFor="let artist of top_artists" href="ratings/{{artist.name}}" (click)="addUserEmail(artist.email)">
                                 <mat-list-item>
                                     <mat-icon mat-list-icon>
@@ -68,7 +68,7 @@
                 <mat-card style="margin-top:30px;margin-left:20px">
                     <mat-card-title>Top Venue Owners</mat-card-title>
                         <mat-card-content>
-                            <mat-list [ngClass]="{'list-group':top_venue_owners.length>5}">
+                            <mat-list [ngClass]="{'list-group':top_venue_owners.length>3}">
                                 <a *ngFor="let venue_owner of top_venue_owners" (click)="addUserEmail(venue_owner.email)" href="ratings/{{venue_owner.name}}">
                                 <mat-list-item >
                                     <mat-icon mat-list-icon>
@@ -93,7 +93,7 @@
                 <mat-card style="margin-top:30px;margin-left:20px" *ngIf="top_suppliers.length!=0">
                     <mat-card-title>Top Suppliers</mat-card-title>
                         <mat-card-content>
-                            <mat-list [ngClass]="{'list-group':top_suppliers.length>5}">
+                            <mat-list [ngClass]="{'list-group':top_suppliers.length>3}">
                                 <a  *ngFor="let supplier of top_suppliers" (click)="addUserEmail(supplier.email)" href="ratings/{{supplier.name}}">
                                 <mat-list-item>
                                     <mat-icon mat-list-icon>

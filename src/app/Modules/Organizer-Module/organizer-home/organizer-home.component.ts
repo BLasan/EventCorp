@@ -3,7 +3,6 @@ import {activate_searchBar} from '../../../../scripts/search_bar_activate';
 import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
 import { forEach } from '@angular/router/src/utils/collection';
-import {navigate_to} from '../../../../scripts/redirect_to';
 @Component({
   selector: 'app-organizer-home',
   templateUrl: './organizer-home.component.html',
