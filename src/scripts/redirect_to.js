@@ -30,3 +30,7 @@ exports.redirect_to=function(role){
 
     
 }
+
+exports.navigate_to=function(){
+    $('#navigate_to_profile')[0].click();
+}

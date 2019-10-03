@@ -11,7 +11,7 @@ exports.add_ratings=function(rating,database,email,res){
     if (doc.exists) {
         console.log("Document data:", doc.data());
         var user_role=doc.data().role;
-        var ratings = database.collection('ratings').doc(email).set({rating:rating,role:user_role,image_url:doc.data().image_url});
+        var ratings = database.collection('ratings').doc(email).set({rating:rating,role:user_role,image_url:doc.data().image_url,name:doc.data().user_name,email:email});
         console.log(ratings);
         if(ratings){ 
             res.json({success:true});
