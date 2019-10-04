@@ -16,6 +16,10 @@ export class NotificationsComponent implements OnInit {
   sent_bookings: boolean;
   updated_data:any;
   isUpdated:boolean;
+  isBookingView:boolean=false;
+  notification_checked:boolean=false;
+  checked:boolean=false;
+  notification_count:number=0;
   constructor(private _notification:NotificationService) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
@@ -50,26 +54,34 @@ export class NotificationsComponent implements OnInit {
   }
 
   getRequestDetails(){
-    console.log('Hello')
+    console.log('Hello');
+   // this.notification_count=0;
     let user_name=localStorage.getItem('user_name');
     this._notification.get_booking_details(user_name).subscribe(data=>{
       this.notification_details=data;
       if(this.notification_details.isEmpty==false){
         this.booking_data=this.notification_details.data;
         console.log(this.booking_data);
-        
+        this.notification_count+=this.booking_data.length;
       }
+      else this.notification_count=0;
+
+    //  localStorage.setItem('notification_count',this.notification_count.toString());
     })
 }
 
    getMessageNotifications(){
+   // this.notification_count=0;
     let user_name=localStorage.getItem('user_name');
     this._notification.get_message_notifications(user_name).subscribe(data=>{
       this.notification_details=data;
       if(this.notification_details.isEmpty==false){
         this.message_data=this.notification_details.data;
         console.log(this.message_data);
+        this.notification_count+=this.message_data.length;
       }
+      else this.notification_count=0;
+     // localStorage.setItem('notification_count',this.notification_count.toString());
     })
    }
 
@@ -78,14 +90,35 @@ mark_view_booking_notification(receiver_email:string){
   let user_name=localStorage.getItem('user_name');
   this._notification.mark_viewed_notifications(receiver_email,user_name).subscribe(data=>{
     this.updated_data=data;
+    this.notification_count-=1;
     this.isUpdated=this.updated_data.updated;
     if(this.isUpdated){
       console.log('Updated successfully');
+      //this.navbar.update_count(this.notification_count);
       this.getRequestDetails();
+
     }
     else{
       console.log('Not upldated');
     }
-  })
+   // localStorage.setItem('notification_count',this.notification_count.toString());
+  });
+}
+
+booking(){
+  this.checked=false;
+  this.notification_checked=true;
+  this.isBookingView=true;
+}
+
+notifications(){
+  this.checked=false;
+  this.notification_checked=false;
+  this.isBookingView=false;
+}
+
+get_notification_count(){
+  this.getRequestDetails();
+  return this.notification_count;
 }
 }

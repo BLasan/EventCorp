@@ -18,20 +18,23 @@ export class NavbarComponent implements OnInit {
     isAdmin:boolean=false;
     user:any;
     emp:any=[{age:'abdcc'}]
-    count=0;
+    count:any=0;
     role:string;
     location: Location;
-      mobile_menu_visible: any = 0;
+    mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-
-    constructor(location: Location,  private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
-      
+    
+    // if(localStorage.getItem('notification_count'))
+    // this.count=localStorage.getItem('notification_count');
+    // this.count=this.notifications.get_notification_count();
+    // alert(this.count);
     //   this.getUser=onIdentify();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
@@ -174,5 +177,9 @@ export class NavbarComponent implements OnInit {
     addUserEmail(email:string){
        // alert(email)
         localStorage.setItem('searched_user_email',email);
+    }
+
+    update_count(count:number){
+        this.count=count;
     }
 }

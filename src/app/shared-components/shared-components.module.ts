@@ -25,6 +25,7 @@ import {
   MatSnackBarModule,
   MatProgressSpinnerModule,
   MatProgressBarModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 
@@ -56,7 +57,8 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
-    OnlineChatModule
+    OnlineChatModule,
+    MatSlideToggleModule
   ],
   exports:[
     SettingsComponent,
