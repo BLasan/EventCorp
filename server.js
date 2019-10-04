@@ -380,6 +380,12 @@
 
 
 
+        //logout user
+        app.post('/logout_user',urlencodedParser,function(req,res){
+          var email=req.body[0];
+          const logout=require('./src/scripts/logout_user');
+          logout.logout_user(database,res,email);
+        })
 
         //create new event
         app.post('/create_new_event',upload.any(),urlencodedParser,function(req,res){
@@ -520,7 +526,8 @@
         app.post('/get_all_bookings',urlencodedParser,function(req,res){
           var searched_user=req.body[0];
           var organizer=req.body[1];
-          console.log(organizer)
+          console.log(organizer+"Organizer");
+          console.log(searched_user+"searched user")
           const get_booking_details=require('./src/scripts/organizer/get_booking_details');
           get_booking_details.get_booking_details(searched_user,organizer,database,res);
 

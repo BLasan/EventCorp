@@ -155,7 +155,7 @@ export class RatingSystemComponent implements OnInit {
     let user_name=localStorage.getItem('user_name');
      this.booking.get_booking_details(user_name,localStorage.getItem('searched_user_email')).subscribe(data=>{
        this.booking_details=data;
-       console.log(this.booking_details)
+       console.log(this.booking_details.data)
        if(this.booking_details.success){
          if(this.booking_details.data.status=="Pending")
          this.sent_bookings=true;

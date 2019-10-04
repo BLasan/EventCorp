@@ -9,7 +9,7 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   notification:string="This is a new notification";
-  booking_details:any;
+  notification_details:any;
   booking_data:any;
   message_details:any;
   message_data:any;
@@ -53,10 +53,10 @@ export class NotificationsComponent implements OnInit {
     console.log('Hello')
     let user_name=localStorage.getItem('user_name');
     this._notification.get_booking_details(user_name).subscribe(data=>{
-      this.booking_details=data;
-      if(this.booking_details.isEmpty==false){
-        this.message_data=this.booking_details.data;
-        console.log(this.message_data);
+      this.notification_details=data;
+      if(this.notification_details.isEmpty==false){
+        this.booking_data=this.notification_details.data;
+        console.log(this.booking_data);
         
       }
     })
@@ -65,10 +65,10 @@ export class NotificationsComponent implements OnInit {
    getMessageNotifications(){
     let user_name=localStorage.getItem('user_name');
     this._notification.get_message_notifications(user_name).subscribe(data=>{
-      this.message_details=data;
-      if(this.message_details.isEmpty==false){
-        this.booking_data=this.message_details.data;
-        console.log(this.booking_data);
+      this.notification_details=data;
+      if(this.notification_details.isEmpty==false){
+        this.message_data=this.notification_details.data;
+        console.log(this.message_data);
       }
     })
    }

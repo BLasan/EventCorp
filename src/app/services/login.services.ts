@@ -23,10 +23,16 @@ export class LoginService {
 
     logOut(){
         localStorage.removeItem('loggedIn');
-        localStorage.removeItem('user_name');
-        localStorage.removeItem('role');
-        localStorage.removeItem('token');
-        localStorage.removeItem('nameId');
+        this.http.post(`${this._url}/logout_user`,[localStorage.getItem('user_name')]).subscribe(data=>{
+            if(data[0].success==true){
+                localStorage.removeItem('user_name');
+                localStorage.removeItem('role');
+                localStorage.removeItem('token');
+                localStorage.removeItem('nameId');
+            }
+            else alert('Error logging-out');
+        })
+
     }
 
     activateRememberUser(email:string){

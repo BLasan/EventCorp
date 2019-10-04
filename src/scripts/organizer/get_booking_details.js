@@ -1,26 +1,40 @@
 var data=[];
 exports.get_booking_details=function(searched_user,organzier,database,res){
 
-    get_receiver_details(searched_user,database,function(docs){
-        console.log(docs)
-        if(docs){
-            var receiver=docs[0].email;
-            var docRef = database.collection('register_user').doc(organzier).collection('bookings').doc(receiver);
-            docRef.get().then(async function(doc) {
-                if(doc.exists){
-                 res.send({success:true,data:doc.data()})       
-                }
-                else{
-                   res.send({success:false});
-                } 
-            }).catch(function(error) {
-            console.log("Error getting document:", error);
-            });
+    // get_receiver_details(searched_user,database,function(docs){
+    //     console.log(docs)
+    //     if(docs){
+    //         var receiver=docs[0].email;
+    //         var docRef = database.collection('register_user').doc(organzier).collection('bookings').doc(receiver);
+    //         docRef.get().then(async function(doc) {
+    //             if(doc){
+    //               console.log(doc.data())
+    //              res.send({success:true,data:doc.data()})       
+    //             }
+    //             else{
+    //                res.send({success:false});
+    //             } 
+    //         }).catch(function(error) {
+    //         console.log("Error getting document:", error);
+    //         });
+    //     }
+    //     else{
+    //         res.send({success:false});
+    //     }
+    // })
+
+    var docRef = database.collection('register_user').doc(organzier).collection('bookings').doc(searched_user);
+    docRef.get().then(async function(doc) {
+        if(doc){
+          console.log(doc.data())
+         res.send({success:true,data:doc.data()})       
         }
         else{
-            res.send({success:false});
-        }
-    })
+           res.send({success:false});
+        } 
+    }).catch(function(error) {
+    console.log("Error getting document:", error);
+    });
    
 }
 
@@ -40,6 +54,7 @@ var  get_receiver_details=function(searched_user,database,callback){
     });
 
     if(isDone){
+      console.log(data+"=>Data");
       callback(data);
       data=[];
     }
@@ -48,6 +63,9 @@ var  get_receiver_details=function(searched_user,database,callback){
     console.log('Error getting documents', err);
   });
 }
+
+
+
 
 
 
