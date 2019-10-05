@@ -370,7 +370,7 @@
           console.log(email);
           try{
             // var decoded = jwt.verify(token, 'secret-key');
-          ratings.add_ratings(rating,database,email,res);
+            const result=ratings.add_ratings(rating,database,email,res);
         
           }catch(err){
             res.send(err);
@@ -380,12 +380,6 @@
 
 
 
-        //logout user
-        app.post('/logout_user',urlencodedParser,function(req,res){
-          var email=req.body[0];
-          const logout=require('./src/scripts/logout_user');
-          logout.logout_user(database,res,email);
-        })
 
         //create new event
         app.post('/create_new_event',upload.any(),urlencodedParser,function(req,res){
@@ -492,14 +486,6 @@
 
 
 
-        //get top user ratings
-        app.get('/get_top_users',urlencodedParser,function(req,res){
-          const top_user=require('./src/scripts/top_user');
-          top_user.top_users(res,database);
-        })
-
-
-
         //load events
         app.post('/load_events',urlencodedParser,function(req,res){
           var user_name=req.body[0];
@@ -526,8 +512,7 @@
         app.post('/get_all_bookings',urlencodedParser,function(req,res){
           var searched_user=req.body[0];
           var organizer=req.body[1];
-          console.log(organizer+"Organizer");
-          console.log(searched_user+"searched user")
+          console.log(organizer)
           const get_booking_details=require('./src/scripts/organizer/get_booking_details');
           get_booking_details.get_booking_details(searched_user,organizer,database,res);
 
@@ -544,6 +529,16 @@
         });
 
 
+
+        //get notification count
+        app.post('/get_notification_count',urlencodedParser,function(req,res){
+          var organizer=req.body[0];
+          const count=require('./src/scripts/get_notification_count');
+          count.get_notification_count(organizer,database,res);
+
+        })
+
+
         //get-all-message-notifications
         app.post('/get_all_message_notifications',urlencodedParser,function(req,res){
           var organizer=req.body[0];
@@ -556,9 +551,10 @@
         app.post('/mark_view_notifications',urlencodedParser,function(req,res){
           var receiver_email=req.body[0];
           var user_email=req.body[1];
-          console.log(user_email)
+          var type=req.body[2];
+          console.log(user_email);
           const mark_view=require('./src/scripts/organizer/mark_viewed_booking');
-          mark_view.mark_view( receiver_email,user_email,res,database);
+          mark_view.mark_view( receiver_email,user_email,type,res,database);
 
         });
 
@@ -585,29 +581,6 @@
 
 
 
-        //send-notifications
-        app.post('/send_notifications',urlencodedParser,function(req,res){
-          var sender=req.body[0];
-          var receiver=req.body[1];
-          var roomId=req.body[2];
-          var date=req.body[3];
-          var receiver_name=req.body[4];
-          var sender_name=req.body[5];
-          var message=req.body[6];
-          console.log("MESSAGE:"+message);
-          const send_notification=require('./src/scripts/user_chat');
-          var success=send_notification.send_notification(sender,receiver,roomId,date,database,receiver_name,sender_name,message);
-          if(success==1){
-            res.json({success:true});
-          }
-          else{
-            res.json({success:false});
-          }
-        });
-
-
-
-
         //get-user-status
         app.post('/get_status',urlencodedParser,function(req,res){
           var user=req.body[0];
@@ -620,6 +593,7 @@
     
       console.log('Listening to 4600');
       server.listen(4600);
+      
       io1.on('connection',(socket)=>{
 
     socket.on('join',function(data){

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {onIdentify} from '../../../scripts/side_bar.js';
 import { SearchUserService } from 'app/services/search_user.service';
 import { LoginService } from 'app/services/login.services';
+import { NotificationService } from 'app/services/notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,10 +22,11 @@ export class NavbarComponent implements OnInit {
     count:any=0;
     role:string;
     location: Location;
+    notification_count:any;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -36,6 +38,7 @@ export class NavbarComponent implements OnInit {
     // this.count=this.notifications.get_notification_count();
     // alert(this.count);
     //   this.getUser=onIdentify();
+    this.getNotificationCount();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
     }
@@ -182,4 +185,15 @@ export class NavbarComponent implements OnInit {
     update_count(count:number){
         this.count=count;
     }
+
+    getNotificationCount(){
+        let user=localStorage.getItem('user_name');
+        this._notification_service.getNotificationCount(user).subscribe(size=>{
+            console.log(size);
+            this.notification_count=size
+            this.count=this.notification_count.size;
+        });
+    }
+
+    
 }

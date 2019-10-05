@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/services/notification.service';
+import {update_count} from 'scripts/update_notification_count';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -19,6 +20,7 @@ export class NotificationsComponent implements OnInit {
   isBookingView:boolean=false;
   notification_checked:boolean=false;
   checked:boolean=false;
+  notification_type:string;
   notification_count:number=0;
   constructor(private _notification:NotificationService) { }
   showNotification(from, align){
@@ -51,6 +53,7 @@ export class NotificationsComponent implements OnInit {
   }
   ngOnInit() {
     this.getRequestDetails();
+    this.getMessageNotifications();
   }
 
   getRequestDetails(){
@@ -86,9 +89,13 @@ export class NotificationsComponent implements OnInit {
    }
 
 mark_view_booking_notification(receiver_email:string){
-  alert(receiver_email)
+ // alert(receiver_email)
   let user_name=localStorage.getItem('user_name');
-  this._notification.mark_viewed_notifications(receiver_email,user_name).subscribe(data=>{
+  this.notification_count-=1;
+  if(this.isBookingView) this.notification_type="booking";
+  else this.notification_type="notifications";
+  update_count(this.notification_count);
+  this._notification.mark_viewed_notifications(receiver_email,user_name,this.notification_type).subscribe(data=>{
     this.updated_data=data;
     this.notification_count-=1;
     this.isUpdated=this.updated_data.updated;
@@ -117,8 +124,4 @@ notifications(){
   this.isBookingView=false;
 }
 
-get_notification_count(){
-  this.getRequestDetails();
-  return this.notification_count;
-}
 }
