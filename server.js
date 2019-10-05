@@ -337,7 +337,7 @@
 
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout'}]
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active'}]
             const result=user_signup.signup(data[0],database);
             console.log(result)
             if(result==1)
@@ -462,6 +462,15 @@
           load_users.user_info(user_role,res,database);
 
         });
+
+
+
+        //delete account
+        app.post('delete_account',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const delete_account=require('./src/scripts/signup');
+          delete_account.delete_account(database,res,user);
+        })
 
 
 
