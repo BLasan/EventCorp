@@ -11,7 +11,7 @@ export class OrganizerServiceService {
   constructor(private http: HttpClient) { }
 
   loadEvents(user_name:string){
-     console.log(user_name)
+      console.log(user_name)
       return this.http.post(`${this._url}/load_events`,[user_name]);
   }
 

@@ -19,7 +19,6 @@
   const saltRounds = 10;
   const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
   const verify_user_token=require('./src/scripts/verify_user_token');
-  const organizer_event=require('./src/scripts/organizer/create_new_event');
   //initialize firebase
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
@@ -48,20 +47,32 @@
   const storage_organizer=multer.diskStorage({destination:function(req,file,cb){
     console.log(file.mimetype)
     if(file.mimetype=="image/png")
-    cb(null,'./src/storage/organizer/images')
+    cb(null,'./src/storage/organizer/events/images')
     else
-    cb(null,'./src/storage/organizer/videos')
+    cb(null,'./src/storage/organizer/events/videos')
    
   },
   filename:function(req,file,cb){
      cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
     //  console.log(req.files);
   }
-});
+  });
+
+  const organizer_profile_pic=multer.diskStorage({destination:function(req,file,cb){
+    console.log(file.mimetype)
+    cb(null,'./src/storage/organizer/profile')
+  },
+  filename:function(req,file,cb){
+     cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
+    //  console.log(req.files);
+  }
+  });
+ 
 
     const upload=multer({storage:storage_organizer});
-      
-      app.post('/con',urlencodedParser,function (req, res) {
+    const upload_profile_pic=multer({storage:organizer_profile_pic});
+
+    app.post('/con',urlencodedParser,function (req, res) {
           password = req.body.password;
           repassword=req.body.re_submission;
           name=req.body.user_name;
@@ -320,8 +331,8 @@
         app.post('/sign_up',urlencodedParser,function(req,res){
 
           console.log('hello');
-          var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
-          var token = randomToken(40);
+          //var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+          //var token = randomToken(40);
           var user_name=req.body.user_name;
           var user_email=req.body.user_email;
           var role=req.body.role_sel;
@@ -403,25 +414,26 @@
           }
 
           var event_name=req.body.event_name;
-          var venue=req.body.venue;
           var date=req.body.date;
           console.log(date);
           console.log(image_path)
           var time=req.body.time;
           console.log(time);
-          var artists=req.body.artists;
+          var artists=req.body.artists.split(',');
           console.log(typeof(artists[0]));
-          console.log(artists.split(',')) 
-          var venue_owners=req.body['venue_owners[]'].split(',');
-          var suppliers=req.body['suppliers[]'].split(',');
+          var venue_owners=req.body.venue_owners.split(',');
+          var suppliers=req.body.suppliers.split(',');
           console.log('Venue:',venue_owners);
           console.log('Supp:',suppliers);
           var user_name=req.body.user_name;
           console.log(user_name);
-          const data={event_name:event_name,venue:venue,date:date,time:time,artists:artist_array,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
-          var result=organizer_event.create_new_event(data,database);
-          if(result) res.redirect('organizer-events');
-          else res.send('Error Inserting');
+          const get_event_id=require('./src/scripts/generate_id');
+          const id=get_event_id.create_event_id(date,user_name,event_name);
+          console.log(id+"=>ID")
+          const data={event_name:event_name,date:date,time:time,artists:artists,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
+          var result=organizer_event.create_new_event(data,database,id,res);
+        
         })
 
 
@@ -465,6 +477,33 @@
 
 
 
+
+        //edit user details
+        app.post('/edit_user_details',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
+          // var first_name=req.body.f_name;
+          // var last_name=req.body.l_name;
+          // var user_name=first_name+" "+last_name;
+          // var address=req.body.address;
+          // var city=req.body.city;
+          // var state=req.body.state;
+          // var email=req.body.email;
+          // var bio=req.body.about_me;
+          // var contact=req.body.contact;
+          // var user_details={user_name:user_name,address:address,city:city,state:state,email:email,bio:bio,contact:contact};
+          if(req.file!=null){
+            var image_path= image_path="storage/organizer/profile/"+req.file.filename;
+            var image_key_val={img_url:image_path};
+          }
+          else{
+            var image_key_val={img_url:""};
+          }
+          var user_details=req.body[0];
+          user_details=Object.assign(image_key_val);
+          const update_user=require('./src/scripts/update_user_details');
+          update_user.update_user_bio(database,res,user_details);
+        })
+   
+
         //delete account
         app.post('delete_account',urlencodedParser,function(req,res){
           var user=req.body[0];
@@ -498,7 +537,8 @@
         //load events
         app.post('/load_events',urlencodedParser,function(req,res){
           var user_name=req.body[0];
-          console.log(user_name)
+          console.log(user_name);
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
           organizer_event.get_event_data(user_name,database,res);
         });
 

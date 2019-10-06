@@ -12,4 +12,8 @@ export class SignupService {
     signup(user_data:any){
         return this.http.post(`${this._url}/sign_up`,user_data);
     }
+
+    updateData(user_data:any){
+        return this.http.post(`${this._url}/update_user_data`,[user_data]);
+    }
 }

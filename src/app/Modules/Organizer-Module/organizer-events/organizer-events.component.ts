@@ -86,8 +86,8 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   loadUserEvents(user_name:string){
     this._organizer_services.loadEvents(user_name).subscribe((data)=>{
     this.user_events=data;
-    console.log(this.user_events);
-    calendar(this.user_events);
+    console.log(this.user_events.data[0].time+"=>EVENT DATA");
+    calendar(this.user_events.data);
     });
   }
 
