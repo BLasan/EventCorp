@@ -23,11 +23,6 @@
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
 
-
-
-
-
-  const login_credentials=require('./src/scripts/check_credentials');
   const ratings=require('./src/scripts/rating');
 
   app.use(body.json());
@@ -368,6 +363,7 @@
           var password=req.body[1];
           console.log(email);
           const user={email:email,password:password};
+          const login_credentials=require('./src/scripts/check_credentials');
           login_credentials.check_credentials(email,password,res,database,user);
 
         });
@@ -610,16 +606,16 @@
 
 
         //send-notifications
-        app.post('/send_notification',urlencodedParser,function(req,res){
+        app.post('/send_notifications',urlencodedParser,function(req,res){
           var sender=req.body[0];
           var receiver=req.body[1];
-          var roomId=req.body[2];
-          var date=req.body[3];
-          var receiver_name=req.body[4];
-          var sender_name=req.body[5];
-          var message=req.body[6];
+          //var roomId=req.body[2];
+          var date=req.body[2];
+          var receiver_name=req.body[3];
+          var sender_name=req.body[4];
+          var message=req.body[5];
           const send_notification=require('./src/scripts/notifications_backend');
-          var success=send_notification.send_notification(sender,receiver,roomId,date,database,receiver_name,sender_name,message);
+          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message);
           if(success==1){
             res.json({success:true});
           }

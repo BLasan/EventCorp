@@ -71,10 +71,10 @@ export class OnlineChatComponent implements OnInit {
 
   closeChat(){
     close_chat();
-    let room_id=this.createRoom();
+   // let room_id=this.createRoom();
     let date=new Date();
     let message_details:any;
-    this.chat_service.sendNotifications(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
+    this.chat_service.sendNotifications(this.searched_user,this.viewer,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
       message_details=data;
       console.log("STATUS:"+message_details.success)
       if(message_details.success){
@@ -92,6 +92,7 @@ export class OnlineChatComponent implements OnInit {
 
   createRoom(){
     // var organizer=localStorage.getItem('user_token');
+
     var organizer=this.viewer;
     var searched_role=this.searched_user;
     var room_id=this.generateRoomId(organizer,searched_role);

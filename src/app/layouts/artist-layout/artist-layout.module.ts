@@ -31,6 +31,7 @@ import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.c
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 
 
   @NgModule({
@@ -51,19 +52,19 @@ import { NotificationsComponent } from 'app/shared-components/notifications/noti
       MatNativeDateModule,
       MatChipsModule,
       NgbModule,
-      NgxMatSelectSearchModule
+      NgxMatSelectSearchModule,
+      SharedComponentsModule
     ],
     declarations: [
      ArtistComponent,
-     ArtistCalendarComponent,
      ArtistNotificationComponent,
      ArtistRequestComponent,
      ArtistHomeComponent,
      CalendarComponent,
+     ArtistCalendarComponent,
     //  PaypalPaymentComponent,
      ViewBookingInfoComponent,
     //  RatingSystemComponent,
-    //  NotificationsComponent
     ],
    
   })
