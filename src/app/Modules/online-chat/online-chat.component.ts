@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import {open_chat,close_chat} from '../../../scripts/online_chat';
 import { ChatService } from 'app/services/chat.service';
 import { MatSnackBar } from '@angular/material';
-
+import {generate_chat_id} from '../../../scripts/generate_id';
 @Component({
   selector: 'app-online-chat',
   templateUrl: './online-chat.component.html',
@@ -43,7 +43,8 @@ export class OnlineChatComponent implements OnInit {
 
   join(){
     console.log(this.user);
-    this.room=this.createRoom();
+    console.log("Organizer"+this.organizer+" Receiver"+this.searched_user);
+    this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
     this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message,date:new Date()});
   }
 
@@ -100,7 +101,7 @@ export class OnlineChatComponent implements OnInit {
   }
 
   sendMessage(){
-    let room_id=this.createRoom();
+    let room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
     let date=new Date();
     this.chat_service.getActiveStatus(this.searched_user).subscribe(data=>{
       let datas:any=data;

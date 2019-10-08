@@ -458,6 +458,14 @@
           var email=req.params.email;
           const load_comments=require('./src/scripts/comments_backend');
           load_comments.load_comment(email,database,res);
+        });
+
+
+
+        //get-top-users
+        app.get('/get_top_users',urlencodedParser,function(req,res){
+          const top_users=require('./src/scripts/top_user');
+          top_users.top_users(res,database);
         })
 
 
@@ -644,7 +652,7 @@
     socket.on('join',function(data){
       if(data.message=="Welcome")
       socket.join(data.room);
-      console.log('New connection made '+data.user+' '+data.message);
+      console.log('New connection made '+data.user+' '+data.message+' '+data.room);
       socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message,date:data.date});
 
 

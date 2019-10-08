@@ -34,7 +34,7 @@ export class OrganizerHomeComponent implements OnInit {
       this.top_suppliers=this.top_suppliers.sort((n1,n2)=>{if(n1.rating>n2.rating)return 1;if(n1.rating<n2.rating)return -1;return 0;})
       this.top_venue_owners=this.data.filter(t=>t.role=="venue_owner"&&t.rating>=3);
       this.top_venue_owners=this.top_venue_owners.sort((n1,n2)=>{if(n1.rating>n2.rating)return 1;if(n1.rating<n2.rating)return -1;return 0;})
-      console.log(this.top_artists)
+      console.log(this.top_artists+"=>ARTISTS")
       // for(let data of this.data){
         
       // }

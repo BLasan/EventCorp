@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/services/notification.service';
 import {update_count} from 'scripts/update_notification_count';
+import {disable_room_id} from '../../../scripts/disable_a_href';
+import { ChatService } from 'app/services/chat.service';
+import {generate_chat_id} from '../../../scripts/generate_id';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -22,7 +25,7 @@ export class NotificationsComponent implements OnInit {
   checked:boolean=false;
   notification_type:string;
   notification_count:number=0;
-  constructor(private _notification:NotificationService) { }
+  constructor(private _notification:NotificationService,private _chatService:ChatService) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
 
@@ -54,6 +57,7 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.getRequestDetails();
     this.getMessageNotifications();
+    //disable_room_id();
   }
 
   getRequestDetails(){
@@ -123,5 +127,16 @@ notifications(){
   this.notification_checked=false;
   this.isBookingView=false;
 }
+
+joinChat(roomId:string){
+  alert('hello');
+  disable_room_id();
+  let user_name=localStorage.getItem('nameId');
+  let date=new Date();
+  let room_id=roomId;
+  this._chatService.joinRoom({user:user_name,room:room_id,message:"Hello",date:date})
+}
+
+
 
 }
