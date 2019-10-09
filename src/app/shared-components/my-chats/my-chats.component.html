@@ -1,0 +1,57 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <mat-card *ngIf="!isOpened">
+          <mat-card-title>Chat List</mat-card-title>
+          <mat-card-content>
+            <mat-list role="list">
+              <div *ngFor="let chats of chats">
+                <a href="#" (click)="open_selected_chat(chats.receiver_email,chats.roomId,chats.receiver_name)" id="open_chat_selected"><mat-list-item role="listitem">{{chats.receiver_name}}</mat-list-item></a>
+                <mat-divider></mat-divider>
+              </div>
+            </mat-list>    
+          </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="isOpened">
+            <mat-card-title>{{chat_user_name}}</mat-card-title>
+            <mat-card-content>
+              <mat-list role="list" [ngClass]="{'list-group':messageArray.length>5}">
+                <div *ngFor="let messages of messageArray">
+                  <!-- <mat-list-item role="listitem">{{messages.message}}</mat-list-item> -->
+                  <mat-list-item role="listitem" *ngIf="messages.user==user">
+                      <mat-icon mat-list-icon>
+                        <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" > 
+                      </mat-icon>
+                      <p mat-line style="margin-left:15px;margin-top:-5px" >{{messages.user}}</p>
+                      <p mat-line style="margin-left:15px">{{messages.message}}</p>
+                           <!-- <span small>{{message.date}}</span> -->
+                    </mat-list-item>
+                   
+                    <mat-list-item role="listitem" *ngIf="messages.user!=user">
+                      <p mat-line>{{messages.user}}</p>
+                      <p mat-line>{{messages.message}}</p>
+                      <!-- <span small>{{message.date}}</span> -->
+                      <mat-icon mat-list-icon >
+                        <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-10px;margin-right:-170px" class="avatar1" > 
+                      </mat-icon>
+                    </mat-list-item>
+                  <mat-divider></mat-divider>
+                </div>
+              </mat-list>  
+              <form>
+                  <div class="col-md-10 send-box">
+                    <mat-form-field>
+                      <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" id="user" style="display: none">
+                      <textarea matInput [(ngModel)]="message" [ngModelOptions]="{standalone: true}" id="room" (keyup.enter)="sendMessage()" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
+                    </mat-form-field>
+                  </div>
+                </form>  
+            </mat-card-content>
+          </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+

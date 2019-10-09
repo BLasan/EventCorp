@@ -26,8 +26,11 @@ import {
   MatProgressSpinnerModule,
   MatProgressBarModule,
   MatSlideToggleModule,
+  MatIcon,
+  MatIconModule,
 } from '@angular/material';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
+import { MyChatsComponent } from './my-chats/my-chats.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
     PaypalPaymentComponent,
     RatingSystemComponent,
     SearchUserComponent,
-    SettingsComponent
+    SettingsComponent,
+    MyChatsComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +62,8 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
     MatProgressSpinnerModule,
     MatProgressBarModule,
     OnlineChatModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatIconModule
   ],
   exports:[
     SettingsComponent,
@@ -66,7 +71,8 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
     RatingSystemComponent,
     SearchUserComponent,
     NotificationsComponent,
-    PaypalPaymentComponent
+    PaypalPaymentComponent,
+    MyChatsComponent
   ]
 })
 export class SharedComponentsModule { }
