@@ -3,6 +3,7 @@ import { ChatService } from 'app/services/chat.service';
 import { disable_open_chat,disable_close_chat} from '../../../scripts/disable_a_href';
 import {generate_chat_id} from '../../../scripts/generate_id';
 import { MatSnackBar } from '@angular/material';
+import {deactivate_searchBar} from '../../../scripts/search_bar_activate';
 @Component({
   selector: 'app-my-chats',
   templateUrl: './my-chats.component.html',
@@ -21,8 +22,13 @@ export class MyChatsComponent implements OnInit {
   constructor(private _chat:ChatService,private _snackbar:MatSnackBar) { }
 
   ngOnInit() {
+    deactivate_searchBar();
     this.user=localStorage.getItem('nameId');
     this.loadAllChats();
+  //   this._chat.newUserJoined().subscribe(data=>{
+  //     console.log(data+"Data")
+  //     this.messageArray.push(data);
+  //  });
   }
 
   loadAllChats(){
@@ -31,9 +37,6 @@ export class MyChatsComponent implements OnInit {
       console.log(data);
       this.chats=data;
       console.log(this.chats[0].message);
-      for(var chat of this.chats){
-        for(var message of chat.message)  this.messageArray.push(message)
-      }
       //for(var i=0;i<this.chats.message.length;i++) this.messageArray.push(this.chats.message[i])
       console.log(this.messageArray+"->Message");
     })
@@ -50,7 +53,12 @@ export class MyChatsComponent implements OnInit {
     let room_id=roomId;
     this._chat.joinRoom({user:user_name,room:room_id,message:"Hello",date:date});
     this.isOpened=true;
+    for(var chat of this.chats.filter(x=>x.receiver_name==chat_user_name)){
+      for(var message of chat.message)  this.messageArray.push(message)
+    }
+    console.log(this.messageArray[0].message+"->MESSAGE")
   }
+
 
   sendMessage(){
 
@@ -103,7 +111,7 @@ export class MyChatsComponent implements OnInit {
           duration: 3000,
         });
       }
-    })
+      this.messageArray=[];
+    });
   }
-
 }

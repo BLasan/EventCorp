@@ -18,8 +18,8 @@
                         <div class="ripple-container"></div>
                     </button>
                     <div class="search-result" style="display:none" id="search_dropdown">
-                        <mat-list *ngFor="let user of user|searchFilter:searchText">
-                            <a href="ratings/{{user.user_name}}" (click)="addUserEmail(user.email)"><mat-list-item>{{user.user_name}}</mat-list-item></a>
+                        <mat-list *ngFor="let user of user_details|searchFilter:searchText">
+                            <a href="ratings/{{user.user_name}}" id="redirect_user_href" (click)="addUserEmail(user.email)"><mat-list-item>{{user.user_name}}</mat-list-item></a>
                             <mat-divider></mat-divider>
                         </mat-list>
                                   
@@ -77,7 +77,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="/my-chat-list">My Chats</a>
-                        <a class="dropdown-item" href="/home" (click)="logoutUser()">Log out</a>
+                        <a class="dropdown-item" href="/home" (click)="logoutUser()"><i class="material-icons">power_settings_new</i>Log out</a>
                     </div>
                 </li>
             </ul>

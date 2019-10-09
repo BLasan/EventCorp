@@ -15,6 +15,10 @@ export class OrganizerServiceService {
       return this.http.post(`${this._url}/load_events`,[user_name]);
   }
 
+  loadUserProfile(user:string){
+    return this.http.post(`${this._url}/get_user_profile`,[user]);
+  }
+
   
   
 }

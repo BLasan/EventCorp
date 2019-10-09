@@ -653,6 +653,15 @@
           const get_data=require('./src/scripts/searched_user_details');
           get_data.get_searched_user_details(user,res,database);
 
+        });
+
+
+
+        //get-user-profile
+        app.post('/get_user_profile',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const get_user_profile=require('./src/scripts/searched_user_details');
+          get_user_profile.get_searched_user_details(user,res,database);
         })
 
     

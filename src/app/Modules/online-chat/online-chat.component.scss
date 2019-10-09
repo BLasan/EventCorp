@@ -93,7 +93,7 @@
     max-height: 400px;
     margin-bottom: 10px;
     position: relative;
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
+    overflow-y:scroll;
+    -webkit-overflow-y-scrolling: touch;
   }
     

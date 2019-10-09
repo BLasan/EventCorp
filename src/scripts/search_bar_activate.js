@@ -10,3 +10,8 @@ export function activate_searchBar(){
     $('#search_button').removeAttr('disabled');
     $('#search_bar').css('display','flex');
 }
+
+export function click_redirect_href(){
+    
+    $('#redirect_user_href')[0].click();
+}

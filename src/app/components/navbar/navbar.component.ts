@@ -7,7 +7,7 @@ import {onIdentify} from '../../../scripts/side_bar.js';
 import { SearchUserService } from 'app/services/search_user.service';
 import { LoginService } from 'app/services/login.services';
 import { NotificationService } from 'app/services/notification.service';
-
+import {click_redirect_href} from '../../../scripts/search_bar_activate';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     getUser:String='';
     isAdmin:boolean=false;
-    user:any;
+    user_details:any;
     emp:any=[{age:'abdcc'}]
     count:any=0;
     role:string;
@@ -56,10 +56,10 @@ export class NavbarComponent implements OnInit {
     this.listTitles=ROUTES3.filter(listTitle=>listTitle);
 
     this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-        this.user=data;
+        this.user_details=data;
         // if(localStorage.getItem('searched_user_email'))
         //   localStorage.removeItem('searched_user_email');
-        console.log(this.user);
+        console.log(this.user_details);
     });
 
     //   if(this.getUser=='artist')
@@ -81,6 +81,7 @@ export class NavbarComponent implements OnInit {
          }
      });
     }
+
 
     sidebarOpen() {
         const toggleButton = this.toggleButton;
@@ -180,6 +181,7 @@ export class NavbarComponent implements OnInit {
     addUserEmail(email:string){
        // alert(email)
         localStorage.setItem('searched_user_email',email);
+        click_redirect_href();
     }
 
     update_count(count:number){

@@ -17,11 +17,13 @@ export class OrganizerProfileComponent implements OnInit {
   userbio:any;
   username:string;
   user_events:any=[];
+  user_profile:any;
   constructor(private _updateData:SignupService,private _snackbar:MatSnackBar,private _organizer_services:OrganizerServiceService) { }
 
   ngOnInit() {
     deactivate_searchBar();
     this.loadUserEvents();
+    this.loadUserProfile();
     this.username=localStorage.getItem('nameId');
     this.form=new FormGroup({
       f_name:new FormControl('',Validators.required),
@@ -81,5 +83,12 @@ export class OrganizerProfileComponent implements OnInit {
       console.log(this.user_events.data[0]);
       });
   }
+
+  loadUserProfile(){
+    this._organizer_services.loadUserProfile(localStorage.getItem('user_name')).subscribe(data=>{
+      this.user_profile=data;
+    })
+  }
+
 
 }

@@ -15,8 +15,14 @@
                       </div>
                   <!-- </div> -->
                   <div class="card-body">
-                      <h6 class="card-category text-gray">Event Organizer</h6>
+                      <h6 class="card-category text-gray">{{user_profile.role}}</h6>
                       <h4 class="card-title">{{username}}</h4>
+                      <div class="row">
+                        <i class="material-icons" style="margin-left:80px">settings_phone</i><h6 class="card-title">{{user_profile.data.contact}}</h6>
+                      </div>
+                      <div class="row">
+                        <i class="material-icons" style="margin-left:80px">room</i><h6 class="card-title">{{user_profile.data.state}}</h6>
+                      </div>
                       <p class="card-description">
                             {{userbio}}
                       </p>

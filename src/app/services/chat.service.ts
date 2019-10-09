@@ -42,6 +42,7 @@ export class ChatService {
     }
 
     sendNotifications(receiver:string,sender:string,date:any,searched_user_name:string,organizer:string,message:any){
+        this.socket.disconnect();
         return this.http.post(`${this._url}/send_notifications`,[sender,receiver,date,searched_user_name,organizer,message]);
     }
 
