@@ -18,6 +18,7 @@ import { RatingSystemComponent } from './shared-components/rating-system/rating-
 import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
+import { MyChatsComponent } from './shared-components/my-chats/my-chats.component';
 
 
 //var role=getRole();
@@ -71,7 +72,6 @@ const routes: Routes =[
     path:'login',
     component:LoginComponent
   },
-
   {
     path:'signup',
     component:SignupComponent

@@ -6,16 +6,19 @@
         <mat-card *ngIf="!isOpened">
           <mat-card-title>Chat List</mat-card-title>
           <mat-card-content>
-            <mat-list role="list">
+            <mat-list role="list" [ngClass]="{'list-group':chats.length>6}">
               <div *ngFor="let chats of chats">
-                <a href="#" (click)="open_selected_chat(chats.receiver_email,chats.roomId,chats.receiver_name)" id="open_chat_selected"><mat-list-item role="listitem">{{chats.receiver_name}}</mat-list-item></a>
+                <a href="#" (click)="open_selected_chat(chats.receiver_email,chats.roomId,chats.receiver_name)" id="open_chat_selected">
+                  <mat-list-item role="listitem"><mat-icon mat-list-icon><img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" ></mat-icon>{{chats.receiver_name}}</mat-list-item>
+                </a>
                 <mat-divider></mat-divider>
               </div>
             </mat-list>    
           </mat-card-content>
         </mat-card>
+
         <mat-card *ngIf="isOpened">
-            <mat-card-title>{{chat_user_name}}</mat-card-title>
+            <mat-card-title><a href="#" (click)="closeChat()" id="close_chat_href"><i class="material-icons">keyboard_arrow_left</i></a>{{chat_user_name}}</mat-card-title>
             <mat-card-content>
               <mat-list role="list" [ngClass]="{'list-group':messageArray.length>5}">
                 <div *ngFor="let messages of messageArray">
@@ -44,7 +47,7 @@
                   <div class="col-md-10 send-box">
                     <mat-form-field>
                       <input [(ngModel)]="user" [ngModelOptions]="{standalone: true}" id="user" style="display: none">
-                      <textarea matInput [(ngModel)]="message" [ngModelOptions]="{standalone: true}" id="room" (keyup.enter)="sendMessage()" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
+                      <textarea matInput placeholder="Enter text here" [(ngModel)]="message" [ngModelOptions]="{standalone: true}" id="room" (keyup.enter)="sendMessage()" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
                     </mat-form-field>
                   </div>
                 </form>  

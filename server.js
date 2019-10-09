@@ -482,6 +482,18 @@
 
 
 
+        //get-all-chats
+        app.post('/get_all_chats',urlencodedParser,function(req,res){
+          console.log('Hello')
+          var user=req.body[0];
+          const load_chats=require('./src/scripts/load_all_chats');
+          load_chats.load_chat_list(database,res,user);
+
+        })
+
+
+
+
         //edit user details
         app.post('/edit_user_details',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
           // var first_name=req.body.f_name;

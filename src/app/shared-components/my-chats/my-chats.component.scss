@@ -16,6 +16,7 @@ a:hover{
 .list-group{
     max-height: 400px;
     margin-bottom: 10px;
+    position: relative;
     overflow:scroll;
     -webkit-overflow-scrolling: touch;
   }

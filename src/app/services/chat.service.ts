@@ -48,4 +48,8 @@ export class ChatService {
     getActiveStatus(user:string){
         return this.http.post(`${this._url}/get_status`,[user]);
     }
+
+    loadAllChats(user_name:string){
+        return this.http.post(`${this._url}/get_all_chats`,[user_name]);
+    }
 }

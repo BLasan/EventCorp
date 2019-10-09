@@ -14,6 +14,7 @@
 
 exports.send_notifications=function(sender,receiver,date,database,receiver_name,sender_name,message){
   const require_id=require('./generate_id');
+  console.log(sender+"->SENDER"+receiver+"->RECEIVER");
   const chat_id=require_id.generate_chat_id(sender,date,receiver);
   console.log(sender_name+""+receiver+""+receiver_name+""+date+""+message);
   var notifications= database.collection('chats').doc(chat_id).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:chat_id,message:message,receiver_email:receiver,sender_email:sender});
@@ -68,6 +69,8 @@ var  get_user_messages=function(organizer,database,callback){
     console.log('Error getting documents', err);
   });
 }
+
+
 
 
 

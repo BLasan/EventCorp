@@ -91,14 +91,14 @@ export class OnlineChatComponent implements OnInit {
     })
   }
 
-  createRoom(){
-    // var organizer=localStorage.getItem('user_token');
+  // createRoom(){
+  //   // var organizer=localStorage.getItem('user_token');
 
-    var organizer=this.viewer;
-    var searched_role=this.searched_user;
-    var room_id=this.generateRoomId(organizer,searched_role);
-    return room_id;
-  }
+  //   var organizer=this.viewer;
+  //   var searched_role=this.searched_user;
+  //   var room_id=this.generateRoomId(organizer,searched_role);
+  //   return room_id;
+  // }
 
   sendMessage(){
     let room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
@@ -132,20 +132,20 @@ export class OnlineChatComponent implements OnInit {
     this.message=" ";
   }
 
-  generateRoomId(organzier,searched_user){
-    var string_concat=organzier+searched_user;
-  //  string_concat=string_concat.toLocaleLowerCase();
-    console.log(string_concat);
-    var temp=0;
-    console.log(string_concat.length+":LENGTH")
-    for(var i=string_concat.length-1;i>=0;i--){
-      var char_code=string_concat.charCodeAt(i);
-     // console.log(char_code+":CHARCODE")
-      temp=temp+Math.pow(char_code,(string_concat.length-i));
+  // generateRoomId(organzier,searched_user){
+  //   var string_concat=organzier+searched_user;
+  // //  string_concat=string_concat.toLocaleLowerCase();
+  //   console.log(string_concat);
+  //   var temp=0;
+  //   console.log(string_concat.length+":LENGTH")
+  //   for(var i=string_concat.length-1;i>=0;i--){
+  //     var char_code=string_concat.charCodeAt(i);
+  //    // console.log(char_code+":CHARCODE")
+  //     temp=temp+Math.pow(char_code,(string_concat.length-i));
   
-    }
-    console.log(temp+":TemP")
-    return temp;
-  }
+  //   }
+  //   console.log(temp+":TemP")
+  //   return temp;
+  // }
 
 }
