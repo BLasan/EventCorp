@@ -32,5 +32,10 @@
     "/create_new_event":{
       "target":"http://[::1]:4600",
       "secure":false
+    },
+
+    "/edit_user_details":{
+      "target":"http://[::1]:4600",
+      "secure":false
     }
 }

@@ -9,9 +9,15 @@
                               <button class="btn btn-primary" id="image_uploader" (click)="upload_image()">Add</button>
                               <button class="btn btn-danger" id="remove" (click)="remove_image()">Remove</button>
                           </div>
-                          <a href="#">
+                          <!-- <a href="#" *ngIf="user_profile.data.img_url==null">
                               <img src="./assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
                           </a>
+                          <a href="#"  *ngIf="user_profile.data.img_url!=null">
+                            <img [src]="user_profile.data.img_url" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                          </a> -->
+                          <a href="#">
+                            <img src="./assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                        </a>
                       </div>
                   <!-- </div> -->
                   <div class="card-body">
@@ -68,7 +74,7 @@
               <mat-card style="background-color:#303337">
                   <mat-card-title style="color:white">Profile Info</mat-card-title>
                   <mat-card-content>
-                      <form [formGroup]="form" id="profile_form">
+                      <form #form1 method="POST" action="edit_user_details" [formGroup]="form" enctype="multipart/form-data">
                           <div class="row">
                               <div class="col-6">
                                   <mat-form-field>
@@ -110,7 +116,7 @@
                               <input matInput placeholder="Contact" id="contact" style="color: white" name="contact">
                           </mat-form-field>
                           <mat-form-field>
-                            <textarea matInput placeholder="About me" id="about_me" [(ngModel)]="my_bio" [ngModelOptions]="{standalone: true}" name="about_me"></textarea>
+                            <textarea matInput placeholder="About me" style="color: white"   id="about_me" [(ngModel)]="my_bio" [ngModelOptions]="{standalone: true}" name="about_me"></textarea>
                           </mat-form-field>
                           <!-- <mat-form-field>
                               <a href="#" id="image_uploader" name="image_uploader"  class="btn btn-primary btn-circle" style="background-color: aqua"><img src="assets/img/images.png"  alt="Image" title="upload-image"></a> <input type="file" id="imgInp" name="imgInp" style="display:none" accept="image/*">   
@@ -128,7 +134,7 @@
                               </div>
                           </div> -->
                           <input type="file" id="profile_img" name="profile_img" style="display:none" accept="image/*"> 
-                          <button mat-raised-button type="submit" id="submitBtn" (click)="profile_form.submit()" color="primary">Update</button>
+                          <button mat-raised-button (click)="form1.submit()" color="primary">Update</button>
                       </form>
                   </mat-card-content>
               </mat-card>

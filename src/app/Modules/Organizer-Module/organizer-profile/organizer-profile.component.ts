@@ -48,33 +48,33 @@ export class OrganizerProfileComponent implements OnInit {
     remove_uploader();
   }
 
-  getOrganizerDetails(){
-    let first_name= (<HTMLInputElement>document.getElementById('f_name')).value;
-    let last_name= (<HTMLInputElement>document.getElementById('l_name')).value;
-    let user_name=first_name+" "+last_name;
-    let user_email= (<HTMLInputElement>document.getElementById('email')).value;
-    let user_address= (<HTMLInputElement>document.getElementById('address')).value;
-    let user_city= (<HTMLInputElement>document.getElementById('city')).value;
-    let user_state= (<HTMLInputElement>document.getElementById('state')).value;
-    let user_contact= (<HTMLInputElement>document.getElementById('contact')).value;
-    let bio=this.my_bio;
-    let user_details={user_name:user_name,email:user_email,address:user_address,city:user_city,state:user_state,contact:user_contact,bio:bio};
-    this._updateData.updateData(user_details).subscribe(data=>{
-      let success_mesage:any=data;
-      if(success_mesage.success==true){
-        this.username=success_mesage.user_name;
-        this.userbio=success_mesage.bio;
-        this._snackbar.open("Successfully Updated","OK", {
-          duration: 3000,
-        });
-      }
-      else{
-        this._snackbar.open("Update Failed","OK", {
-          duration: 3000,
-        });
-      }
-    })
-  }
+  // sendOrganizerDetails(){
+  //   let first_name= (<HTMLInputElement>document.getElementById('f_name')).value;
+  //   let last_name= (<HTMLInputElement>document.getElementById('l_name')).value;
+  //   let user_name=first_name+" "+last_name;
+  //   let email= (<HTMLInputElement>document.getElementById('email')).value;
+  //   let address1= (<HTMLInputElement>document.getElementById('address')).value;
+  //   let city= (<HTMLInputElement>document.getElementById('city')).value;
+  //   let state= (<HTMLInputElement>document.getElementById('state')).value;
+  //   let contact= (<HTMLInputElement>document.getElementById('contact')).value;
+  //   let bio=this.my_bio;
+  //   let user_details={user_name:user_name,email:email,address:address1,city:city,state:state,contact:contact,bio:bio};
+  //   this._updateData.updateData(user_details).subscribe(data=>{
+  //     let success_mesage:any=data;
+  //     if(success_mesage.success==true){
+  //       this.username=success_mesage.user_name;
+  //       this.userbio=success_mesage.bio;
+  //       this._snackbar.open("Successfully Updated","OK", {
+  //         duration: 3000,
+  //       });
+  //     }
+  //     else{
+  //       this._snackbar.open("Update Failed","OK", {
+  //         duration: 3000,
+  //       });
+  //     }
+  //   })
+  // }
 
   loadUserEvents(){
     let user_name=localStorage.getItem("user_name");
@@ -87,6 +87,7 @@ export class OrganizerProfileComponent implements OnInit {
   loadUserProfile(){
     this._organizer_services.loadUserProfile(localStorage.getItem('user_name')).subscribe(data=>{
       this.user_profile=data;
+      console.log(this.user_profile.data.img_url)
     })
   }
 

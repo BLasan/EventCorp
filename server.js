@@ -496,25 +496,28 @@
 
         //edit user details
         app.post('/edit_user_details',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
-          // var first_name=req.body.f_name;
-          // var last_name=req.body.l_name;
-          // var user_name=first_name+" "+last_name;
-          // var address=req.body.address;
-          // var city=req.body.city;
-          // var state=req.body.state;
-          // var email=req.body.email;
-          // var bio=req.body.about_me;
-          // var contact=req.body.contact;
-          // var user_details={user_name:user_name,address:address,city:city,state:state,email:email,bio:bio,contact:contact};
+          var f_name=req.body.f_name;
+          var l_name=req.body.l_name;
+          var user_name=f_name+""+l_name;
+          console.log(user_name)
+          var address=req.body.address;
+          var city=req.body.city;
+          var state=req.body.state;
+          var email=req.body.email;
+          var bio=req.body.about_me;
+          var contact=req.body.contact;
           if(req.file!=null){
-            var image_path= image_path="storage/organizer/profile/"+req.file.filename;
+            var image_path="storage/organizer/profile/"+req.file.filename;
             var image_key_val={img_url:image_path};
           }
           else{
+            var image_path="";
             var image_key_val={img_url:""};
           }
-          var user_details=req.body[0];
-          user_details=Object.assign(image_key_val);
+         // var user_details=req.body[0];
+          console.log(image_path)
+          var user_details={user_name:user_name,address:address,city:city,state:state,email:email,bio:bio,contact:contact,img_url:image_path};
+          console.log("USERDETAILS"+user_details.email)
           const update_user=require('./src/scripts/update_user_details');
           update_user.update_user_bio(database,res,user_details);
         })
@@ -662,7 +665,21 @@
           var user=req.body[0];
           const get_user_profile=require('./src/scripts/searched_user_details');
           get_user_profile.get_searched_user_details(user,res,database);
-        })
+        });
+
+
+
+        //update-user-profile
+        // app.post('/update_profile',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
+        //   var name=req.body.f_name+""+req.body.l_name;
+        //   var address=req.body.address;
+        //   var city=req.body.city;
+        //   var state=req.body.state;
+        //   var email=req.body.email;
+        //   var contact=req.body.contact;
+        //   var bio=req.body.bio;
+        //   var 
+        // })
 
     
       console.log('Listening to 4600');
