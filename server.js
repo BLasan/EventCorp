@@ -42,9 +42,9 @@
   const storage_organizer=multer.diskStorage({destination:function(req,file,cb){
     console.log(file.mimetype)
     if(file.mimetype=="image/png")
-    cb(null,'./src/storage/organizer/events/images')
+    cb(null,'./src/assets/img/storage/organizer/events/images')
     else
-    cb(null,'./src/storage/organizer/events/videos')
+    cb(null,'./src/assets/img/storage/organizer/events/videos')
    
   },
   filename:function(req,file,cb){
@@ -55,7 +55,7 @@
 
   const organizer_profile_pic=multer.diskStorage({destination:function(req,file,cb){
     console.log(file.mimetype)
-    cb(null,'./src/storage/organizer/profile')
+    cb(null,'./src/assets/img/storage/organizer/profile')
   },
   filename:function(req,file,cb){
      cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
@@ -486,8 +486,9 @@
         app.post('/get_all_chats',urlencodedParser,function(req,res){
           console.log('Hello')
           var user=req.body[0];
+          var user_role=req.body[1];
           const load_chats=require('./src/scripts/load_all_chats');
-          load_chats.load_chat_list(database,res,user);
+          load_chats.load_chat_list(database,res,user,user_role);
 
         })
 
@@ -498,7 +499,7 @@
         app.post('/edit_user_details',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
           var f_name=req.body.f_name;
           var l_name=req.body.l_name;
-          var user_name=f_name+""+l_name;
+          var user_name=f_name+" "+l_name;
           console.log(user_name)
           var address=req.body.address;
           var city=req.body.city;
@@ -507,7 +508,7 @@
           var bio=req.body.about_me;
           var contact=req.body.contact;
           if(req.file!=null){
-            var image_path="storage/organizer/profile/"+req.file.filename;
+            var image_path="assets/img/storage/organizer/profile/"+req.file.filename;
             var image_key_val={img_url:image_path};
           }
           else{
@@ -617,12 +618,12 @@
 
         //delete-notifications
         app.post('/mark_view_notifications',urlencodedParser,function(req,res){
-          var receiver_email=req.body[0];
+          var sender_email=req.body[0];
           var user_email=req.body[1];
           var type=req.body[2];
           console.log(user_email);
           const mark_view=require('./src/scripts/organizer/mark_viewed_booking');
-          mark_view.mark_view( receiver_email,user_email,type,res,database);
+          mark_view.mark_view(sender_email,user_email,type,res,database);
 
         });
 
@@ -637,8 +638,9 @@
           var receiver_name=req.body[3];
           var sender_name=req.body[4];
           var message=req.body[5];
+          var isOrganizer=req.body[6];
           const send_notification=require('./src/scripts/notifications_backend');
-          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message);
+          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer);
           if(success==1){
             res.json({success:true});
           }

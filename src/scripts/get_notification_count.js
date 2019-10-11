@@ -5,6 +5,7 @@ exports.get_notification_count=function(organizer,database,res){
 
         get_user_notification_messages(organizer,database,function(notify_size){
             console.log('=>'+booking_size);
+            console.log("=NOTIFY"+notify_size)
             let size=notify_size+booking_size;
             console.log(size)
             res.send({size:size});
@@ -30,9 +31,10 @@ var  get_user_bookings=function(organizer,database,callback){
 
 
 var  get_user_notification_messages=function(organizer,database,callback){
-    var docRef = database.collection('register_user').doc(organizer).collection('notification-messages');
+    var docRef = database.collection('register_user').doc(organizer).collection('notification-messages').where("view","==",false);
     docRef.get()
     .then(snapshot => {
+        
         if(snapshot.empty)
         callback(0);
         else

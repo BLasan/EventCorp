@@ -51,7 +51,6 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
   }]},
-
   {
     path:'settings',
     component:SettingsComponent

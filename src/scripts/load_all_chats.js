@@ -1,6 +1,6 @@
 var data=[];
 
-exports.load_chat_list=function(database,res,user){
+exports.load_chat_list=function(database,res,user,user_role){
 
     var docRef = database.collection('chats');
     docRef.get()
@@ -13,7 +13,9 @@ exports.load_chat_list=function(database,res,user){
     
     snapshot.forEach(doc => {
       console.log(doc.id, '=>', doc.data());
-      if(doc.data().sender_email==user)
+      if((doc.data().sender_email==user) && user_role=='organizer')
+      data.push(doc.data());
+      else if(doc.data().receiver_email==user && user_role!='organizer')
       data.push(doc.data());
       isDone=true
     });

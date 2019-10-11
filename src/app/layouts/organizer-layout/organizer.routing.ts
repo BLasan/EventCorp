@@ -16,5 +16,5 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'organizer-notification',component:OrganizerNotificationsComponent},
     { path:'organizer-settings',component:OrganizerSettingsComponent},
     { path:'ratings/:name',component:RatingSystemComponent},
-    { path:'my-chat-list',component:MyChatsComponent}
+    
 ];

@@ -92,14 +92,14 @@ export class NotificationsComponent implements OnInit {
     })
    }
 
-mark_view_booking_notification(receiver_email:string){
- // alert(receiver_email)
+mark_view_booking_notification(sender_email:string){
+  alert(sender_email)
   let user_name=localStorage.getItem('user_name');
   this.notification_count-=1;
   if(this.isBookingView) this.notification_type="booking";
   else this.notification_type="notifications";
   update_count(this.notification_count);
-  this._notification.mark_viewed_notifications(receiver_email,user_name,this.notification_type).subscribe(data=>{
+  this._notification.mark_viewed_notifications(sender_email,user_name,this.notification_type).subscribe(data=>{
     this.updated_data=data;
     this.notification_count-=1;
     this.isUpdated=this.updated_data.updated;

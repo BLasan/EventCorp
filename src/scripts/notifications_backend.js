@@ -12,13 +12,17 @@
 //     }
 // }
 
-exports.send_notifications=function(sender,receiver,date,database,receiver_name,sender_name,message){
+exports.send_notifications=function(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer){
   const require_id=require('./generate_id');
   console.log(sender+"->SENDER"+receiver+"->RECEIVER");
+  console.log("ISORGANIZER"+isOrganizer)
   const chat_id=require_id.generate_chat_id(sender,date,receiver);
   console.log(sender_name+""+receiver+""+receiver_name+""+date+""+message);
-  var notifications= database.collection('chats').doc(chat_id).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:chat_id,message:message,receiver_email:receiver,sender_email:sender});
+  var notifications= database.collection('chats').doc(chat_id).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:chat_id,message:message,receiver_email:receiver,sender_email:sender,organizer:isOrganizer});
+  if(isOrganizer=='organizer')
   var receiver_notifications=database.collection('register_user').doc(receiver).collection('notification-messages').doc(sender).set({receiver_name:receiver_name,date:date,sender_name:sender_name,sender_email:sender,roomId:chat_id,view:false});
+  else 
+  var receiver_notifications=true;
   console.log(notifications);
   if(notifications&&receiver_notifications){ 
       return 1;

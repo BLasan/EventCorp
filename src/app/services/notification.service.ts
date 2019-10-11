@@ -13,8 +13,8 @@ export class NotificationService {
         return this.http.post(`${this._url}/get_all_booking_notifications`,[organizer]);
     }
 
-    mark_viewed_notifications(receiver_email:string,user_name:string,notification_type:string){
-        return this.http.post(`${this._url}/mark_view_notifications`,[receiver_email,user_name,notification_type]);
+    mark_viewed_notifications(sender_email:string,user_name:string,notification_type:string){
+        return this.http.post(`${this._url}/mark_view_notifications`,[sender_email,user_name,notification_type]);
     }
 
     get_message_notifications(organizer:string){

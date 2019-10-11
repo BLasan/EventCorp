@@ -33,9 +33,11 @@ export class MyChatsComponent implements OnInit {
 
   loadAllChats(){
     let user_name=localStorage.getItem('user_name');
-    this._chat.loadAllChats(user_name).subscribe(data=>{
+    let user_role=localStorage.getItem('role');
+    this._chat.loadAllChats(user_name,user_role).subscribe(data=>{
       console.log(data);
       this.chats=data;
+      //alert(this.chats[0].organizer)
       console.log(this.chats[0].message);
       //for(var i=0;i<this.chats.message.length;i++) this.messageArray.push(this.chats.message[i])
       console.log(this.messageArray+"->Message");
@@ -53,9 +55,17 @@ export class MyChatsComponent implements OnInit {
     let room_id=roomId;
     this._chat.joinRoom({user:user_name,room:room_id,message:"Hello",date:date});
     this.isOpened=true;
+    if(localStorage.getItem('role')=='organizer'){
     for(var chat of this.chats.filter(x=>x.receiver_name==chat_user_name)){
       for(var message of chat.message)  this.messageArray.push(message)
     }
+    }
+    else{
+      for(var chat of this.chats.filter(x=>x.sender_name==chat_user_name)){
+        for(var message of chat.message)  this.messageArray.push(message)
+      }
+    }
+
     console.log(this.messageArray[0].message+"->MESSAGE")
   }
 
@@ -98,7 +108,9 @@ export class MyChatsComponent implements OnInit {
     this.isOpened=false;
     let date=new Date();
     let message_details:any;
-    this._chat.sendNotifications(this.chat_user_email,localStorage.getItem('user_name'),date,this.chat_user_name,localStorage.getItem('nameId'),this.messageArray).subscribe(data=>{
+    if(localStorage.getItem('role')=='organizer'){
+    let isOrganizer='organizer';
+    this._chat.sendNotifications(this.chat_user_email,localStorage.getItem('user_name'),date,this.chat_user_name,localStorage.getItem('nameId'),this.messageArray,isOrganizer).subscribe(data=>{
       message_details=data;
       console.log("STATUS:"+message_details.success)
       if(message_details.success){
@@ -113,5 +125,24 @@ export class MyChatsComponent implements OnInit {
       }
       this.messageArray=[];
     });
+  }
+    else if(localStorage.getItem('role')!='organizer'){
+    let isOrganzier='non-organizer';
+    this._chat.sendNotifications(localStorage.getItem('user_name'),this.chat_user_email,date,localStorage.getItem('nameId'),this.chat_user_name,this.messageArray,isOrganzier).subscribe(data=>{
+      message_details=data;
+      console.log("STATUS:"+message_details.success)
+      if(message_details.success){
+        this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+          duration: 3000,
+        });
+      }
+      else{
+        this._snackbar.open("Message sending error","OK", {
+          duration: 3000,
+        });
+      }
+      this.messageArray=[];
+    });
+  }
   }
 }

@@ -8,6 +8,7 @@ import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-paymen
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
 import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
+import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -16,5 +17,6 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'notifications' , component:ArtistNotificationComponent},
     { path:'artist-request' ,component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
-    { path:'view_booking_info' ,component:ViewBookingInfoComponent}
+    { path:'view_booking_info' ,component:ViewBookingInfoComponent},
+    {path:'my-chat-list',component:MyChatsComponent},
 ];
