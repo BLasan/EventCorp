@@ -34,6 +34,7 @@ import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
+import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
 
 
   @NgModule({
@@ -66,6 +67,7 @@ import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.compon
      CalendarComponent,
      ArtistCalendarComponent,
      MyChatsComponent,
+     ArtistSettingsComponent,
     //  PaypalPaymentComponent,
      ViewBookingInfoComponent,
     //  RatingSystemComponent,

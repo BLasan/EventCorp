@@ -9,6 +9,7 @@ import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking
 import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.component';
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
+import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -18,5 +19,6 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'artist-request' ,component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
     { path:'view_booking_info' ,component:ViewBookingInfoComponent},
-    {path:'my-chat-list',component:MyChatsComponent},
+    { path:'my-chat-list',component:MyChatsComponent},
+    { path:'artist-settings' , component:ArtistSettingsComponent}
 ];
