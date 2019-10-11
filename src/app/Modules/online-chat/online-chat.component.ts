@@ -75,20 +75,57 @@ export class OnlineChatComponent implements OnInit {
    // let room_id=this.createRoom();
     let date=new Date();
     let message_details:any;
-    this.chat_service.sendNotifications(this.searched_user,this.viewer,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
-      message_details=data;
-      console.log("STATUS:"+message_details.success)
-      if(message_details.success){
-        this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
-          duration: 3000,
-        });
-      }
-      else{
-        this._snackbar.open("Message sending error","OK", {
-          duration: 3000,
-        });
-      }
-    })
+    // this.chat_service.sendNotifications(this.searched_user,this.viewer,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
+    //   message_details=data;
+    //   console.log("STATUS:"+message_details.success)
+    //   if(message_details.success){
+    //     this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+    //       duration: 3000,
+    //     });
+    //   }
+    //   else{
+    //     this._snackbar.open("Message sending error","OK", {
+    //       duration: 3000,
+    //     });
+    //   }
+    // });
+
+    if(localStorage.getItem('role')=='organizer'){
+      let isOrganizer='organizer';
+      this.chat_service.sendNotifications(this.searched_user,localStorage.getItem('user_name'),date,this.searched_user_name,localStorage.getItem('nameId'),this.messageArray,isOrganizer).subscribe(data=>{
+        message_details=data;
+        console.log("STATUS:"+message_details.success)
+        if(message_details.success){
+          this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+            duration: 3000,
+          });
+        }
+        else{
+          this._snackbar.open("Message sending error","OK", {
+            duration: 3000,
+          });
+        }
+        this.messageArray=[];
+      });
+    }
+      else if(localStorage.getItem('role')!='organizer'){
+      let isOrganzier='non-organizer';
+      this.chat_service.sendNotifications(localStorage.getItem('user_name'),this.searched_user,date,localStorage.getItem('nameId'),this.searched_user_name,this.messageArray,isOrganzier).subscribe(data=>{
+        message_details=data;
+        console.log("STATUS:"+message_details.success)
+        if(message_details.success){
+          this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+            duration: 3000,
+          });
+        }
+        else{
+          this._snackbar.open("Message sending error","OK", {
+            duration: 3000,
+          });
+        }
+        this.messageArray=[];
+      });
+    }
   }
 
   // createRoom(){
