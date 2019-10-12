@@ -35,6 +35,7 @@ import { NotificationsComponent } from 'app/shared-components/notifications/noti
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
+import { SettingsComponent } from 'app/shared-components/settings/settings.component';
 
 
   @NgModule({
@@ -56,7 +57,6 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
       MatChipsModule,
       MatIconModule,
       NgbModule,
-      NgxMatSelectSearchModule,
       SharedComponentsModule,
     ],
     declarations: [
@@ -68,6 +68,8 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
      ArtistCalendarComponent,
      MyChatsComponent,
      ArtistSettingsComponent,
+    
+
     //  PaypalPaymentComponent,
      ViewBookingInfoComponent,
     //  RatingSystemComponent,

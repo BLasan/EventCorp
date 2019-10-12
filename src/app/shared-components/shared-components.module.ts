@@ -36,10 +36,9 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
   declarations: [
     NotificationsComponent,
     PaypalPaymentComponent,
-    RatingSystemComponent,
     SearchUserComponent,
     SettingsComponent,
-   
+    RatingSystemComponent
   ],
   imports: [
     CommonModule,
@@ -68,11 +67,10 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
   exports:[
     SettingsComponent,
     PaypalPaymentComponent,
-    RatingSystemComponent,
     SearchUserComponent,
     NotificationsComponent,
     PaypalPaymentComponent,
-    
+    RatingSystemComponent
   ]
 })
 export class SharedComponentsModule { }

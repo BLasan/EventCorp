@@ -68,9 +68,12 @@
         </div>
       </div> -->
             <div class="col-md-8">
-                <mat-card style="background-color:#303337">
-                    <mat-card-title style="color:white">Profile Info</mat-card-title>
-                    <mat-card-content>
+                <div class="card" style="background-color:#303337">
+                    <div class="card-header card-header-danger" style="color:white">
+                        <h4 class="card-title">Profile Details</h4>
+                        <p class="card-category">Edit your profile</p>
+                    </div>
+                    <div class="card-body">
                         <form #form1 method="POST" action="edit_user_details" [formGroup]="form" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-6">
@@ -118,21 +121,24 @@
                             <input type="file" id="profile_img" name="profile_img" style="display:none" accept="image/*"> 
                             <button mat-raised-button (click)="form1.submit()" color="primary">Update</button>
                         </form>
-                    </mat-card-content>
-                </mat-card>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row" style="margin-top:15px">
             <div class="col-md-4"></div>
             <div class="col-md-8">
-                <mat-card style="background-color:#303337">
-                    <mat-card-title style="color:white">Edit Events</mat-card-title>
-                    <mat-card-content>
+                <div class="card" style="background-color:#303337">
+                    <div class="card-header card-header-danger" style="color:white">
+                        <h4 class="card-title">Edit Events</h4>
+                        <p class="card-category">My Events</p>
+                    </div>
+                    <div class="card-body">
                         <mat-list role="list" class="list-group">
                             <mat-list-item role="listitem" style="color:white">Item 1</mat-list-item>
                           </mat-list>
-                    </mat-card-content>
-                </mat-card>
+                    </div>
+                </div>
             </div>
         </div>
     </div>           

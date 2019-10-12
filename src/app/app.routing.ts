@@ -67,6 +67,7 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
+
   {
     path:'login',
     component:LoginComponent

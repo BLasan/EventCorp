@@ -4,6 +4,7 @@ import {confirmPassword} from '../../services/confirm-password.service'
 import { MatDialogRef, MatDialog } from '@angular/material';
 import {DeleteAccountService} from '../../services/account_delete.service';
 import { LoginService } from 'app/services/login.services';
+import {deactivate_searchBar} from '../../../scripts/search_bar_activate'
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -16,6 +17,7 @@ export class SettingsComponent implements OnInit {
   constructor(private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
 
   ngOnInit() {
+    deactivate_searchBar();
     this.form=new FormGroup({
       new_password:new FormControl('',[Validators.required,Validators.minLength(6)]),
       re_enter_password:new FormControl('',[Validators.required,confirmPassword('new_password')])
