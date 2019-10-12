@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import {open_chat,close_chat} from '../../../scripts/online_chat';
 import { ChatService } from 'app/services/chat.service';
 import { MatSnackBar } from '@angular/material';
-
+import {generate_chat_id} from '../../../scripts/generate_id';
 @Component({
   selector: 'app-online-chat',
   templateUrl: './online-chat.component.html',
@@ -43,7 +43,8 @@ export class OnlineChatComponent implements OnInit {
 
   join(){
     console.log(this.user);
-    this.room=this.createRoom();
+    console.log("Organizer"+this.organizer+" Receiver"+this.searched_user);
+    this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
     this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message,date:new Date()});
   }
 
@@ -71,35 +72,73 @@ export class OnlineChatComponent implements OnInit {
 
   closeChat(){
     close_chat();
-    let room_id=this.createRoom();
+   // let room_id=this.createRoom();
     let date=new Date();
     let message_details:any;
-    this.chat_service.sendNotifications(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
-      message_details=data;
-      console.log("STATUS:"+message_details.success)
-      if(message_details.success){
-        this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
-          duration: 3000,
-        });
-      }
-      else{
-        this._snackbar.open("Message sending error","OK", {
-          duration: 3000,
-        });
-      }
-    })
+    // this.chat_service.sendNotifications(this.searched_user,this.viewer,date,this.searched_user_name,this.organizer,this.messageArray).subscribe(data=>{
+    //   message_details=data;
+    //   console.log("STATUS:"+message_details.success)
+    //   if(message_details.success){
+    //     this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+    //       duration: 3000,
+    //     });
+    //   }
+    //   else{
+    //     this._snackbar.open("Message sending error","OK", {
+    //       duration: 3000,
+    //     });
+    //   }
+    // });
+
+    if(localStorage.getItem('role')=='organizer'){
+      let isOrganizer='organizer';
+      this.chat_service.sendNotifications(this.searched_user,localStorage.getItem('user_name'),date,this.searched_user_name,localStorage.getItem('nameId'),this.messageArray,isOrganizer).subscribe(data=>{
+        message_details=data;
+        console.log("STATUS:"+message_details.success)
+        if(message_details.success){
+          this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+            duration: 3000,
+          });
+        }
+        else{
+          this._snackbar.open("Message sending error","OK", {
+            duration: 3000,
+          });
+        }
+        this.messageArray=[];
+      });
+    }
+      else if(localStorage.getItem('role')!='organizer'){
+      let isOrganzier='non-organizer';
+      this.chat_service.sendNotifications(localStorage.getItem('user_name'),this.searched_user,date,localStorage.getItem('nameId'),this.searched_user_name,this.messageArray,isOrganzier).subscribe(data=>{
+        message_details=data;
+        console.log("STATUS:"+message_details.success)
+        if(message_details.success){
+          this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+            duration: 3000,
+          });
+        }
+        else{
+          this._snackbar.open("Message sending error","OK", {
+            duration: 3000,
+          });
+        }
+        this.messageArray=[];
+      });
+    }
   }
 
-  createRoom(){
-    // var organizer=localStorage.getItem('user_token');
-    var organizer=this.viewer;
-    var searched_role=this.searched_user;
-    var room_id=this.generateRoomId(organizer,searched_role);
-    return room_id;
-  }
+  // createRoom(){
+  //   // var organizer=localStorage.getItem('user_token');
+
+  //   var organizer=this.viewer;
+  //   var searched_role=this.searched_user;
+  //   var room_id=this.generateRoomId(organizer,searched_role);
+  //   return room_id;
+  // }
 
   sendMessage(){
-    let room_id=this.createRoom();
+    let room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
     let date=new Date();
     this.chat_service.getActiveStatus(this.searched_user).subscribe(data=>{
       let datas:any=data;
@@ -130,20 +169,20 @@ export class OnlineChatComponent implements OnInit {
     this.message=" ";
   }
 
-  generateRoomId(organzier,searched_user){
-    var string_concat=organzier+searched_user;
-  //  string_concat=string_concat.toLocaleLowerCase();
-    console.log(string_concat);
-    var temp=0;
-    console.log(string_concat.length+":LENGTH")
-    for(var i=string_concat.length-1;i>=0;i--){
-      var char_code=string_concat.charCodeAt(i);
-     // console.log(char_code+":CHARCODE")
-      temp=temp+Math.pow(char_code,(string_concat.length-i));
+  // generateRoomId(organzier,searched_user){
+  //   var string_concat=organzier+searched_user;
+  // //  string_concat=string_concat.toLocaleLowerCase();
+  //   console.log(string_concat);
+  //   var temp=0;
+  //   console.log(string_concat.length+":LENGTH")
+  //   for(var i=string_concat.length-1;i>=0;i--){
+  //     var char_code=string_concat.charCodeAt(i);
+  //    // console.log(char_code+":CHARCODE")
+  //     temp=temp+Math.pow(char_code,(string_concat.length-i));
   
-    }
-    console.log(temp+":TemP")
-    return temp;
-  }
+  //   }
+  //   console.log(temp+":TemP")
+  //   return temp;
+  // }
 
 }

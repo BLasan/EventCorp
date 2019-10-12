@@ -23,6 +23,7 @@ var  get_user_bookings=function(organizer,database,callback){
     }  
     snapshot.forEach(doc => {
       console.log(doc.id, '=>', doc.data());
+      if(doc.data().view==false)
       data.push(doc.data());
       isDone=true
     });

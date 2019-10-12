@@ -1,7 +1,8 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="margin-top:80px;">
             <div class="col-md-4"></div>
+            <!-- <div class="col-md-4"></div>
             <div class="col-md-4">
                 <mat-card style="margin-top:100px;margin-bottom: 50px" class="login-title">
                     <div class="row">
@@ -61,7 +62,71 @@
                         </form>
                     </mat-card-content>
                 </mat-card>
+            </div> -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Log In</h4>
+                        <p class="card-category">Enter your credentials</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-danger alert-with-icon" *ngIf="isInvalid"> 
+                            <i class="material-icons" data-notify="icon">error_outline</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">  <i class="material-icons">close</i></button>
+                            <span data-notify="message">
+                            <b>Login Error:</b>Enter valid credentials</span>
+                        </div>
+                        <form>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <notifier-container>abcd</notifier-container>
+                                    <mat-form-field style="margin-top:20px">
+                                        <input matInput placeholder="user name" id="user_name" type="email">
+                                        <span matPrefix style="margin-right:6px"><img src="https://img.icons8.com/material/24/000000/gender-neutral-user--v1.png"></span>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <mat-form-field>
+                                        <input matInput placeholder="password" [type]="hide ? 'text' : 'password'" id="password">
+                                        <span matPrefix style="margin-right: 6px"><img src="https://img.icons8.com/material/24/000000/key.png"></span>
+                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                            <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                                        </button>
+                                    </mat-form-field>     
+                                </div>
+                                <div class="col-2"></div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <mat-checkbox id="remember_me" [(ngModel)]="checked" [ngModelOptions]="{standalone: true}">Remember me</mat-checkbox>
+                                </div>
+                                <div class="col-2"></div>
+                            </div>    
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <button  mat-raised-button class="btn btn-success" style="width: 18rem;margin-left:-16px;margin-top:10px;margin-bottom: 10px" (click)="login_validate()">Log In</button>   
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <a href="#" style="margin-left:75px;margin-bottom: 50px!important">forget password?</a>   
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 </div>

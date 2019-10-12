@@ -12,7 +12,11 @@ exports.signup=function(data,database){
     var user_signup=database.collection('register_user').doc(user_email).set(data);
 
     if(user_signup) return 1;
-    else return 0;   
-    
-    
+    else return 0;    
+}
+
+exports.delete_account=function(database,res,user){
+    var delete_account=database.collection('register_user').doc(user).update({profile_status:'Deleted'});
+    if(delete_account) res.send({success:true});
+    else res.send({success:false});
 }

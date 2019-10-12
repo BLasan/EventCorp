@@ -14,6 +14,7 @@ import {deactivate_searchBar} from '../../../scripts/search_bar_activate';
 })
 export class RatingSystemComponent implements OnInit {
   currentRate:any=0;
+  userRate:any=0;
   success:any;
   myComment:any;
   search_token:string;
@@ -58,6 +59,9 @@ export class RatingSystemComponent implements OnInit {
           duration: 3000,
         });
       }
+
+      this.userRate=this.currentRate;
+      this.currentRate=0;
       //this.currentRate=0;
     })
   }
@@ -101,7 +105,7 @@ export class RatingSystemComponent implements OnInit {
         if(this.ratings.success==true){
           this.rating_data=this.ratings.data;
           // console.log(this.rating_data);
-          this.currentRate=this.rating_data.rating;
+          this.userRate=this.rating_data.rating;
           
         }
         else console.log('Empty ratings');
@@ -155,7 +159,7 @@ export class RatingSystemComponent implements OnInit {
     let user_name=localStorage.getItem('user_name');
      this.booking.get_booking_details(user_name,localStorage.getItem('searched_user_email')).subscribe(data=>{
        this.booking_details=data;
-       console.log(this.booking_details.data)
+       console.log(this.booking_details+"=>DATA")
        if(this.booking_details.success){
          if(this.booking_details.data.status=="Pending")
          this.sent_bookings=true;

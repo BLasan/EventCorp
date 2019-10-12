@@ -24,7 +24,7 @@ exports.check_credentials=function(email,password,res,database,user){
                     console.log(user);
                     const token=create_user_token(user,res);
                     var toke_update= database.collection('register_user').doc(email).update({user_token:token});
-                    if(toke_update){
+                    if(toke_update&&doc.data().profile_status=='Active'){
                         res.json({isTrue:'true',role:doc.data().role,user_name:doc.data().user_name,token:token});
                     }
                     else{

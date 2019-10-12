@@ -5,9 +5,12 @@
       </div>
       <div class="row" style="margin-top:50px;margin-left:50px">
         <div class="col-md-6">
-          <mat-card style="background-color:#303337">
-            <mat-card-title style="color:red">Add New Event</mat-card-title>
-              <mat-card-content>
+          <div class="card" style="background-color:#303337">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Add new Event</h4>
+              <p class="card-category">Fill the form</p>
+            </div>
+              <div class="card-body">
                 <form #form1 action="add_event" name="add_event_form" method="POST" [formGroup]="form">
                   <mat-form-field>
                     <input matInput placeholder="Event Name" name="event_name" formControlName='event_name'>
@@ -33,8 +36,8 @@
                   </mat-form-field>
                   <button mat-raised-button color="accent" name="submit" (click)="form1.submit()">Add</button>
                 </form>
-              </mat-card-content>
-          </mat-card> 
+              </div>
+          </div> 
         </div>
       </div>
     </div>

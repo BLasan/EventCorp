@@ -92,7 +92,8 @@
   .list-group{
     max-height: 400px;
     margin-bottom: 10px;
-    overflow:scroll;
-    -webkit-overflow-scrolling: touch;
+    position: relative;
+    overflow-y:scroll;
+    -webkit-overflow-y-scrolling: touch;
   }
     

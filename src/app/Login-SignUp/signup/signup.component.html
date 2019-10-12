@@ -25,9 +25,12 @@
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <mat-card style="margin-top:50px;margin-bottom:50px">
-          <mat-card-title>Sign Up</mat-card-title>
-            <mat-card-content>
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">SignUp</h4>
+              <p class="card-category">Enter your details</p>
+            </div>
+            <div class="card-body">
               <form [formGroup]="form">
                 <h5 *ngIf="success==false" style="background-color:red">Error signup</h5>
                 <mat-form-field>
@@ -102,8 +105,8 @@
                 <input style="display: none" value="" name="state_sel" id="state_sel">
                 <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="signUp()">Sign Up</button>
               </form>
-            </mat-card-content>
-        </mat-card>     
+            </div>
+          </div>     
       </div>  
       <div class="col-md-4"></div>
     </div>

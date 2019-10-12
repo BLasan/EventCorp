@@ -24,6 +24,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatChipsModule,
+    MatIconModule,
   } from '@angular/material';
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
@@ -31,6 +32,10 @@ import { RatingSystemComponent } from 'app/Modules/rating-system/rating-system.c
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
+import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
+import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
+import { SettingsComponent } from 'app/shared-components/settings/settings.component';
 
 
   @NgModule({
@@ -50,20 +55,24 @@ import { NotificationsComponent } from 'app/shared-components/notifications/noti
       MatDatepickerModule,
       MatNativeDateModule,
       MatChipsModule,
+      MatIconModule,
       NgbModule,
-      NgxMatSelectSearchModule
+      SharedComponentsModule,
     ],
     declarations: [
      ArtistComponent,
-     ArtistCalendarComponent,
      ArtistNotificationComponent,
      ArtistRequestComponent,
      ArtistHomeComponent,
      CalendarComponent,
+     ArtistCalendarComponent,
+     MyChatsComponent,
+     ArtistSettingsComponent,
+    
+
     //  PaypalPaymentComponent,
      ViewBookingInfoComponent,
     //  RatingSystemComponent,
-    //  NotificationsComponent
     ],
    
   })

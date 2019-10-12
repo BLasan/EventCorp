@@ -1,16 +1,38 @@
-exports.send_notification=function(sender,receiver,roomId,date,database,receiver_name,sender_name,message){
+// exports.send_notification=function(sender,receiver,roomId,date,database,receiver_name,sender_name,message){
 
-    var notifications= database.collection('register_user').doc(sender).collection('notification-messages').doc(receiver).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:roomId,message:message});
-    var receiver_notifications=database.collection('register_user').doc(receiver).collection('notification-messages').doc(sender).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:roomId,message:message});
-    console.log(notifications);
-    if(notifications&&receiver_notifications){ 
-        return 1;
-    }
+//     var notifications= database.collection('register_user').doc(sender).collection('notification-messages').doc(receiver).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:roomId,message:message,receiver_email:receiver});
+//     var receiver_notifications=database.collection('register_user').doc(receiver).collection('notification-messages').doc(sender).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:roomId,message:message,view:false});
+//     console.log(notifications);
+//     if(notifications&&receiver_notifications){ 
+//         return 1;
+//     }
 
-    else{
-        return 0;
-    }
+//     else{
+//         return 0;
+//     }
+// }
+
+exports.send_notifications=function(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer){
+  const require_id=require('./generate_id');
+  console.log(sender+"->SENDER"+receiver+"->RECEIVER");
+  console.log("ISORGANIZER"+isOrganizer)
+  const chat_id=require_id.generate_chat_id(sender,date,receiver);
+  console.log(sender_name+""+receiver+""+receiver_name+""+date+""+message);
+  var notifications= database.collection('chats').doc(chat_id).set({receiver_name:receiver_name,date:date,sender_name:sender_name,roomId:chat_id,message:message,receiver_email:receiver,sender_email:sender,organizer:isOrganizer});
+  if(isOrganizer=='organizer')
+  var receiver_notifications=database.collection('register_user').doc(receiver).collection('notification-messages').doc(sender).set({receiver_name:receiver_name,date:date,sender_name:sender_name,sender_email:sender,roomId:chat_id,view:false});
+  else 
+  var receiver_notifications=true;
+  console.log(notifications);
+  if(notifications&&receiver_notifications){ 
+      return 1;
+  }
+
+  else{
+      return 0;
+  }
 }
+
 
 var data=[];
 exports.get_all_messages=function(organzier,database,res){
@@ -37,6 +59,7 @@ var  get_user_messages=function(organizer,database,callback){
     }  
     snapshot.forEach(doc => {
       console.log(doc.id, '=>', doc.data());
+      if(doc.data().view==false)
       data.push(doc.data());
       isDone=true
     });
@@ -50,6 +73,10 @@ var  get_user_messages=function(organizer,database,callback){
     console.log('Error getting documents', err);
   });
 }
+
+
+
+
 
 
 

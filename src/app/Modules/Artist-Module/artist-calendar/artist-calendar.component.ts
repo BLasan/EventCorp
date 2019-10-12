@@ -12,7 +12,7 @@ export class ArtistCalendarComponent implements OnInit {
   form:any;
   ngOnInit() {
 
-     calendar();
+     calendar({});
      deactivate_searchBar()
      this.form=new FormGroup({
        event_name:new FormControl('',Validators.required),

@@ -19,16 +19,10 @@
   const saltRounds = 10;
   const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
   const verify_user_token=require('./src/scripts/verify_user_token');
-  const organizer_event=require('./src/scripts/organizer/create_new_event');
   //initialize firebase
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
 
-
-
-
-
-  const login_credentials=require('./src/scripts/check_credentials');
   const ratings=require('./src/scripts/rating');
 
   app.use(body.json());
@@ -48,20 +42,32 @@
   const storage_organizer=multer.diskStorage({destination:function(req,file,cb){
     console.log(file.mimetype)
     if(file.mimetype=="image/png")
-    cb(null,'./src/storage/organizer/images')
+    cb(null,'./src/assets/img/storage/organizer/events/images')
     else
-    cb(null,'./src/storage/organizer/videos')
+    cb(null,'./src/assets/img/storage/organizer/events/videos')
    
   },
   filename:function(req,file,cb){
      cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
     //  console.log(req.files);
   }
-});
+  });
+
+  const organizer_profile_pic=multer.diskStorage({destination:function(req,file,cb){
+    console.log(file.mimetype)
+    cb(null,'./src/assets/img/storage/organizer/profile')
+  },
+  filename:function(req,file,cb){
+     cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
+    //  console.log(req.files);
+  }
+  });
+ 
 
     const upload=multer({storage:storage_organizer});
-      
-      app.post('/con',urlencodedParser,function (req, res) {
+    const upload_profile_pic=multer({storage:organizer_profile_pic});
+
+    app.post('/con',urlencodedParser,function (req, res) {
           password = req.body.password;
           repassword=req.body.re_submission;
           name=req.body.user_name;
@@ -320,8 +326,8 @@
         app.post('/sign_up',urlencodedParser,function(req,res){
 
           console.log('hello');
-          var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
-          var token = randomToken(40);
+          //var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+          //var token = randomToken(40);
           var user_name=req.body.user_name;
           var user_email=req.body.user_email;
           var role=req.body.role_sel;
@@ -337,7 +343,7 @@
 
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout'}]
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active'}]
             const result=user_signup.signup(data[0],database);
             console.log(result)
             if(result==1)
@@ -357,6 +363,7 @@
           var password=req.body[1];
           console.log(email);
           const user={email:email,password:password};
+          const login_credentials=require('./src/scripts/check_credentials');
           login_credentials.check_credentials(email,password,res,database,user);
 
         });
@@ -370,7 +377,7 @@
           console.log(email);
           try{
             // var decoded = jwt.verify(token, 'secret-key');
-          ratings.add_ratings(rating,database,email,res);
+            const result=ratings.add_ratings(rating,database,email,res);
         
           }catch(err){
             res.send(err);
@@ -380,12 +387,6 @@
 
 
 
-        //logout user
-        app.post('/logout_user',urlencodedParser,function(req,res){
-          var email=req.body[0];
-          const logout=require('./src/scripts/logout_user');
-          logout.logout_user(database,res,email);
-        })
 
         //create new event
         app.post('/create_new_event',upload.any(),urlencodedParser,function(req,res){
@@ -409,25 +410,26 @@
           }
 
           var event_name=req.body.event_name;
-          var venue=req.body.venue;
           var date=req.body.date;
           console.log(date);
           console.log(image_path)
           var time=req.body.time;
           console.log(time);
-          var artists=req.body.artists;
+          var artists=req.body.artists.split(',');
           console.log(typeof(artists[0]));
-          console.log(artists.split(',')) 
-          var venue_owners=req.body['venue_owners[]'].split(',');
-          var suppliers=req.body['suppliers[]'].split(',');
+          var venue_owners=req.body.venue_owners.split(',');
+          var suppliers=req.body.suppliers.split(',');
           console.log('Venue:',venue_owners);
           console.log('Supp:',suppliers);
           var user_name=req.body.user_name;
           console.log(user_name);
-          const data={event_name:event_name,venue:venue,date:date,time:time,artists:artist_array,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
-          var result=organizer_event.create_new_event(data,database);
-          if(result) res.redirect('organizer-events');
-          else res.send('Error Inserting');
+          const get_event_id=require('./src/scripts/generate_id');
+          const id=get_event_id.create_event_id(date,user_name,event_name);
+          console.log(id+"=>ID")
+          const data={event_name:event_name,date:date,time:time,artists:artists,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
+          var result=organizer_event.create_new_event(data,database,id,res);
+        
         })
 
 
@@ -456,6 +458,14 @@
           var email=req.params.email;
           const load_comments=require('./src/scripts/comments_backend');
           load_comments.load_comment(email,database,res);
+        });
+
+
+
+        //get-top-users
+        app.get('/get_top_users',urlencodedParser,function(req,res){
+          const top_users=require('./src/scripts/top_user');
+          top_users.top_users(res,database);
         })
 
 
@@ -468,6 +478,58 @@
           load_users.user_info(user_role,res,database);
 
         });
+
+
+
+
+        //get-all-chats
+        app.post('/get_all_chats',urlencodedParser,function(req,res){
+          console.log('Hello')
+          var user=req.body[0];
+          var user_role=req.body[1];
+          const load_chats=require('./src/scripts/load_all_chats');
+          load_chats.load_chat_list(database,res,user,user_role);
+
+        })
+
+
+
+
+        //edit user details
+        app.post('/edit_user_details',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
+          var f_name=req.body.f_name;
+          var l_name=req.body.l_name;
+          var user_name=f_name+" "+l_name;
+          console.log(user_name)
+          var address=req.body.address;
+          var city=req.body.city;
+          var state=req.body.state;
+          var email=req.body.email;
+          var bio=req.body.about_me;
+          var contact=req.body.contact;
+          if(req.file!=null){
+            var image_path="assets/img/storage/organizer/profile/"+req.file.filename;
+            var image_key_val={img_url:image_path};
+          }
+          else{
+            var image_path="";
+            var image_key_val={img_url:""};
+          }
+         // var user_details=req.body[0];
+          console.log(image_path)
+          var user_details={user_name:user_name,address:address,city:city,state:state,email:email,bio:bio,contact:contact,img_url:image_path};
+          console.log("USERDETAILS"+user_details.email)
+          const update_user=require('./src/scripts/update_user_details');
+          update_user.update_user_bio(database,res,user_details);
+        })
+   
+
+        //delete account
+        app.post('delete_account',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const delete_account=require('./src/scripts/signup');
+          delete_account.delete_account(database,res,user);
+        })
 
 
 
@@ -492,18 +554,11 @@
 
 
 
-        //get top user ratings
-        app.get('/get_top_users',urlencodedParser,function(req,res){
-          const top_user=require('./src/scripts/top_user');
-          top_user.top_users(res,database);
-        })
-
-
-
         //load events
         app.post('/load_events',urlencodedParser,function(req,res){
           var user_name=req.body[0];
-          console.log(user_name)
+          console.log(user_name);
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
           organizer_event.get_event_data(user_name,database,res);
         });
 
@@ -526,8 +581,7 @@
         app.post('/get_all_bookings',urlencodedParser,function(req,res){
           var searched_user=req.body[0];
           var organizer=req.body[1];
-          console.log(organizer+"Organizer");
-          console.log(searched_user+"searched user")
+          console.log(organizer)
           const get_booking_details=require('./src/scripts/organizer/get_booking_details');
           get_booking_details.get_booking_details(searched_user,organizer,database,res);
 
@@ -544,6 +598,16 @@
         });
 
 
+
+        //get notification count
+        app.post('/get_notification_count',urlencodedParser,function(req,res){
+          var organizer=req.body[0];
+          const count=require('./src/scripts/get_notification_count');
+          count.get_notification_count(organizer,database,res);
+
+        })
+
+
         //get-all-message-notifications
         app.post('/get_all_message_notifications',urlencodedParser,function(req,res){
           var organizer=req.body[0];
@@ -554,33 +618,13 @@
 
         //delete-notifications
         app.post('/mark_view_notifications',urlencodedParser,function(req,res){
-          var receiver_email=req.body[0];
+          var sender_email=req.body[0];
           var user_email=req.body[1];
-          console.log(user_email)
+          var type=req.body[2];
+          console.log(user_email);
           const mark_view=require('./src/scripts/organizer/mark_viewed_booking');
-          mark_view.mark_view( receiver_email,user_email,res,database);
+          mark_view.mark_view(sender_email,user_email,type,res,database);
 
-        });
-
-
-
-        //send-notifications
-        app.post('/send_notification',urlencodedParser,function(req,res){
-          var sender=req.body[0];
-          var receiver=req.body[1];
-          var roomId=req.body[2];
-          var date=req.body[3];
-          var receiver_name=req.body[4];
-          var sender_name=req.body[5];
-          var message=req.body[6];
-          const send_notification=require('./src/scripts/notifications_backend');
-          var success=send_notification.send_notification(sender,receiver,roomId,date,database,receiver_name,sender_name,message);
-          if(success==1){
-            res.json({success:true});
-          }
-          else{
-            res.json({success:false});
-          }
         });
 
 
@@ -589,14 +633,14 @@
         app.post('/send_notifications',urlencodedParser,function(req,res){
           var sender=req.body[0];
           var receiver=req.body[1];
-          var roomId=req.body[2];
-          var date=req.body[3];
-          var receiver_name=req.body[4];
-          var sender_name=req.body[5];
-          var message=req.body[6];
-          console.log("MESSAGE:"+message);
-          const send_notification=require('./src/scripts/user_chat');
-          var success=send_notification.send_notification(sender,receiver,roomId,date,database,receiver_name,sender_name,message);
+          //var roomId=req.body[2];
+          var date=req.body[2];
+          var receiver_name=req.body[3];
+          var sender_name=req.body[4];
+          var message=req.body[5];
+          var isOrganizer=req.body[6];
+          const send_notification=require('./src/scripts/notifications_backend');
+          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer);
           if(success==1){
             res.json({success:true});
           }
@@ -604,7 +648,6 @@
             res.json({success:false});
           }
         });
-
 
 
 
@@ -615,17 +658,41 @@
           const get_data=require('./src/scripts/searched_user_details');
           get_data.get_searched_user_details(user,res,database);
 
-        })
+        });
+
+
+
+        //get-user-profile
+        app.post('/get_user_profile',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const get_user_profile=require('./src/scripts/searched_user_details');
+          get_user_profile.get_searched_user_details(user,res,database);
+        });
+
+
+
+        //update-user-profile
+        // app.post('/update_profile',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
+        //   var name=req.body.f_name+""+req.body.l_name;
+        //   var address=req.body.address;
+        //   var city=req.body.city;
+        //   var state=req.body.state;
+        //   var email=req.body.email;
+        //   var contact=req.body.contact;
+        //   var bio=req.body.bio;
+        //   var 
+        // })
 
     
       console.log('Listening to 4600');
       server.listen(4600);
+      
       io1.on('connection',(socket)=>{
 
     socket.on('join',function(data){
       if(data.message=="Welcome")
       socket.join(data.room);
-      console.log('New connection made '+data.user+' '+data.message);
+      console.log('New connection made '+data.user+' '+data.message+' '+data.room);
       socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message,date:data.date});
 
 

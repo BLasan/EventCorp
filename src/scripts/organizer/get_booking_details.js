@@ -26,7 +26,8 @@ exports.get_booking_details=function(searched_user,organzier,database,res){
     var docRef = database.collection('register_user').doc(organzier).collection('bookings').doc(searched_user);
     docRef.get().then(async function(doc) {
         if(doc){
-          console.log(doc.data())
+          console.log(doc.data());
+         
          res.send({success:true,data:doc.data()})       
         }
         else{

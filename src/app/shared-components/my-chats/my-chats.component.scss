@@ -1,0 +1,28 @@
+a:hover{
+    text-decoration: none;
+}
+
+.avatar{
+    border-radius: 50%;
+  }
+
+.avatar1{
+    border-radius: 50%;
+    float: right!important;
+    margin-left: 1000px;
+    margin-right:0px;
+  }
+
+.list-group{
+    max-height: 400px;
+    width: 270px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow-y:scroll;
+    -webkit-overflow-y-scrolling: touch;
+  }
+
+  .break{
+    display: inline-block;
+    word-wrap: break-word;
+  }   

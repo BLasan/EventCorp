@@ -30,7 +30,7 @@ import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-ho
       MatTooltipModule,
       MatToolbarModule,
       MatIconModule,
-      MatButtonModule
+      MatButtonModule,
     ],
     declarations: [
      CustomerHomeComponent
