@@ -15,7 +15,7 @@ export const ArtistLayoutRoutes: Routes = [
    
     { path: 'artist',   component:ArtistComponent },
     { path:'artist-calendar', component:ArtistCalendarComponent},
-    { path:'notifications' , component:ArtistNotificationComponent},
+    { path:'artist-notifications' , component:ArtistNotificationComponent},
     { path:'artist-request' ,component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
     { path:'view_booking_info' ,component:ViewBookingInfoComponent},

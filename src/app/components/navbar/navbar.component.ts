@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     emp:any=[{age:'abdcc'}]
     count:any=0;
     role:string;
+    route_link:string;
     location: Location;
     notification_count:any;
     mobile_menu_visible: any = 0;
@@ -41,19 +42,30 @@ export class NavbarComponent implements OnInit {
     this.getNotificationCount();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+        this.route_link="/artist-notifications  ";
     }
   
-    else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+    else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+        this.route_link="/organizer-notifications"
+    }
+   
+    else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES4.filter(listTitle=>listTitle);
+        this.route_link="/supplier-notifications"
+    }
+    
 
-    else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES4.filter(listTitle=>listTitle);
+    else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES.filter(listTitle=>listTitle);
+        this.route_link="/admin-notifications"
+    }
+    
 
-    else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES.filter(listTitle=>listTitle);
-
-    else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES3.filter(listTitle=>listTitle);
+    else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES3.filter(listTitle=>listTitle);
+        this.route_link="/venue-owner-notifications"
+    }
 
     this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
         this.user_details=data;
