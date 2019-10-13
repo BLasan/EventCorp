@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/services/login.services';
-import {redirect_to} from '../../../scripts/redirect_to.js'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,12 +11,13 @@ export class LoginComponent implements OnInit {
   isInValid:boolean=false;
   validation:any;
   checked:any;
+ 
   constructor(private login_service:LoginService) { }
 
   ngOnInit() {
-
+    
     if(localStorage.getItem('remember_me')=='true'){
-      (<HTMLInputElement>document.getElementById('user_name')).value=localStorage.getItem('user_email');
+     //(<HTMLInputElement>document.getElementById('user_name')).value=localStorage.getItem('user_email');
     }
   }
 
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit {
           this.login_service.activateRememberUser(email);
         }
         else this.login_service.destroyRememberUser();
-        redirect_to(this.validation.role);
+        const redirect_to=require('../../../scripts/redirect_to.js');
+        redirect_to.redirect_to(this.validation.role);
       }
      
       else

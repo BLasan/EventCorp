@@ -18,6 +18,7 @@
             "outFiles": [
                 "${workspaceFolder}/dist/out-tsc/**/*.js"
             ]
+
         }
     ]
 }
