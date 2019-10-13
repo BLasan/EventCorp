@@ -41,3 +41,4 @@ export function previous_mode(){
         $("#menuList").removeClass("hiding")
     })
 }
+

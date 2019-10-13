@@ -19,6 +19,6 @@
       "es5"
     ],
     "module": "none",
-    "strict": false
+    "strict": true
   }
 }

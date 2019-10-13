@@ -9,9 +9,9 @@ import {Chart} from 'chart.js';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
-  PieChart;
-  BarChart;
-  BarChart1;
+  PieChart:any;
+  BarChart:any;
+  BarChart1:any;
   
   ngOnInit() {
     

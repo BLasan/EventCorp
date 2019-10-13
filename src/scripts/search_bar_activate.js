@@ -1,5 +1,4 @@
 
-
 export function deactivate_searchBar(){
 
     $('#search_box').attr('disabled','disabled');
