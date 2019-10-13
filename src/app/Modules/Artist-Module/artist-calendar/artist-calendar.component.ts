@@ -10,10 +10,14 @@
 export class ArtistCalendarComponent implements OnInit {
 
   form:any;
+  artist_name:string;
+  artist_role:string;
   ngOnInit() {
 
      calendar({});
      deactivate_searchBar()
+     this.artist_name=localStorage.getItem('user_name');
+     this.artist_role=localStorage.getItem('role');
      this.form=new FormGroup({
        event_name:new FormControl('',Validators.required),
        venue:new FormControl('',[Validators.required]),

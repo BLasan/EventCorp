@@ -1,3 +1,5 @@
+
+
 export function deactivate_searchBar(){
 
     $('#search_box').attr('disabled','disabled');
@@ -15,3 +17,5 @@ export function click_redirect_href(){
     
     $('#redirect_user_href')[0].click();
 }
+
+

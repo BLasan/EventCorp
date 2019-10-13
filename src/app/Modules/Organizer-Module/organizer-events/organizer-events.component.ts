@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material';
 import { ReplaySubject, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { OrganizerServiceService } from 'app/services/organizer_services.service';
+import { ProfileService } from 'app/services/organizer_services.service';
 import {upload_images,upload_video,delete_image,delete_video} from '../../../../scripts/event_image_uploader';
 @Component({
   selector: 'app-organizer-events',
@@ -25,7 +25,8 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   public filteredBanksMulti: ReplaySubject<string[]> = new ReplaySubject<string[]>(1);
   protected _onDestroy = new Subject<void>();
   user_name:string;
-  constructor(private _organizer_services:OrganizerServiceService) { }
+  user_role:string;
+  constructor(private _organizer_services:ProfileService) { }
  
   ngOnInit() {
     // calendar();
@@ -35,6 +36,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     delete_image();
     delete_video();
     this.user_name=localStorage.getItem('user_name');
+    this.user_role=localStorage.getItem('role');
     this.loadUserEvents(this.user_name);
     this.filteredBanksMulti.next(this.toppingList.slice());
     this.form=new FormGroup({

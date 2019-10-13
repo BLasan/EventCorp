@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizerServiceService {
+export class ProfileService {
 
   private _url="http://localhost:4600";
 

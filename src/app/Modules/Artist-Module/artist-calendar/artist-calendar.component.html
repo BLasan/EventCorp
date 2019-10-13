@@ -13,28 +13,30 @@
               <div class="card-body">
                 <form #form1 action="add_event" name="add_event_form" method="POST" [formGroup]="form">
                   <mat-form-field>
-                    <input matInput placeholder="Event Name" name="event_name" formControlName='event_name'>
+                    <input matInput placeholder="Event Name" name="event_name" formControlName='event_name' style="color:white">
                     <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
                   </mat-form-field>    
                   <mat-form-field>
-                    <input matInput placeholder="Organizer" name="organizer" formControlName='organizer_name'>
+                    <input matInput placeholder="Organizer" name="organizer" formControlName='organizer_name' style="color:white">
                     <mat-error *ngIf="hasError('organizer_name', 'required')"><small>Organizer name is required</small></mat-error>
                   </mat-form-field>   
                   <mat-form-field>
-                    <input matInput placeholder="Venue" name="venue" formControlName='venue'>
+                    <input matInput placeholder="Venue" name="venue" formControlName='venue' style="color:white">
                     <mat-error *ngIf="hasError('venue', 'required')"><small>Venue is required</small></mat-error>
                   </mat-form-field>   
                   <mat-form-field color="accent">
-                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" formControlName='date'>
+                    <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" formControlName='date' style="color:white">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="hasError('date', 'required')"><small>is required</small></mat-error>
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput type="time" placeholder="Time" name="time" formControlName='time'>
+                    <input matInput type="time" placeholder="Time" name="time" formControlName='time' style="color:white">
                     <mat-error *ngIf="hasError('time', 'required')"><small>Time is required</small></mat-error>
                   </mat-form-field>
-                  <button mat-raised-button color="accent" name="submit" (click)="form1.submit()">Add</button>
+                  <input type="hidden" value="{{artist_name}}" name="user_name">
+                  <input type="hidden" value="{{artist_role}}" name="user_role" >
+                  <button mat-raised-button color="accent" name="submitBtn" (click)="form1.submit()">Add</button>
                 </form>
               </div>
           </div> 

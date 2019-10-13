@@ -42,14 +42,9 @@
               "node_modules/chartist/dist/chartist.js",
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/scripts/side_bar.js",
-              "src/scripts/search_bar_activate.js",
-              "src/scripts/rating_system.js",
-              "src/scripts/image_uploader.js",
-              "src/scripts/state_data.js",
-              "src/scripts/redirect_to.js",
-              "src/scripts/disable_a_href.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              
+              
             ]
           },
           "configurations": {
@@ -104,13 +99,8 @@
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/chartist/dist/chartist.js",
-              "src/scripts/side_bar.js",
-              "src/scripts/search_bar_activate.js",
-              "src/scripts/rating_system.js",
-              "src/scripts/image_uploader.js",
-              "src/scripts/state_data.js",
-              "src/scripts/redirect_to.js"
+              "node_modules/chartist/dist/chartist.js"
+              
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",

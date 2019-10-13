@@ -36,72 +36,16 @@
     <!-- <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script> -->
-    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script> -->
-   
+
     <script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
     <!-- <script src="https://www.paypal.com/sdk/js?client-id=AWRKO5Yttpl5IkpBLGl9ocwCvqSaixg1JIL8wDqe2whloib2iwfahg_4kqjBLUHOMd2ICC6-U7RBb_Fg"></script>    -->
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.7.6/js/mdb.min.js"></script> -->
-
-   
-
-<!-- <style>
-
-.btn-circle {
-   background-color: #303337;
-    width: 50px;
-    height: 50px;
-    padding: 6px 0px;
-    border-radius: 30px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-}
-
-.btn-circle:hover{
-
-  background-color:lightslategray;
-}
-
-</style>
-
-<style>
-    .buttont {
-      position: relative;
-      border: none;
-      color: #FFFFFF;
-      text-align: center;
-      -webkit-transition-duration: 0.4s; /* Safari */
-      transition-duration: 0.4s;
-      text-decoration: none;
-      overflow: hidden;
-      cursor: pointer;
-    }
-    
-    .buttont:after {
-      content: "";
-      display: block;
-      position: absolute;
-      opacity: 0;
-      transition: all 0.8s
-    }
-    
-    .buttont:active:after {
-      padding: 0;
-      margin: 0;
-      opacity: 1;
-      transition: 0s
-    }
-    </style> -->
-
-
 </head>
 <body>
   <app-root>
-   
     <div class="loader">
       <svg class="circular" viewBox="25 25 50 50">
           <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
@@ -118,47 +62,10 @@
  
 <!--<script src="https://www.powr.io/powr.js?platform=html"></script><div class="powr-music-player" id="d96a0ed9_1556261783"></div> -->
 <!--<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer> -->
+ 
 
 </body>
 
 
 </html>
 
-
-
-
-
-
- <!--  <script>
-
-    $(document).ready(function(){
-        
-        function readURL(input) {
-          
-
-          if (input.files && input.files[0]) {
-              var reader = new FileReader();
-              reader.onload=fileSelector;
-              var output = document.getElementById('divVideo');
-              var HTML="<table>";
-              function fileSelector(evt){
-              HTML += "<tr><td>" +"<video width=320 height=240 controls><source src='null' type=video/mp4></video>" + "</td><td><button type=button class=btn btn-danger btn-round  style=margin-left:50px>ADD</button></td></tr>";
-              HTML+="</table>";
-              output.innerHTML += HTML;
-              var video=$('#divVideo video')[0];
-              
-              video.src=evt.target.result;
-              video.load(); 
-         
-              }
-              reader.readAsDataURL(input.files[0]);
-          }
-      }         
-        $("#fileUploader").change(function(){
-          
-            readURL(this);
-        });
-      
-      
-    });
-  </script> -->

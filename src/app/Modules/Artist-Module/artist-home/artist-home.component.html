@@ -39,8 +39,8 @@
       </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card" *ngIf="top_organizers.length!=0">
+        <div class="col-md-4" *ngIf="top_organizers.length!=0">
+            <div class="card">
                 <div class="card-header card-header-danger">
                   <h4 class="card-title">Top Organizers</h4>
                   <p class="card-category">
@@ -101,8 +101,8 @@
                           </ngb-rating>
                         </p>
                       </mat-list-item>
+                      <mat-divider></mat-divider>
                     </a>
-                    <mat-divider></mat-divider>
                   </mat-list>    
                 </div>
             </div>
