@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {image_uploader,remove_uploader} from '../../../../scripts/image_uploader';
 import { SignupService } from 'app/services/signup.service';
 import { MatSnackBar } from '@angular/material';
-import { OrganizerServiceService } from 'app/services/organizer_services.service';
+import { ProfileService } from 'app/services/organizer_services.service';
 @Component({
   selector: 'app-organizer-profile',
   templateUrl: './organizer-profile.component.html',
@@ -18,7 +18,7 @@ export class OrganizerProfileComponent implements OnInit {
   username:string;
   user_events:any=[];
   user_profile:any;
-  constructor(private _updateData:SignupService,private _snackbar:MatSnackBar,private _organizer_services:OrganizerServiceService) { }
+  constructor(private _updateData:SignupService,private _snackbar:MatSnackBar,private _organizer_services:ProfileService) { }
 
   ngOnInit() {
     deactivate_searchBar();

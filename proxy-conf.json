@@ -37,5 +37,10 @@
     "/edit_user_details":{
       "target":"http://[::1]:4600",
       "secure":false
+    },
+
+    "/add_event":{
+      "target":"http://[::1]:4600",
+      "secure":false
     }
 }

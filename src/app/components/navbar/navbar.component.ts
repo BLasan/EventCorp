@@ -3,11 +3,12 @@ import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component'
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
-import {onIdentify} from '../../../scripts/side_bar.js';
 import { SearchUserService } from 'app/services/search_user.service';
 import { LoginService } from 'app/services/login.services';
 import { NotificationService } from 'app/services/notification.service';
 import {click_redirect_href} from '../../../scripts/search_bar_activate';
+import {disable_drop_down,previous_mode} from '../../../scripts/disable_a_href';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnInit {
     notification_count:any;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
+    onLoaded:boolean=true;
     private sidebarVisible: boolean;
     constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService) {
       this.location = location;
@@ -39,7 +41,9 @@ export class NavbarComponent implements OnInit {
     // this.count=this.notifications.get_notification_count();
     // alert(this.count);
     //   this.getUser=onIdentify();
+    
     this.getNotificationCount();
+    //previous_mode();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
         this.route_link="/artist-notifications  ";
@@ -210,5 +214,13 @@ export class NavbarComponent implements OnInit {
         });
     }
 
+    show(){
+        if(this.onLoaded)
+        disable_drop_down();
+        else
+        previous_mode();
+        this.onLoaded=false;
+
+    }
     
 }

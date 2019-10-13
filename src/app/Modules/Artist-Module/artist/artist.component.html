@@ -127,16 +127,17 @@
         </div>
         <div class="row" style="margin-top:15px">
             <div class="col-md-4"></div>
-            <div class="col-md-8">
+            <div class="col-md-8" *ngIf="user_events.size>0">
                 <div class="card" style="background-color:#303337">
                     <div class="card-header card-header-danger" style="color:white">
                         <h4 class="card-title">Edit Events</h4>
                         <p class="card-category">My Events</p>
                     </div>
                     <div class="card-body">
-                        <mat-list role="list" class="list-group">
-                            <mat-list-item role="listitem" style="color:white">Item 1</mat-list-item>
-                          </mat-list>
+                        <mat-list role="list" [ngClass]="{'list-group':user_events.length>3}">
+                            <mat-list-item role="listitem" *ngFor="let events of user_events.data" style="color:white">{{events.event_name}}  |  <a href="">view</a></mat-list-item>
+                            <mat-divider></mat-divider>
+                        </mat-list>
                     </div>
                 </div>
             </div>

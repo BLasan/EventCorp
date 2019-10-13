@@ -14,8 +14,11 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}\\src\\scripts\\search_bar_activate.js",
-            "outFiles": []
+            "program": "${workspaceFolder}/src/scripts/disable_a_href.js",
+            "outFiles": [
+                "${workspaceFolder}/dist/out-tsc/**/*.js"
+            ]
+
         }
     ]
 }

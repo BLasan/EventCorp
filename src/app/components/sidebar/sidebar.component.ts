@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {onIdentify} from '../../../scripts/side_bar.js';
 import { filter } from 'rxjs-compat/operator/filter';
 import { getRole } from 'app/services/select_role.service.js';
+import { SearchUserService } from 'app/services/search_user.service';
 declare const $: any;
+
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -54,25 +55,46 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   getUser:String='';
   isAdmin:boolean=false;
-
-  constructor() { }
+  route_link:any;
+  user_details:any;
+  constructor( private _search_user:SearchUserService) { }
 
   ngOnInit() {
    
-    if(getRole()=='artist')
-    this.menuItems = ROUTES1.filter(menuItem => menuItem);
+    if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
+      this.menuItems=ROUTES1.filter(listTitle=>listTitle);
+      this.route_link="/artist-notifications  ";
+  }
 
-    else if(getRole()=='organizer')
-    this.menuItems=ROUTES2.filter(menuItem=>menuItem)
+  else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){
+      this.menuItems=ROUTES2.filter(listTitle=>listTitle);
+      this.route_link="/organizer-notifications"
+  }
+ 
+  else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn')){
+      this.menuItems=ROUTES4.filter(listTitle=>listTitle);
+      this.route_link="/supplier-notifications"
+  }
+  
 
-    else if(getRole()=='admin')
-    this.menuItems=ROUTES.filter(menuItem=>menuItem)
+  else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn')){
+      this.menuItems=ROUTES.filter(listTitle=>listTitle);
+      this.route_link="/admin-notifications"
+  }
+  
 
-    else if(getRole()=='venue_owner')
-    this.menuItems=ROUTES3.filter(menuItem=>menuItem)
+  else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn')){
+      this.menuItems=ROUTES3.filter(listTitle=>listTitle);
+      this.route_link="/venue-owner-notifications"
+  }
 
-    else if(getRole()=='supplier')
-    this.menuItems=ROUTES4.filter(menuItem=>menuItem)
+  this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
+    this.user_details=data;
+    // if(localStorage.getItem('searched_user_email'))
+    //   localStorage.removeItem('searched_user_email');
+    console.log(this.user_details);
+  });
+
    
   }
 

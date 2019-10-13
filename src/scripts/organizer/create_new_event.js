@@ -1,21 +1,35 @@
 var data=[];
 
-exports.create_new_event=function(data,database,id,res){
+exports.create_new_event=function(data,database,id,res,user_role){
 
     var user_email=data.user_name;
     console.log(database+'database');
     console.log(data);
     console.log(id)
-    var create_event=database.collection('register_user').doc(user_email).collection('MyEvents').doc(id).set(data);
-    if(create_event) res.redirect('organizer-events');
-    else res.send('Error Inserting');
+    var create_event=database.collection('register_user').doc(user_email).collection('MyEvents').doc(id).set(data).then(function() {
+      if(create_event) {
+        if(user_role=='organizer')
+        res.redirect('organizer-events');
+        else if(user_role=='artist')
+        res.redirect('artist-calender');
+        else if(user_role=='venue_owner')
+        res.redirect('organizer-events');
+        else if(user_role=='supplier')
+        res.redirect('organizer-events');
+      }
+      else res.send('Error Inserting');
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+    
     
 }
 
 exports.get_event_data=function(user_name,database,res){
 
   get_event_data(user_name,database,function(data){
-    console.log('=>'+data[0].artists);
+    // console.log('=>'+data[0].artists);
     if(data){
         res.send({isEmpty:false,data:data,size:data.length});
     }

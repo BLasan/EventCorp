@@ -419,6 +419,7 @@
           console.log(typeof(artists[0]));
           var venue_owners=req.body.venue_owners.split(',');
           var suppliers=req.body.suppliers.split(',');
+          var user_role=req.body.user_role;
           console.log('Venue:',venue_owners);
           console.log('Supp:',suppliers);
           var user_name=req.body.user_name;
@@ -428,7 +429,7 @@
           console.log(id+"=>ID")
           const data={event_name:event_name,date:date,time:time,artists:artists,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
           const organizer_event=require('./src/scripts/organizer/create_new_event');
-          var result=organizer_event.create_new_event(data,database,id,res);
+          var result=organizer_event.create_new_event(data,database,id,res,user_role);
         
         })
 
@@ -613,6 +614,26 @@
           var organizer=req.body[0];
           const message=require('./src/scripts/notifications_backend');
           message.get_all_messages(organizer,database,res);
+        })
+
+
+
+        //add-event-artist
+        app.post('/add_event',urlencodedParser,function(req,res){
+          var event_name=req.body.event_name;
+          var organizer=req.body.organizer;
+          var venue=req.body.venue;
+          var date=req.body.date;
+          var time=req.body.time;
+          var artist=req.body.user_name;
+          var user_name=null;
+          var user_role=req.body.user_role;
+          const get_event_id=require('./src/scripts/generate_id');
+          const id=get_event_id.create_event_id(date,user_name,event_name);
+          console.log(id+"=>ID")
+          const data={event_name:event_name,date:date,time:time,venue_owners:venue,organzier:organizer,user_name:artist};
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
+          var result=organizer_event.create_new_event(data,database,id,res,user_role);
         })
 
 
