@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/services/login.services';
-
+import {redirect_to} from 'scripts/redirect_to'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
           this.login_service.activateRememberUser(email);
         }
         else this.login_service.destroyRememberUser();
-        const redirect_to=require('../../../scripts/redirect_to.js');
-        redirect_to.redirect_to(this.validation.role);
+        redirect_to(this.validation.role);
       }
      
       else
