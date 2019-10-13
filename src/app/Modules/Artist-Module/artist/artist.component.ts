@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as io from 'socket.io-client';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
 import {image_uploader,remove_uploader} from '../../../../scripts/image_uploader'
