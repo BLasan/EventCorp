@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit {
       console.log('Hello')
       this.validation=data;
       console.log(this.validation.isTrue);
-      if(this.validation.isTrue){
+      if(this.validation.isTrue && this.validation.verification){
+       
         this.login_service.logIn(this.validation.role,email,this.validation.token,this.validation.user_name);
         if(this.checked){
           this.login_service.activateRememberUser(email);
@@ -38,7 +39,6 @@ export class LoginComponent implements OnInit {
         else this.login_service.destroyRememberUser();
         redirect_to(this.validation.role);
       }
-     
       else
       this.isInValid=true
 

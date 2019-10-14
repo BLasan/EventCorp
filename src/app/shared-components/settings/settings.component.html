@@ -104,6 +104,8 @@
                 <mat-error *ngIf="hasError('re_enter_password', 'required')">*Re enter password</mat-error>
                 <mat-error *ngIf="hasError('re_enter_password', 'notequal')">*Password not matching</mat-error>
               </mat-form-field> 
+              <input type="hidden" name="user" value="{{user_email}}">
+              <input type="hidden" name="role" value="{{user_role}}">
               <button mat-raised-button color="accent" (click)="form_reset.submit()">Reset</button>
             </form>
             <hr>

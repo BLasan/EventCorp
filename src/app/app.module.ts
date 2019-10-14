@@ -39,6 +39,7 @@ import { OrganizerProfileComponent } from './Modules/Organizer-Module/organizer-
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArtistSettingsComponent } from './Modules/Artist-Module/artist-settings/artist-settings.component';
+import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -79,6 +80,7 @@ const config = {
     ArtistLayoutComponent,
     ErrorPageComponent,
     PaypalPaymentComponent,
+    EmailVerifyComponent,
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
