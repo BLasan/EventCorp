@@ -21,6 +21,11 @@ import { VenueListComponent } from "../../venue-module/venue-home/venue-list/ven
 import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
 import { VenueReservationFormComponent } from "../../venue-module/venue-reservation-form/venue-reservation-form.component";
 import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
+// import {MatTableDataSource} from '@angular/material/table';
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -31,7 +36,11 @@ import {
   MatNativeDateModule,
   MatTableModule,
   MatSortModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule,
+      MatListModule,
+      MatChipsModule,
+      // MatTableModule
 } from "@angular/material";
 
  
@@ -56,7 +65,11 @@ import {
       MatChipsModule,
       NgbModule,
       NgxMatSelectSearchModule,
-      SharedComponentsModule
+      SharedComponentsModule,
+      MatTableModule,
+      MatSortModule,
+  MatDialogModule,
+      // MatTableDataSource
     ],
     declarations: [
      ArtistComponent,
@@ -66,9 +79,14 @@ import {
      CalendarComponent,
      ArtistCalendarComponent,
     //  PaypalPaymentComponent,
+    ViewBookingInfoComponent,
+    VenueListComponent,
+    VenueProfileComponent,
+    VenueReservationFormComponent,
+    VenueAddComponent
     ],
     
-     ViewBookingInfoComponent,
+     
     //  RatingSystemComponent,
   providers: [MatDatepickerModule]
 })
