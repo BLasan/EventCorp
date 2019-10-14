@@ -1,8 +1,8 @@
-   const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
-  // const artist_get_data=require('./src/scripts/artist/artist_get_data');
+  // const artist_insert_data=require('./src/scripts/artist/artist_insert_data');
   const express=require('express');
   var Request = require("request");
   const path=require('path');
+  const cors = require('cors');
   const app=express();
   var fs=require('fs');
   const ExpressValidator = require('express-validator');
@@ -11,37 +11,63 @@
   var urlencodedParser = body.urlencoded({ extended: false });
   const http=require('http');
   const server=http.Server(app);
-  //const http1=require('http');
-  //const server1=http1.Server(app);
   const multer=require('multer');
   const ejs=require('ejs');
   var io = require('socket.io')(server, { path: '/form' }).listen(server);
-  
-  var id=0,isValid=false;
+  var io1= require('socket.io').listen(server);
+  const bcrypt = require('bcrypt');
+  const saltRounds = 10;
+  const firebaseInit=require('./src/scripts/firebase-authentication/firebase');
+  const verify_user_token=require('./src/scripts/verify_user_token');
+  //initialize firebase
+  var firebase=firebaseInit.firebaseInit();
+  var database=firebase.firestore();
+
+  const ratings=require('./src/scripts/rating');
+
   app.use(body.json());
   app.use(ExpressValidator());
   app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
   app.use(express.static('src'));
+  app.use(cors())
   var password='',repassword='',name='',email='',country='';
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
   const RECAPTCHA_SECRET = "6Le6daAUAAAAAD-dA1jOUI_dZKVg2z7v4MDFfl9p";
+  // const grpc = require('grpc')
+  // const protoLoader = require('@grpc/proto-loader')
+  // const packageDefinition = protoLoader.loadSync('notes.proto');
+  // const notesProto = grpc.loadPackageDefinition(packageDefinition);
   
-
-  const storage=multer.diskStorage({destination:function(req,res,cb){
-    cb(null,'./src/assets/storage/images')
+  const storage_organizer=multer.diskStorage({destination:function(req,file,cb){
+    console.log(file.mimetype)
+    if(file.mimetype=="image/png")
+    cb(null,'./src/storage/organizer/events/images')
+    else
+    cb(null,'./src/storage/organizer/events/videos')
+   
   },
-
   filename:function(req,file,cb){
-    cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
-    // console.log('hi');
+     cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
+    //  console.log(req.files);
   }
+  });
 
-});
+  const organizer_profile_pic=multer.diskStorage({destination:function(req,file,cb){
+    console.log(file.mimetype)
+    cb(null,'./src/storage/organizer/profile')
+  },
+  filename:function(req,file,cb){
+     cb(null,file.fieldname+'-'+Date.now()+path.extname(file.originalname));
+    //  console.log(req.files);
+  }
+  });
+ 
 
-    const upload=multer({storage:storage});
-      
-      app.post('/con',urlencodedParser,function (req, res) {
+    const upload=multer({storage:storage_organizer});
+    const upload_profile_pic=multer({storage:organizer_profile_pic});
+
+    app.post('/con',urlencodedParser,function (req, res) {
           password = req.body.password;
           repassword=req.body.re_submission;
           name=req.body.user_name;
@@ -119,7 +145,6 @@
 
          if(errors[0].param=='name')
          validName=false;
-
          if(errors[0].param=='country')
          validCountry=false;
 
@@ -297,12 +322,335 @@
           
         // })
 
-       
 
-  console.log('Listening to 4600');
-  
-  
-  server.listen(4600);
+        app.post('/sign_up',urlencodedParser,function(req,res){
+
+          console.log('hello');
+          //var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+          //var token = randomToken(40);
+          var user_name=req.body.user_name;
+          var user_email=req.body.user_email;
+          var role=req.body.role_sel;
+          var address1=req.body.address1;
+          var address2=req.body.address2;
+          var city=req.body.city;
+          var state=req.body.state_sel;
+          var country_code=req.body.countryCode_sel;
+          var contact=req.body.contact;
+          var user_password=req.body.user_password;
+          const user_signup=require('./src/scripts/signup');
+          console.log(user_password)
+
+          bcrypt.hash(user_password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active'}]
+            const result=user_signup.signup(data[0],database);
+            console.log(result)
+            if(result==1)
+            res.json({success:true});
+            else
+            res.json({success:false});
+          });
+          
+        });
+
+
+
+        //login-credentials
+        app.post('/login_credentials',urlencodedParser,function(req,res){
+
+          var email=req.body[0];
+          var password=req.body[1];
+          console.log(email);
+          const user={email:email,password:password};
+          const login_credentials=require('./src/scripts/check_credentials');
+          login_credentials.check_credentials(email,password,res,database,user);
+
+        });
+
+
+
+        //add-ratings
+        app.post('/add_rating',urlencodedParser,function(req,res){
+          var rating=req.body.rating;
+          var email=req.body.email;
+          console.log(email);
+          try{
+            // var decoded = jwt.verify(token, 'secret-key');
+            const result=ratings.add_ratings(rating,database,email,res);
+        
+          }catch(err){
+            res.send(err);
+          }
+
+        });
+
+
+
+
+        //create new event
+        app.post('/create_new_event',upload.any(),urlencodedParser,function(req,res){
+
+          if(req.files[0]==null || req.files[1]==null){
+            video_path=null;
+            image_path=null;
+          }
+
+          else if(req.files[0]==null){
+            video_path="storage/organizer/videos/"+req.files[1].filename;
+          }
+
+          else if(req.files[1]==null){
+            image_path="storage/organizer/images/"+req.files[0].filename;
+          }
+
+          else{
+            video_path="storage/organizer/videos/"+req.files[1].filename;
+            image_path="storage/organizer/images/"+req.files[0].filename;
+          }
+
+          var event_name=req.body.event_name;
+          var date=req.body.date;
+          console.log(date);
+          console.log(image_path)
+          var time=req.body.time;
+          console.log(time);
+          var artists=req.body.artists.split(',');
+          console.log(typeof(artists[0]));
+          var venue_owners=req.body.venue_owners.split(',');
+          var suppliers=req.body.suppliers.split(',');
+          console.log('Venue:',venue_owners);
+          console.log('Supp:',suppliers);
+          var user_name=req.body.user_name;
+          console.log(user_name);
+          const get_event_id=require('./src/scripts/generate_id');
+          const id=get_event_id.create_event_id(date,user_name,event_name);
+          console.log(id+"=>ID")
+          const data={event_name:event_name,date:date,time:time,artists:artists,venue_owners:venue_owners,suppliers:suppliers,user_name:user_name,image_path:image_path,video_path:video_path};
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
+          var result=organizer_event.create_new_event(data,database,id,res);
+        
+        })
+
+
+
+
+        //add-comment
+        app.post('/add_comment',urlencodedParser,function(req,res){
+          var comment=req.body.comment;
+          var user_email=req.body.user_email;
+          var user_name=req.body.user_name;
+          var timeStamp=req.body.timeStamp;
+          const add_comments=require('./src/scripts/comments_backend');
+          const returned_val=add_comments.add_comment(comment,user_email,user_name,timeStamp,database);
+          console.log(returned_val)
+          if(returned_val==1)
+            res.json({success:true});
+          else
+            res.json({success:false});
+        });
+
+
+
+
+        //load-comment
+        app.get('/load_comment/:email',urlencodedParser,function(req,res){
+          var email=req.params.email;
+          const load_comments=require('./src/scripts/comments_backend');
+          load_comments.load_comment(email,database,res);
+        })
+
+
+
+        //load-users
+        app.post('/load_users',urlencodedParser,function(req,res){
+          var user_role=req.body.user_role;
+          console.log(user_role);
+          const load_users=require('./src/scripts/load_all_users');
+          load_users.user_info(user_role,res,database);
+
+        });
+
+
+
+
+        //edit user details
+        app.post('/edit_user_details',upload_profile_pic.single('profile_img'),urlencodedParser,function(req,res){
+          // var first_name=req.body.f_name;
+          // var last_name=req.body.l_name;
+          // var user_name=first_name+" "+last_name;
+          // var address=req.body.address;
+          // var city=req.body.city;
+          // var state=req.body.state;
+          // var email=req.body.email;
+          // var bio=req.body.about_me;
+          // var contact=req.body.contact;
+          // var user_details={user_name:user_name,address:address,city:city,state:state,email:email,bio:bio,contact:contact};
+          if(req.file!=null){
+            var image_path= image_path="storage/organizer/profile/"+req.file.filename;
+            var image_key_val={img_url:image_path};
+          }
+          else{
+            var image_key_val={img_url:""};
+          }
+          var user_details=req.body[0];
+          user_details=Object.assign(image_key_val);
+          const update_user=require('./src/scripts/update_user_details');
+          update_user.update_user_bio(database,res,user_details);
+        })
+   
+
+        //delete account
+        app.post('delete_account',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const delete_account=require('./src/scripts/signup');
+          delete_account.delete_account(database,res,user);
+        })
+
+
+
+
+        //load-searched-user-data
+        app.get('/load_searched_user/:email',urlencodedParser,function(req,res){
+          var email=req.params.email;
+          console.log(email)
+          const get_details=require('./src/scripts/searched_user_details');
+          get_details.get_searched_user_details(email,res,database);
+        })
+
+
+
+        //load-user-ratings
+        app.get('/load_user_ratings/:email',urlencodedParser,function(req,res){
+          var user_email=req.params.email;
+          console.log(user_email);
+          ratings.load_ratings(user_email,database,res);
+
+        });
+
+
+
+        //load events
+        app.post('/load_events',urlencodedParser,function(req,res){
+          var user_name=req.body[0];
+          console.log(user_name);
+          const organizer_event=require('./src/scripts/organizer/create_new_event');
+          organizer_event.get_event_data(user_name,database,res);
+        });
+
+
+
+        //book-user
+        app.post('/book_user',urlencodedParser,function(req,res){
+          var searched_user=req.body[0];
+          var time=req.body[1];
+          var organizer=req.body[2];
+          console.log(organizer+' organizer');
+          const book_user=require('./src/scripts/organizer/book_user');
+          book_user.book_user(searched_user,time,organizer,database,res);
+
+        });
+
+
+
+        //get-all-booking details
+        app.post('/get_all_bookings',urlencodedParser,function(req,res){
+          var searched_user=req.body[0];
+          var organizer=req.body[1];
+          console.log(organizer)
+          const get_booking_details=require('./src/scripts/organizer/get_booking_details');
+          get_booking_details.get_booking_details(searched_user,organizer,database,res);
+
+        });
+
+
+        
+        //get-all-booking-notifications
+        app.post('/get_all_booking_notifications',urlencodedParser,function(req,res){
+          var organizer_email=req.body[0];
+          const get_all_bookings=require('./src/scripts/organizer/get_all_booking_details');
+          get_all_bookings.get_all_booking_details(organizer_email,database,res);
+
+        });
+
+
+
+        //get notification count
+        app.post('/get_notification_count',urlencodedParser,function(req,res){
+          var organizer=req.body[0];
+          const count=require('./src/scripts/get_notification_count');
+          count.get_notification_count(organizer,database,res);
+
+        })
+
+
+        //get-all-message-notifications
+        app.post('/get_all_message_notifications',urlencodedParser,function(req,res){
+          var organizer=req.body[0];
+          const message=require('./src/scripts/notifications_backend');
+          message.get_all_messages(organizer,database,res);
+        })
+
+
+        //delete-notifications
+        app.post('/mark_view_notifications',urlencodedParser,function(req,res){
+          var receiver_email=req.body[0];
+          var user_email=req.body[1];
+          var type=req.body[2];
+          console.log(user_email);
+          const mark_view=require('./src/scripts/organizer/mark_viewed_booking');
+          mark_view.mark_view( receiver_email,user_email,type,res,database);
+
+        });
+
+
+
+        //send-notifications
+        app.post('/send_notifications',urlencodedParser,function(req,res){
+          var sender=req.body[0];
+          var receiver=req.body[1];
+          //var roomId=req.body[2];
+          var date=req.body[2];
+          var receiver_name=req.body[3];
+          var sender_name=req.body[4];
+          var message=req.body[5];
+          const send_notification=require('./src/scripts/notifications_backend');
+          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message);
+          if(success==1){
+            res.json({success:true});
+          }
+          else{
+            res.json({success:false});
+          }
+        });
+
+
+
+        //get-user-status
+        app.post('/get_status',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          console.log(user+"EMAIL")
+          const get_data=require('./src/scripts/searched_user_details');
+          get_data.get_searched_user_details(user,res,database);
+
+        })
+
+    
+      console.log('Listening to 4600');
+      server.listen(4600);
+      
+      io1.on('connection',(socket)=>{
+
+    socket.on('join',function(data){
+      if(data.message=="Welcome")
+      socket.join(data.room);
+      console.log('New connection made '+data.user+' '+data.message);
+      socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message,date:data.date});
+
+
+    });
+
+  });
 
 
    

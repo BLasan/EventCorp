@@ -1,5 +1,5 @@
-export function onIdentify(user='artist'){
+// export function onIdentify(user='artist'){
 
-return user;
+// return user;
 
-}
+// }

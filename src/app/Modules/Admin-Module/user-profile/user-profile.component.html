@@ -1,0 +1,239 @@
+<!--<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                      <form #form action="con" method="POST">
+                        <div class="form-row">
+                          <div class="form-group col-md-6 ">
+                            <label for="inputEmail4"><b>Email</b></label>
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="mail">
+                            
+                          </div>
+                          <div class="form-group col-md-6 ">
+                            <label for="inputPassword4"><b>Password</b></label>
+                            <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="password">
+                          </div>
+                        </div>
+                        <div class="form-group ">
+                          <label for="inputName"><b>Name</b></label>
+                          <input type="text" class="form-control" id="inputName" placeholder="Benura Lasan" name="u_name">
+                        </div>
+                        <div class="form-group">
+                                <label for="inputAddress"><b>Address</b></label>
+                                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address">
+                              </div>
+                        <div class="form-group">
+                          <label for="inputEmployment"><b>Employment</b></label>
+                          <input type="text" class="form-control" id="inputEmployment" placeholder="Event Organizer" name="employment">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputContact"><b>Contact</b></label>
+                          <input type="number" class="form-control" id="inputContact" placeholder="0094712342321" name="contact">
+                        </div>
+                        <div class="form-group">
+                            <label for="psw_verify"><b>Re-Enter Password</b></label>
+                            <input type="password" class="form-control" id="psw_verify" placeholder="acedf" name="re_submission">
+                          </div>
+                        <div class="form-row">
+                          <div class="form-group col-md-6">
+                            <label for="inputCity"><b>City</b></label>
+                            <input type="text" class="form-control" id="inputCity" placeholder="Colombo" name="city">
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label for="inputState"><b>State</b></label>
+                            <select id="inputState" class="form-control" name="state">
+                              <option selected>Choose...</option>
+                              <option>...</option>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-2">
+                            <label for="inputZip"><b>Zip</b></label>
+                            <input type="text" class="form-control" id="inputZip" name="zip">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck" name="checkBox">
+                            <label class="form-check-label" for="gridCheck">
+                            <b> Check me out </b>
+                            </label>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" (click)="form.submit()">Update</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="#pablo">
+                          <img class="img" src="./assets/img/faces/marc.jpg" />
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                      <h4 class="card-title">Alec Thompson</h4>
+                      <p class="card-description">
+                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                      </p>
+                      <a href="#pop" class="btn btn-danger btn-round">Follow</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+-->
+
+
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      
+                          <img id="image"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW32gY3M0OVknIG1waIM6Cx91aoeMm_Op_sbhQiBjA2fHsSZld" style="border-radius: 100px; -webkit-border-radius: 100px;-moz-border-radius: 100px; height: 130px;" />
+                      
+                  </div>
+                  <div class="card-body">
+                      <div class="form-group">
+                          <div class="input-group">
+                                
+            <button type="button" class="btn btn-danger btn-round" id="user_button">ADD</button> <input type="file" id="imgInp" style="display:hidden">
+            <button type="button" class="btn btn-danger btn-round but1" id="button1">REMOVE</button>          
+                          </div>
+                         
+                      </div>
+                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                      <h4 clas0s="card-title">{{name}}</h4>
+                      <p class="card-description">
+                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                      </p>
+                      <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                  </div>
+              </div>
+          </div>
+   
+
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                    <form #form action="con" method="POST">
+                          <div class="row">
+                              <div class="col-md-5">
+                                <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Company (disabled)" disabled>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-3">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Username" name="user_name">
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                  <mat-form-field class="example-full-width">
+                                    <input matInput placeholder="Email address" type="email" name="mail">
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Fist Name" type="text" name="f_name">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Last Name" type="text" name="l_name">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Address" type="text" name="address">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Country" type="text" name="country">
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Contact" type="number" name="contact">
+                                </mat-form-field>
+                              </div>
+                            
+                              <div class="col-md-4">
+                                <mat-form-field class="example-full-width">
+                                  <input matInput placeholder="Postal Code" type="number" name="p_code">
+                                </mat-form-field>
+                              </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Password" type="password" name="password">
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                              <mat-form-field class="example-full-width">
+                                <input matInput placeholder="Re-Enter Password" type="password" name="re_password">
+                              </mat-form-field>
+                            </div>
+                            
+                        </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                <label>About Me</label>
+                                <mat-form-field class="example-full-width">
+                                   <textarea matInput placeholder="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."></textarea>
+                                 </mat-form-field>  
+                                  <!-- <div class="form-group">
+
+                                      <div class="form-group">
+                                          <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                                          <textarea class="form-control" rows="5"></textarea>
+                                      </div>
+                                  </div> -->
+                             </div>
+                          </div>
+                          
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right"  (click)="form.submit()">Update Profile</button>
+                          <div class="clearfix"></div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+   
+  <!--  <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img id="image"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW32gY3M0OVknIG1waIM6Cx91aoeMm_Op_sbhQiBjA2fHsSZld" style="border-radius: 100px; -webkit-border-radius: 100px;-moz-border-radius: 100px; height: 130px;" />
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </div>
+    -->

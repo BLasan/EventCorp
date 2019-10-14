@@ -1,4 +1,4 @@
-const firebaseInit=require('../../../firebase');
+const firebaseInit=require('./../firebase-authentication/firebase');
 //initialize firebase
 var firebase=firebaseInit.firebaseInit();
 var database=firebase.firestore();

@@ -1,0 +1,62 @@
+<div class="col" style="height:900px">
+  <form #form action="con" method="POST">
+          <div class="form-row">
+            <div class="form-group col-md-6 ">
+              <label for="inputEmail4">Email</label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name="mail">
+              
+            </div>
+            <div class="form-group col-md-6 ">
+              <label for="inputPassword4">Password</label>
+              <input type="password" class="form-control" id="inputPassword4" placeholder="Password" name="password">
+            </div>
+          </div>
+          <div class="form-group ">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" placeholder="Benura Lasan" name="u_name">
+          </div>
+          <div class="form-group">
+                  <label for="inputAddress">Address</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="address">
+                </div>
+          <div class="form-group">
+            <label for="inputEmployment">Employment</label>
+            <input type="text" class="form-control" id="inputEmployment" placeholder="Event Organizer" name="employment">
+          </div>
+          <div class="form-group">
+            <label for="inputContact">Contact</label>
+            <input type="number" class="form-control" id="inputContact" placeholder="0094712342321" name="contact">
+          </div>
+          <div class="form-group">
+              <label for="psw_verify">Re-Enter Password</label>
+              <input type="password" class="form-control" id="psw_verify" placeholder="acedf" name="re_submission">
+            </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">City</label>
+              <input type="text" class="form-control" id="inputCity" placeholder="Colombo" name="city">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputState">State</label>
+              <select id="inputState" class="form-control" name="state">
+                <option selected>Choose...</option>
+                <option>...</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputZip">Zip</label>
+              <input type="text" class="form-control" id="inputZip" name="zip">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck" name="checkBox">
+              <label class="form-check-label" for="gridCheck">
+                Check me out
+              </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" (click)="form.submit()">Update</button>
+        </form>
+        
+</div>

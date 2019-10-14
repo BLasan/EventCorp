@@ -1,9 +1,12 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
+import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component';
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
 import {onIdentify} from '../../../scripts/side_bar.js';
+import { SearchUserService } from 'app/services/search_user.service';
+import { LoginService } from 'app/services/login.services';
+import { NotificationService } from 'app/services/notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,27 +17,58 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     getUser:String='';
     isAdmin:boolean=false;
-    count=0;
+    user:any;
+    emp:any=[{age:'abdcc'}]
+    count:any=0;
+    role:string;
     location: Location;
-      mobile_menu_visible: any = 0;
+    notification_count:any;
+    mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
-
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
-      
-      this.getUser=onIdentify();
-      if(this.getUser=='artist')
-      this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+    
+    // if(localStorage.getItem('notification_count'))
+    // this.count=localStorage.getItem('notification_count');
+    // this.count=this.notifications.get_notification_count();
+    // alert(this.count);
+    //   this.getUser=onIdentify();
+    this.getNotificationCount();
+    if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+    }
+  
+    else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES2.filter(listTitle=>listTitle);
 
-      else{
-        this.listTitles = ROUTES.filter(listTitle => listTitle);
-        this.isAdmin=true;
-      }
+    else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES4.filter(listTitle=>listTitle);
+
+    else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES.filter(listTitle=>listTitle);
+
+    else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn'))
+    this.listTitles=ROUTES3.filter(listTitle=>listTitle);
+
+    this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
+        this.user=data;
+        // if(localStorage.getItem('searched_user_email'))
+        //   localStorage.removeItem('searched_user_email');
+        console.log(this.user);
+    });
+
+    //   if(this.getUser=='artist')
+    //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+
+    //   else{
+    //     this.listTitles = ROUTES.filter(listTitle => listTitle);
+    //     this.isAdmin=true;
+    //   }
      
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -126,15 +160,40 @@ export class NavbarComponent implements OnInit {
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
-          titlee = titlee.slice( 2 );
+          titlee = titlee.slice( 1 );
       }
-      titlee = titlee.split('/').pop();
+    //   titlee = titlee.split('/').pop();
 
       for(var item = 0; item < this.listTitles.length; item++){
           if(this.listTitles[item].path === titlee){
               return this.listTitles[item].title;
           }
       }
-      return 'Dashboard';
     }
+
+    logoutUser(){
+        this._loginService.logOut();
+        if(localStorage.getItem('searched_user_email'))
+         localStorage.removeItem('searched_user_email');
+    }
+
+    addUserEmail(email:string){
+       // alert(email)
+        localStorage.setItem('searched_user_email',email);
+    }
+
+    update_count(count:number){
+        this.count=count;
+    }
+
+    getNotificationCount(){
+        let user=localStorage.getItem('user_name');
+        this._notification_service.getNotificationCount(user).subscribe(size=>{
+            console.log(size);
+            this.notification_count=size
+            this.count=this.notification_count.size;
+        });
+    }
+
+    
 }

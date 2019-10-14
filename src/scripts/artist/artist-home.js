@@ -16,8 +16,9 @@ export function loadCalendar(){
   document.getElementById('calendar-dates').appendChild(calendar);
 }
 
-function get_calendar(day_no,days){
 
+function get_calendar(day_no,days){
+  var day=new Date().getDate();
   var table=document.createElement('table');
   var tr=document.createElement('tr');
   for(var c=0;c<=6;c++){
@@ -52,6 +53,9 @@ function get_calendar(day_no,days){
     var td=document.createElement('td');
     td.setAttribute('style','padding:5px');
     td.innerHTML=count;
+    if(count==day){
+      td.setAttribute('style','height:25px;width:25px;background-color:red;border-radius:50%;display:inline-block')
+    }
     count++;
     tr.appendChild(td);
   }
@@ -69,6 +73,9 @@ function get_calendar(day_no,days){
       var td=document.createElement('td');
       td.setAttribute('style','padding:5px');
       td.innerHTML=count;
+      if(count==day){
+        td.setAttribute('style','height:25px;width:25px;background-color:red;border-radius:50%;display:inline-block')
+      }
       count++;
       tr.appendChild(td);
     }
