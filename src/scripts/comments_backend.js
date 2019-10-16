@@ -2,9 +2,9 @@
 // var firebase=firebaseInit.firebaseInit();
 //  var database=firebase.firestore();
 
-exports.add_comment=function(comment,user_id,user_name,timeStamp,database){
+exports.add_comment=function(comment,user_email,user_name,timeStamp,database){
 
-    var ratings = database.collection('comments').doc(user_id).set({comment:comment,name:user_name,timeStamp:timeStamp});
+    var ratings = database.collection('comments').doc(user_email).set({comment:comment,name:user_name,timeStamp:timeStamp});
     if(ratings){ 
         return 1;
     }
@@ -14,10 +14,10 @@ exports.add_comment=function(comment,user_id,user_name,timeStamp,database){
     }
 }
 
-exports.load_comment=function(token,database,res){
-    console.log(token);
+exports.load_comment=function(email,database,res){
+    console.log(email);
     var data=[];
-    var docRef = database.collection('comments').doc(token);
+    var docRef = database.collection('comments').doc(email);
     docRef.get().then(async function(doc) {
         console.log(doc.data());
         

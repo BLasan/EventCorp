@@ -9,11 +9,11 @@ export class CommentsService {
     
     constructor(private http: HttpClient) { }
 
-    add_comment(comment:any,user_id:any,user_name:any,timeStamp:any){
-        return this.http.post(`${this._url}/add_comment`,{comment:comment,user_id:user_id,user_name:user_name,timeStamp:timeStamp});
+    add_comment(comment:any,user_email:any,user_name:any,timeStamp:any){
+        return this.http.post(`${this._url}/add_comment`,{comment:comment,user_email:user_email,user_name:user_name,timeStamp:timeStamp});
     }
 
-    load_comment(user_token:any){
-        return this.http.get(`${this._url}/load_comment/${user_token}`);
+    load_comment(user_email:any){
+        return this.http.get(`${this._url}/load_comment/${user_email}`);
     }
 }

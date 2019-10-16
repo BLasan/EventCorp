@@ -4,14 +4,20 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-exports.check_credentials=function(email,password,res,database,user){
-
+exports.check_credentials=function(email,password,res,database,user,firebase){
+    // var users= localStorage.getItem('Auth_user')
+    // console.log(users.uid+"->U")
+    // var credentials = firebase.auth.EmailAuthProvider.credential(
+    //    email,
+    //    password
+    //    );
+    database.collection('register_user').doc(email).update({active_status:'login'})
     var docRef = database.collection('register_user').doc(email);
 
     docRef.get().then(async function(doc) {
 
-        console.log(doc.data().password)
-        console.log(password);
+       // console.log(doc.data().password)
+      //  console.log(password);
 
         if(doc.exists){
 
@@ -20,25 +26,35 @@ exports.check_credentials=function(email,password,res,database,user){
                 if(err) throw err;
 
                 if(res1){
-                    console.log(user);
-                    const token=create_user_token(user,res);
-                    var toke_update= database.collection('register_user').doc(email).update({user_token:token});
-                    if(toke_update){
-                        res.json({isTrue:'true',role:doc.data().role,user_name:doc.data().user_name,token:token});
+                      console.log(doc.data().profile_status+","+doc.data().verification);
+                  //  const token=create_user_token(user,res);
+                  //  var toke_update= database.collection('register_user').doc(email).update({user_token:token});
+
+                    if(doc.data().profile_status=='Active' && doc.data().verification){
+                        console.log("helo");
+                        //users.reauthenticateWithCredential(credentials);
+                        firebase.auth().signInWithEmailAndPassword(email, password).then(cred=>{
+                            console.log("Success->"+cred.user.uid);
+                            localStorage.removeItem('signedUpEmail');
+                            res.send({isTrue:'true',role:doc.data().role,user_name:doc.data().user_name,token:null,verification:doc.data().verification});
+                        }).catch(function(error) {
+                            console.log(error)
+                        });
+
                     }
                     else{
-                        res.json({isTrue:false,role:null,token:null,user_name:null});
-                    }
+                        res.json({isTrue:false,role:null,token:null,user_name:null,verification:false});
+                    } 
                   }
 
                   else{
-                    res.json({isTrue:false,role:null,token:null,user_name:null});
+                    res.json({isTrue:false,role:null,token:null,user_name:null,verification:false});
                   }
             });
         }
 
         else{
-            res.json({isTrue:false,role:null,token:null,user_name:null});
+            res.json({isTrue:false,role:null,token:null,user_name:null,verification:false});
         }
 
       

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/services/notification.service';
+import {update_count} from 'scripts/update_notification_count';
+import {disable_room_id} from '../../../scripts/disable_a_href';
+import { ChatService } from 'app/services/chat.service';
+import {generate_chat_id} from '../../../scripts/generate_id';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -9,12 +13,19 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   notification:string="This is a new notification";
-  booking_details:any;
+  notification_details:any;
   booking_data:any;
+  message_details:any;
+  message_data:any;
   sent_bookings: boolean;
   updated_data:any;
   isUpdated:boolean;
-  constructor(private _notification:NotificationService) { }
+  isBookingView:boolean=false;
+  notification_checked:boolean=false;
+  checked:boolean=false;
+  notification_type:string;
+  notification_count:number=0;
+  constructor(private _notification:NotificationService,private _chatService:ChatService) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
 
@@ -45,34 +56,87 @@ export class NotificationsComponent implements OnInit {
   }
   ngOnInit() {
     this.getRequestDetails();
+    this.getMessageNotifications();
+    //disable_room_id();
   }
 
   getRequestDetails(){
-    console.log('Hello')
+    console.log('Hello');
+   // this.notification_count=0;
     let user_name=localStorage.getItem('user_name');
     this._notification.get_booking_details(user_name).subscribe(data=>{
-      this.booking_details=data;
-      if(this.booking_details.isEmpty==false){
-        this.booking_data=this.booking_details.data;
+      this.notification_details=data;
+      if(this.notification_details.isEmpty==false){
+        this.booking_data=this.notification_details.data;
         console.log(this.booking_data);
-        
+        this.notification_count+=this.booking_data.length;
       }
+      else this.notification_count=0;
+
+    //  localStorage.setItem('notification_count',this.notification_count.toString());
     })
 }
 
-mark_view_booking_notification(receiver_email:string){
-  alert(receiver_email)
+   getMessageNotifications(){
+   // this.notification_count=0;
+    let user_name=localStorage.getItem('user_name');
+    this._notification.get_message_notifications(user_name).subscribe(data=>{
+      this.notification_details=data;
+      if(this.notification_details.isEmpty==false){
+        this.message_data=this.notification_details.data;
+        console.log(this.message_data);
+        this.notification_count+=this.message_data.length;
+      }
+      else this.notification_count=0;
+     // localStorage.setItem('notification_count',this.notification_count.toString());
+    })
+   }
+
+mark_view_booking_notification(sender_email:string){
+  alert(sender_email)
   let user_name=localStorage.getItem('user_name');
-  this._notification.mark_viewed_notifications(receiver_email,user_name).subscribe(data=>{
+  this.notification_count-=1;
+  if(this.isBookingView) this.notification_type="booking";
+  else this.notification_type="notifications";
+  update_count(this.notification_count);
+  this._notification.mark_viewed_notifications(sender_email,user_name,this.notification_type).subscribe(data=>{
     this.updated_data=data;
+    this.notification_count-=1;
     this.isUpdated=this.updated_data.updated;
     if(this.isUpdated){
       console.log('Updated successfully');
+      //this.navbar.update_count(this.notification_count);
       this.getRequestDetails();
+
     }
     else{
       console.log('Not upldated');
     }
-  })
+   // localStorage.setItem('notification_count',this.notification_count.toString());
+  });
 }
+
+booking(){
+  this.checked=false;
+  this.notification_checked=true;
+  this.isBookingView=true;
+}
+
+notifications(){
+  this.checked=false;
+  this.notification_checked=false;
+  this.isBookingView=false;
+}
+
+joinChat(roomId:string){
+  alert('hello');
+  disable_room_id();
+  let user_name=localStorage.getItem('nameId');
+  let date=new Date();
+  let room_id=roomId;
+  this._chatService.joinRoom({user:user_name,room:room_id,message:"Hello",date:date})
+}
+
+
+
 }

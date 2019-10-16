@@ -1,3 +1,4 @@
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -28,10 +29,6 @@ import { AuthGuardSupplierService } from './services/Authentication/athGuard_sup
 import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { OnlineChatComponent } from './Modules/online-chat/online-chat.component';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MatListItem, MatListModule, MatSnackBarModule, MatButtonModule, MatRippleModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatTooltipModule, MatCardModule, MatDatepickerModule, MatNativeDateModule, MatChipsModule, MatSliderModule, MatAutocompleteModule, MatButtonToggleModule, MatCheckboxModule, MatDialogModule, MatExpansionModule, MatGridListModule, MatIconModule, MatMenuModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSidenavModule, MatSlideToggleModule, MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatStepperModule } from '@angular/material';
 import { ChatService } from './services/chat.service';
 import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
@@ -41,14 +38,9 @@ import { OrganizerSettingsComponent } from './Modules/Organizer-Module/organizer
 import { OrganizerEventsComponent } from './Modules/Organizer-Module/organizer-events/organizer-events.component';
 import { OrganizerProfileComponent } from './Modules/Organizer-Module/organizer-profile/organizer-profile.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
-import { CarouselModule } from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SupplierHomeComponent } from './Modules/Supplier-Module/supplier-home/supplier-home.component';
-import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
-import { SupplierEventsComponent } from './Modules/Supplier-Module/supplier-events/supplier-events.component';
-import { SupplierNotificationsComponent } from './Modules/Supplier-Module/supplier-notifications/supplier-notifications.component';
-import { SupplierProfileComponent } from './Modules/Supplier-Module/supplier-profile/supplier-profile.component';
-import { SupplierSettingsComponent } from './Modules/Supplier-Module/supplier-settings/supplier-settings.component';
+import { ArtistSettingsComponent } from './Modules/Artist-Module/artist-settings/artist-settings.component';
+import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -85,13 +77,11 @@ const config = {
     AdminLayoutComponent,
     CustomerLayoutComponent,
     OrganizerLayoutComponent,
-    SupplierLayoutComponent,
-    
     // FormComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
     PaypalPaymentComponent,
-    
+    EmailVerifyComponent,
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
@@ -102,3 +92,4 @@ const config = {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

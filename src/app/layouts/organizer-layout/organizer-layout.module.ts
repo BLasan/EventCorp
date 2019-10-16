@@ -49,6 +49,8 @@ import { OrganizerEventsComponent } from 'app/Modules/Organizer-Module/organizer
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { FilterUsersPipe } from 'app/services/filter_users.pipe';
+import { Component } from '@fullcalendar/core';
+import { ComponentsModule } from 'app/components/components.module';
 
   @NgModule({
     imports: [

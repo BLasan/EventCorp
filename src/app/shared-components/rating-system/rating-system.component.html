@@ -86,7 +86,7 @@
                     </div>
                     <div class="col-6" style="float:left">
                       <p>
-                        <ngb-rating [(rate)]="currentRate" max="5"  readonly="true">
+                        <ngb-rating [(rate)]="userRate" max="5"  readonly="true">
                           <ng-template let-fill="fill" let-index="index">
                             <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
                           </ng-template>
@@ -146,7 +146,7 @@
       </div>
     </div>
     <div class="row">
-      <app-online-chat></app-online-chat>
+      <app-online-chat [searched_user]="searched_user_email" [searched_user_name]="search_user_data.user_name" [organizer]="organizer_name" [viewer]="viewer"></app-online-chat>
     </div>
   </div>
 </div>

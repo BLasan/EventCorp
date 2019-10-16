@@ -18,8 +18,11 @@ import { RatingSystemComponent } from './shared-components/rating-system/rating-
 import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
+import { MyChatsComponent } from './shared-components/my-chats/my-chats.component';
+import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
+
 
 
 //var role=getRole();
@@ -32,6 +35,10 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   }, 
+  {
+    path:'email-verify',
+    component:EmailVerifyComponent
+  },
 
   {
     path: '',
@@ -52,7 +59,6 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
   }]},
-
   {
     path:'settings',
     component:SettingsComponent
@@ -69,11 +75,11 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
+
   {
     path:'login',
     component:LoginComponent
   },
-
   {
     path:'signup',
     component:SignupComponent

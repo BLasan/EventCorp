@@ -1,22 +1,25 @@
 <div class="main-content">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" style="margin-top:80px;">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <mat-card style="margin-top:100px;margin-bottom: 50px" class="login-title">
-                    <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col-8">
-                            <mat-card-title style="margin-left:80px"><b>Log In</b></mat-card-title>
-                        </div>
-                        <div class="col-2"></div>
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Log In</h4>
+                        <p class="card-category">Enter your credentials</p>
                     </div>
-                    <mat-card-content style="background-color: white!important;height: 250px">
+                    <div class="card-body">
+                        <div class="alert alert-danger alert-with-icon" *ngIf="isInvalid"> 
+                            <i class="material-icons" data-notify="icon">error_outline</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">  <i class="material-icons">close</i></button>
+                            <span data-notify="message">
+                            <b>Login Error:</b>Enter valid credentials</span>
+                        </div>
                         <form>
                             <div class="row">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                        <notifier-container>abcd</notifier-container>
+                                    <notifier-container>abcd</notifier-container>
                                     <mat-form-field style="margin-top:20px">
                                         <input matInput placeholder="user name" id="user_name" type="email">
                                         <span matPrefix style="margin-right:6px"><img src="https://img.icons8.com/material/24/000000/gender-neutral-user--v1.png"></span>
@@ -47,24 +50,67 @@
                             <div class="row">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                    <button mat-raised-button color="accent" style="width: 18rem;margin-left:-16px;margin-top:10px;margin-bottom: 10px" (click)="login_validate()">Log In</button>   
+                                    <button  mat-raised-button class="btn btn-success" style="width: 18rem;margin-left:-16px;margin-top:10px;margin-bottom: 10px" (click)="login_validate()">Log In</button>   
                                 </div>
                                 <div class="col-2"></div>
                             </div>
                             <div class="row">
                                 <div class="col-2"></div>
-                                    <div class="col-8">
-                                        <a href="#" style="margin-left:80px;margin-bottom: 50px!important">forget password?</a>   
-                                    </div>
+                                <div class="col-8">
+                                    <a href="#" style="margin-left:75px;margin-bottom: 50px!important">forget password?</a>   
+                                </div>
                                 <div class="col-2"></div>
                             </div>
                         </form>
-                    </mat-card-content>
-                </mat-card>
+                    </div>
+                </div>
             </div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 </div>
 
 <a href="" class="btn" style="display:none" id="redirect_link"></a>
 <input id="user_role" value="" style="display: none">
+
+
+<!-- <div class="main-content">
+        <div class="container-fluid container h-100">
+          <div class="d-flex justify-content-center h-100">
+              <div class="user_card">
+                  <div class="d-flex justify-content-center">
+                      <div class="brand_logo_container">
+                          <img src="assets/img/waterkingdom.png" class="brand_logo" alt="Logo">
+                      </div>
+                  </div>
+                  <div class="d-flex justify-content-center form_container">
+                      <form>
+                          <h6 *ngIf="error_login"><div class="alert alert-danger" role="alert" style="text-align: center">Error Login</div></h6>
+                          <h6 *ngIf="session_timeout"><div class="alert alert-warning" role="alert" style="text-align: center">Session Expired!</div></h6>
+                          <div class="input-group mb-3">
+                              <div class="input-group-append">
+                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                              </div>
+                              <input type="text" name="email" id="email" class="form-control input_user" placeholder="username">
+                          </div>
+                          <div class="input-group mb-2">
+                              <div class="input-group-append">
+                                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                              </div>
+                              <input type="password" name="password" id="password" class="form-control input_pass"  placeholder="password" (keyup.enter)="isAdmin()">
+                          </div>
+                          <div class="form-group">
+                              <div class="custom-control custom-checkbox">
+                                  <input type="checkbox" class="custom-control-input" id="remember_user">
+                                  <label class="custom-control-label" for="remember_user">Remember me</label>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+                  <div class="d-flex justify-content-center mt-3 login_container">
+                      <button type="button" name="button" class="btn login_btn" (click)="isAdmin()">Login</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <a href="dashboard" id="redirect_to" style="display: none"></a>  -->

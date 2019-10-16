@@ -1,4 +1,5 @@
 exports.calendar=function(data){
+    console.log(data+"=>DATA")
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],

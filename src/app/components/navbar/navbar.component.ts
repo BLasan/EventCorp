@@ -3,9 +3,11 @@ import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component'
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
-import {onIdentify} from '../../../scripts/side_bar.js';
 import { SearchUserService } from 'app/services/search_user.service';
 import { LoginService } from 'app/services/login.services';
+import { NotificationService } from 'app/services/notification.service';
+import {click_redirect_href} from '../../../scripts/search_bar_activate';
+import {disable_drop_down,previous_mode} from '../../../scripts/disable_a_href';
 
 @Component({
   selector: 'app-navbar',
@@ -16,44 +18,64 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     getUser:String='';
     isAdmin:boolean=false;
-    user:any;
+    user_details:any;
     emp:any=[{age:'abdcc'}]
-    count=0;
+    count:any=0;
     role:string;
+    route_link:string;
     location: Location;
-      mobile_menu_visible: any = 0;
+    notification_count:any;
+    mobile_menu_visible: any = 0;
     private toggleButton: any;
+    onLoaded:boolean=true;
     private sidebarVisible: boolean;
-
-    constructor(location: Location,  private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
-      
+    
+    // if(localStorage.getItem('notification_count'))
+    // this.count=localStorage.getItem('notification_count');
+    // this.count=this.notifications.get_notification_count();
+    // alert(this.count);
     //   this.getUser=onIdentify();
+    
+    this.getNotificationCount();
+    //previous_mode();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
+        this.route_link="/artist-notifications  ";
     }
   
-    else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+    else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+        this.route_link="/organizer-notifications"
+    }
+   
+    else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES4.filter(listTitle=>listTitle);
+        this.route_link="/supplier-notifications"
+    }
+    
 
-    else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES4.filter(listTitle=>listTitle);
+    else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES.filter(listTitle=>listTitle);
+        this.route_link="/admin-notifications"
+    }
+    
 
-    else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES.filter(listTitle=>listTitle);
-
-    else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn'))
-    this.listTitles=ROUTES3.filter(listTitle=>listTitle);
+    else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES3.filter(listTitle=>listTitle);
+        this.route_link="/venue-owner-notifications"
+    }
 
     this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-        this.user=data;
+        this.user_details=data;
         // if(localStorage.getItem('searched_user_email'))
         //   localStorage.removeItem('searched_user_email');
-        console.log(this.user);
+        console.log(this.user_details);
     });
 
     //   if(this.getUser=='artist')
@@ -76,6 +98,7 @@ export class NavbarComponent implements OnInit {
      });
     }
 
+
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];
@@ -87,6 +110,7 @@ export class NavbarComponent implements OnInit {
 
         this.sidebarVisible = true;
     };
+
     sidebarClose() {
         const body = document.getElementsByTagName('body')[0];
         this.toggleButton.classList.remove('toggled');
@@ -172,7 +196,31 @@ export class NavbarComponent implements OnInit {
     }
 
     addUserEmail(email:string){
-        alert(email)
+       // alert(email)
         localStorage.setItem('searched_user_email',email);
+        click_redirect_href();
     }
+
+    update_count(count:number){
+        this.count=count;
+    }
+
+    getNotificationCount(){
+        let user=localStorage.getItem('user_name');
+        this._notification_service.getNotificationCount(user).subscribe(size=>{
+            console.log(size);
+            this.notification_count=size
+            this.count=this.notification_count.size;
+        });
+    }
+
+    show(){
+        if(this.onLoaded)
+        disable_drop_down();
+        else
+        previous_mode();
+        this.onLoaded=false;
+
+    }
+    
 }

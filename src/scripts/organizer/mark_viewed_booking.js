@@ -1,7 +1,10 @@
-exports.mark_view=function(receiver_email,user_email,res,database){
-    var receiver_email=receiver_email;
+exports.mark_view=function(sender_email,user_email,type,res,database){
+    var sender_mail=sender_email;
     var user_email=user_email;
-    var mark_view=database.collection('register_user').doc(user_email).collection('bookings').doc(receiver_email).update({view:true});
-    if(mark_view) res.send({updated:true});
+    if(type=="booking")
+    var mark_notifications=database.collection('register_user').doc(user_email).collection('bookings').doc(sender_email).update({view:true});
+    else
+    var mark_notifications=database.collection('register_user').doc(user_email).collection('notification-messages').doc(sender_email).update({view:true});
+    if(mark_notifications) res.send({updated:true});
     else res.send({updated:false});
 }
