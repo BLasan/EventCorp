@@ -1,3 +1,4 @@
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -91,3 +92,4 @@ const config = {
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
