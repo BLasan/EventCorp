@@ -18,6 +18,8 @@ import { RatingSystemComponent } from './shared-components/rating-system/rating-
 import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypal-payment.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
+import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
+import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
 
 
 //var role=getRole();
@@ -108,14 +110,15 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-  // {
-  //   path: '',
-  //   component: SupplierLayoutComponent,
-  //  children: [
-  //       {
-  //     path: '',
-  //     loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
-  // }]},
+  {
+    path: '',
+    component: SupplierLayoutComponent,
+    canActivate:[AuthGuardSupplierService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+  }]},
 
  {
     path: '',

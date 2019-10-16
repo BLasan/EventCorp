@@ -43,6 +43,12 @@ import { OrganizerProfileComponent } from './Modules/Organizer-Module/organizer-
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { CarouselModule } from 'ngx-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SupplierHomeComponent } from './Modules/Supplier-Module/supplier-home/supplier-home.component';
+import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
+import { SupplierEventsComponent } from './Modules/Supplier-Module/supplier-events/supplier-events.component';
+import { SupplierNotificationsComponent } from './Modules/Supplier-Module/supplier-notifications/supplier-notifications.component';
+import { SupplierProfileComponent } from './Modules/Supplier-Module/supplier-profile/supplier-profile.component';
+import { SupplierSettingsComponent } from './Modules/Supplier-Module/supplier-settings/supplier-settings.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -79,10 +85,13 @@ const config = {
     AdminLayoutComponent,
     CustomerLayoutComponent,
     OrganizerLayoutComponent,
+    SupplierLayoutComponent,
+    
     // FormComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
-    PaypalPaymentComponent
+    PaypalPaymentComponent,
+    
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
