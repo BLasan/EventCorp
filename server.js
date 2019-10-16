@@ -474,6 +474,23 @@
           const organizer_event=require('./src/scripts/organizer/create_new_event');
           var result=organizer_event.create_new_event(data,database,id,res,user_role);
         
+        });
+
+
+
+
+        //upload-admin-data
+        app.post('/upload_admin_data',urlencodedParser,function(req,res){
+          var user_name=req.body.user_name;
+          var full_name=req.body.f_name+" "+req.body.l_name;
+          var email=req.body.email;
+          var address=req.body.address;
+          var country=req.body.country;
+          var contact=req.body.contact;
+          var p_code=req.body.p_code;
+          var user_details={image_url:null,role:"admin",country:country,address:address,email:email,user_name:full_name,screen_name:user_name,contact:contact,p_code:p_code};
+          const upload_details=require('./src/scripts/update_user_details');
+          upload_details.update_user_bio(database,res,user_details);
         })
 
 
@@ -569,7 +586,7 @@
    
 
         //delete account
-        app.post('delete_account',urlencodedParser,function(req,res){
+        app.post('/delete_account',urlencodedParser,function(req,res){
           var user=req.body[0];
           const delete_account=require('./src/scripts/signup');
           delete_account.delete_account(database,res,user);
@@ -764,6 +781,9 @@
 
     
       console.log('Listening to 4600');
+      server.on('listening',function(){
+        console.log('ok, server is running');
+    });
       server.listen(4600);
       
       io1.on('connection',(socket)=>{

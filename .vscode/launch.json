@@ -14,7 +14,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/src/scripts/disable_a_href.js",
+            "program": "${workspaceFolder}/server.js",
             "outFiles": [
                 "${workspaceFolder}/dist/out-tsc/**/*.js"
             ]

@@ -1,11 +1,11 @@
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12" *ngIf="data.length>0">
               <div class="card"  style="background-color:#878d8d">
                   <div class="card-header card-header-danger">
-                      <h4 class="card-title ">Simple Table</h4>
-                      <p class="card-category"> Here is a subtitle for this table</p>
+                      <h4 class="card-title ">User List</h4>
+                      <p class="card-category"> All users of EventCorp</p>
                   </div>
                   <div class="card-body" style="background-color:#878d8d">
                     <table class="table table-dark">
@@ -31,6 +31,15 @@
                   </div>
               </div>
           </div>
+          <div class=" col-md-12 alert alert-danger alert-with-icon">
+            <i class="material-icons" data-notify="icon">error_outline</i>
+            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">  <i class="material-icons">close</i></button>
+            <span data-notify="message">
+              <b><h3 align="center">No User Found in EventCorp</h3></b></span>
+          </div>
+      </div>
+  </div>
+</div>
         
       
          

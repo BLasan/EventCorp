@@ -15,11 +15,12 @@ import { NotificationsComponent } from 'app/shared-components/notifications/noti
 
 import {
   MatButtonModule,
-  MatInputModule,
-  MatRippleModule,
-  MatFormFieldModule,
-  MatTooltipModule,
-  MatSelectModule
+    MatInputModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatTooltipModule,
+    MatSelectModule,
+   
 } from '@angular/material';
 import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-notifications/admin-notifications.component';
 @NgModule({
@@ -33,6 +34,7 @@ import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-noti
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    ReactiveFormsModule
   ],
   declarations: [
     DashboardComponent,
