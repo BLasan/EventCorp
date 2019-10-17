@@ -20,9 +20,12 @@ import {
     MatFormFieldModule,
     MatTooltipModule,
     MatSelectModule,
+    MatListModule,
+    MatDividerModule,
    
 } from '@angular/material';
 import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-notifications/admin-notifications.component';
+import { AddNewModeratorsComponent } from 'app/Modules/Admin-Module/add-new-moderators/add-new-moderators.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -34,7 +37,9 @@ import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-noti
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatListModule,
+    MatDividerModule
   ],
   declarations: [
     DashboardComponent,
@@ -45,6 +50,7 @@ import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-noti
     MapsComponent,
     AdminNotificationsComponent,
     UpgradeComponent,
+    AddNewModeratorsComponent
   ]
 })
 

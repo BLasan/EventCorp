@@ -42,6 +42,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ArtistSettingsComponent } from './Modules/Artist-Module/artist-settings/artist-settings.component';
 import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
+import { AddNewModeratorsComponent } from './Modules/Admin-Module/add-new-moderators/add-new-moderators.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",

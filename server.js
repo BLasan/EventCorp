@@ -672,6 +672,26 @@
         //   res.send({success:false})
         // });
 
+        });
+
+
+
+
+        //create moderator
+        app.post('/create_moderator',urlencodedParser,function(req,res){
+          var user_name=req.body.user_name;
+          var email=req.body.email;
+          var full_name=req.body.f_name+" "+req.body.l_name;
+          var country=req.body.country;
+          var contact=req.body.contact;
+          var password=req.body.password;
+          const create_moderator=require('./src/scripts/create_moderator');
+          bcrypt.hash(password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var mod_details={user_name:user_name,full_name:full_name,email:email,country:country,contact:contact,password:hash,status:'Active'};
+            create_moderator.create_moderator(database,mod_details,email,res);
+          });
+          
         })
 
 
