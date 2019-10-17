@@ -8,12 +8,12 @@
                             <i class="material-icons">file_copy</i>
                         </div>
                         <p class="card-category" style="color:#212121">Organizers</p>
-                        <h3 class="card-title">4950
+                        <h3 class="card-title">{{organizer_count}}
                             
                         </h3>
                     </div>
                     <div class="card-footer">
-                        <div class="stats">
+                        <div class="stats" *ngIf="organizer_count<5000">
                             <i class="material-icons text-danger">warning</i>
                             <a href="#pablo" style="color:blue">Get More Organizers...</a>
                         </div>
@@ -27,7 +27,7 @@
                             <i class="material-icons">people</i>
                         </div>
                         <p class="card-category"  style="color:#212121">Artists</p>
-                        <h3 class="card-title"  style="color:#212121">3445</h3>
+                        <h3 class="card-title"  style="color:#212121">{{artist_count}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats"  style="color:#212121">
@@ -43,7 +43,7 @@
                             <i class="material-icons">add_shopping_cart</i>
                         </div>
                         <p class="card-category"  style="color:#212121">Suppliers</p>
-                        <h3 class="card-title"  style="color:#212121">75</h3>
+                        <h3 class="card-title"  style="color:#212121">{{supplier_count}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats"  style="color:#212121">
@@ -59,7 +59,7 @@
                             <i class="material-icons">place</i>
                         </div>
                         <p class="card-category" style="color:#212121">Location Owners</p>
-                        <h3 class="card-title"  style="color:#212121">245</h3>
+                        <h3 class="card-title"  style="color:#212121">{{venue_owner_count}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats"  style="color:#212121">

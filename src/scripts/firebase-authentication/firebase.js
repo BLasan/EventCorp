@@ -1,5 +1,6 @@
-exports.firebaseInit=function(){
 var firebase = require("firebase/app");
+exports.firebaseInit=function(a=0){
+
 const functions = require('firebase/functions');
 
 // Add the Firebase products that you want to use
@@ -17,7 +18,16 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+if(a==0)
 firebase.initializeApp(firebaseConfig);
+
+if(a==10){
+  firebase.initializeApp(firebaseConfig);
+  return firebase.firestore();
+}
 
      return firebase;
 }
+
+
+//exports.database_firestore=this.firebaseInit();

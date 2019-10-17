@@ -1,19 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
 import {Chart} from 'chart.js';
+import { AdminService } from 'app/services/admin.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  supplier_count:number=0;
+  artist_count:number=0;
+  venue_owner_count:number=0;
+  organizer_count:number=0;
+  user_data:any;
+  constructor(private _loadUsers:AdminService) { }
   PieChart:any;
   BarChart:any;
   BarChart1:any;
   
   ngOnInit() {
+
+    this.getUsers();
     
      this.BarChart=new Chart('barchart',{
       type: 'bar',
@@ -132,8 +139,15 @@ export class DashboardComponent implements OnInit {
           }
       }
     });
-    
-    
+  }
 
+  getUsers(){
+      this._loadUsers.loadAllUsers().subscribe(data=>{
+          this.user_data=data;
+          this.artist_count=this.user_data.filter(x=> x.role=='artist').length;
+          this.organizer_count=this.user_data.filter(x=> x.role=='organizer').length;
+          this.supplier_count=this.user_data.filter(x=> x.role=='supplier').length;
+          this.venue_owner_count=this.user_data.filter(x=> x.role=='venue_owner').length;
+      })
   }
 }

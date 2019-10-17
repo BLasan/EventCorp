@@ -13,7 +13,7 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
 
 export const ArtistLayoutRoutes: Routes = [
    
-    { path: 'artist',   component:ArtistComponent },
+    { path: 'artist-profile',   component:ArtistComponent },
     { path:'artist-calendar', component:ArtistCalendarComponent},
     { path:'artist-notifications' , component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},

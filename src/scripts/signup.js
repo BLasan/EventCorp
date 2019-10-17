@@ -4,6 +4,7 @@
 // var firebase=firebaseInit.firebaseInit();
 // var database=firebase.firestore();
 const auth_user=require('./firebase-authentication/firebase_auth');
+
 exports.signup=function(data,database,res,firebase,password){
     console.log("SIGUNP CONSOLE")
     var user_email=data.email;
@@ -46,4 +47,13 @@ exports.update_validation=function(res,database,user_email,firebase){
     console.log("SUCCESS")
 
 }
+
+
+exports.recover_account=function(res,database,user){
+    var recover_account=database.collection('register_user').doc(user).update({profile_status:'Activate'});
+    if(recover_account) res.send({success:true});
+    else res.send({success:false});
+}
+
+
 

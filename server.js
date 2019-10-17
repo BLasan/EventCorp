@@ -13,7 +13,7 @@
   const server=http.Server(app);
   const multer=require('multer');
   const ejs=require('ejs');
-  var io = require('socket.io')(server, { path: '/form' }).listen(server);
+  var io = require('socket.io')(server, { path: '/sign_up' }).listen(server);
   var io1= require('socket.io').listen(server);
   const bcrypt = require('bcrypt');
   const saltRounds = 10;
@@ -338,13 +338,13 @@
           var country_code=req.body.countryCode_sel;
           var contact=req.body.contact;
           var user_password=req.body.user_password;
+          var send_sign_up={email:user_email,user_name:user_name}
           console.log(user_password);
           const user_signup=require('./src/scripts/signup');
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
             var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false}]
             const result=user_signup.signup(data[0],database,res,firebase,user_password);
-          
           });
         });
 
@@ -367,7 +367,7 @@
 
           const verification=require('./src/scripts/signup');
           verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
-
+          localStorage.removeItem('signedUpEmail');
         
           // firebase.auth().signInWithEmailLink(localStorage.getItem('signedUpEmail'),location_det).then(function(result) {
           //    console.log("UPDATING")
@@ -410,7 +410,6 @@
              console.log(error)
           });
         })
-
 
 
         //add-ratings
@@ -542,6 +541,39 @@
 
 
 
+        //admin-load-all-users
+        app.get('/admin_load_all_users',urlencodedParser,function(req,res){
+          const load_users=require('./src/scripts/load_all_users');
+          load_users.load_all_users_admin(res,database);
+        });
+
+
+
+        //get-realtime
+        app.get('/get_realtime',urlencodedParser,function(req,res){
+          let data=[]
+          database.collection("register_user")
+          .onSnapshot(function(snapshot) {
+             // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+              let changes=snapshot.docChanges();
+              changes.forEach(element => {
+                  if(element.type=='added'){
+                     // console.log(changes.doc.id)
+                      data.push(element.doc.id);
+                      success=true;
+                  }
+              });
+              if(success){
+                  console.log("SE "+data)
+                  res.send(data);
+              } 
+              data=[];
+              console.log(" data: ", changes[0].doc.id);
+          });
+        });
+
+
+
 
         //get-all-chats
         app.post('/get_all_chats',urlencodedParser,function(req,res){
@@ -551,7 +583,7 @@
           const load_chats=require('./src/scripts/load_all_chats');
           load_chats.load_chat_list(database,res,user,user_role);
 
-        })
+        });
 
 
 
@@ -590,6 +622,15 @@
           var user=req.body[0];
           const delete_account=require('./src/scripts/signup');
           delete_account.delete_account(database,res,user);
+        });
+
+
+
+        //recover account
+        app.post('/recover_account',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const recover_account=require('./src/scripts/signup');
+          recover_account.recover_account(res,database,user);
         })
 
 
@@ -781,9 +822,10 @@
 
     
       console.log('Listening to 4600');
-      server.on('listening',function(){
-        console.log('ok, server is running');
-    });
+    //   server.on('listening',function(){
+    //     console.log('ok, server is running');
+    // });
+
       server.listen(4600);
       
       io1.on('connection',(socket)=>{

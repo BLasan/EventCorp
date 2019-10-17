@@ -8,6 +8,7 @@ import { LoginService } from 'app/services/login.services';
 import { NotificationService } from 'app/services/notification.service';
 import {click_redirect_href} from '../../../scripts/search_bar_activate';
 import {disable_drop_down,previous_mode} from '../../../scripts/disable_a_href';
+import { AdminService } from 'app/services/admin.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,12 +25,13 @@ export class NavbarComponent implements OnInit {
     role:string;
     route_link:string;
     location: Location;
+    data:any=[];
     notification_count:any;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     onLoaded:boolean=true;
     private sidebarVisible: boolean;
-    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -41,8 +43,10 @@ export class NavbarComponent implements OnInit {
     // this.count=this.notifications.get_notification_count();
     // alert(this.count);
     //   this.getUser=onIdentify();
-    
+    if(localStorage.getItem('role')!='admin')
     this.getNotificationCount();
+    else
+    this.getAdminNotificationCount();
     //previous_mode();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
@@ -212,6 +216,13 @@ export class NavbarComponent implements OnInit {
             this.notification_count=size
             this.count=this.notification_count.size;
         });
+    }
+
+    getAdminNotificationCount(){
+        this._admin_notification_count.get_realtime().subscribe(data=>{
+            this.data=data;
+            this.count=this.data.length
+        })
     }
 
     show(){

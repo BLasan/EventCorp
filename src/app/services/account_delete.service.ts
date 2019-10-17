@@ -9,7 +9,11 @@ export class DeleteAccountService {
     
     constructor(private http: HttpClient) { }
 
-    delete_account(user_data:string){
-        return this.http.post(`${this._url}/delete_account`,[user_data]);
+    delete_account(user_email:string){
+        return this.http.post(`${this._url}/delete_account`,[user_email]);
+    }
+
+    recover_account(user_email:string){
+        return this.http.post(`${this._url}/recover_account`,[user_email]);
     }
 }
