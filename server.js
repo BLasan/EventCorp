@@ -13,7 +13,7 @@
   const server=http.Server(app);
   const multer=require('multer');
   const ejs=require('ejs');
-  var io = require('socket.io')(server, { path: '/sign_up' }).listen(server);
+  //var io = require('socket.io')(server, { path: '/sign_up' }).listen(server);
   var io1= require('socket.io').listen(server);
   const bcrypt = require('bcrypt');
   const saltRounds = 10;
@@ -551,26 +551,42 @@
 
         //get-realtime
         app.get('/get_realtime',urlencodedParser,function(req,res){
-          let data=[]
-          database.collection("register_user")
+          let data=[];
+          let success=false;
+          database.collection("signup_notifications")
           .onSnapshot(function(snapshot) {
              // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
               let changes=snapshot.docChanges();
               changes.forEach(element => {
-                  if(element.type=='added'){
+                  if(element.type=='added' && element.doc.view==false){
                      // console.log(changes.doc.id)
                       data.push(element.doc.id);
                       success=true;
                   }
+
               });
+
               if(success){
                   console.log("SE "+data)
                   res.send(data);
+
               } 
               data=[];
               console.log(" data: ", changes[0].doc.id);
           });
         });
+
+
+
+        //update-view-admin
+        app.post('/update_view',urlencodedParser,function(req,res){
+          database.collection('signup_notifications').doc(req.body[0]).update({view:true}).then(function(){
+            console.log("Done");
+            res.send({success:true});
+          }).catch(function(){
+            res.send({success:false});
+          })
+        })
 
 
 
@@ -631,6 +647,31 @@
           var user=req.body[0];
           const recover_account=require('./src/scripts/signup');
           recover_account.recover_account(res,database,user);
+        });
+
+
+
+        //get user space
+        app.get('/get_user_space',urlencodedParser,function(req,res){
+        //   var docRef = database.collection('register_user');
+        //   docRef.get()
+        //   .then(snapshot => {
+        //   if (snapshot.empty) {
+        //     res.send({success:true,size:0});
+        //   }  
+        //   // snapshot.forEach(doc => {
+        //   //   console.log(doc.id, '=>', doc.data());
+        //   //   data.push(doc.data());
+        //   //   isDone=true
+        //   // });
+        //     console.log (snapshot.size);
+        //     res.send({success:true,size:sizeof.sizeof(snapshot)});
+        //   })
+        // .catch(err => {
+        //   console.log('Error getting documents', err);
+        //   res.send({success:false})
+        // });
+
         })
 
 

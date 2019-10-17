@@ -9,7 +9,7 @@ export function redirect_to(role){
     }
 
     else if(role=='admin'){
-        $('#redirect_link').attr('href','/dashboard');
+        $('#redirect_link').attr('href','/admin-dashboard');
        // $('#redirect_link')[0].click();
     }
 

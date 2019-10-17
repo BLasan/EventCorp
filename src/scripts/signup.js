@@ -11,11 +11,17 @@ exports.signup=function(data,database,res,firebase,password){
     console.log(user_email);
     var user_signup=database.collection('register_user').doc(user_email).set(data).then(function() {
         console.log("updated");
-        auth_user.auth_user_signup(firebase,password,user_email,res);
-      
+        database.collection('signup_notification').doc(user_email).set({view:false,date:new Date(),user_name:data.user_name}).then(function(){
+            auth_user.auth_user_signup(firebase,password,user_email,res);
+        }).catch(function(){
+            res.json({success:false});
+        })
     }).catch(function(){
         res.json({success:false});
-    })
+    });
+
+
+
   
 }
 
@@ -50,7 +56,7 @@ exports.update_validation=function(res,database,user_email,firebase){
 
 
 exports.recover_account=function(res,database,user){
-    var recover_account=database.collection('register_user').doc(user).update({profile_status:'Activate'});
+    var recover_account=database.collection('register_user').doc(user).update({profile_status:'Active'});
     if(recover_account) res.send({success:true});
     else res.send({success:false});
 }

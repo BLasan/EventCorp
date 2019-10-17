@@ -28,7 +28,7 @@
                             <td *ngIf="user_profile.profile_status=='Active'"><b style="color:green">{{user_profile.profile_status}}</b></td>
                             <td *ngIf="user_profile.profile_status=='Deleted'"><b style="color:red">{{user_profile.profile_status}}</b></td>
                             <td *ngIf="user_profile.profile_status=='Active'"><button mat-raised-button color="warn" (click)="remove_user(user_profile.email)">Remove</button></td>
-                            <td *ngIf="user_profile.profile_status=='Deleted'"><button mat-raised-button style="color:green;" (click)="recover_user(user_profile.email)">Remove</button></td>
+                            <td *ngIf="user_profile.profile_status=='Deleted'"><button mat-raised-button style="background-color:green;" (click)="recover_user(user_profile.email)">Activate</button></td>
                           </tr>
                         </tbody>
                       </table>

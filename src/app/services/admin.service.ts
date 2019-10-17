@@ -26,6 +26,14 @@ export class AdminService {
     return this.http.get(`${this._url}/get_realtime`);
   }
 
+  update_view(user){
+    return this.http.post(`${this._url}/update_view`,[user]);
+  }
+
+  getUserSpace(){
+    return this.http.get(`${this._url}/get_user_space`);
+  }
+
    
   
 }
