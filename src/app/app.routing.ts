@@ -35,6 +35,7 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   }, 
+
   {
     path:'email-verify',
     component:EmailVerifyComponent
@@ -59,10 +60,11 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
   }]},
-  {
-    path:'settings',
-    component:SettingsComponent
-  },
+  // {
+  //   path:'settings',
+  //   component:SettingsComponent
+  // },
+  
   // {
   //   path:'ratings/:token',
   //   component:RatingSystemComponent

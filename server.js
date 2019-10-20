@@ -838,13 +838,8 @@
           var message=req.body[5];
           var isOrganizer=req.body[6];
           const send_notification=require('./src/scripts/notifications_backend');
-          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer);
-          if(success==1){
-            res.json({success:true});
-          }
-          else{
-            res.json({success:false});
-          }
+          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer,res);
+
         });
 
 

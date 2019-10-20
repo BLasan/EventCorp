@@ -43,6 +43,8 @@ import { ArtistSettingsComponent } from './Modules/Artist-Module/artist-settings
 import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { AddNewModeratorsComponent } from './Modules/Admin-Module/add-new-moderators/add-new-moderators.component';
+import { SettingsComponent } from './shared-components/settings/settings.component';
+import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -64,10 +66,29 @@ const config = {
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    SharedComponentsModule,
     CustomerNavbarModule,
     LoginSignupModule,
-
+    SharedComponentsModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatListModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    NgbModule,
+    OnlineChatModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    OnlineChatModule,
+    MatSlideToggleModule,
+    MatIconModule
     // AngularFireModule.initializeApp(config),
     // AngularFirestoreModule, // firestore
     // AngularFireAuthModule, // auth

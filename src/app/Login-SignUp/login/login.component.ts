@@ -16,9 +16,9 @@ export class LoginComponent implements OnInit {
   constructor(private login_service:LoginService) { }
 
   ngOnInit() {
-    
+   
     if(localStorage.getItem('remember_me')=='true'){
-     (<HTMLInputElement>document.getElementById('user_name')).value=localStorage.getItem('user_email');
+     (<HTMLInputElement>document.getElementById('user_name')).value=localStorage.getItem('remember_user_email');
      (<HTMLInputElement>document.getElementById('remember_user')).checked=true;
     }
     this.form=new FormGroup({

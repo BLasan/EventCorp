@@ -51,6 +51,9 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
 import { FilterUsersPipe } from 'app/services/filter_users.pipe';
 import { Component } from '@fullcalendar/core';
 import { ComponentsModule } from 'app/components/components.module';
+import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
+import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
+import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 
   @NgModule({
     imports: [
@@ -93,7 +96,8 @@ import { ComponentsModule } from 'app/components/components.module';
       MatStepperModule,
       MatListModule,
       NgxMatSelectSearchModule,
-      SharedComponentsModule
+      SharedComponentsModule,
+      
     ],
     declarations: [
       OrganizerHomeComponent,
@@ -101,7 +105,8 @@ import { ComponentsModule } from 'app/components/components.module';
       OrganizerNotificationsComponent,
       OrganizerProfileComponent,
       OrganizerEventsComponent,
-      FilterUsersPipe
+      FilterUsersPipe,
+      // RatingSystemComponent
     ],
    
   })

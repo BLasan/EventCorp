@@ -6,7 +6,7 @@ import { ArtistRequestComponent } from '../../Modules/Artist-Module/artist-reque
 import { ArtistHomeComponent } from '../../Modules/Artist-Module/artist-home/artist-home.component';
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
-import { RatingSystemComponent } from '../../Modules/rating-system/rating-system.component';
+import { RatingSystemComponent } from '../../shared-components/rating-system/rating-system.component';
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
@@ -20,4 +20,5 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'view_booking_info' ,component:ViewBookingInfoComponent},
     { path:'my-chat-list',component:MyChatsComponent},
     { path:'artist-settings' , component:ArtistSettingsComponent},
+    { path:'ratings/:name' , component:RatingSystemComponent}, 
 ];
