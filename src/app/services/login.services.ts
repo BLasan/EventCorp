@@ -35,6 +35,10 @@ export class LoginService {
 
     }
 
+    currentUser(): string {
+        return localStorage.getItem('user_name');
+    }
+
     activateRememberUser(email:string){
         localStorage.setItem('remember_me','true');
         localStorage.setItem('user_email',email);
