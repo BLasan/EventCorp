@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/services/login.services';
-import {redirect_to} from 'scripts/redirect_to';
+import {redirect_to} from 'scripts/redirect_to'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
