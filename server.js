@@ -338,35 +338,78 @@
           var country_code=req.body.countryCode_sel;
           var contact=req.body.contact;
           var user_password=req.body.user_password;
+          console.log(user_password);
           const user_signup=require('./src/scripts/signup');
-          console.log(user_password)
-
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active'}]
-            const result=user_signup.signup(data[0],database);
-            console.log(result)
-            if(result==1)
-            res.json({success:true});
-            else
-            res.json({success:false});
-          });
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false}]
+            const result=user_signup.signup(data[0],database,res,firebase,user_password);
           
+          });
         });
 
 
 
+
+        //validate email
+        app.post('/validate_email',urlencodedParser,function(req,res){
+          var location_det=req.body[0];
+          console.log("EMAILS=>"+localStorage.getItem('signedUpEmail'));
+          console.log("LOCATION=>"+location_det);
+          var user = firebase.auth().currentUser;
+          console.log(user.uid+"->USERID")
+           // Confirm the link is a sign-in with email link.
+          if (firebase.auth().isSignInWithEmailLink(location_det)) {
+              var email = localStorage.getItem('signedUpEmail');
+          if (!email) {
+              email = window.prompt('Please provide your email for confirmation');
+          }
+
+          const verification=require('./src/scripts/signup');
+          verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
+
+        
+          // firebase.auth().signInWithEmailLink(localStorage.getItem('signedUpEmail'),location_det).then(function(result) {
+          //    console.log("UPDATING")
+          //    const verification=require('./src/scripts/signup');
+          //    verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
+          //    localStorage.removeItem('signedUpEmail');
+           
+                         
+          // })
+          // .catch(function(error) {
+          //   console.log(error+"->ERRORRR");
+          //   res.send({success:false})
+          // });
+
+          }
+        })
+
+       
+
         //login-credentials
         app.post('/login_credentials',urlencodedParser,function(req,res){
-
+          
           var email=req.body[0];
           var password=req.body[1];
           console.log(email);
           const user={email:email,password:password};
           const login_credentials=require('./src/scripts/check_credentials');
-          login_credentials.check_credentials(email,password,res,database,user);
-
+          login_credentials.check_credentials(email,password,res,database,user,firebase);
         });
+
+
+        //sign-out
+        app.post('/logout_user',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const logout=require('./src/scripts/logout_user');
+          firebase.auth().signOut().then(function() {
+            console.log("SIGNOUT SUCCESS")
+            logout.logout_user(database,res,user);
+          }).catch(function(error) {
+             console.log(error)
+          });
+        })
 
 
 
@@ -541,6 +584,21 @@
           console.log(email)
           const get_details=require('./src/scripts/searched_user_details');
           get_details.get_searched_user_details(email,res,database);
+        });
+
+
+
+        //reset password
+        app.post('/reset_password',urlencodedParser,function(req,res){
+          var password=req.body.new_password;
+          var email=req.body.user;
+          var role=req.body.role;
+          const reset=require('./src/scripts/signup');
+          bcrypt.hash(password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            reset.change_password(database,res,hash,email,role);
+          });
+          
         })
 
 

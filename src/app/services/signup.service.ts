@@ -16,4 +16,8 @@ export class SignupService {
     updateData(user_data:any){
         return this.http.post(`${this._url}/edit_user_details`,[user_data.user_name,user_data.email,user_data.address,user_data.city,user_data.state,user_data.contact,user_data.bio]);
     }
+
+    validateEmail(location:any){
+        return this.http.post(`${this._url}/validate_email`,[location]);
+    }
 }

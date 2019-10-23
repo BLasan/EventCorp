@@ -42,5 +42,10 @@
     "/add_event":{
       "target":"http://[::1]:4600",
       "secure":false
+    },
+
+    "/reset_password":{
+      "target":"http://[::1]:4600",
+      "secure":false
     }
 }

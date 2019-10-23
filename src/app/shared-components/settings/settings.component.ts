@@ -13,11 +13,15 @@ import {deactivate_searchBar} from '../../../scripts/search_bar_activate'
 export class SettingsComponent implements OnInit {
   public dialogRef: MatDialogRef<SettingsComponent>;
   form:any;
+  user_email:string;
+  user_role:string;
   del_status:any;
   constructor(private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
 
   ngOnInit() {
     deactivate_searchBar();
+    this.user_email=localStorage.getItem('user_name');
+    this.user_role=localStorage.getItem('role');
     this.form=new FormGroup({
       new_password:new FormControl('',[Validators.required,Validators.minLength(6)]),
       re_enter_password:new FormControl('',[Validators.required,confirmPassword('new_password')])

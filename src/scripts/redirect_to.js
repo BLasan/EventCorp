@@ -1,4 +1,4 @@
-exports.redirect_to=function(role){
+export function redirect_to(role){
 
     // var role=$('#user_role').val();
      alert(role)
@@ -34,13 +34,18 @@ exports.redirect_to=function(role){
 }
 
 
-exports.navigate_to_login=function(){
+export function navigate_to_login(){
     $("#login_route")[0].click();
 }
 
-exports.navigate_to_signup=function(){
+export function navigate_to_signup(){
     $("#signup_route")[0].click();
 }
+
+export function redirect_to_login(){
+    $('#redirect_to_login')[0].click();
+}
+
 
 // exports.navigate_to=function(){
 //     $('#navigate_to_profile')[0].click();

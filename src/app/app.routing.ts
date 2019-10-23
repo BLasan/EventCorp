@@ -19,6 +19,10 @@ import { PaypalPaymentComponent } from './shared-components/paypal-payment/paypa
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
 import { MyChatsComponent } from './shared-components/my-chats/my-chats.component';
+import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
+import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
+import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
+
 
 
 //var role=getRole();
@@ -31,6 +35,10 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   }, 
+  {
+    path:'email-verify',
+    component:EmailVerifyComponent
+  },
 
   {
     path: '',
@@ -108,14 +116,15 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-  // {
-  //   path: '',
-  //   component: SupplierLayoutComponent,
-  //  children: [
-  //       {
-  //     path: '',
-  //     loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
-  // }]},
+  {
+    path: '',
+    component: SupplierLayoutComponent,
+    canActivate:[AuthGuardSupplierService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+  }]},
 
  {
     path: '',
