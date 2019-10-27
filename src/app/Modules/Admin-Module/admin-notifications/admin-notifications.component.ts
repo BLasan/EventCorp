@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as io from 'socket.io-client';
 import { AdminService } from 'app/services/admin.service';
 import { MatSnackBar } from '@angular/material';
+import { get_realtime_notification} from 'scripts/realtime_monitor';
+//const firebase=require('scripts/realtime_monitor');
 declare var $: any;
 @Component({
   selector: 'app-admin-notifications',
@@ -12,16 +14,20 @@ export class AdminNotificationsComponent implements OnInit {
 
   socket:any;
   details:any;
-  data:any=[];
+  public data:any=[];
   update_success:any;
   constructor(private _realtime_data:AdminService,private _snackBar:MatSnackBar) { }
  
   ngOnInit() {
-    this._realtime_data.get_realtime().subscribe(data=>{
-      console.log(data);
-      this.data=data;
-      console.log(this.data.length);
-    })
+
+    get_realtime_notification();
+    // this._realtime_data.get_realtime().subscribe(data=>{
+    //   console.log(data);
+    //   this.data=data;
+    //   console.log(this.data.length);
+    // });
+
+
     // this.data=this._realtime_data.realtime_update();
     // console.log(this.data);
   }
@@ -30,14 +36,14 @@ export class AdminNotificationsComponent implements OnInit {
     this._realtime_data.update_view(user_id).subscribe(data=>{
       this.update_success=data;
       if(this.update_success.success){
-        this._realtime_data.get_realtime().subscribe(data=>{
-          console.log(data);
-          this.data=data;
-          console.log(this.data.length);
-        });
+        // this._realtime_data.get_realtime().subscribe(data=>{
+        //   console.log(data);
+        //   this.data=data;
+        //   console.log(this.data.length);
+        // });
       }
       else{
-        this._snackBar.open("Successfully Deleted","Done", {
+        this._snackBar.open("Deletion Unsuccessfull","Try again!", {
           duration: 2000,
         });
       }
