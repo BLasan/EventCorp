@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   validation:any;
   checked:any;
   form: any;
+  isTrue:boolean=true;
   constructor(private login_service:LoginService) { }
 
   ngOnInit() {
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
      (<HTMLInputElement>document.getElementById('remember_user')).checked=true;
     }
     this.form=new FormGroup({
-      user_name:new FormControl('',Validators.required),
+      user_name:new FormControl('',[Validators.required]),
       password:new FormControl('',[Validators.required])
     });  
   }
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.validation=data;
       console.log(this.validation.isTrue);
       if(this.validation.isTrue && this.validation.verification){
-       
+        this.isTrue=true;
         this.login_service.logIn(this.validation.role,email,this.validation.token,this.validation.user_name);
         if(this.checked){
           this.login_service.activateRememberUser(email);
@@ -48,8 +49,11 @@ export class LoginComponent implements OnInit {
         else this.login_service.destroyRememberUser();
         redirect_to(this.validation.role);
       }
-      else
-      this.isInValid=true
+      else{
+        this.isTrue=false;
+        this.isInValid=true
+      }
+     
 
     });
 

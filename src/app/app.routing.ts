@@ -22,6 +22,8 @@ import { MyChatsComponent } from './shared-components/my-chats/my-chats.componen
 import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
+import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
+import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
 
 
 
@@ -39,6 +41,14 @@ const routes: Routes =[
   {
     path:'email-verify',
     component:EmailVerifyComponent
+  },
+  {
+    path:'enter-email-reset-password',
+    component:ResetPasswordComponent
+  },
+  {
+    path:'reset-password',
+    component:ResetPasswordFirebaseComponent
   },
 
   {

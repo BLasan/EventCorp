@@ -45,6 +45,8 @@ import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layo
 import { AddNewModeratorsComponent } from './Modules/Admin-Module/add-new-moderators/add-new-moderators.component';
 import { SettingsComponent } from './shared-components/settings/settings.component';
 import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
+import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
+import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -88,7 +90,8 @@ const config = {
     MatProgressBarModule,
     OnlineChatModule,
     MatSlideToggleModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule
     // AngularFireModule.initializeApp(config),
     // AngularFirestoreModule, // firestore
     // AngularFireAuthModule, // auth
@@ -106,6 +109,8 @@ const config = {
     ErrorPageComponent,
     PaypalPaymentComponent,
     EmailVerifyComponent,
+    ResetPasswordComponent,
+    ResetPasswordFirebaseComponent,
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,

@@ -213,7 +213,7 @@ export class NavbarComponent implements OnInit {
         let user=localStorage.getItem('user_name');
         this._notification_service.getNotificationCount(user).subscribe(size=>{
             console.log(size);
-            this.notification_count=size
+            this.notification_count=size                                                                                                                                        
             this.count=this.notification_count.size;
         });
     }
@@ -223,7 +223,7 @@ export class NavbarComponent implements OnInit {
             this.data=data;
             this.count=this.data.length
         })
-    }
+    }                                                                                                                                       
 
     show(){
         if(this.onLoaded)

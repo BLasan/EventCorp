@@ -1,4 +1,5 @@
 var firebase = require("firebase/app");
+
 exports.firebaseInit=function(a=0){
 
 const functions = require('firebase/functions');
@@ -16,6 +17,7 @@ const firebaseConfig = {
   messagingSenderId: "886719532814",
   appId: "1:886719532814:web:9424058ace3d13af"
 };
+
 
 // Initialize Firebase
 if(a==0)

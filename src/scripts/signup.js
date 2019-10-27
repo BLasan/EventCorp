@@ -5,14 +5,14 @@
 // var database=firebase.firestore();
 const auth_user=require('./firebase-authentication/firebase_auth');
 
-exports.signup=function(data,database,res,firebase,password){
+exports.signup=function(data,database,res,admin,password,firebase){
     console.log("SIGUNP CONSOLE")
     var user_email=data.email;
     console.log(user_email);
     var user_signup=database.collection('register_user').doc(user_email).set(data).then(function() {
         console.log("updated");
         database.collection('signup_notification').doc(user_email).set({view:false,date:new Date(),user_name:data.user_name}).then(function(){
-            auth_user.auth_user_signup(firebase,password,user_email,res);
+            auth_user.auth_user_signup(admin,firebase,password,user_email,res);
         }).catch(function(){
             res.json({success:false});
         })
@@ -47,6 +47,21 @@ exports.change_password=function(database,res,password,user,role){
 
 exports.update_validation=function(res,database,user_email,firebase){
     console.log("123");
+    // var actionCodeSettings = {
+    //     url: 'http://localhost:4200/email-verify?mode=%3Caction%3E&oobCode=%3Ccode%3E',
+    //     handleCodeInApp: true,
+     
+    //   };
+    // firebase.auth().sendSignInLinkToEmail(localStorage.getItem('signedUpEmail'),actionCodeSettings)
+    // .then(function() {
+      
+    //   res.json({success:true});
+    // })
+    // .catch(function(error) {
+    //   console.log("Error=>"+error);
+    //   //res.json({success:false});
+    //   // Some error occurred, you can inspect the code: error.code
+    // });
     var success=database.collection('register_user').doc(user_email).update({verification:true});
     if(success)res.send({success:true});
     else res.send({success:false});

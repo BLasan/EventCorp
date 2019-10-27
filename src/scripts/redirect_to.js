@@ -47,6 +47,8 @@ export function redirect_to_login(){
 }
 
 
+
+
 // exports.navigate_to=function(){
 //     $('#navigate_to_profile')[0].click();
 // }

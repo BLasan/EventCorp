@@ -22,7 +22,8 @@
   //initialize firebase
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
-
+  const admin_init=require('./src/scripts/firebase-authentication/firebase-admin__init');
+  const admin=admin_init.get_admin_firebase();
   const ratings=require('./src/scripts/rating');
 
   app.use(body.json());
@@ -344,7 +345,7 @@
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
             var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false}]
-            const result=user_signup.signup(data[0],database,res,firebase,user_password);
+            const result=user_signup.signup(data[0],database,res,admin,user_password,firebase);
           });
         });
 
@@ -356,18 +357,26 @@
           var location_det=req.body[0];
           console.log("EMAILS=>"+localStorage.getItem('signedUpEmail'));
           console.log("LOCATION=>"+location_det);
-          var user = firebase.auth().currentUser;
-          console.log(user.uid+"->USERID")
+         // var user = firebase.auth().currentUser;
+         // console.log(user.uid+"->USERID")
            // Confirm the link is a sign-in with email link.
-          if (firebase.auth().isSignInWithEmailLink(location_det)) {
-              var email = localStorage.getItem('signedUpEmail');
-          if (!email) {
-              email = window.prompt('Please provide your email for confirmation');
-          }
-
-          const verification=require('./src/scripts/signup');
-          verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
-          localStorage.removeItem('signedUpEmail');
+          // if (firebase.auth().isSignInWithEmailLink(location_det)) {
+          //     var email = localStorage.getItem('signedUpEmail');
+          // if (!email) {
+          //     email = window.prompt('Please provide your email for confirmation');
+          // }
+          admin.auth().getUserByEmail(localStorage.getItem('signedUpEmail'))
+          .then(function(userRecord) {
+            console.log(userRecord.email);
+            userRecord.emailVerified=true;
+            const verification=require('./src/scripts/signup');
+            verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
+            localStorage.removeItem('signedUpEmail'); 
+            console.log('Successfully fetched user data:', userRecord.toJSON());
+          })
+          .catch(function(error) {
+           console.log('Error fetching user data:', error);
+          });
         
           // firebase.auth().signInWithEmailLink(localStorage.getItem('signedUpEmail'),location_det).then(function(result) {
           //    console.log("UPDATING")
@@ -382,8 +391,7 @@
           //   res.send({success:false})
           // });
 
-          }
-        })
+          });
 
        
 
@@ -396,6 +404,7 @@
           const user={email:email,password:password};
           const login_credentials=require('./src/scripts/check_credentials');
           login_credentials.check_credentials(email,password,res,database,user,firebase);
+            
         });
 
 
@@ -586,6 +595,39 @@
           }).catch(function(){
             res.send({success:false});
           })
+        });
+
+
+
+        //reset-password-email
+        app.post('/reset_password_email',urlencodedParser,function(req,res){
+          var email=req.body[0];
+          localStorage.setItem('reset_email',email);
+          var auth = firebase.auth();
+          auth.sendPasswordResetEmail(email).then(function() {
+            console.log("success");
+            res.send({success:true});
+          }).catch(function(error) {
+            console.log(error);
+            res.send({success:false});
+          });
+        
+        });
+
+
+
+
+        //reset password
+        app.post('/reset_password',urlencodedParser,function(req,res){
+          var password=req.body[0];
+          var email=localStorage.getItem('reset_email');
+          bcrypt.hash(password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var update=database.collection('register_user').doc(email).update({password:hash});
+            if(update) res.send({success:true});
+            else res.send({success:false});
+          });
+
         })
 
 
