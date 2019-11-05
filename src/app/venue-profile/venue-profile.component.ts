@@ -20,7 +20,7 @@ export class VenueProfileComponent implements OnInit {
   ) {
     // this.users = 
     console.log(loginService.currentUser())
-    db.collection('Venues').doc(loginService.currentUser()).valueChanges()
+    db.collection('register_user').doc(loginService.currentUser()).collection('venue').doc('hall').valueChanges()
     .pipe(first())
     .subscribe( snapshot => {
       console.log(snapshot)
