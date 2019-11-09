@@ -13,11 +13,11 @@ import { NotificationsComponent } from 'app/shared-components/notifications/noti
 // import { ArtistNotificationComponent } from 'app/Artist-Module/artist-notification/artist-notification.component';
 // import { ArtistRequestComponent } from 'app/Artist-Module/artist-request/artist-request.component';
 // import { ArtistHomeComponent } from 'app/Artist-Module/artist-home/artist-home.component';
-import { VenueProfileComponent } from 'app/venue-profile/venue-profile.component';
-import { VenueReservationFormComponent } from 'app/venue-module/venue-reservation-form/venue-reservation-form.component'
-// import { VenueHomeComponent } from 'app/venue-module/venue-home/venue-home.component';
-import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
-import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
+// import { VenueProfileComponent } from 'app/venue-profile/venue-profile.component';
+// import { VenueReservationFormComponent } from 'app/venue-module/venue-reservation-form/venue-reservation-form.component'
+// // import { VenueHomeComponent } from 'app/venue-module/venue-home/venue-home.component';
+// import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
+// import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
 
 
 export const ArtistLayoutRoutes: Routes = [
@@ -27,10 +27,10 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'notifications' , component:ArtistNotificationComponent},
     { path:'artist-request' ,component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
-    { path:'venueList' , component:VenueListComponent},
-    { path: 'venueProfile',component:VenueProfileComponent },
-    { path: 'venue-reservation-form', component:VenueReservationFormComponent},
-    { path: 'venueAdd', component:VenueAddComponent},
+    // { path:'venueList' , component:VenueListComponent},
+    // { path: 'venueProfile',component:VenueProfileComponent },
+    // { path: 'venue-reservation-form', component:VenueReservationFormComponent},
+    // { path: 'venueAdd', component:VenueAddComponent},
    
     { path:'artist-home' ,component:ArtistHomeComponent},
     { path:'view_booking_info' ,component:ViewBookingInfoComponent}

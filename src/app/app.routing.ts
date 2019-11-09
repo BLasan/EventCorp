@@ -22,7 +22,7 @@ import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layo
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 import { AuthGuardOrganizerService } from './services/Authentication/authGuard_organizer.service';
-
+import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -53,6 +53,16 @@ const routes: Routes =[
         {
       path: '',
       loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
+  }]},
+
+  {
+    path: '',
+    component: LocationOwnerLayoutComponent,
+    canActivate:[AuthGuardVenueOwnerService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   }]},
 
   {
@@ -132,10 +142,10 @@ const routes: Routes =[
   }]},
   // {path: 'venueProfile' , component: VenueProfileComponent},
   {path: 'venueCalendar' , component: VenueCalendarComponent},
-  {
-    path:'location_owner',
-    component:LocationOwnerLayoutComponent
-  },
+  // {
+  //   path:'location_owner',
+  //   component:LocationOwnerLayoutComponent
+  // },
   {
     path:'page-not-found',
     component:ErrorPageComponent

@@ -28,10 +28,10 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/artist', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: 'settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '#', title: 'Settings',  icon: 'settings', class: '' },
-  { path: '/venueList', title: 'Venue Home',  icon: 'file_copy', class: '' },
-  { path: '/venueProfile', title: 'Venue Profile',  icon: 'file_copy', class: '' },
-  { path: '/venueCalendar', title: 'Venue Calendar',  icon: 'file_copy', class: '' },
-  { path: '/venueAdd', title: 'Venue Registration',  icon: 'file_copy', class: '' },
+  // { path: '/venueList', title: 'Venue Home',  icon: 'file_copy', class: '' },
+  // { path: '/venueProfile', title: 'Venue Profile',  icon: 'file_copy', class: '' },
+  // { path: '/venueCalendar', title: 'Venue Calendar',  icon: 'file_copy', class: '' },
+  // { path: '/venueAdd', title: 'Venue Registration',  icon: 'file_copy', class: '' },
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
@@ -45,6 +45,10 @@ export const ROUTES2:RouteInfo[]=[
 
 export const ROUTES3:RouteInfo[]=[
   { path: '/location-owner-home', title: 'Home',  icon: 'home', class: '' },
+  { path: '/venueList', title: 'Venue Home',  icon: 'file_copy', class: '' },
+  { path: '/venueProfile', title: 'Venue Profile',  icon: 'file_copy', class: '' },
+  { path: '/venueCalendar', title: 'Venue Calendar',  icon: 'file_copy', class: '' },
+  { path: '/venueAdd', title: 'Venue Registration',  icon: 'file_copy', class: '' },
 ];
 
 export const ROUTES4:RouteInfo[]=[

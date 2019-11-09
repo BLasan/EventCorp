@@ -17,10 +17,10 @@ import { NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 import { FullCalendarModule } from "ng-fullcalendar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component"
-import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
-import { VenueReservationFormComponent } from "../../venue-module/venue-reservation-form/venue-reservation-form.component";
-import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
+// import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component"
+// import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
+// import { VenueReservationFormComponent } from "../../venue-module/venue-reservation-form/venue-reservation-form.component";
+// import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
@@ -80,10 +80,10 @@ import {
      ArtistCalendarComponent,
     //  PaypalPaymentComponent,
     ViewBookingInfoComponent,
-    VenueListComponent,
-    VenueProfileComponent,
-    VenueReservationFormComponent,
-    VenueAddComponent
+    // VenueListComponent,
+    // VenueProfileComponent,
+    // VenueReservationFormComponent,
+    // VenueAddComponent
     ],
     
      
