@@ -10,5 +10,5 @@ export const SupplierLayoutRoutes: Routes = [
     {path:'supplier-events',component:SupplierEventsComponent},
     {path:'supplier-notifications',component:SupplierNotificationsComponent},
     {path:'supplier-profile',component:SupplierProfileComponent},
-    {path:'supplier-settings',component:SupplierSettingsComponent}
+    {path:'supplier-settings',component:SupplierSettingsComponent},
 ];

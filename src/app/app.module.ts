@@ -13,7 +13,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { ReactiveFormsModule } from '@angular/forms';
 // import { FormComponent } from './Modules/Admin-Module/form/form.component';
 import { ArtistLayoutComponent } from './layouts/artist-layout/artist-layout.component';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { HomePageComponent } from './Modules/home-page/home-page.component';
 import { CustomerNavbarComponent } from './customer-components/customer-navbar/customer-navbar.component';

@@ -1,3 +1,107 @@
-<p>
-  supplier-profile works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-4">
+              <div class="card card-profile">
+                      <div class="img">
+                          <div class="card-avatar overlays" id="overlay">
+                              <button class="btn btn-primary" id="image_uploader" (click)="upload_image()">Add</button>
+                              <button class="btn btn-danger" id="remove" (click)="remove_image()">Remove</button>
+                          </div>
+                          <a href="#" *ngIf="user_profile.data.img_url==null">
+                              <img src="./assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                          </a>
+                          <a href="#" *ngIf="user_profile.data.img_url!=null">
+                              <img [src]="user_profile.data.img_url" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                          </a>
+                      </div>
+                  <div class="card-body">
+                          <h6 class="card-category text-gray">{{user_profile.role}}</h6>
+                          <h4 class="card-title">{{username}}</h4>
+                            <p align="center"><i class="material-icons" style="color:green">settings_phone</i>  <b>+94{{user_profile.data.contact}}</b></p>
+                            <p align="center"><i class="material-icons" style="color:red">room</i>  <b>{{user_profile.data.state}}</b></p>
+              
+                          <p class="card-description">
+                                {{userbio}}
+                          </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-8">
+              <div class="card" style="background-color:#303337">
+                  <div class="card-header card-header-danger" style="color:white">
+                      <h4 class="card-title">Profile Details</h4>
+                      <p class="card-category">Edit your profile</p>
+                  </div>
+                  <div class="card-body">
+                      <form #form1 method="POST" action="edit_user_details" [formGroup]="form" enctype="multipart/form-data">
+                          <div class="row">
+                              <div class="col-6">
+                                  <mat-form-field>
+                                      <input matInput placeholder="First Name" id="f_name" style="color:white" formControlName="f_name" name="f_name">
+                                      <mat-error *ngIf="hasError('f_name', 'required')">First name is required</mat-error>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-6">
+                                  <mat-form-field>
+                                      <input matInput placeholder="Last Name" id="l_name" style="color:white" formControlName="l_name" name="l_name">
+                                      <mat-error *ngIf="hasError('l_name', 'required')">Last name is required</mat-error>
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <mat-form-field>
+                              <input matInput placeholder="Address" id="address" style="color:white" formControlName="address" name="address">
+                              <mat-error *ngIf="hasError('address', 'required')">Address is required</mat-error>
+                          </mat-form-field>
+                          <div class="row">
+                              <div class="col-6">
+                                  <mat-form-field>
+                                      <input matInput placeholder="City" id="city" style="color:white" formControlName="city" name="city"> 
+                                      <mat-error *ngIf="hasError('city', 'required')">Country is required</mat-error>
+                                  </mat-form-field>
+                              </div>
+                              <div class="col-6">
+                                  <mat-form-field>
+                                      <input matInput placeholder="State" id="state" style="color:white" formControlName="state" name="state">
+                                      <mat-error *ngIf="hasError('state', 'required')">State is required</mat-error>
+                                  </mat-form-field>
+                              </div>
+                          </div>
+                          <mat-form-field>
+                              <input matInput placeholder="Email" id="email" type="email" style="color:white" formControlName="email" name="email">
+                              <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                              <mat-error *ngIf="hasError('email', 'email')">Enter a valid email</mat-error>
+                          </mat-form-field>
+                          <mat-form-field>
+                              <input matInput placeholder="Contact" id="contact" style="color: white" name="contact">
+                          </mat-form-field>
+                          <mat-form-field>
+                              <textarea matInput placeholder="About me" style="color: white"   id="about_me" [(ngModel)]="my_bio" [ngModelOptions]="{standalone: true}" name="about_me"></textarea>
+                          </mat-form-field>
+                          <input type="file" id="profile_img" name="profile_img" style="display:none" accept="image/*"> 
+                          <button mat-raised-button (click)="form1.submit()" color="primary">Update</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- <div class="row" style="margin-top:15px">
+          <div class="col-md-4"></div>
+          <div class="col-md-8" *ngIf="user_events.size>0">
+              <div class="card" style="background-color:#303337">
+                  <div class="card-header card-header-danger" style="color:white">
+                      <h4 class="card-title">Edit Events</h4>
+                      <p class="card-category">My Events</p>
+                  </div>
+                  <div class="card-body">
+                      <mat-list role="list" [ngClass]="{'list-group':user_events.length>3}">
+                          <mat-list-item role="listitem" *ngFor="let events of user_events.data" style="color:white">{{events.event_name}}  |  <a href="">view</a></mat-list-item>
+                          <mat-divider></mat-divider>
+                      </mat-list>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+  </div>           
+</div>
+

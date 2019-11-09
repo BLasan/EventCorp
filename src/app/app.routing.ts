@@ -87,6 +87,25 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
+  {
+    path: '',
+    component: SupplierLayoutComponent,
+    canActivate:[AuthGuardSupplierService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+  }]},
+
+ {
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate:[AuthGuardAdminService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+  }]},
 
   {
     path:'login',
@@ -128,25 +147,7 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-  {
-    path: '',
-    component: SupplierLayoutComponent,
-    canActivate:[AuthGuardSupplierService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
-  }]},
-
- {
-    path: '',
-    component: AdminLayoutComponent,
-    canActivate:[AuthGuardAdminService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]},
+  
   {
     path:'page-not-found',
     component:ErrorPageComponent

@@ -47,7 +47,7 @@ export const ROUTES4:RouteInfo[]=[
   { path: '/supplier-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/supplier-notifications', title: 'Notifications',icon:'notifications',class:''},
   { path:'/supplier-settings',title:'Settings',icon:'settings',class:''},
-  { path:'/suplier-events',title:'Events',icon:'calendar_today',class:''},
+  { path:'/supplier-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/supplier-profile',title:'Edit Profile',icon:'file_copy',class:''}
 ];
 

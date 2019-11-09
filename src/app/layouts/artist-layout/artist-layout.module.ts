@@ -33,15 +33,10 @@ import {
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
 import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-import { SearchFilterPipe } from 'app/components/navbar/search-filter.pipe';
-import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
+// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
-import { SettingsComponent } from 'app/shared-components/settings/settings.component';
-import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
-
 
   @NgModule({
     imports: [
