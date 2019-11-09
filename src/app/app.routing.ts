@@ -22,6 +22,8 @@ import { MyChatsComponent } from './shared-components/my-chats/my-chats.componen
 import { EmailVerifyComponent } from './Modules/email-verify/email-verify.component';
 import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layout.component';
 import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
+import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
+import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
 
 
 
@@ -35,9 +37,18 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   }, 
+
   {
     path:'email-verify',
     component:EmailVerifyComponent
+  },
+  {
+    path:'enter-email-reset-password',
+    component:ResetPasswordComponent
+  },
+  {
+    path:'reset-password',
+    component:ResetPasswordFirebaseComponent
   },
 
   {
@@ -59,10 +70,11 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/artist-layout/artist-layout.module#ArtistLayoutModule'
   }]},
-  {
-    path:'settings',
-    component:SettingsComponent
-  },
+  // {
+  //   path:'settings',
+  //   component:SettingsComponent
+  // },
+  
   // {
   //   path:'ratings/:token',
   //   component:RatingSystemComponent
@@ -74,6 +86,25 @@ const routes: Routes =[
         {
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
+  }]},
+  {
+    path: '',
+    component: SupplierLayoutComponent,
+    canActivate:[AuthGuardSupplierService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+  }]},
+
+ {
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate:[AuthGuardAdminService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
 
   {
@@ -116,25 +147,7 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-  {
-    path: '',
-    component: SupplierLayoutComponent,
-    canActivate:[AuthGuardSupplierService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
-  }]},
-
- {
-    path: '',
-    component: AdminLayoutComponent,
-    canActivate:[AuthGuardAdminService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]},
+  
   {
     path:'page-not-found',
     component:ErrorPageComponent

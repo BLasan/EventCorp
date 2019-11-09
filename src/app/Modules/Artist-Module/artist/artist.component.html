@@ -20,16 +20,13 @@
                     <div class="card-body">
                             <h6 class="card-category text-gray">{{user_profile.role}}</h6>
                             <h4 class="card-title">{{username}}</h4>
-                            <div class="row">
-                              <i class="material-icons" style="margin-left:80px">settings_phone</i><h6 class="card-title">{{user_profile.data.contact}}</h6>
-                            </div>
-                            <div class="row">
-                              <i class="material-icons" style="margin-left:80px">room</i><h6 class="card-title">{{user_profile.data.state}}</h6>
-                            </div>
+                              <p align="center"><i class="material-icons" style="color:green">settings_phone</i>  <b>+94{{user_profile.data.contact}}</b></p>
+                              <p align="center"><i class="material-icons" style="color:red">room</i>  <b>{{user_profile.data.state}}</b></p>
+                
                             <p class="card-description">
                                   {{userbio}}
                             </p>
-                        <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                        <!-- <a href="#pablo" class="btn btn-danger btn-round">Follow</a> -->
                     </div>
                 </div>
             </div>

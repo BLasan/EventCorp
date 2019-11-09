@@ -6,7 +6,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule , NgbModule} from '@ng-bootstrap/ng-bootstrap';
-
+import { CalendarComponent } from 'ng-fullcalendar';
 import {
     MatButtonModule,
     MatInputModule,
@@ -47,6 +47,7 @@ import { SupplierNotificationsComponent } from 'app/Modules/Supplier-Module/supp
 import { SupplierProfileComponent } from 'app/Modules/Supplier-Module/supplier-profile/supplier-profile.component';
 import { SupplierSettingsComponent } from 'app/Modules/Supplier-Module/supplier-settings/supplier-settings.component';
 import { SupplierEventsComponent } from 'app/Modules/Supplier-Module/supplier-events/supplier-events.component';
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 
   @NgModule({
     imports: [
@@ -88,14 +89,15 @@ import { SupplierEventsComponent } from 'app/Modules/Supplier-Module/supplier-ev
       MatToolbarModule,
       MatStepperModule,
       MatListModule,
-     
+      SharedComponentsModule
     ],
     declarations: [
       SupplierHomeComponent,
       SupplierNotificationsComponent,
       SupplierProfileComponent,
       SupplierSettingsComponent,
-      SupplierEventsComponent
+      SupplierEventsComponent,
+      // CalendarComponent
     ],
    
   })

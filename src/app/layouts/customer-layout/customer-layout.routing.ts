@@ -4,6 +4,7 @@ import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-ho
 
 export const CustomerLayoutRoutes: Routes = [
     
-    { path: 'home',   component:CustomerHomeComponent },
+    { path: 'home', component:CustomerHomeComponent },
+    
    
 ];

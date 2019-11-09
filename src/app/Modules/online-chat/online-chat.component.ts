@@ -92,6 +92,7 @@ export class OnlineChatComponent implements OnInit {
 
     if(localStorage.getItem('role')=='organizer'){
       let isOrganizer='organizer';
+      alert(isOrganizer)
       this.chat_service.sendNotifications(this.searched_user,localStorage.getItem('user_name'),date,this.searched_user_name,localStorage.getItem('nameId'),this.messageArray,isOrganizer).subscribe(data=>{
         message_details=data;
         console.log("STATUS:"+message_details.success)

@@ -1,12 +1,5 @@
-"use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.image_uploader = image_uploader;
-exports.remove_uploader = remove_uploader;
-
-function image_uploader() {
+export function image_uploader() {
   $('#profile_img').click();
 
   function readURL(input) {
@@ -26,7 +19,7 @@ function image_uploader() {
   });
 }
 
-function remove_uploader() {
+export function remove_uploader() {
   $('#profile_img').val("");
   $('#profile_pic').attr('src', 'assets/img/pro_img.png');
 } // export function upload_images(){
@@ -85,3 +78,5 @@ function remove_uploader() {
 //         });
 //     });
 // }
+
+

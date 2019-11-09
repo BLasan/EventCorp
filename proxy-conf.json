@@ -47,5 +47,15 @@
     "/reset_password":{
       "target":"http://[::1]:4600",
       "secure":false
+    },
+
+    "/upload_admin_data":{
+      "target":"http://[::1]:4600",
+      "secure":false
+    },
+
+    "/create_moderator":{
+      "target":"http://[::1]:4600",
+      "secure":false
     }
 }

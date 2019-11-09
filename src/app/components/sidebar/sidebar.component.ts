@@ -11,13 +11,14 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/user-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/table-list', title: 'Table List',  icon:'content_paste', class: '' },
-    { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
+    { path: '/admin-dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
+    { path: '/admin-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/user-details', title: 'Table List',  icon:'content_paste', class: '' },
+    { path: '/add-new-moderator', title: 'Add New Moderator',  icon: 'add', class: '' },
+    // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
+    // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
     { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
-    { path: '/notifications', title: 'Notifications',  icon:'notifications', class: '' },
+    { path: '/admin-notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
@@ -25,7 +26,7 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
   { path: '/artist-notifications', title: 'Notifications',  icon: 'view_list', class: '' },
-  { path: '/artist', title: 'Edit Profile',  icon: 'file_copy', class: '' },
+  { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
@@ -46,7 +47,7 @@ export const ROUTES4:RouteInfo[]=[
   { path: '/supplier-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/supplier-notifications', title: 'Notifications',icon:'notifications',class:''},
   { path:'/supplier-settings',title:'Settings',icon:'settings',class:''},
-  { path:'/suplier-events',title:'Events',icon:'calendar_today',class:''},
+  { path:'/supplier-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/supplier-profile',title:'Edit Profile',icon:'file_copy',class:''}
 ];
 

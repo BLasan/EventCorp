@@ -36,3 +36,30 @@ exports.user_info=function(user_role,res,database){
   });
 
 }
+
+
+exports.load_all_users_admin=function(res,database){
+  var docRef = database.collection('register_user');
+  docRef.get()
+  .then(snapshot => {
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return;
+  }  
+
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+    data.push(doc.data());
+    isDone=true
+  });
+
+  if(isDone){
+    res.send(data);
+    data=[];
+  }
+  })
+.catch(err => {
+  console.log('Error getting documents', err);
+});
+
+}

@@ -18,13 +18,16 @@ export class LoginService {
         localStorage.setItem('nameId',name);
         localStorage.setItem('user_name',email);
         localStorage.setItem('role',role);
-        localStorage.setItem('user_token',user_token);
+       // localStorage.setItem('user_token',user_token);
     }
 
     logOut(){
+        let success:any;
         localStorage.removeItem('loggedIn');
         this.http.post(`${this._url}/logout_user`,[localStorage.getItem('user_name')]).subscribe(data=>{
-            if(data[0].success==true){
+            success=data;
+            //alert('LOGGED OUTR')
+            if(success.success==true){
                 localStorage.removeItem('user_name');
                 localStorage.removeItem('role');
                 localStorage.removeItem('token');
@@ -37,12 +40,12 @@ export class LoginService {
 
     activateRememberUser(email:string){
         localStorage.setItem('remember_me','true');
-        localStorage.setItem('user_email',email);
+        localStorage.setItem('remember_user_email',email);
     }
 
     destroyRememberUser(){
         localStorage.removeItem('remember_me');
-        localStorage.removeItem('user_email');
+        localStorage.removeItem('remember_user_email');
     }
 
 }

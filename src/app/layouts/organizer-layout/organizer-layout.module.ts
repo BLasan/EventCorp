@@ -6,6 +6,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {
     MatButtonModule,
     MatInputModule,
@@ -46,11 +47,14 @@ import { OrganizerSettingsComponent } from 'app/Modules/Organizer-Module/organiz
 import { OrganizerNotificationsComponent } from 'app/Modules/Organizer-Module/organizer-notifications/organizer-notifications.component';
 import { OrganizerProfileComponent } from 'app/Modules/Organizer-Module/organizer-profile/organizer-profile.component';
 import { OrganizerEventsComponent } from 'app/Modules/Organizer-Module/organizer-events/organizer-events.component';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { FilterUsersPipe } from 'app/services/filter_users.pipe';
 import { Component } from '@fullcalendar/core';
 import { ComponentsModule } from 'app/components/components.module';
+import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
+import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
+import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 
   @NgModule({
     imports: [
@@ -93,7 +97,8 @@ import { ComponentsModule } from 'app/components/components.module';
       MatStepperModule,
       MatListModule,
       NgxMatSelectSearchModule,
-      SharedComponentsModule
+      SharedComponentsModule,
+      
     ],
     declarations: [
       OrganizerHomeComponent,
@@ -101,7 +106,8 @@ import { ComponentsModule } from 'app/components/components.module';
       OrganizerNotificationsComponent,
       OrganizerProfileComponent,
       OrganizerEventsComponent,
-      FilterUsersPipe
+      FilterUsersPipe,
+      // RatingSystemComponent
     ],
    
   })

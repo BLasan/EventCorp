@@ -1,0 +1,107 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add New Moderator</h4>
+            <p class="card-category">Fill the moderator details</p>
+          </div>
+          <div class="card-body">
+            <form #form1 action="/create_moderator" method="POST" [formGroup]="form">
+              <div class="row">
+                <div class="col-md-5">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="EventCorp" disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-3">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Username" name="user_name" formControlName="user_name" required>
+                    <mat-error *ngIf="hasError('user_name', 'required')">First name is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                  <mat-form-field class="example-full-width">
+                    <input matInput placeholder="Email address" type="email" name="email" formControlName="email" required>
+                    <mat-error *ngIf="hasError('email', 'required')">First name is required</mat-error>
+                  </mat-form-field>
+                </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Fist Name" type="text" name="f_name" formControlName="f_name" required>
+                      <mat-error *ngIf="hasError('f_name', 'required')">First name is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Last Name" type="text" name="l_name" formControlName="l_name" required>
+                      <mat-error *ngIf="hasError('l_name', 'required')">First name is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Country" type="text" name="country" formControlName="country" required>
+                        <mat-error *ngIf="hasError('country', 'required')">First name is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field class="example-full-width">
+                        <input matInput placeholder="Contact" type="number" name="contact" formControlName="contact" maxlength="10" required>
+                        <mat-error *ngIf="hasError('contact', 'required')">First name is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Password" type="password" name="password" formControlName="password" required>
+                      <mat-error *ngIf="hasError('password', 'required')">First name is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <button mat-raised-button class="btn btn-danger pull-right"  (click)="form1.submit()">Create Moderator</button>
+                <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Moderator Previledges</h4>
+            <p class="card-category">Assign moderator Previledges</p>
+          </div>
+          <div class="card-body">
+            <mat-list role="list">
+              <mat-list-item role="listitem">
+                <p>Delete Comments</p>
+                <button mat-raised-button style="margin-left:177px;margin-top:-15px;background-color:green;">Assign</button>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item role="listitem">
+                <p>Accept / Decline User Requests</p>
+                <button mat-raised-button style="margin-left:80px;background-color:green;">Assign</button>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item role="listitem">
+                <p>View User Details</p>
+                <button mat-raised-button style="margin-left:180px;background-color:green;">Assign</button>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item role="listitem">
+                <p>Edit Content</p>
+                <button mat-raised-button style="margin-left:217px;background-color:green;">Assign</button>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </mat-list>   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

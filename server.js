@@ -13,7 +13,7 @@
   const server=http.Server(app);
   const multer=require('multer');
   const ejs=require('ejs');
-  var io = require('socket.io')(server, { path: '/form' }).listen(server);
+  //var io = require('socket.io')(server, { path: '/sign_up' }).listen(server);
   var io1= require('socket.io').listen(server);
   const bcrypt = require('bcrypt');
   const saltRounds = 10;
@@ -22,7 +22,8 @@
   //initialize firebase
   var firebase=firebaseInit.firebaseInit();
   var database=firebase.firestore();
-
+  const admin_init=require('./src/scripts/firebase-authentication/firebase-admin__init');
+  const admin=admin_init.get_admin_firebase();
   const ratings=require('./src/scripts/rating');
 
   app.use(body.json());
@@ -338,13 +339,13 @@
           var country_code=req.body.countryCode_sel;
           var contact=req.body.contact;
           var user_password=req.body.user_password;
+          var send_sign_up={email:user_email,user_name:user_name}
           console.log(user_password);
           const user_signup=require('./src/scripts/signup');
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
             var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false}]
-            const result=user_signup.signup(data[0],database,res,firebase,user_password);
-          
+            const result=user_signup.signup(data[0],database,res,admin,user_password,firebase);
           });
         });
 
@@ -356,18 +357,26 @@
           var location_det=req.body[0];
           console.log("EMAILS=>"+localStorage.getItem('signedUpEmail'));
           console.log("LOCATION=>"+location_det);
-          var user = firebase.auth().currentUser;
-          console.log(user.uid+"->USERID")
+         // var user = firebase.auth().currentUser;
+         // console.log(user.uid+"->USERID")
            // Confirm the link is a sign-in with email link.
-          if (firebase.auth().isSignInWithEmailLink(location_det)) {
-              var email = localStorage.getItem('signedUpEmail');
-          if (!email) {
-              email = window.prompt('Please provide your email for confirmation');
-          }
-
-          const verification=require('./src/scripts/signup');
-          verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
-
+          // if (firebase.auth().isSignInWithEmailLink(location_det)) {
+          //     var email = localStorage.getItem('signedUpEmail');
+          // if (!email) {
+          //     email = window.prompt('Please provide your email for confirmation');
+          // }
+          admin.auth().getUserByEmail(localStorage.getItem('signedUpEmail'))
+          .then(function(userRecord) {
+            console.log(userRecord.email);
+            userRecord.emailVerified=true;
+            const verification=require('./src/scripts/signup');
+            verification.update_validation(res,database,localStorage.getItem('signedUpEmail'));
+            localStorage.removeItem('signedUpEmail'); 
+            console.log('Successfully fetched user data:', userRecord.toJSON());
+          })
+          .catch(function(error) {
+           console.log('Error fetching user data:', error);
+          });
         
           // firebase.auth().signInWithEmailLink(localStorage.getItem('signedUpEmail'),location_det).then(function(result) {
           //    console.log("UPDATING")
@@ -382,8 +391,7 @@
           //   res.send({success:false})
           // });
 
-          }
-        })
+          });
 
        
 
@@ -396,6 +404,7 @@
           const user={email:email,password:password};
           const login_credentials=require('./src/scripts/check_credentials');
           login_credentials.check_credentials(email,password,res,database,user,firebase);
+            
         });
 
 
@@ -410,7 +419,6 @@
              console.log(error)
           });
         })
-
 
 
         //add-ratings
@@ -474,6 +482,23 @@
           const organizer_event=require('./src/scripts/organizer/create_new_event');
           var result=organizer_event.create_new_event(data,database,id,res,user_role);
         
+        });
+
+
+
+
+        //upload-admin-data
+        app.post('/upload_admin_data',urlencodedParser,function(req,res){
+          var user_name=req.body.user_name;
+          var full_name=req.body.f_name+" "+req.body.l_name;
+          var email=req.body.email;
+          var address=req.body.address;
+          var country=req.body.country;
+          var contact=req.body.contact;
+          var p_code=req.body.p_code;
+          var user_details={image_url:null,role:"admin",country:country,address:address,email:email,user_name:full_name,screen_name:user_name,contact:contact,p_code:p_code};
+          const upload_details=require('./src/scripts/update_user_details');
+          upload_details.update_user_bio(database,res,user_details);
         })
 
 
@@ -525,6 +550,88 @@
 
 
 
+        //admin-load-all-users
+        app.get('/admin_load_all_users',urlencodedParser,function(req,res){
+          const load_users=require('./src/scripts/load_all_users');
+          load_users.load_all_users_admin(res,database);
+        });
+
+
+
+        //get-realtime
+        app.get('/get_realtime',urlencodedParser,function(req,res){
+          let data=[];
+          let success=false;
+          database.collection("signup_notifications")
+          .onSnapshot(function(snapshot) {
+             // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+              let changes=snapshot.docChanges();
+              changes.forEach(element => {
+                  if(element.type=='added' && element.doc.view==false){
+                     // console.log(changes.doc.id)
+                      data.push(element.doc.id);
+                      success=true;
+                  }
+
+              });
+
+              if(success){
+                  console.log("SE "+data)
+                  res.send(data);
+
+              } 
+              data=[];
+              console.log(" data: ", changes[0].doc.id);
+          });
+        });
+
+
+
+        //update-view-admin
+        app.post('/update_view',urlencodedParser,function(req,res){
+          database.collection('signup_notifications').doc(req.body[0]).update({view:true}).then(function(){
+            console.log("Done");
+            res.send({success:true});
+          }).catch(function(){
+            res.send({success:false});
+          })
+        });
+
+
+
+        //reset-password-email
+        app.post('/reset_password_email',urlencodedParser,function(req,res){
+          var email=req.body[0];
+          localStorage.setItem('reset_email',email);
+          var auth = firebase.auth();
+          auth.sendPasswordResetEmail(email).then(function() {
+            console.log("success");
+            res.send({success:true});
+          }).catch(function(error) {
+            console.log(error);
+            res.send({success:false});
+          });
+        
+        });
+
+
+
+
+        //reset password
+        app.post('/reset_password',urlencodedParser,function(req,res){
+          var password=req.body[0];
+          var email=localStorage.getItem('reset_email');
+          bcrypt.hash(password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var update=database.collection('register_user').doc(email).update({password:hash});
+            if(update) res.send({success:true});
+            else res.send({success:false});
+          });
+
+        })
+
+
+
 
         //get-all-chats
         app.post('/get_all_chats',urlencodedParser,function(req,res){
@@ -534,7 +641,7 @@
           const load_chats=require('./src/scripts/load_all_chats');
           load_chats.load_chat_list(database,res,user,user_role);
 
-        })
+        });
 
 
 
@@ -569,10 +676,64 @@
    
 
         //delete account
-        app.post('delete_account',urlencodedParser,function(req,res){
+        app.post('/delete_account',urlencodedParser,function(req,res){
           var user=req.body[0];
           const delete_account=require('./src/scripts/signup');
           delete_account.delete_account(database,res,user);
+        });
+
+
+
+        //recover account
+        app.post('/recover_account',urlencodedParser,function(req,res){
+          var user=req.body[0];
+          const recover_account=require('./src/scripts/signup');
+          recover_account.recover_account(res,database,user);
+        });
+
+
+
+        //get user space
+        app.get('/get_user_space',urlencodedParser,function(req,res){
+        //   var docRef = database.collection('register_user');
+        //   docRef.get()
+        //   .then(snapshot => {
+        //   if (snapshot.empty) {
+        //     res.send({success:true,size:0});
+        //   }  
+        //   // snapshot.forEach(doc => {
+        //   //   console.log(doc.id, '=>', doc.data());
+        //   //   data.push(doc.data());
+        //   //   isDone=true
+        //   // });
+        //     console.log (snapshot.size);
+        //     res.send({success:true,size:sizeof.sizeof(snapshot)});
+        //   })
+        // .catch(err => {
+        //   console.log('Error getting documents', err);
+        //   res.send({success:false})
+        // });
+
+        });
+
+
+
+
+        //create moderator
+        app.post('/create_moderator',urlencodedParser,function(req,res){
+          var user_name=req.body.user_name;
+          var email=req.body.email;
+          var full_name=req.body.f_name+" "+req.body.l_name;
+          var country=req.body.country;
+          var contact=req.body.contact;
+          var password=req.body.password;
+          const create_moderator=require('./src/scripts/create_moderator');
+          bcrypt.hash(password, saltRounds, function(err, hash) {
+            if(err) throw err;
+            var mod_details={user_name:user_name,full_name:full_name,email:email,country:country,contact:contact,password:hash,status:'Active'};
+            create_moderator.create_moderator(database,mod_details,email,res);
+          });
+          
         })
 
 
@@ -719,13 +880,8 @@
           var message=req.body[5];
           var isOrganizer=req.body[6];
           const send_notification=require('./src/scripts/notifications_backend');
-          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer);
-          if(success==1){
-            res.json({success:true});
-          }
-          else{
-            res.json({success:false});
-          }
+          var success=send_notification.send_notifications(sender,receiver,date,database,receiver_name,sender_name,message,isOrganizer,res);
+
         });
 
 
@@ -764,6 +920,10 @@
 
     
       console.log('Listening to 4600');
+    //   server.on('listening',function(){
+    //     console.log('ok, server is running');
+    // });
+
       server.listen(4600);
       
       io1.on('connection',(socket)=>{

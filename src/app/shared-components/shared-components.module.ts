@@ -56,7 +56,6 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
     MatNativeDateModule,
     MatChipsModule,
     NgbModule,
-    OnlineChatModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,

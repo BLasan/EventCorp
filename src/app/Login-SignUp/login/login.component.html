@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="container-fluid">
         <div class="row" style="margin-top:80px;">
             <div class="col-md-4"></div>
@@ -68,49 +68,56 @@
             <div class="col-md-4"></div>
         </div>
     </div>
-</div>
+</div> -->
 
 <a href="" class="btn" style="display:none" id="redirect_link"></a>
 <input id="user_role" value="" style="display: none">
 
 
-<!-- <div class="main-content">
-        <div class="container-fluid container h-100">
-          <div class="d-flex justify-content-center h-100">
+<div class="main-content">
+    <div class="container-fluid container h-100">
+        <div class="d-flex justify-content-center h-100">
               <div class="user_card">
                   <div class="d-flex justify-content-center">
                       <div class="brand_logo_container">
-                          <img src="assets/img/waterkingdom.png" class="brand_logo" alt="Logo">
+                          <img src="assets/img/cover.jpeg" class="brand_logo" alt="Logo">
                       </div>
                   </div>
                   <div class="d-flex justify-content-center form_container">
-                      <form>
-                          <h6 *ngIf="error_login"><div class="alert alert-danger" role="alert" style="text-align: center">Error Login</div></h6>
-                          <h6 *ngIf="session_timeout"><div class="alert alert-warning" role="alert" style="text-align: center">Session Expired!</div></h6>
+                      <form #form1 [formGroup]="form">
+                          <h6 *ngIf="!isTrue"><div class="alert alert-danger" role="alert" style="text-align: center">Error Login</div></h6>
+                          <!-- <h6 *ngIf="session_timeout"><div class="alert alert-warning" role="alert" style="text-align: center">Session Expired!</div></h6> -->
                           <div class="input-group mb-3">
                               <div class="input-group-append">
-                                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                  <span class="input-group-text"><img src="https://img.icons8.com/material/24/000000/gender-neutral-user--v1.png"></span>
                               </div>
-                              <input type="text" name="email" id="email" class="form-control input_user" placeholder="username">
+                              <input type="text" name="user_name" id="user_name" class="form-control input_user" placeholder="username" formControlName="user_name">
                           </div>
                           <div class="input-group mb-2">
                               <div class="input-group-append">
-                                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                  <span class="input-group-text"><img src="https://img.icons8.com/material/24/000000/key.png"></span>
                               </div>
-                              <input type="password" name="password" id="password" class="form-control input_pass"  placeholder="password" (keyup.enter)="isAdmin()">
+                              <input matInput type="password" name="password" id="password" class="form-control input_pass"  placeholder="password" formControlName="password" (keyup.enter)="login_validate()">
                           </div>
-                          <div class="form-group">
-                              <div class="custom-control custom-checkbox">
-                                  <input type="checkbox" class="custom-control-input" id="remember_user">
-                                  <label class="custom-control-label" for="remember_user">Remember me</label>
-                              </div>
+                          <div class="form-check" style="margin-top:20px">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" value="" id="remember_user">
+                                    Remember Me
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                          </div>
+                          <div class="input-group">
+                            <a href="enter-email-reset-password" style="margin-left:75px;margin-top:15px">Forget Password?</a>
                           </div>
                       </form>
                   </div>
                   <div class="d-flex justify-content-center mt-3 login_container">
-                      <button type="button" name="button" class="btn login_btn" (click)="isAdmin()">Login</button>
+                      <button type="button" name="button" class="btn login_btn" (click)="login_validate()">Login</button>
                   </div>
               </div>
-          </div>
-      </div>
-      <a href="dashboard" id="redirect_to" style="display: none"></a>  -->
+        </div>
+    </div> 
+</div>
+    <!--  <a href="dashboard" id="redirect_to" style="display: none"></a>  -->

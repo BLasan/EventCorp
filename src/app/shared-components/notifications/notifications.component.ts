@@ -4,6 +4,7 @@ import {update_count} from 'scripts/update_notification_count';
 import {disable_room_id} from '../../../scripts/disable_a_href';
 import { ChatService } from 'app/services/chat.service';
 import {generate_chat_id} from '../../../scripts/generate_id';
+import { filter } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -25,6 +26,13 @@ export class NotificationsComponent implements OnInit {
   checked:boolean=false;
   notification_type:string;
   notification_count:number=0;
+  user_role:string;
+  filtered_details:any=[];
+  req_from:string;
+  req_time:any;
+  req_email:any;
+  req_contact:any;
+  req_name:string;
   constructor(private _notification:NotificationService,private _chatService:ChatService) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
@@ -57,6 +65,7 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.getRequestDetails();
     this.getMessageNotifications();
+    this.user_role=localStorage.getItem('role');
     //disable_room_id();
   }
 
@@ -93,7 +102,15 @@ export class NotificationsComponent implements OnInit {
    }
 
 mark_view_booking_notification(sender_email:string){
-  alert(sender_email)
+ // alert(sender_email)
+  if(this.user_role!='organizer'){
+    this.filtered_details=this.booking_data.filter(x=>x.user_email==sender_email);
+    this.req_from=this.filtered_details[0].user_email;
+    this.req_name=this.filtered_details[0].user_name;
+    this.req_time=this.filtered_details[0].time;
+    this.req_contact=this.filtered_details[0].user_contact;
+    
+  }
   let user_name=localStorage.getItem('user_name');
   this.notification_count-=1;
   if(this.isBookingView) this.notification_type="booking";
@@ -115,6 +132,7 @@ mark_view_booking_notification(sender_email:string){
    // localStorage.setItem('notification_count',this.notification_count.toString());
   });
 }
+
 
 booking(){
   this.checked=false;

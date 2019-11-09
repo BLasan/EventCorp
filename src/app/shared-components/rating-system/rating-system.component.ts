@@ -42,11 +42,13 @@ export class RatingSystemComponent implements OnInit {
     this.loadUserRatings();
     this.loadComments();
     this.getSearchedUserData();
+    //localStorage.removeItem('searched_user_email');
   }
 
   rateUser(){
     //alert(localStorage.getItem('searched_user_email'))
-    this.rating.rate_user(this.currentRate,localStorage.getItem('searched_user_email')).subscribe(data=>{
+   // alert("RATE")
+    this.rating.rate_user(this.currentRate,this.searched_user_email).subscribe(data=>{
       this.success=data;
       if(this.success.success==true){
         // alert(this.currentRate)
@@ -78,7 +80,7 @@ export class RatingSystemComponent implements OnInit {
    // let user_id=this.search_token;
   
     let timeStamp=new Date();
-    this._comment.add_comment(this.myComment,localStorage.getItem('searched_user_email'),this.organizer_name,timeStamp).subscribe(data=>{
+    this._comment.add_comment(this.myComment,this.searched_user_email,this.organizer_name,timeStamp).subscribe(data=>{
       this.success=data;
       console.log(this.success)
       if(this.success.success==true){
@@ -99,7 +101,7 @@ export class RatingSystemComponent implements OnInit {
     this.route.params.subscribe( params => {
       this.search_token=params['name'];
       console.log(this.search_token)
-      this.rating.load_ratings(localStorage.getItem('searched_user_email')).subscribe(data=>{
+      this.rating.load_ratings(this.searched_user_email).subscribe(data=>{
         this.ratings=data;
         console.log(this.ratings.success)
         if(this.ratings.success==true){
@@ -115,7 +117,7 @@ export class RatingSystemComponent implements OnInit {
   }
 
    loadComments(){
-     this._comment.load_comment(localStorage.getItem('searched_user_email')).subscribe(data=>{
+     this._comment.load_comment(this.searched_user_email).subscribe(data=>{
        this.user_comments=data;
 
        if(this.user_comments.success==true){
@@ -136,7 +138,7 @@ export class RatingSystemComponent implements OnInit {
     let timeStamp=new Date();
     this.isProcessing=true;
     console.log(timeStamp)
-    this.booking.book_user(localStorage.getItem('searched_user_email'),timeStamp,user_name).subscribe(data=>{
+    this.booking.book_user(this.searched_user_email,timeStamp,user_name).subscribe(data=>{
       this.success_booking=data;
       console.log(this.success_booking)
       if(this.success_booking.success==true){
@@ -157,7 +159,7 @@ export class RatingSystemComponent implements OnInit {
    getRequestDetails(){
      console.log('Hello')
     let user_name=localStorage.getItem('user_name');
-     this.booking.get_booking_details(user_name,localStorage.getItem('searched_user_email')).subscribe(data=>{
+     this.booking.get_booking_details(user_name,this.searched_user_email).subscribe(data=>{
        this.booking_details=data;
        console.log(this.booking_details+"=>DATA")
        if(this.booking_details.success){
@@ -177,7 +179,7 @@ export class RatingSystemComponent implements OnInit {
 
    getSearchedUserData(){
      console.log("hrll")
-    this.rating.loadSearchedUserData(localStorage.getItem('searched_user_email')).subscribe(data=>{
+    this.rating.loadSearchedUserData(this.searched_user_email).subscribe(data=>{
       console.log("GEtting")
       this.search_user_data=data;
      
