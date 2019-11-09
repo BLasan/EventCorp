@@ -47,6 +47,7 @@ import { SettingsComponent } from './shared-components/settings/settings.compone
 import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
 import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
 import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
+
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
