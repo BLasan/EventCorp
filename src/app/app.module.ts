@@ -37,6 +37,7 @@ import { OrganizerSettingsComponent } from './Modules/Organizer-Module/organizer
 import { OrganizerEventsComponent } from './Modules/Organizer-Module/organizer-events/organizer-events.component';
 import { OrganizerProfileComponent } from './Modules/Organizer-Module/organizer-profile/organizer-profile.component';
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
+import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
@@ -94,8 +95,8 @@ import { environment } from '../environments/environment';
     VenueCalendarComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
-    PaypalPaymentComponent
-
+    PaypalPaymentComponent,
+    LocationOwnerLayoutComponent
   ],
 
   providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService],

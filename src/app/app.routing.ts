@@ -133,6 +133,10 @@ const routes: Routes =[
   // {path: 'venueProfile' , component: VenueProfileComponent},
   {path: 'venueCalendar' , component: VenueCalendarComponent},
   {
+    path:'location_owner',
+    component:LocationOwnerLayoutComponent
+  },
+  {
     path:'page-not-found',
     component:ErrorPageComponent
   },
