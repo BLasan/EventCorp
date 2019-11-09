@@ -182,7 +182,6 @@ export class RatingSystemComponent implements OnInit {
     this.rating.loadSearchedUserData(this.searched_user_email).subscribe(data=>{
       console.log("GEtting")
       this.search_user_data=data;
-     
      console.log(this.search_user_data.status);
     })
   }
