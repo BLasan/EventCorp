@@ -97,7 +97,7 @@ const config = {
     MatIconModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(config),
-    AngularFirestoreModule, // firestore
+    AngularFirestoreModule.enablePersistence(), // firestore
     AngularFireAuthModule, // auth
     AngularFireStorageModule // storage
     
