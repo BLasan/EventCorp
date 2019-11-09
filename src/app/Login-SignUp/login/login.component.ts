@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/services/login.services';
 import {redirect_to} from 'scripts/redirect_to';
@@ -60,3 +61,4 @@ export class LoginComponent implements OnInit {
   }
 
 }
+
