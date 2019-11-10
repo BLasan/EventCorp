@@ -8,9 +8,9 @@
         <mat-card style="background-color:#303337">
           <mat-card-title style="color:red">Add New Event</mat-card-title>
             <mat-card-content>
-              <form #form1 action="create_new_event" name="create_event" method="POST" [formGroup]="form" enctype="multipart/form-data">
+              <form [formGroup]="form">
                 <mat-form-field>
-                  <input matInput placeholder="Event Name" name="event_name" formControlName='event_name'>
+                  <input matInput placeholder="Event Name" id="event_name" name="event_name" formControlName='event_name'>
                   <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
                 </mat-form-field>    
                 <!-- <mat-form-field>
@@ -18,13 +18,13 @@
                   <mat-error *ngIf="hasError('venue', 'required')"><small>Venue is required</small></mat-error>
                 </mat-form-field>    -->
                 <mat-form-field color="accent">
-                  <input matInput [matDatepicker]="picker" placeholder="Choose a date" name="date" formControlName='date'>
+                  <input matInput [matDatepicker]="picker" id="date" placeholder="Choose a date" name="date" formControlName='date'>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="hasError('date', 'required')"><small>is required</small></mat-error>
                 </mat-form-field>
                 <mat-form-field>
-                  <input matInput type="time" placeholder="Time" name="time" formControlName='time'>
+                  <input matInput type="time" placeholder="Time" id="time" name="time" formControlName='time'>
                   <mat-error *ngIf="hasError('time', 'required')"><small>Time is required</small></mat-error>
                 </mat-form-field>
                 <div class="row">
@@ -38,8 +38,8 @@
                           </span>
                         </mat-select-trigger>
                         <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
-                        <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
-                          {{bank}}
+                        <mat-option *ngFor="let bank of artistList | async" [value]="bank.user_name">
+                          {{bank.user_name}}
                         </mat-option>
                       </mat-select>
                     </mat-form-field>  
@@ -100,12 +100,12 @@
                       </div> 
                   </div> 
               </div>
-                <input [value]="artist_data.value" type="text" name="artists" style="display: none">
-                <input [value]="venue_owner_data.value" type="text" name="venue_owners" style="display: none">
-                <input [value]="supplier_data.value" type="text" name="suppliers" style="display: none">
-                <input [value]="user_name" type="text" name="user_name" style="display: none">
-                <input [value]="user_role" type="text" name="user_role" style="display: none">
-                <button mat-raised-button color="accent" (click)="form1.submit()" style="margin-top:25px">Add</button>
+                <input [value]="artist_data.value" id="artists" type="text" name="artists" style="display: none">
+                <input [value]="venue_owner_data.value" id="venue_owners" type="text" name="venue_owners" style="display: none">
+                <input [value]="supplier_data.value" id="suppliers" type="text" name="suppliers" style="display: none">
+                <input [value]="user_name" type="text" id="user_name" name="user_name" style="display: none">
+                <input [value]="user_role" type="text" id="user_role" name="user_role" style="display: none">
+                <button mat-raised-button color="accent" (click)="onSubmit()" style="margin-top:25px">Add</button>
               </form>
             </mat-card-content>
         </mat-card> 
