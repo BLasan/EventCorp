@@ -63,14 +63,14 @@ export class ArtistComponent implements OnInit {
       if(this.image_file){
         storageRef.put(_this.image_file[0]).then(function(snapshot){
           storageRef.getDownloadURL().subscribe(url=>{
-            var user_details={image_url:url,role:"",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+            var user_details={image_url:url,role:"artist",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
             _this.database.collection('register_user').doc(email).update(user_details); 
             remove_uploader();
             });
           });
       }
       else{
-        var user_details={role:"admin",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+        var user_details={role:"artist",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
         this.database.collection('register_user').doc(email).update(user_details);
       }
     }

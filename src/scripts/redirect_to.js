@@ -27,6 +27,9 @@ export function redirect_to(role){
         $('#redirect_link').attr('href','/venue_owner-home');
        // $('#redirect_link')[0].click();
     }
+    else{
+        alert("Unauthorized User!Please select a role")
+    }
 
     $('#redirect_link')[0].click();
 
