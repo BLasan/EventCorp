@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { tap, first } from 'rxjs/operators';
+import { LoginService } from 'app/services/login.services';
 
 @Component({
   selector: 'app-venue-add',
@@ -17,7 +18,10 @@ export class VenueAddComponent implements OnInit {
 
   // name = new FormControl('');
 
-  constructor(private fb: FormBuilder, private afs: AngularFirestore) { }
+  constructor(
+    private fb: FormBuilder,
+    private afs: AngularFirestore,
+    private loginService: LoginService) { }
 
   ngOnInit() {
 
@@ -43,7 +47,7 @@ export class VenueAddComponent implements OnInit {
     const formValue = this.myForm1.value;
 
     try {
-      await this.afs.collection('Venues').add(formValue);
+      await this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').set(formValue);
       this.success = true;
     } catch(err) {
       console.error(err)
