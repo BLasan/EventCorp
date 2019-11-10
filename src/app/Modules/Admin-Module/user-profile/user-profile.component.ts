@@ -49,7 +49,7 @@ export class UserProfileComponent implements OnInit{
     let postal_code=this.form.get('postal_code').value;
     let bio_data=this.form.get('bio_data').value;
     let date=new Date().getTime().toString();
-    let image_id="artist-image/"+date;
+    let image_id="admin-image/"+date;
     let storageRef=this.storage.ref(image_id);
     let _this=this;
     if(localStorage.getItem('user_name')==email){
