@@ -48,6 +48,9 @@ import { SupplierProfileComponent } from 'app/Modules/Supplier-Module/supplier-p
 import { SupplierSettingsComponent } from 'app/Modules/Supplier-Module/supplier-settings/supplier-settings.component';
 import { SupplierEventsComponent } from 'app/Modules/Supplier-Module/supplier-events/supplier-events.component';
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
+import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
+import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
+import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 
   @NgModule({
     imports: [
@@ -89,7 +92,7 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
       MatToolbarModule,
       MatStepperModule,
       MatListModule,
-      SharedComponentsModule
+      SharedComponentsModule,
     ],
     declarations: [
       SupplierHomeComponent,
@@ -97,6 +100,7 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
       SupplierProfileComponent,
       SupplierSettingsComponent,
       SupplierEventsComponent,
+     // MyChatsComponent,
       // CalendarComponent
     ],
    

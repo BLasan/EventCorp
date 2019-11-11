@@ -51,6 +51,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MyChatsComponent } from './shared-components/my-chats/my-chats.component';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -115,6 +116,7 @@ const config = {
     EmailVerifyComponent,
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
+   // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,

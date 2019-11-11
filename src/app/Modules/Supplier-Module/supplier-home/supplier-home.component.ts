@@ -48,7 +48,7 @@ export class SupplierHomeComponent implements OnInit {
       
       else if(doc.data().role=="venue_owner" && doc.data().rating>=3){
         _this.top_venue_owners.push(doc.data());
-        // _this.top_venue_owners.sort().reverse();
+         _this.top_venue_owners.sort().reverse();
       }
       _this.isDone=true;
     });

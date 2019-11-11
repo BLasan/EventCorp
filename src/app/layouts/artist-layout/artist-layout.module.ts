@@ -57,7 +57,8 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
       MatChipsModule,
       MatIconModule,
       NgbModule,
-      SharedComponentsModule
+      SharedComponentsModule,
+
     ],
     declarations: [
      ArtistComponent,
@@ -66,7 +67,6 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
      ArtistHomeComponent,
      CalendarComponent,
      ArtistCalendarComponent,
-     MyChatsComponent,
      ArtistSettingsComponent,
      ViewBookingInfoComponent,
     ],
