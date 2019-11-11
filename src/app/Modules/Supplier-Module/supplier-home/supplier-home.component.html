@@ -95,9 +95,112 @@
                       <button mat-button>Book Now</button>
                     </mat-card-actions>
                 </mat-card>
-            </div>
-            
+            </div> 
         </div>  
+        <div class="row">
+            <div class="col-md-4" *ngIf="top_organizers.length!=0">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                      <h4 class="card-title">Top Organizers</h4>
+                      <p class="card-category">
+                        <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <mat-list [ngClass]="{'list-group':top_organizers.length>3}" >
+                        <a *ngFor="let organizer of top_organizers" href="ratings/{{organizer.name}}" (click)="addUserEmail(organizer.email)">
+                        <mat-list-item>
+                          <mat-icon mat-list-icon>
+                            <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                          </mat-icon>
+                          <p mat-line style="margin-left:15px" >{{organizer.name}}</p>
+                          <p mat-line style="margin-left:15px">
+                            <ngb-rating [(rate)]="organizer.rating" max="5" readonly="true">
+                              <ng-template let-fill="fill" let-index="index">
+                                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                              </ng-template>
+                            </ngb-rating>
+                          </p>
+                        </mat-list-item>
+                        </a>
+                        <mat-divider></mat-divider>
+                      </mat-list>    
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" *ngIf="top_venue_owners.length!=0">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                      <h4 class="card-title">Top Venue Owners</h4>
+                      <p class="card-category">
+                        <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <mat-list [ngClass]="{'list-group':top_venue_owners.length>3}">
+                        <a *ngFor="let venue_owner of top_venue_owners" (click)="addUserEmail(venue_owner.email)" href="ratings/{{venue_owner.name}}">
+                          <mat-list-item >
+                            <mat-icon mat-list-icon>
+                              <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                            </mat-icon>
+                            <p mat-line style="margin-left:15px" >{{venue_owner.name}}</p>
+                            <p mat-line style="margin-left:15px">
+                              <ngb-rating [(rate)]="venue_owner.rating" max="5" readonly="true">
+                                <ng-template let-fill="fill" let-index="index">
+                                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                                </ng-template>
+                              </ngb-rating>
+                            </p>
+                          </mat-list-item>
+                          <mat-divider></mat-divider>
+                        </a>
+                      </mat-list>    
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" *ngIf="top_artists.length!=0">
+                    <div class="card-header card-header-danger">
+                      <h4 class="card-title">Top Suppliers</h4>
+                      <p class="card-category">
+                        <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
+                          <ng-template let-fill="fill" let-index="index">
+                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                          </ng-template>
+                        </ngb-rating>
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <mat-list [ngClass]="{'list-group':top_artists.length>3}">
+                        <a  *ngFor="let artist of top_artists" (click)="addUserEmail(artist.email)" href="ratings/{{artist.name}}">
+                          <mat-list-item>
+                            <mat-icon mat-list-icon>
+                              <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                            </mat-icon>
+                            <p mat-line style="margin-left:15px" >{{artist.name}}</p>
+                            <p mat-line style="margin-left:15px">
+                              <ngb-rating [(rate)]="artist.rating" max="5" readonly="true">
+                                <ng-template let-fill="fill" let-index="index">
+                                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                                </ng-template>
+                              </ngb-rating>
+                            </p>
+                          </mat-list-item>
+                        </a>
+                        <mat-divider></mat-divider>
+                      </mat-list>    
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
   
