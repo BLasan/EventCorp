@@ -11,10 +11,10 @@ export class VenueHomeService {
 
   private venuesCollection: AngularFirestoreCollection<any>;
   venues: Observable<any[]>;
-  constructor(private readonly afs: AngularFirestore) {
+  constructor(private db: AngularFirestore) {
 
-    this.venuesCollection = afs.collection<any>('Venues');
-    this.venues = this.venuesCollection.snapshotChanges().pipe(map(
+    // this.venuesCollection = afs.collection<any>('Venues');
+    this.venues = this.db.collectionGroup('venue').snapshotChanges().pipe(map(
       actions => actions.map(a => {
         const data = a.payload.doc.data() as any;
         const id = a.payload.doc.id;
