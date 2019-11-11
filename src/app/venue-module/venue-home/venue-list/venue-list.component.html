@@ -1,9 +1,43 @@
 <div class="main-content">
   <div class="container-fluid">
-    
-    <mat-form-field>
+
+    <!-- <mat-list>
+      <mat-list-item *ngFor="let comment of comments"> -->
+    <div class="col" *ngFor="let comment of comments">
+      <mat-card>
+          <!-- <mat-grid-list cols="2" rowHeight="100px">
+              <mat-grid-tile><mat-card-header>
+                  <div mat-card-avatar class="example-header-image"></div>
+                  <mat-card-title>{{comment.Name}}</mat-card-title>
+                  <mat-card-subtitle>{{comment.fee}}</mat-card-subtitle>
+                </mat-card-header>
+                <div class="card-buttons">
+                  <button mat-raised-button color="primary">Primary</button>
+                </div></mat-grid-tile>
+              <mat-grid-tile>2</mat-grid-tile>          
+            </mat-grid-list> -->
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>{{comment.Name}}</mat-card-title>
+                <mat-card-subtitle>{{comment.fee}}</mat-card-subtitle>
+              </mat-card-header>
+              <!-- <div class="card-buttons"> -->
+              <div class="col card-buttons">
+                <button mat-raised-button color="primary">View Profile</button>
+                <button mat-raised-button color="primary" class="b2">View Event Calendar</button>
+                <button mat-raised-button color="primary" class="b3">Book Now</button>
+
+              </div>
+            <!-- </div> -->
+        
+        </mat-card>
+    </div>
+    <!-- </mat-list-item>      
+    </mat-list> -->
+
+    <!-- <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
+    </mat-form-field> -->
 
     <!-- <div class="list-group users-list">
       <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
@@ -23,8 +57,8 @@
         </div>
       </div>
     </div> -->
-    
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     
       <ng-container matColumnDef="Name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -53,8 +87,8 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    
+    </table> -->
+
 
   </div>
 </div>

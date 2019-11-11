@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { tap, first } from 'rxjs/operators';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { LoginService } from 'app/services/login.services';
 
 
 
@@ -21,7 +22,10 @@ export class VenueReservationFormComponent implements OnInit {
 
   // name = new FormControl('');
 
-  constructor(private fb: FormBuilder, private afs: AngularFirestore) { }
+  constructor(
+    private fb: FormBuilder,
+    private afs: AngularFirestore,
+    private loginService: LoginService) { }
 
   ngOnInit() {
 
@@ -51,7 +55,7 @@ export class VenueReservationFormComponent implements OnInit {
     const formValue = this.myForm.value;
 
     try {
-      await this.afs.collection('events').add(formValue);
+      await this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('events').add(formValue); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
       this.success = true;
     } catch(err) {
       console.error(err)

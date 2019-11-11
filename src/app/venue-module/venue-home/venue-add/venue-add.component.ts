@@ -53,6 +53,13 @@ export class VenueAddComponent implements OnInit {
       console.error(err)
     }
 
+    try {
+      await this.afs.collection('Venues').add(formValue);
+      this.success = true;
+    } catch(err) {
+      console.error(err)
+    }
+
     this.loading = false;
   }
 

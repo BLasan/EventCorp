@@ -4,6 +4,8 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LocationOwnerLayoutRoutes } from "./location_owner.routing";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import {MatGridListModule} from '@angular/material/grid-list';
+
 
 import {
   MatButtonModule,
@@ -51,7 +53,8 @@ import { from } from "rxjs";
     MatCardModule,
     MatListModule,
     MatChipsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatGridListModule
   ],
   declarations: [
     VenueListComponent,

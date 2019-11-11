@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import { MatSort } from '@angular/material';
-import { VenueHomeService } from '../venue-home.service';
-import {MatButtonModule} from '@angular/material/button';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { MatSort } from "@angular/material";
+import { VenueHomeService } from "../venue-home.service";
+import { MatButtonModule } from "@angular/material/button";
+import { AngularFirestore } from "@angular/fire/firestore";
+import { LoginService } from 'app/services/login.services';
+import * as firebase from 'firebase';
 
 export interface PeriodicElement {
   name: string;
@@ -25,39 +28,61 @@ export interface PeriodicElement {
 // ];
 
 @Component({
-  selector: 'app-venue-list',
-  templateUrl: './venue-list.component.html',
-  styleUrls: ['./venue-list.component.scss']
+  selector: "app-venue-list",
+  templateUrl: "./venue-list.component.html",
+  styleUrls: ["./venue-list.component.scss"]
 })
 export class VenueListComponent implements OnInit {
 
-  constructor(private venueHomeService: VenueHomeService) { }
-
-  // ngOnInit() {
-  // }
-
-  displayedColumns: string[] = ['Name', 'ac', 'car_parking', 'fee','seating_capacity'];
-  dataSource = new MatTableDataSource();
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  @ViewChild(MatSort) sort: MatSort;
+  comments;
 
   ngOnInit() {
-    // Get all orders 
-    this.getAllOrders();
+    // this.comments = this.db.collectionGroup('venue').valueChanges();
+    // console.log(this.comments);
   }
 
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-  }
+  constructor(
+    private loginService: LoginService,
+    private db: AngularFirestore
+  ) {
+    db.collection('Venues').valueChanges()    
+    .subscribe( snapshot => {
+      this.comments = snapshot
+      console.log(this.comments)
 
-  getAllOrders() {
-    this.venueHomeService.getOrders().subscribe(res => {
-      this.dataSource.data = res;
     });
-  }
+    // this.comments = this.db.collection('Venues').snapshotChanges();
+    // console.log(this.comments);
+    // console.log(loginService.currentUser());
+    
+    // db.collectionGroup("landmarks").get().then(function(querySnapshot) {
+    //   querySnapshot.forEach(function(doc) {
+    //     console.log(doc.id, " => ", doc.data());
+    //   });
+    // });
+  }  
 
+  // displayedColumns: string[] = ['Name', 'ac', 'car_parking', 'fee','seating_capacity'];
+  // dataSource = new MatTableDataSource();
+
+  // applyFilter(filterValue: string) {
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+  // }
+
+  // @ViewChild(MatSort) sort: MatSort;
+
+  // ngOnInit() {
+  //   // Get all orders
+  //   this.getAllOrders();
+  // }
+
+  // ngAfterViewInit() {
+  //   this.dataSource.sort = this.sort;
+  // }
+
+  // getAllOrders() {
+  //   this.venueHomeService.getOrders().subscribe(res => {
+  //     this.dataSource.data = res;
+  //   });
+  // }
 }
