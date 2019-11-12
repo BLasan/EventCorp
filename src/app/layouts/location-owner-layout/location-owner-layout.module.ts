@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LocationOwnerLayoutRoutes } from "./location_owner.routing";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 import {
@@ -54,7 +56,9 @@ import { from } from "rxjs";
     MatListModule,
     MatChipsModule,
     MatDatepickerModule,
-    MatGridListModule
+    MatGridListModule,
+    MatIconModule,
+    MatSliderModule
   ],
   declarations: [
     VenueListComponent,

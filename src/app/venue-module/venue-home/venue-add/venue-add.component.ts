@@ -27,13 +27,14 @@ export class VenueAddComponent implements OnInit {
 
     this.myForm1 = this.fb.group({
       
-      Name: ['',Validators.required],
+      v_name: ['',Validators.required],
       venue_address: ['',Validators.required],
       tel_no: ['',Validators.required],
       ac: ['',Validators.required],
       car_parking: ['',Validators.required],
       fee: ['',Validators.required],
-      seating_capacity: ['',Validators.required],      
+      seating_capacity: ['',Validators.required],
+      // nameToLowerCase: ['',Validators.required]      
 
     })
 
@@ -53,14 +54,38 @@ export class VenueAddComponent implements OnInit {
       console.error(err)
     }
 
-    try {
-      await this.afs.collection('Venues').add(formValue);
-      this.success = true;
-    } catch(err) {
-      console.error(err)
-    }
+    this.createDocumentAtUser(formValue);
+    this.createDocumentAtVenues(formValue);
 
     this.loading = false;
+  }
+
+  createDocumentAtVenues(value){
+    return this.afs.collection('Venues').add({
+      v_name: value.v_name,
+      nameToSearch: value.v_name.toLowerCase(),
+      venue_address: value.venue_address,
+      tel_no: parseInt(value.tel_no, 10),
+      ac: value.ac,
+      car_parking: value.car_parking,
+      fee: parseInt(value.fee, 10),
+      seating_capacity: parseInt(value.seating_capacity, 10),     
+      // avatar: avatar
+    });
+  }
+
+  createDocumentAtUser(value){
+    return this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').set({
+      v_name: value.v_name,
+      nameToSearch: value.v_name.toLowerCase(),
+      venue_address: value.venue_address,
+      tel_no: parseInt(value.tel_no, 10),
+      ac: value.ac,
+      car_parking: value.car_parking,
+      fee: parseInt(value.fee, 10),
+      seating_capacity: parseInt(value.seating_capacity, 10),     
+      // avatar: avatar
+    });
   }
 
   preloadData() {           //storing data in the database is working even WITHOUT this function

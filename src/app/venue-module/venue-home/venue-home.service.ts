@@ -14,13 +14,13 @@ export class VenueHomeService {
   constructor(private db: AngularFirestore) {
 
     // this.venuesCollection = afs.collection<any>('Venues');
-    this.venues = this.db.collectionGroup('venue').snapshotChanges().pipe(map(
-      actions => actions.map(a => {
-        const data = a.payload.doc.data() as any;
-        const id = a.payload.doc.id;
-        return { id, ...data };
-      })
-    ));
+    // this.venues = this.db.collectionGroup('venue').snapshotChanges().pipe(map(
+    //   actions => actions.map(a => {
+    //     const data = a.payload.doc.data() as any;
+    //     const id = a.payload.doc.id;
+    //     return { id, ...data };
+    //   })
+    // ));
 
    }
 
@@ -32,8 +32,23 @@ export class VenueHomeService {
     seating_capacity: new FormControl('')
   });
 
-
-  getOrders() {
-    return this.venues;
+  getUsers(){
+    return this.db.collection('Venues').snapshotChanges();
   }
+
+  searchUsers(searchValue){
+    return this.db.collection('Venues',ref => ref.where('nameToSearch', '>=', searchValue)
+      .where('nameToSearch', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges()
+  }
+
+  searchUsersByAge(value){
+    return this.db.collection('Venues',ref => ref.orderBy('seating_capacity').startAt(value)).snapshotChanges();
+  }
+
+
+
+  // getOrders() {
+  //   return this.venues;
+  // }
 }

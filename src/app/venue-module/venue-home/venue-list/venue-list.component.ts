@@ -4,8 +4,8 @@ import { MatSort } from "@angular/material";
 import { VenueHomeService } from "../venue-home.service";
 import { MatButtonModule } from "@angular/material/button";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { LoginService } from 'app/services/login.services';
-import * as firebase from 'firebase';
+import { LoginService } from "app/services/login.services";
+import * as firebase from "firebase";
 
 export interface PeriodicElement {
   name: string;
@@ -33,34 +33,68 @@ export interface PeriodicElement {
   styleUrls: ["./venue-list.component.scss"]
 })
 export class VenueListComponent implements OnInit {
-
+  
   comments;
 
-  ngOnInit() {
-    // this.comments = this.db.collectionGroup('venue').valueChanges();
-    // console.log(this.comments);
-  }
+  ageValue: number = 0;
+  searchValue: string = "";
+  items: Array<any>;
+  name_filtered_items: Array<any>;
+  age_filtered_items: Array<any>;
 
   constructor(
-    private loginService: LoginService,
+    private venueHomeService: VenueHomeService,
     private db: AngularFirestore
   ) {
-    db.collection('Venues').valueChanges()    
-    .subscribe( snapshot => {
-      this.comments = snapshot
-      console.log(this.comments)
-
-    });
-    // this.comments = this.db.collection('Venues').snapshotChanges();
-    // console.log(this.comments);
-    // console.log(loginService.currentUser());
-    
-    // db.collectionGroup("landmarks").get().then(function(querySnapshot) {
-    //   querySnapshot.forEach(function(doc) {
-    //     console.log(doc.id, " => ", doc.data());
+    // db.collection("Venues")
+    //   .valueChanges()
+    //   .subscribe(snapshot => {
+    //     this.comments = snapshot;
+    //     console.log(this.comments);
     //   });
-    // });
-  }  
+  }
+
+  ngOnInit() {
+    this.getData();
+  }
+
+  getData(){
+    this.venueHomeService.getUsers()
+    .subscribe(result => {
+      this.items = result;
+      this.age_filtered_items = result;
+      this.name_filtered_items = result;
+    })
+  }
+
+  searchByName() {
+    let value = this.searchValue.toLowerCase();
+    this.venueHomeService.searchUsers(value).subscribe(result => {
+      this.name_filtered_items = result;
+      this.items = this.combineLists(result, this.age_filtered_items);
+    });
+  }
+
+  combineLists(a, b) {
+    let result = [];
+
+    a.filter(x => {
+      return b.filter(x2 => {
+        if (x2.payload.doc.id == x.payload.doc.id) {
+          result.push(x2);
+        }
+      });
+    });
+    return result;
+  }
+
+  rangeChange(event){
+    this.venueHomeService.searchUsersByAge(event.value)
+    .subscribe(result =>{
+      this.age_filtered_items = result;
+      this.items = this.combineLists(result, this.name_filtered_items);
+    })
+  }
 
   // displayedColumns: string[] = ['Name', 'ac', 'car_parking', 'fee','seating_capacity'];
   // dataSource = new MatTableDataSource();
