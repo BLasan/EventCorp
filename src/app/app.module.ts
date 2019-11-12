@@ -39,6 +39,10 @@ import { OrganizerProfileComponent } from './Modules/Organizer-Module/organizer-
 import { OrganizerLayoutComponent } from './layouts/organizer-layout/organizer-layout.component';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
+import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
+
+
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -99,7 +103,7 @@ import { environment } from '../environments/environment';
     LocationOwnerLayoutComponent
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,VenueHomeService,VenueProfileResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,6 +5,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 import * as firebase from "firebase";
 import { tap, first } from 'rxjs/operators';
 import { LoginService } from 'app/services/login.services';
+import { VenueHomeService } from 'app/venue-module/venue-home/venue-home.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: "app-venue-profile",
@@ -13,10 +18,16 @@ import { LoginService } from 'app/services/login.services';
 })
 export class VenueProfileComponent implements OnInit {
   user: any;
+  item: any;
+
 
   constructor(
     private db: AngularFirestore,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private venueHomeService: VenueHomeService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private router: Router,
   ) {
     // this.users = 
     console.log(loginService.currentUser())
@@ -39,5 +50,15 @@ export class VenueProfileComponent implements OnInit {
     // }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.data.subscribe(routeData => {
+      let data = routeData['data'];
+      if (data) {
+        this.item = data.payload.data();
+        this.item.id = data.payload.id;
+        console.log(this.item);
+        // this.createForm();
+      }
+    })
+  }
 }

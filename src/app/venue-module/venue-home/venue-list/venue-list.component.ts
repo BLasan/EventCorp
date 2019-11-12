@@ -5,6 +5,7 @@ import { VenueHomeService } from "../venue-home.service";
 import { MatButtonModule } from "@angular/material/button";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { LoginService } from "app/services/login.services";
+import { Router, Params } from '@angular/router';
 import * as firebase from "firebase";
 
 export interface PeriodicElement {
@@ -44,7 +45,9 @@ export class VenueListComponent implements OnInit {
 
   constructor(
     private venueHomeService: VenueHomeService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private router: Router
+
   ) {
     // db.collection("Venues")
     //   .valueChanges()
@@ -65,6 +68,10 @@ export class VenueListComponent implements OnInit {
       this.age_filtered_items = result;
       this.name_filtered_items = result;
     })
+  }
+
+  viewDetails(item){
+    this.router.navigate(['/details/'+ item.payload.doc.id]);
   }
 
   searchByName() {

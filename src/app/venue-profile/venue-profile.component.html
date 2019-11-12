@@ -2,7 +2,9 @@
 <div class="main-content">
   <div class="container-fluid">
     <!-- <h1 class="ml-1">{{ user?.user_name }}</h1> -->
-    <h1 class="ml-1">{{ user?.v_name }}</h1>
+    <h1 class="ml-1">{{ item?.v_name }}</h1>
+    <h1 class="ml-1" *ngIf="this.item == NULL">{{ user?.v_name }}</h1>
+
 
     <div class="row">
 
@@ -41,7 +43,9 @@
           <!-- <thead> -->
           <tr>
             <th scope="col">Seating Capacity</th>
-            <td>{{ user?.seating_capacity }}</td>
+            <td *ngIf="this.item == NULL; else elseBlock1">{{ user?.seating_capacity }}</td>
+            <ng-template #elseBlock1>{{ item?.seating_capacity }}</ng-template>
+
 
           </tr>
           <!-- </thead> -->
@@ -59,12 +63,15 @@
             <tr>
               <th scope="col">Fee</th>
 
-              <td>{{ user?.fee }}</td>
+              <td *ngIf="this.item == NULL; else elseBlock2">{{ user?.fee }}</td>
+            <ng-template #elseBlock2>{{ item?.fee }}</ng-template>
 
             </tr>
             <tr>
               <th scope="col">Car Parking</th>
-              <td>{{ user?.car_parking }}</td>
+              <td *ngIf="this.item == NULL; else elseBlock3">{{ user?.car_parking }}</td>
+            <ng-template #elseBlock3>{{ item?.car_parking }}</ng-template>
+              
             </tr>
             <tr>
               <td colspan="2"><a routerLink="/venueCalendar"><button type="button" name="event_calendar" class="btn btn-primary">Event Calendar</button></a></td>

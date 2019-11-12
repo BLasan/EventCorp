@@ -36,6 +36,10 @@ export class VenueHomeService {
     return this.db.collection('Venues').snapshotChanges();
   }
 
+  getUser(userKey){
+    return this.db.collection('Venues').doc(userKey).snapshotChanges();
+  }
+
   searchUsers(searchValue){
     return this.db.collection('Venues',ref => ref.where('nameToSearch', '>=', searchValue)
       .where('nameToSearch', '<=', searchValue + '\uf8ff'))

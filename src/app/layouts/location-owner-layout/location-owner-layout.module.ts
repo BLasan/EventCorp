@@ -7,6 +7,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
+import { VenueHomeService } from '../../venue-module/venue-home/venue-home.service'
 
 
 import {
@@ -33,6 +34,8 @@ import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue
 import { SharedComponentsModule } from "app/shared-components/shared-components.module";
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking-info/view-booking-info.component";
+import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
+
 
 import { from } from "rxjs";
 
@@ -65,6 +68,7 @@ import { from } from "rxjs";
     VenueProfileComponent,
     VenueReservationFormComponent,
     VenueAddComponent
-  ]
+  ],
+  providers: [VenueHomeService,VenueProfileResolver]
 })
 export class LocationOwnerLayoutModule {}
