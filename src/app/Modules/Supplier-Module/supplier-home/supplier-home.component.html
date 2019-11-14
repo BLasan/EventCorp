@@ -47,7 +47,44 @@
               <div class="carousel-inner">
                 <div class="carousel-item active">
                   <div class="row">
-                    <div class="col-4">
+                    <div class="col-4" *ngFor="let items of product_items">
+                      <mat-card class="card-color">
+                        <mat-card-header>
+                          <div mat-card-avatar class="example-header-image"></div>
+                          <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
+                        </mat-card-header>
+                        <img mat-card-image [src]="items.image_url" alt="item_image">
+                        <mat-card-content>
+                          <hr>
+                          <div class="row">
+                            <p class="col-6"><b>Code</b></p> 
+                            <p class="col-6" style="text-align: right;">{{items.code}}</p>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <p class="col-6"><b>Quantity</b></p> 
+                            <p class="col-6" style="text-align: right;">{{items.quantity}}</p>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <p class="col-6"><b>Price</b></p> 
+                            <p class="col-6" style="text-align: right;">{{items.price}}</p>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <p class="col-6"><b>Description</b></p> 
+                          </div>
+                          <p>
+                            {{items.description}}
+                          </p>
+                          <hr>
+                        </mat-card-content>
+                        <mat-card-actions>
+                          <button mat-button>Book Now</button>
+                        </mat-card-actions>
+                      </mat-card>
+                    </div>
+                    <!-- <div class="col-md-4">
                       <mat-card>
                         <mat-card-header>
                           <div mat-card-avatar class="example-header-image"></div>
@@ -122,45 +159,7 @@
                           <button mat-button>Book Now</button>
                         </mat-card-actions>
                       </mat-card>
-                    </div>
-                    <div class="col-md-4">
-                      <mat-card>
-                        <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title>Item Name</mat-card-title>
-                        </mat-card-header>
-                        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt=" ">
-                        <mat-card-content>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Code</b></p> 
-                            <p class="col-6" style="text-align: right;">2545</p>
-                          </div>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Quantity</b></p> 
-                            <p class="col-6" style="text-align: right;">25</p>
-                          </div>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Price</b></p> 
-                            <p class="col-6" style="text-align: right;">Rs.1000</p>
-                          </div>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Description</b></p> 
-                          </div>
-                          <p>
-                            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                            bred for hunting.
-                          </p>
-                          <hr>
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button mat-button>Book Now</button>
-                        </mat-card-actions>
-                      </mat-card>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <!-- <div class="carousel-item">

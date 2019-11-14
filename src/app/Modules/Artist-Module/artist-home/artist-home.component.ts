@@ -79,4 +79,9 @@ export class ArtistHomeComponent implements OnInit {
     // })
   }
 
+  addUserEmail(email:string){
+    alert(email)
+    localStorage.setItem('searched_user_email',email);
+  }
+
 }

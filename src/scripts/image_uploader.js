@@ -22,7 +22,18 @@ export function image_uploader() {
 export function remove_uploader() {
   $('#profile_img').val("");
   $('#profile_pic').attr('src', 'assets/img/pro_img.png');
-} // export function upload_images(){
+} 
+
+export function item_uploader_remove(){
+ $('#item_iamge').val("");
+ document.getElementById('file_name').innerHTML="";
+}
+
+export function add_item_image(){
+    $('#item_image').click();
+    
+}
+// export function upload_images(){
 //     $(document).on("click","#event_image_uploader",function(e){
 //         e.preventDefault();
 //         $('#imgInp').unbind().click();

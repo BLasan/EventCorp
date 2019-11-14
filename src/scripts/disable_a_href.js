@@ -42,3 +42,9 @@ export function previous_mode(){
     })
 }
 
+export function disable_item_image_uploader(){
+    $(document).on('click','#item_image_uploader',function(e){
+        e.preventDefault();
+    }) 
+}
+

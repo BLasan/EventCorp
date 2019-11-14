@@ -10,7 +10,7 @@ export class PaypalPaymentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    paypalClient()
+   // paypalClient()
   }
 
 }

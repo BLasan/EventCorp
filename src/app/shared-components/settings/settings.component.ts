@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 import {DeleteAccountService} from '../../services/account_delete.service';
 import { LoginService } from 'app/services/login.services';
 import {deactivate_searchBar} from '../../../scripts/search_bar_activate'
+import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -16,7 +17,7 @@ export class SettingsComponent implements OnInit {
   user_email:string;
   user_role:string;
   del_status:any;
-  constructor(private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
+  constructor(private database:AngularFirestore,private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
 
   ngOnInit() {
     deactivate_searchBar();
@@ -42,11 +43,18 @@ export class SettingsComponent implements OnInit {
 
   deleteAccount(){
     let user=localStorage.getItem('user_name');
-    this._accountDel.delete_account(user).subscribe(data=>{
-      this.del_status=data;
-      console.log(this.del_status.success);
+    var delete_account=this.database.collection('register_user').doc(user).update({profile_status:'Deleted'});
+    if(delete_account){
+      alert("Deletion Success");
       this._logout.logOut();
-    })
+    }
+    else alert("Deletion Error");
+    // this._accountDel.delete_account(user).subscribe(data=>{
+    //   this.del_status=data;
+    //   console.log(this.del_status.success);
+    //   this._logout.logOut();
+    // })
+    
   }
 
   onNoClick(): void {

@@ -6,6 +6,7 @@ import { SupplierProfileComponent } from 'app/Modules/Supplier-Module/supplier-p
 import { SupplierSettingsComponent } from 'app/Modules/Supplier-Module/supplier-settings/supplier-settings.component';
 import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
 import { MyChatsComponent } from '../../shared-components/my-chats/my-chats.component';
+import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-add-items/supplier-add-items.component';
 
 export const SupplierLayoutRoutes: Routes = [
     {path:'supplier-home',component:SupplierHomeComponent},
@@ -15,4 +16,5 @@ export const SupplierLayoutRoutes: Routes = [
     {path:'my-chat-list',component:MyChatsComponent},
     {path:'supplier-settings',component:SupplierSettingsComponent},
     {path:'ratings/:name' , component:RatingSystemComponent}, 
+    {path:'supplier-add-items',component:SupplierAddItemsComponent}
 ];

@@ -16,6 +16,9 @@ import {
 
 import { from } from 'rxjs';
 import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-home/customer-home.component';
+import { AppComponent } from 'app/app.component';
+import { HomePageComponent } from 'app/Modules/home-page/home-page.component';
+import { HomePageComponentModule } from 'app/Modules/home-page/home-page.module';
 
   @NgModule({
     imports: [
@@ -31,11 +34,11 @@ import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-ho
       MatToolbarModule,
       MatIconModule,
       MatButtonModule,
+      // HomePageComponentModule
     ],
     declarations: [
-     CustomerHomeComponent
+     CustomerHomeComponent,
     ],
-   
   })
   
   export class CustomerLayoutModule {}

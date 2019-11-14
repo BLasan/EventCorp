@@ -51,6 +51,7 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
+import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-add-items/supplier-add-items.component';
 
   @NgModule({
     imports: [
@@ -100,6 +101,7 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
       SupplierProfileComponent,
       SupplierSettingsComponent,
       SupplierEventsComponent,
+      SupplierAddItemsComponent
      // MyChatsComponent,
       // CalendarComponent
     ],

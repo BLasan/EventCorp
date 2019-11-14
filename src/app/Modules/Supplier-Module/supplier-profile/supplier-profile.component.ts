@@ -48,7 +48,7 @@ export class SupplierProfileComponent implements OnInit {
     let city=this.form.get('city').value;
     let bio_data=this.form.get('about_me').value;
     let date=new Date().getTime().toString();
-    let image_id="artist-image/"+date;
+    let image_id="supplier-image/"+localStorage.getItem('user_name')+"/"+date;
     let storageRef=this.storage.ref(image_id);
     let _this=this;
     if(localStorage.getItem('user_name')==email){

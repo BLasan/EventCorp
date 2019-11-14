@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OnlineChatComponent } from './online-chat.component';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule, MatButtonModule, MatSelectModule, MatInputModule, MatCardModule, MatIconModule, MatCheckboxModule, MatListModule } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 describe('OnlineChatComponent', () => {
   let component: OnlineChatComponent;
@@ -8,6 +11,21 @@ describe('OnlineChatComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatInputModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatIconModule,
+        // NotifierModule,
+        MatCheckboxModule,
+        MatListModule,
+        MatButtonModule
+      ],
       declarations: [ OnlineChatComponent ]
     })
     .compileComponents();

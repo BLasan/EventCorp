@@ -17,12 +17,14 @@ export class SupplierHomeComponent implements OnInit {
   data:any;
   default_rate:any=0;
   isDone:boolean=false;
+  product_items:any=[];
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
     loadCalendar();
     activate_searchBar();
     this.get_top_users();
+    this.get_product_items();
   }
 
   get_top_users(){
@@ -63,6 +65,18 @@ export class SupplierHomeComponent implements OnInit {
     console.log('Error getting documents', err);
   });
 
+  }
+
+  get_product_items(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(snapshot=>{
+      if(snapshot.empty) alert("Empty Products");
+      else{
+        snapshot.forEach(doc=>{
+          _this.product_items.push(doc.data());
+        })
+      }
+    })
   }
 
 }
