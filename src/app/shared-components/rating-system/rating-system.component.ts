@@ -29,6 +29,7 @@ export class RatingSystemComponent implements OnInit {
   isProcessing:boolean=false;
   sent_bookings:boolean=false;
   search_user_data:any=[];
+  search_user_name:any;
   searched_user_email:string;
   viewer:string;
   organizer_name:string;
@@ -54,7 +55,8 @@ export class RatingSystemComponent implements OnInit {
     if (doc.exists) {
         console.log("Document data:", doc.data());
         var user_role=doc.data().role;
-         _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,role:user_role,image_url:doc.data().image_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
+       // alert(_this.searched_user_email)
+         _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,role:user_role,image_url:doc.data().img_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
          _this._snackBar.open("Successfully Rated","Done", {
             duration: 2000,
           });
@@ -63,10 +65,11 @@ export class RatingSystemComponent implements OnInit {
           _this._snackBar.open("Unsuccessfull ratings","Rate again", {
             duration: 3000,
           });
-          _this.userRate=_this.currentRate;
-          _this.currentRate=0;
-        })
-    } else {
+        });
+        _this.userRate=_this.currentRate;
+        _this.currentRate=0;
+    } 
+    else {
       _this._snackBar.open("Unsuccessfull ratings","Rate again", {
         duration: 3000,
       });
@@ -310,11 +313,11 @@ export class RatingSystemComponent implements OnInit {
      var _this=this;
      var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email);
      docRef.get().then(function(doc) {
-        console.log("UseData:"+doc.data().role)
+      //  alert("UseData:"+doc.data().role)
         if(doc.data()){
           _this.search_user_data.push(doc.data());
+          _this.search_user_name=doc.data().user_name;
         }
-
         else{
            alert("Empty Data");
         }

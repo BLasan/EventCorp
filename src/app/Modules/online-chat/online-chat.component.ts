@@ -55,6 +55,7 @@ export class OnlineChatComponent implements OnInit {
 
   get_searched_user_role(){
     var _this=this;
+    console.log(this.searched_user)
     this.database.firestore.collection('register_user').doc(this.searched_user).get().then(doc=>{
       // console.log(_this.searched_user+"->"+doc.data().role);
       if((doc.data().role==="organizer" && localStorage.getItem('role')!="organizer") || (doc.data().role!="organizer" && localStorage.getItem('role')==="organizer"))
@@ -108,7 +109,7 @@ export class OnlineChatComponent implements OnInit {
 
     if(localStorage.getItem('role')=='organizer'){
       let isOrganizer='organizer';
-      alert(this.viewer);
+     // alert(this.viewer);
       const chat_id=generate_chat_id(localStorage.getItem('user_name'),date,this.searched_user);
       this.database.firestore.collection('chats').doc(chat_id).set({receiver_name:this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),roomId:chat_id,message:this.messageArray,receiver_email:this.searched_user,sender_email:localStorage.getItem('user_name'),organizer:isOrganizer}).then(function(){
       if(isOrganizer=='organizer')
@@ -151,10 +152,11 @@ export class OnlineChatComponent implements OnInit {
     }
       else if(localStorage.getItem('role')!='organizer'){
       let isOrganizer='non-organizer';
+     // alert(this.searched_user)
       const chat_id=generate_chat_id(this.searched_user,date,localStorage.getItem('user_name'));
+     // alert(this.searched_user_name); 
       this.database.collection('chats').doc(chat_id).set({receiver_name:localStorage.getItem('nameId'),date:date,sender_name:this.searched_user_name,roomId:chat_id,message:this.messageArray,receiver_email:localStorage.getItem('user_name'),sender_email:this.searched_user,organizer:isOrganizer}).then(function(){
-        if(isOrganizer=='organizer')
-        var receiver_notifications=_this.database.collection('register_user').doc(_this.searched_user).collection('notification-messages').doc(localStorage.getItem('user_name')).set({receiver_name:_this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),roomId:chat_id,view:false});
+      var receiver_notifications=_this.database.collection('register_user').doc(_this.searched_user).collection('notification-messages').doc(localStorage.getItem('user_name')).set({receiver_name:_this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),roomId:chat_id,view:false});
         if(receiver_notifications){ 
           _this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
             duration: 3000,
