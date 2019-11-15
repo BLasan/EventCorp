@@ -15,6 +15,13 @@ import { disable_load_more} from '../../../scripts/disable_a_href';
   styleUrls: ['./rating-system.component.scss'],
 })
 export class RatingSystemComponent implements OnInit {
+  events_vis:boolean=true;
+  rating_vis:boolean=true;
+  about_vis:boolean=true;
+  contact_vis:boolean=true;
+  address_vis:boolean=true;
+  play_list_vis:boolean=true;
+  my_events:String="";
   currentRate:any=0;
   userRate:any=0;
   success:any;
@@ -50,6 +57,8 @@ export class RatingSystemComponent implements OnInit {
     this.getRequestDetails();
     this.loadUserRatings();
     this.loadComments();
+    this.load_user_events();
+    this.load_view_settings();
     this.getSearchedUserData();
     //localStorage.removeItem('searched_user_email');
   }
@@ -353,6 +362,33 @@ export class RatingSystemComponent implements OnInit {
   load_more(){
     disable_load_more();
     this.isLoadMore=true;
+  }
+
+  load_view_settings(){
+    var _this=this;
+    this.database.firestore.collection('visibility').doc(this.searched_user_email).get().then(doc=>{
+      if(!doc.data()) console.log("Empty Data");
+      else{
+        if(doc.data().events===false) _this.events_vis=false;
+        if(doc.data().about===false) _this.about_vis=false;
+        if(doc.data().contact===false) _this.contact_vis=false;
+        if(doc.data().address===false) _this.address_vis=false;
+        if(doc.data().playlist===false && _this.search_user_role==='artist') _this.play_list_vis=false;
+        if(doc.data().rating===false && _this.search_user_role!='artist') _this.rating_vis=false;
+      }
+    });
+  }
+
+  load_user_events(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('MyEvents').get().then(snapshot=>{
+      if(snapshot.empty) console.log("Empty Events");
+      else{
+        snapshot.forEach(doc=>{
+          _this.my_events+=doc.data().event_name+" /"
+        })
+      }
+    })
   }
 
 }

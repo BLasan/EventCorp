@@ -72,15 +72,15 @@
                       <p>{{search_user_role}}</p>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" *ngIf="events_vis">
                     <div class="col-6" style="float: left">
                       <p><b>Events</b></p>
                     </div>
                     <div class="col-6" style="float:left">
-                      <p></p>
+                      <p>{{my_events}}</p>
                     </div>
                   </div>
-                  <div class="row">
+                  <div class="row" *ngIf="search_user_role==='artist' && rating_vis">
                     <div class="col-6" style="float: left">
                       <p><b>Ratings</b></p>
                     </div>
@@ -94,7 +94,7 @@
                       </p>
                     </div>
                   </div>
-                  <div class="row" *ngIf="!isLoadMore">
+                  <div class="row" *ngIf="!isLoadMore && about_vis">
                     <a style="padding-left:180px;" (click)="load_more()" id="load_more" href="#">View More</a>
                   </div>
                   <div class="row" *ngIf="isLoadMore">
@@ -105,7 +105,7 @@
                       <p>{{search_user_about}}</p>
                     </div>
                   </div>
-                  <div class="row" *ngIf="isLoadMore">
+                  <div class="row" *ngIf="isLoadMore && contact_vis">
                     <div class="col-6" style="float: left">
                       <p><b>Contact</b></p>
                     </div>
@@ -121,7 +121,7 @@
                       <p>{{searched_user_email}}</p>
                     </div>
                   </div>
-                  <div class="row" *ngIf="isLoadMore">
+                  <div class="row" *ngIf="isLoadMore && address_vis">
                     <div class="col-6" style="float: left">
                       <p><b>Address</b></p>
                     </div>
