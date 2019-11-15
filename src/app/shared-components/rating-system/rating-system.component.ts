@@ -8,6 +8,7 @@ import {bind_scroll} from '../../../scripts/user_comments';
 import { BookingService } from 'app/services/booking.service';
 import {deactivate_searchBar} from '../../../scripts/search_bar_activate';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { disable_load_more} from '../../../scripts/disable_a_href';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -30,9 +31,15 @@ export class RatingSystemComponent implements OnInit {
   sent_bookings:boolean=false;
   search_user_data:any=[];
   search_user_name:any;
+  search_user_role:any;
+  search_user_about:String;
+  search_user_contact:String;
+  search_user_address:String;
   searched_user_email:string;
   viewer:string;
   organizer_name:string;
+  isLoadMore:boolean=false;
+  comments_array:Array<{comment:String,date:any,user_name:String}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -111,8 +118,13 @@ export class RatingSystemComponent implements OnInit {
    // let user_id=this.search_token;
     var _this=this;
     let timeStamp=new Date();
-    this.database.collection('comments').doc(this.searched_user_email).set({comment:this.myComment,name:this.organizer_name,timeStamp:timeStamp}).then(docs=>{
-      _this.loadComments();
+    let date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
+    let obj={comment:this.myComment,date:date,user_name:this.organizer_name};
+    this.comments_array.push(obj);
+    console.log(this.comments_array.length);
+    this.myComment="";
+    this.database.collection('comments').doc(this.searched_user_email).set({comments:this.comments_array}).then(docs=>{
+     // _this.loadComments();
       _this._snackBar.open("Successfully Posted","Done", {
         duration: 2000,
       });
@@ -176,13 +188,15 @@ export class RatingSystemComponent implements OnInit {
 
    loadComments(){
     var _this=this;
+    this.comments_array=[];
     var docRef = this.database.firestore.collection('comments').doc(this.searched_user_email);
     docRef.get().then(async function(doc) {
         console.log(doc.data());
         
         if (doc.data()) {
-          _this.comments_prev.push(doc.data());  
-          if(_this.comments_prev.length>5) bind_scroll();
+          _this.comments_array=doc.data().comments;
+          console.log(_this.comments_array.length);
+          if(_this.comments_array.length>5) bind_scroll();
         } 
         else{
            console.log('No Documents'); 
@@ -315,8 +329,13 @@ export class RatingSystemComponent implements OnInit {
      docRef.get().then(function(doc) {
       //  alert("UseData:"+doc.data().role)
         if(doc.data()){
-          _this.search_user_data.push(doc.data());
+          // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
+          _this.search_user_role=doc.data().role;
+          _this.search_user_about=doc.data().bio;
+          _this.search_user_contact=doc.data().contact;
+          _this.searched_user_email=doc.data().email;
+          _this.search_user_address=doc.data().address;
         }
         else{
            alert("Empty Data");
@@ -329,6 +348,11 @@ export class RatingSystemComponent implements OnInit {
     //   this.search_user_data=data;
     //  console.log(this.search_user_data.status);
     // })
+  }
+
+  load_more(){
+    disable_load_more();
+    this.isLoadMore=true;
   }
 
 }

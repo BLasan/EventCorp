@@ -8,7 +8,7 @@
       <div *ngFor="let message of senderArray">
           {{message.user}}->{{message.message}}    
       </div> -->
-    <button class="open-button" (click)="openChat()" *ngIf="showChat">Open Chat</button>
+    <button class="open-button" (click)="openChat()" *ngIf="showChat"><b>LIVE CHAT</b></button>
       <div class="form-popup" id="chat" style="display: none">
           <div class="form-container message_send">
             <mat-list role="list" class="list-group">

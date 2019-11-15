@@ -48,3 +48,9 @@ export function disable_item_image_uploader(){
     }) 
 }
 
+export function disable_load_more(){
+    $(document).on('click','#load_more',function(e){
+        e.preventDefault();
+    }) 
+}
+
