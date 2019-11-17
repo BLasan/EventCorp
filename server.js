@@ -929,15 +929,16 @@
       io1.on('connection',(socket)=>{
 
     socket.on('join',function(data){
-      if(data.message=="Welcome")
+      if(data.message=="Welcome to the LIVE CHAT")
       socket.join(data.room);
       console.log('New connection made '+data.user+' '+data.message+' '+data.room);
       socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message,date:data.date});
-
-
     });
 
-  });
+
+   });
+
+
 
 
    

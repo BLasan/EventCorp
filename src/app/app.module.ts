@@ -47,6 +47,16 @@ import { SettingsComponent } from './shared-components/settings/settings.compone
 import { RatingSystemComponent } from './shared-components/rating-system/rating-system.component';
 import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
 import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { MyChatsComponent } from './shared-components/my-chats/my-chats.component';
+import { AboutUsComponent } from './Modules/Customer-Module/about-us/about-us.component';
+import { ContactUsComponent } from './Modules/Customer-Module/contact-us/contact-us.component';
+import { FaqComponent } from './Modules/Customer-Module/faq/faq.component';
+import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
+
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -91,11 +101,11 @@ const config = {
     OnlineChatModule,
     MatSlideToggleModule,
     MatIconModule,
-    ReactiveFormsModule
-    // AngularFireModule.initializeApp(config),
-    // AngularFirestoreModule, // firestore
-    // AngularFireAuthModule, // auth
-    // AngularFireStorageModule,// storage
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule.enablePersistence(), // firestore
+    AngularFireAuthModule, // auth
+    AngularFireStorageModule // storage
     
   ],
   declarations: [
@@ -111,13 +121,14 @@ const config = {
     EmailVerifyComponent,
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
+   // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
     // SupplierLayoutComponent,
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

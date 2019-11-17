@@ -3,6 +3,8 @@ import * as io from 'socket.io-client';
 import { AdminService } from 'app/services/admin.service';
 import { MatSnackBar } from '@angular/material';
 import { get_realtime_notification} from 'scripts/realtime_monitor';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 //const firebase=require('scripts/realtime_monitor');
 declare var $: any;
 @Component({
@@ -16,7 +18,7 @@ export class AdminNotificationsComponent implements OnInit {
   details:any;
   public data:any=[];
   update_success:any;
-  constructor(private _realtime_data:AdminService,private _snackBar:MatSnackBar) { }
+  constructor(private _realtime_data:AdminService,private _snackBar:MatSnackBar,private database:AngularFirestore) { }
  
   ngOnInit() {
 
@@ -33,21 +35,29 @@ export class AdminNotificationsComponent implements OnInit {
   }
 
   mark_view_booking_notification(user_id:string){
-    this._realtime_data.update_view(user_id).subscribe(data=>{
-      this.update_success=data;
-      if(this.update_success.success){
-        // this._realtime_data.get_realtime().subscribe(data=>{
-        //   console.log(data);
-        //   this.data=data;
-        //   console.log(this.data.length);
-        // });
-      }
-      else{
-        this._snackBar.open("Deletion Unsuccessfull","Try again!", {
-          duration: 2000,
-        });
-      }
-    });
+    this.database.collection('signup_notifications').doc(user_id).update({view:true}).then(function(){
+      console.log("Done");
+      
+    }).catch(function(ex){
+      this._snackBar.open("Deletion Unsuccessfull","Try again!", {
+        duration: 2000,
+      });
+    })
+    // this._realtime_data.update_view(user_id).subscribe(data=>{
+    //   this.update_success=data;
+    //   if(this.update_success.success){
+    //     // this._realtime_data.get_realtime().subscribe(data=>{
+    //     //   console.log(data);
+    //     //   this.data=data;
+    //     //   console.log(this.data.length);
+    //     // });
+    //   }
+    //   else{
+    //     this._snackBar.open("Deletion Unsuccessfull","Try again!", {
+    //       duration: 2000,
+    //     });
+    //   }
+    // });
   }
 
 }

@@ -13,7 +13,7 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'organizer-home',component:OrganizerHomeComponent },
     { path:'organizer-events',component:OrganizerEventsComponent},
     { path:'organizer-profile',component:OrganizerProfileComponent},
-    { path:'organizer-notification',component:OrganizerNotificationsComponent},
+    { path:'organizer-notifications',component:OrganizerNotificationsComponent},
     { path:'organizer-settings',component:OrganizerSettingsComponent},
     { path:'ratings/:name' , component:RatingSystemComponent}, 
 ];

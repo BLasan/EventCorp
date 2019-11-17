@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ArtistLayoutComponent } from './artist-layout.component';
+import { ArtistLayoutModule } from './artist-layout.module';
 
 describe('ArtistLayoutComponent', () => {
   let component: ArtistLayoutComponent;
@@ -8,7 +9,7 @@ describe('ArtistLayoutComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ArtistLayoutComponent ]
+      declarations: [ ArtistLayoutModule]
     })
     .compileComponents();
   }));

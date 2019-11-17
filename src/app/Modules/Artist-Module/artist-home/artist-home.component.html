@@ -52,7 +52,7 @@
                   </p>
                 </div>
                 <div class="card-body">
-                  <mat-list [ngClass]="{'list-group':top_artists.length>3}" >
+                  <mat-list [ngClass]="{'list-group':top_organizers.length>3}" >
                     <a *ngFor="let organizer of top_organizers" href="ratings/{{organizer.name}}" (click)="addUserEmail(organizer.email)">
                     <mat-list-item>
                       <mat-icon mat-list-icon>

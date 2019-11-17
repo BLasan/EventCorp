@@ -16,6 +16,12 @@ import {
 
 import { from } from 'rxjs';
 import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-home/customer-home.component';
+import { AppComponent } from 'app/app.component';
+import { HomePageComponent } from 'app/Modules/home-page/home-page.component';
+import { HomePageComponentModule } from 'app/Modules/home-page/home-page.module';
+import { AboutUsComponent } from 'app/Modules/Customer-Module/about-us/about-us.component';
+import { FaqComponent } from 'app/Modules/Customer-Module/faq/faq.component';
+import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/contact-us.component';
 
   @NgModule({
     imports: [
@@ -31,11 +37,14 @@ import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-ho
       MatToolbarModule,
       MatIconModule,
       MatButtonModule,
+      // HomePageComponentModule
     ],
     declarations: [
-     CustomerHomeComponent
+     CustomerHomeComponent,
+     AboutUsComponent,
+     FaqComponent,
+     ContactUsComponent
     ],
-   
   })
   
   export class CustomerLayoutModule {}

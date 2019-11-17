@@ -1,0 +1,70 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- <div class="col-md-4"></div> -->
+    <div class="row" style="padding-left:20px;padding-right:20px">
+      <div class="col-md-6">
+        <div class="card" style="background-color:#303337">
+          <div class="card-header card-header-danger" style="color:white">
+            <h4 class="card-title">Item Details</h4>
+            <p class="card-category">Enter item details</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <input matInput placeholder="Item Name" id="item_name" style="color:white" formControlName="item_name">
+                    <mat-error *ngIf="hasError('item_name', 'required')">Item name is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field>
+                    <input matInput type="number" id="price" style="color:white" placeholder="Price" formControlName="price">
+                    <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <mat-form-field>
+                    <input matInput type="number" id="quantity" style="color:white" placeholder="Quantity" formControlName="quantity">
+                    <mat-error *ngIf="hasError('quantity', 'required')">Quantity is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-6">
+                  <mat-form-field>
+                    <input matInput placeholder="Code" id="code" style="color:white" formControlName="code"> 
+                    <mat-error *ngIf="hasError('code', 'required')">Code is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <mat-form-field>
+                <textarea matInput placeholder="Description" style="color: white"   id="description" formControlName="description"></textarea>
+                <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
+              </mat-form-field>
+                <input type="file" id="item_image" name="item_image" style="display:none" (change)="get_uploaded_image($event)" formControlName="item_image" accept="image/*"> 
+                <span>&lowast;</span><mat-error *ngIf="hasError('item_image', 'required')">Image is required</mat-error>
+              <button mat-raised-button style="margin-top:5px" (click)="onSubmit()" color="primary" [disabled]="!form.valid">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="background-color:#212121;">
+          <div class="card-header">
+            <h4 class="card-title" align="center"><b style="color:red;">Upload Image</b></h4>
+          </div>
+          <div class="card-body" align="center">
+            <a href="#" (click)="upload_image()" id="item_image_uploader"><img class="zoom" src="assets/img/image_upload.png" width="150px"></a>
+            <div class="row">
+              <span id="file_name" align="center" style="color:white;margin-top:5px"></span>
+            </div>
+            <div class="row" style="margin-top:20px;">
+              <button mat-raised-button style="margin-left:80px" class="btn btn-danger" (click)="remove_image()"><b>Remove</b></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

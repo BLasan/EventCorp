@@ -3,7 +3,7 @@ import * as io from 'socket.io-client';
 import {Observable} from 'rxjs/Observable';
 import { messaging } from 'firebase';
 import { httpify } from 'caseless';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
 @Injectable({
     providedIn: 'root'
@@ -15,9 +15,19 @@ export class ChatService {
     private socket=io('http://localhost:4600');
     private _url: string = "http://localhost:4600";
 
-    joinRoom(data){
+    joinRoom(data){                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
         this.socket.emit('join',data);
+        console.log(data)
     }
+
+    // listen_to_chat(){
+    //     this.socket.on('join',function(data){
+    //         if(data.message=="Welcome")
+    //         this.socket.join(data.room);
+    //         console.log('New connection made '+data.user+' '+data.message+' '+data.room);
+    //         this.socket.broadcast.to(data.room).emit('new user',{user:data.user,message:data.message,date:data.date});
+    //       });
+    // }
 
     sendMessage(message:string="Welcome"){
         this.socket.emit('chat',message);

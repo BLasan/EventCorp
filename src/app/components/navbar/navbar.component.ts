@@ -9,6 +9,7 @@ import { NotificationService } from 'app/services/notification.service';
 import {click_redirect_href} from '../../../scripts/search_bar_activate';
 import {disable_drop_down,previous_mode} from '../../../scripts/disable_a_href';
 import { AdminService } from 'app/services/admin.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-navbar',
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit {
     private listTitles: any[];
     getUser:String='';
     isAdmin:boolean=false;
-    user_details:any;
+    user_details:any=[];
     emp:any=[{age:'abdcc'}]
     count:any=0;
     role:string;
@@ -31,7 +32,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     onLoaded:boolean=true;
     private sidebarVisible: boolean;
-    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private database:AngularFirestore) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -75,12 +76,30 @@ export class NavbarComponent implements OnInit {
         this.route_link="/venue-owner-notifications"
     }
 
-    this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-        this.user_details=data;
-        // if(localStorage.getItem('searched_user_email'))
-        //   localStorage.removeItem('searched_user_email');
-        console.log(this.user_details);
+    var _this=this;
+
+    var docRef = this.database.firestore.collection('register_user');
+    docRef.get()
+    .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    }  
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+      if(doc.data().role!=localStorage.getItem('role'))
+      _this.user_details.push(doc.data());
     });
+    }).catch(err => {
+        console.log('Error getting documents', err);
+    });
+
+    // this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
+    //     this.user_details=data;
+    //     // if(localStorage.getItem('searched_user_email'))
+    //     //   localStorage.removeItem('searched_user_email');
+    //     console.log(this.user_details);
+    // });
 
     //   if(this.getUser=='artist')
     //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);
@@ -200,9 +219,9 @@ export class NavbarComponent implements OnInit {
     }
 
     addUserEmail(email:string){
-       // alert(email)
+        alert(email)
         localStorage.setItem('searched_user_email',email);
-        click_redirect_href();
+        //click_redirect_href();
     }
 
     update_count(count:number){

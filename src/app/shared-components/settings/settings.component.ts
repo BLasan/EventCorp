@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {confirmPassword} from '../../services/confirm-password.service'
-import { MatDialogRef, MatDialog } from '@angular/material';
+import { MatDialogRef, MatDialog, _MatChipListMixinBase } from '@angular/material';
 import {DeleteAccountService} from '../../services/account_delete.service';
 import { LoginService } from 'app/services/login.services';
 import {deactivate_searchBar} from '../../../scripts/search_bar_activate'
+import { AngularFirestore } from '@angular/fire/firestore';
+import { disable_visibility} from '../../../scripts/disable_a_href';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -16,12 +18,20 @@ export class SettingsComponent implements OnInit {
   user_email:string;
   user_role:string;
   del_status:any;
-  constructor(private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
+  events_vis:boolean=true;
+  rating_vis:boolean=true;
+  about_vis:boolean=true;
+  contact_vis:boolean=true;
+  address_vis:boolean=true;
+  play_list_vis:boolean=true;
+  constructor(private database:AngularFirestore,private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
 
   ngOnInit() {
+    //disable_visibility()
     deactivate_searchBar();
     this.user_email=localStorage.getItem('user_name');
     this.user_role=localStorage.getItem('role');
+    this.load_view_settings();
     this.form=new FormGroup({
       new_password:new FormControl('',[Validators.required,Validators.minLength(6)]),
       re_enter_password:new FormControl('',[Validators.required,confirmPassword('new_password')])
@@ -42,15 +52,312 @@ export class SettingsComponent implements OnInit {
 
   deleteAccount(){
     let user=localStorage.getItem('user_name');
-    this._accountDel.delete_account(user).subscribe(data=>{
-      this.del_status=data;
-      console.log(this.del_status.success);
+    var delete_account=this.database.collection('register_user').doc(user).update({profile_status:'Deleted'});
+    if(delete_account){
+      alert("Deletion Success");
       this._logout.logOut();
-    })
+    }
+    else alert("Deletion Error");
+    // this._accountDel.delete_account(user).subscribe(data=>{
+    //   this.del_status=data;
+    //   console.log(this.del_status.success);
+    //   this._logout.logOut();
+    // })
+    
   }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  changeView(type:any){
+
+    disable_visibility();
+    var _this=this;
+    if(this.user_role==='organizer'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:false}).then(doc=>{
+        _this.contact_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:false}).then(doc=>{
+        _this.address_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:false}).then(doc=>{
+        _this.about_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='rating')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({rating:false}).then(doc=>{
+        _this.rating_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:false}).then(doc=>{
+        _this.events_vis=false
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+
+    else if(this.user_role==='artist'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:false}).then(doc=>{
+        _this.contact_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:false}).then(doc=>{
+        _this.address_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:false}).then(doc=>{
+        _this.about_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:false}).then(doc=>{
+        _this.events_vis=false
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='playlist')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({playlist:false}).then(doc=>{
+        _this.play_list_vis=false;
+      }).catch(err=>{
+  
+      });
+    }
+
+    else if(this.user_role==='venue_owner'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:false}).then(doc=>{
+        _this.contact_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:false}).then(doc=>{
+        _this.address_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:false}).then(doc=>{
+        _this.about_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='rating')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({rating:false}).then(doc=>{
+        _this.rating_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:false}).then(doc=>{
+        _this.events_vis=false
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+
+    else if(this.user_role==='supplier'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:false}).then(doc=>{
+        _this.contact_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:false}).then(doc=>{
+        _this.address_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:false}).then(doc=>{
+        _this.about_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='rating')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({rating:false}).then(doc=>{
+        _this.rating_vis=false;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:false}).then(doc=>{
+        _this.events_vis=false
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+  }
+
+  refresh(type:any){
+    disable_visibility();
+    var _this=this;
+    if(this.user_role==='organizer'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:true}).then(doc=>{
+        _this.contact_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:true}).then(doc=>{
+        _this.address_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:true}).then(doc=>{
+        _this.about_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='rating')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({rating:true}).then(doc=>{
+        _this.rating_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:true}).then(doc=>{
+        _this.events_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+
+    else if(this.user_role==='artist'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:true}).then(doc=>{
+        _this.contact_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:true}).then(doc=>{
+        _this.address_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:true}).then(doc=>{
+        _this.about_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:true}).then(doc=>{
+        _this.events_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='playlist')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({playlist:true}).then(doc=>{
+
+      }).catch(err=>{
+  
+      });
+    }
+
+    else if(this.user_role==='venue_owner'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:true}).then(doc=>{
+        _this.contact_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:true}).then(doc=>{
+        _this.address_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:true}).then(doc=>{
+        _this.about_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='rating')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({rating:true}).then(doc=>{
+        _this.rating_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:true}).then(doc=>{
+        _this.events_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+
+    else if(this.user_role==='supplier'){
+      if(type==='contact')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({contact:true}).then(doc=>{
+        _this.contact_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='address')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({address:true}).then(doc=>{
+        _this.address_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='about')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({about:true}).then(doc=>{
+        _this.about_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='rating')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({rating:true}).then(doc=>{
+        _this.rating_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+      else if(type==='events')
+      this.database.firestore.collection('visibility').doc(this.user_email).update({events:true}).then(doc=>{
+        _this.events_vis=true;
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+  }
+
+  load_view_settings(){
+    var _this=this;
+    this.database.firestore.collection('visibility').doc(this.user_email).get().then(doc=>{
+      if(!doc.data()) console.log("Empty Data");
+      else{
+        if(doc.data().events===false) _this.events_vis=false;
+        if(doc.data().about===false) _this.about_vis=false;
+        if(doc.data().contact===false) _this.contact_vis=false;
+        if(doc.data().address===false) _this.address_vis=false;
+        if(doc.data().playlist===false && _this.user_role==='artist') _this.play_list_vis=false;
+        if(doc.data().rating===false && _this.user_role!='artist') _this.rating_vis=false;
+      }
+    });
+  }
+
+
 
 }

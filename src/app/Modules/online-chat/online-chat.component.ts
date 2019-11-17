@@ -4,6 +4,8 @@ import {open_chat,close_chat} from '../../../scripts/online_chat';
 import { ChatService } from 'app/services/chat.service';
 import { MatSnackBar } from '@angular/material';
 import {generate_chat_id} from '../../../scripts/generate_id';
+import { database } from 'firebase';
+import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-online-chat',
   templateUrl: './online-chat.component.html',
@@ -21,31 +23,56 @@ export class OnlineChatComponent implements OnInit {
   // count:number=0;
   user:String;
   room:number;
-  message:string="Welcome";
+  message:string="Welcome to the LIVE CHAT";
   active_status:string;
+  showChat:boolean=false;
   messageArray:Array<{user:String,message:String,date:Date}>=[];
   senderArray:Array<{user:String,message:String}>=[];
-  constructor(private chat_service:ChatService,private _snackbar:MatSnackBar) {
+  constructor(private chat_service:ChatService,private _snackbar:MatSnackBar,private database:AngularFirestore) {
     
    }
 
   ngOnInit() {
     // this.user=this.user_auth;
+    this.searched_user
     this.user=this.organizer;
-  
-  //  console.log(this.user_auth)
-    // this.getChatData();
+    if(localStorage.getItem('role')==="organizer")
+    this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    else
+    this.room=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
+
     this.chat_service.newUserJoined().subscribe(data=>{
-       console.log(data+"Data")
+      console.log(data+"========>Data")
       this.messageArray.push(data);
     });
+    this.get_searched_user_role();
   }
 
   join(){
     console.log(this.user);
     console.log("Organizer"+this.organizer+" Receiver"+this.searched_user);
-    this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    // if(localStorage.getItem('role')==="organizer")
+    // this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    // else
+    // this.room=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
     this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message,date:new Date()});
+  }
+
+  get_searched_user_role(){
+    var _this=this;
+    console.log(this.searched_user)
+    this.database.firestore.collection('register_user').doc(this.searched_user).get().then(doc=>{
+      // console.log(_this.searched_user+"->"+doc.data().role);
+      if((doc.data().role==="organizer" && localStorage.getItem('role')!="organizer") || (doc.data().role!="organizer" && localStorage.getItem('role')==="organizer"))
+       _this.showChat=true;
+    }).catch(err=>{
+      console.log(err);
+    });
+    // this.database.firestore.collection('chat').doc(this.room.toString()).get().then(docs=>{
+    //   docs.data().message.forEach(message => {
+    //     _this.messageArray.push(message);
+    //   });
+    // })
   }
 
 
@@ -65,13 +92,14 @@ export class OnlineChatComponent implements OnInit {
   // }
 
   openChat(){
-
     open_chat();
     this.join();
+    this.message="";
   }
 
   closeChat(){
     close_chat();
+    var _this=this;
    // let room_id=this.createRoom();
     let date=new Date();
     let message_details:any;
@@ -92,40 +120,89 @@ export class OnlineChatComponent implements OnInit {
 
     if(localStorage.getItem('role')=='organizer'){
       let isOrganizer='organizer';
-      alert(isOrganizer)
-      this.chat_service.sendNotifications(this.searched_user,localStorage.getItem('user_name'),date,this.searched_user_name,localStorage.getItem('nameId'),this.messageArray,isOrganizer).subscribe(data=>{
-        message_details=data;
-        console.log("STATUS:"+message_details.success)
-        if(message_details.success){
-          this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+     // alert(this.viewer);
+      const chat_id=generate_chat_id(localStorage.getItem('user_name'),date,this.searched_user);
+      this.database.firestore.collection('chats').doc(chat_id).set({receiver_name:this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),roomId:chat_id,message:this.messageArray,receiver_email:this.searched_user,sender_email:localStorage.getItem('user_name'),organizer:isOrganizer}).then(function(){
+      var receiver_notifications=_this.database.collection('register_user').doc(_this.searched_user).collection('notification-messages').doc(localStorage.getItem('user_name')).set({receiver_name:_this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),roomId:chat_id,view:false});
+        if(receiver_notifications){ 
+          _this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
             duration: 3000,
           });
         }
         else{
-          this._snackbar.open("Message sending error","OK", {
+          _this._snackbar.open("Message sending error","OK", {
             duration: 3000,
           });
         }
-        this.messageArray=[];
-      });
+        _this.messageArray=[];
+        }).catch(function(error){
+          console.log("Error"+error);
+          _this._snackbar.open("Message sending error","OK", {
+            duration: 3000,
+          });
+          _this.messageArray=[];
+        })
+
+      // this.chat_service.sendNotifications(this.searched_user,localStorage.getItem('user_name'),date,this.searched_user_name,localStorage.getItem('nameId'),this.messageArray,isOrganizer).subscribe(data=>{
+      //   message_details=data;
+      //   console.log("STATUS:"+message_details.success)
+      //   if(message_details.success){
+      //     this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+      //       duration: 3000,
+      //     });
+      //   }
+      //   else{
+      //     this._snackbar.open("Message sending error","OK", {
+      //       duration: 3000,
+      //     });
+      //   }
+      //   this.messageArray=[];
+      // });
+
     }
       else if(localStorage.getItem('role')!='organizer'){
-      let isOrganzier='non-organizer';
-      this.chat_service.sendNotifications(localStorage.getItem('user_name'),this.searched_user,date,localStorage.getItem('nameId'),this.searched_user_name,this.messageArray,isOrganzier).subscribe(data=>{
-        message_details=data;
-        console.log("STATUS:"+message_details.success)
-        if(message_details.success){
-          this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+      let isOrganizer='non-organizer';
+     // alert(this.searched_user)
+      const chat_id=generate_chat_id(this.searched_user,date,localStorage.getItem('user_name'));
+     // alert(this.searched_user_name); 
+      this.database.collection('chats').doc(chat_id).set({receiver_name:localStorage.getItem('nameId'),date:date,sender_name:this.searched_user_name,roomId:chat_id,message:this.messageArray,receiver_email:localStorage.getItem('user_name'),sender_email:this.searched_user,organizer:isOrganizer}).then(function(){
+      var receiver_notifications=_this.database.collection('register_user').doc(_this.searched_user).collection('notification-messages').doc(localStorage.getItem('user_name')).set({receiver_name:_this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),roomId:chat_id,view:false});
+        if(receiver_notifications){ 
+          _this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
             duration: 3000,
           });
         }
+      
         else{
           this._snackbar.open("Message sending error","OK", {
             duration: 3000,
           });
         }
-        this.messageArray=[];
-      });
+        _this.messageArray=[];
+
+      }).catch(function(error){
+        console.log("Error"+error);
+        this._snackbar.open("Message sending error","OK", {
+          duration: 3000,
+        });
+        _this.messageArray=[];
+      })
+    
+      // this.chat_service.sendNotifications(localStorage.getItem('user_name'),this.searched_user,date,localStorage.getItem('nameId'),this.searched_user_name,this.messageArray,isOrganzier).subscribe(data=>{
+      //   message_details=data;
+      //   console.log("STATUS:"+message_details.success)
+      //   if(message_details.success){
+      //     this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+      //       duration: 3000,
+      //     });
+      //   }
+      //   else{
+      //     this._snackbar.open("Message sending error","OK", {
+      //       duration: 3000,
+      //     });
+      //   }
+      //   this.messageArray=[];
+      // });
     }
   }
 
@@ -139,35 +216,55 @@ export class OnlineChatComponent implements OnInit {
   // }
 
   sendMessage(){
-    let room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    var _this=this;
+    if(localStorage.getItem('role')==="organizer")
+    var room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    else
+    var room_id=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
     let date=new Date();
-    this.chat_service.getActiveStatus(this.searched_user).subscribe(data=>{
-      let datas:any=data;
-     // console.log(datas.status+":DATAS")
-      this.active_status=datas.status;
-      // if(this.active_status=="logout"){
-      //   let message_details:any;
-      //   this.chat_service.sendNotification(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.message).subscribe(data=>{
-      //     message_details=data;
-      //     console.log("STATUS:"+message_details.success)
-      //     if(message_details.success){
-      //       this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
-      //         duration: 3000,
-      //       });
-      //     }
-      //     else{
-      //       this._snackbar.open("Message sending error","OK", {
-      //         duration: 3000,
-      //       });
-      //     }
-      //   })
-      // }
-    })
+    var docRef =this.database.firestore.collection('register_user').doc(this.searched_user);
+    docRef.get().then(function(doc) {
+        console.log("UseData:"+doc.data().role)
+        if(doc.data()){
+           _this.active_status=doc.data().active_status;
+        }
+        else{
+            alert("Empty Data");
+        }
 
-    this.messageArray.push({user:this.user,message:this.message,date:date});
-    console.log(this.message);
-    this.chat_service.joinRoom({user:this.user,room:room_id,message:this.message});
-    this.message=" ";
+        _this.messageArray.push({user:_this.user,message:_this.message,date:date});
+        alert(_this.message);
+        
+        _this.chat_service.joinRoom({user:_this.user,room:room_id,message:_this.message});
+        _this.message=" ";
+        
+    }).catch(function(error) {
+      console.log("Error getting document:", error);
+    });
+
+    // this.chat_service.getActiveStatus(this.searched_user).subscribe(data=>{
+    //   let datas:any=data;
+    //  // console.log(datas.status+":DATAS")
+    //   this.active_status=datas.status;
+    //   // if(this.active_status=="logout"){
+    //   //   let message_details:any;
+    //   //   this.chat_service.sendNotification(this.searched_user,this.viewer,room_id,date,this.searched_user_name,this.organizer,this.message).subscribe(data=>{
+    //   //     message_details=data;
+    //   //     console.log("STATUS:"+message_details.success)
+    //   //     if(message_details.success){
+    //   //       this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
+    //   //         duration: 3000,
+    //   //       });
+    //   //     }
+    //   //     else{
+    //   //       this._snackbar.open("Message sending error","OK", {
+    //   //         duration: 3000,
+    //   //       });
+    //   //     }
+    //   //   })
+    //   // }
+    // })
+
   }
 
   // generateRoomId(organzier,searched_user){

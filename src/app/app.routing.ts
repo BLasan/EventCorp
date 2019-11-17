@@ -24,6 +24,7 @@ import { SupplierLayoutComponent } from './layouts/supplier-layout/supplier-layo
 import { AuthGuardSupplierService } from './services/Authentication/athGuard_supplier.service';
 import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
 import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
+import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
 
 
 
@@ -50,7 +51,7 @@ const routes: Routes =[
     path:'reset-password',
     component:ResetPasswordFirebaseComponent
   },
-
+  
   {
     path: '',
     component: OrganizerLayoutComponent,

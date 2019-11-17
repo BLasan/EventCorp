@@ -38,7 +38,8 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
     PaypalPaymentComponent,
     SearchUserComponent,
     SettingsComponent,
-    RatingSystemComponent
+    RatingSystemComponent,
+    MyChatsComponent
   ],
   imports: [
     CommonModule,
@@ -69,7 +70,8 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
     SearchUserComponent,
     NotificationsComponent,
     PaypalPaymentComponent,
-    RatingSystemComponent
+    RatingSystemComponent,
+    MyChatsComponent
   ]
 })
 export class SharedComponentsModule { }

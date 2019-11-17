@@ -42,3 +42,21 @@ export function previous_mode(){
     })
 }
 
+export function disable_item_image_uploader(){
+    $(document).on('click','#item_image_uploader',function(e){
+        e.preventDefault();
+    }) 
+}
+
+export function disable_load_more(){
+    $(document).on('click','#load_more',function(e){
+        e.preventDefault();
+    }) 
+}
+
+export function disable_visibility(){
+    alert("J")
+    $(document).on('click','#visibility',function(e){
+        e.preventDefault();
+    }) 
+}

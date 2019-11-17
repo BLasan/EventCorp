@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableListComponent } from './table-list.component';
+import { HttpClient } from '@angular/common/http';
 
 describe('TableListComponent', () => {
   let component: TableListComponent;
@@ -8,6 +9,7 @@ describe('TableListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers:[HttpClient],
       declarations: [ TableListComponent ]
     })
     .compileComponents();
