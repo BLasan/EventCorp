@@ -23,7 +23,7 @@ export class OnlineChatComponent implements OnInit {
   // count:number=0;
   user:String;
   room:number;
-  message:string="Welcome";
+  message:string="Welcome to the LIVE CHAT";
   active_status:string;
   showChat:boolean=false;
   messageArray:Array<{user:String,message:String,date:Date}>=[];
@@ -36,8 +36,13 @@ export class OnlineChatComponent implements OnInit {
     // this.user=this.user_auth;
     this.searched_user
     this.user=this.organizer;
+    if(localStorage.getItem('role')==="organizer")
+    this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    else
+    this.room=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
+
     this.chat_service.newUserJoined().subscribe(data=>{
-       console.log(data+"Data")
+      console.log(data+"========>Data")
       this.messageArray.push(data);
     });
     this.get_searched_user_role();
@@ -46,10 +51,10 @@ export class OnlineChatComponent implements OnInit {
   join(){
     console.log(this.user);
     console.log("Organizer"+this.organizer+" Receiver"+this.searched_user);
-    if(localStorage.getItem('role')==="organizer")
-    this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
-    else
-    this.room=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
+    // if(localStorage.getItem('role')==="organizer")
+    // this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
+    // else
+    // this.room=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
     this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message,date:new Date()});
   }
 
@@ -62,7 +67,12 @@ export class OnlineChatComponent implements OnInit {
        _this.showChat=true;
     }).catch(err=>{
       console.log(err);
-    })
+    });
+    // this.database.firestore.collection('chat').doc(this.room.toString()).get().then(docs=>{
+    //   docs.data().message.forEach(message => {
+    //     _this.messageArray.push(message);
+    //   });
+    // })
   }
 
 
@@ -84,6 +94,7 @@ export class OnlineChatComponent implements OnInit {
   openChat(){
     open_chat();
     this.join();
+    this.message="";
   }
 
   closeChat(){
@@ -112,8 +123,7 @@ export class OnlineChatComponent implements OnInit {
      // alert(this.viewer);
       const chat_id=generate_chat_id(localStorage.getItem('user_name'),date,this.searched_user);
       this.database.firestore.collection('chats').doc(chat_id).set({receiver_name:this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),roomId:chat_id,message:this.messageArray,receiver_email:this.searched_user,sender_email:localStorage.getItem('user_name'),organizer:isOrganizer}).then(function(){
-      if(isOrganizer=='organizer')
-        var receiver_notifications=_this.database.collection('register_user').doc(_this.searched_user).collection('notification-messages').doc(localStorage.getItem('user_name')).set({receiver_name:_this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),roomId:chat_id,view:false});
+      var receiver_notifications=_this.database.collection('register_user').doc(_this.searched_user).collection('notification-messages').doc(localStorage.getItem('user_name')).set({receiver_name:_this.searched_user_name,date:date,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),roomId:chat_id,view:false});
         if(receiver_notifications){ 
           _this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
             duration: 3000,
@@ -223,7 +233,8 @@ export class OnlineChatComponent implements OnInit {
         }
 
         _this.messageArray.push({user:_this.user,message:_this.message,date:date});
-        console.log(_this.message);
+        alert(_this.message);
+        
         _this.chat_service.joinRoom({user:_this.user,room:room_id,message:_this.message});
         _this.message=" ";
         

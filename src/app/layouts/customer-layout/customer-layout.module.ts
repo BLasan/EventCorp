@@ -19,6 +19,9 @@ import { CustomerHomeComponent } from '../../Modules/Customer-Module/customer-ho
 import { AppComponent } from 'app/app.component';
 import { HomePageComponent } from 'app/Modules/home-page/home-page.component';
 import { HomePageComponentModule } from 'app/Modules/home-page/home-page.module';
+import { AboutUsComponent } from 'app/Modules/Customer-Module/about-us/about-us.component';
+import { FaqComponent } from 'app/Modules/Customer-Module/faq/faq.component';
+import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/contact-us.component';
 
   @NgModule({
     imports: [
@@ -38,6 +41,9 @@ import { HomePageComponentModule } from 'app/Modules/home-page/home-page.module'
     ],
     declarations: [
      CustomerHomeComponent,
+     AboutUsComponent,
+     FaqComponent,
+     ContactUsComponent
     ],
   })
   

@@ -52,6 +52,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { MyChatsComponent } from './shared-components/my-chats/my-chats.component';
+import { AboutUsComponent } from './Modules/Customer-Module/about-us/about-us.component';
+import { ContactUsComponent } from './Modules/Customer-Module/contact-us/contact-us.component';
+import { FaqComponent } from './Modules/Customer-Module/faq/faq.component';
+import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
 
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
@@ -124,7 +128,7 @@ const config = {
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
