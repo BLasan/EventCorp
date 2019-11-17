@@ -24,7 +24,7 @@ exports.redirect_to=function(role){
     }
 
     else if(role=='venue_owner'){
-        $('#redirect_link').attr('href','/venueProfile');
+        $('#redirect_link').attr('href','/venueList');
        // $('#redirect_link')[0].click();
     }
 
