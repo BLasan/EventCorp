@@ -9,6 +9,7 @@ import { VenueHomeService } from 'app/venue-module/venue-home/venue-home.service
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommentsService } from 'app/services/comments.service';
 
 
 @Component({
@@ -16,10 +17,11 @@ import { Router } from '@angular/router';
   templateUrl: "./venue-profile.component.html",
   styleUrls: ["./venue-profile.component.scss"]
 })
+
 export class VenueProfileComponent implements OnInit {
   user: any;
   item: any;
-
+  comments: any;
 
   constructor(
     private db: AngularFirestore,
@@ -30,24 +32,14 @@ export class VenueProfileComponent implements OnInit {
     private router: Router,
   ) {
     // this.users = 
-    console.log(loginService.currentUser())
+    console.log('Current User - ',loginService.currentUser())
     db.collection('register_user').doc(loginService.currentUser()).collection('venue').doc('hall').valueChanges()
     .pipe(first())
     .subscribe( snapshot => {
-      console.log(snapshot)
+      console.log('snapshot - ',snapshot)
       this.user = snapshot
     });
-    // var name, state, city, address, email;
 
-    // if (user != null) {
-    //   name = user.user_name;
-    //   email = user.email;
-    //   state = user.state;
-    //   emailVerified = user.emailVerified;
-    //   uid = user.uid; // The user's ID, unique to the Firebase project. Do NOT use
-    //   // this value to authenticate with your backend server, if
-    //   // you have one. Use User.getToken() instead.
-    // }
   }
 
   ngOnInit() {
@@ -59,6 +51,12 @@ export class VenueProfileComponent implements OnInit {
         console.log(this.item);
         // this.createForm();
       }
+    });
+
+    this.db.collection('Venues').doc(this.item.id).collection('comments').valueChanges()
+    .subscribe(result => {
+      this.comments = result;
+      console.log('Comments - ',this.comments);
     })
   }
 }

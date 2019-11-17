@@ -44,7 +44,7 @@ export const ROUTES2:RouteInfo[]=[
 ];
 
 export const ROUTES3:RouteInfo[]=[
-  { path: '/location-owner-home', title: 'Home',  icon: 'home', class: '' },
+  // { path: '/location-owner-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/venueList', title: 'Venue Home',  icon: 'file_copy', class: '' },
   // { path: '/venueProfile', title: 'Venue Profile',  icon: 'file_copy', class: '' },
   { path: '/venueCalendar', title: 'Venue Calendar',  icon: 'file_copy', class: '' },
