@@ -344,7 +344,7 @@
           const user_signup=require('./src/scripts/signup');
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false}]
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false,view_signup_notification:false}]
             const result=user_signup.signup(data[0],database,res,admin,user_password,firebase);
           });
         });
@@ -558,32 +558,32 @@
 
 
 
-        //get-realtime
-        app.get('/get_realtime',urlencodedParser,function(req,res){
-          let data=[];
-          let success=false;
-          database.collection("signup_notifications")
-          .onSnapshot(function(snapshot) {
-             // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              let changes=snapshot.docChanges();
-              changes.forEach(element => {
-                  if(element.type=='added' && element.doc.view==false){
-                     // console.log(changes.doc.id)
-                      data.push(element.doc.id);
-                      success=true;
-                  }
+        // //get-realtime
+        // app.get('/get_realtime',urlencodedParser,function(req,res){
+        //   let data=[];
+        //   let success=false;
+        //   database.collection("signup_notifications")
+        //   .onSnapshot(function(snapshot) {
+        //      // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        //       let changes=snapshot.docChanges();
+        //       changes.forEach(element => {
+        //           if(element.type=='added' && element.doc.view==false){
+        //              // console.log(changes.doc.id)
+        //               data.push(element.doc.id);
+        //               success=true;
+        //           }
 
-              });
+        //       });
 
-              if(success){
-                  console.log("SE "+data)
-                  res.send(data);
+        //       if(success){
+        //           console.log("SE "+data)
+        //           res.send(data);
 
-              } 
-              data=[];
-              console.log(" data: ", changes[0].doc.id);
-          });
-        });
+        //       } 
+        //       data=[];
+        //       console.log(" data: ", changes[0].doc.id);
+        //   });
+        // });
 
 
 

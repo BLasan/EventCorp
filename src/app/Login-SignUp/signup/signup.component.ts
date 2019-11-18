@@ -82,7 +82,7 @@ export class SignupComponent implements OnInit {
     let user_password= (<HTMLInputElement>document.getElementById('user_password')).value;
     
     let user_data={user_name:user_name,user_email:user_email,role_sel:user_role,address1:user_address1,address2:user_address2,city:user_city,state_sel:user_state
-                   ,countryCode_sel:user_countryCode,contact:user_contact,user_password:user_password};
+                   ,countryCode_sel:user_countryCode,contact:user_contact,user_password:user_password,view_signup_notification:false};
 
     this._signup.signup(user_data).subscribe(data=>{
       this.success=data;

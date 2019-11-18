@@ -8,12 +8,12 @@
             <div class="card-body">
           ,     <div class="row">
                     <div class="col-md-12" *ngFor="let data of data">
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="data">
+                        <div class="alert alert-info alert-with-icon" data-notify="container">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(data)">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(data.email)">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>New User Registered - {{data}}</b></span>
+                            <span><b>New User Registered - {{data.user_name}} on {{date}}</b></span>
                         </div> 
                     </div>
                 </div>
