@@ -22,6 +22,7 @@ export class AddNewModeratorsComponent implements OnInit {
     });  
   }
 
+  //error handelling 
   public hasError = (controlName: string, errorName: string) =>{
     return this.form.controls[controlName].hasError(errorName);
   }

@@ -34,6 +34,8 @@ export class AdminNotificationsComponent implements OnInit {
     // console.log(this.data);
   }
 
+
+  //mark notifications viewed
   mark_view_booking_notification(user_id:string){
     this.database.collection('signup_notifications').doc(user_id).update({view:true}).then(function(){
       console.log("Done");

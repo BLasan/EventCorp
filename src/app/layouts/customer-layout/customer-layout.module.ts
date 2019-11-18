@@ -23,7 +23,7 @@ import { AboutUsComponent } from 'app/Modules/Customer-Module/about-us/about-us.
 import { FaqComponent } from 'app/Modules/Customer-Module/faq/faq.component';
 import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/contact-us.component';
 import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback.component';
-
+import { MatCarouselModule } from '@ngmodule/material-carousel';
   @NgModule({
     imports: [
       CommonModule,
@@ -38,6 +38,7 @@ import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback
       MatToolbarModule,
       MatIconModule,
       MatButtonModule,
+      MatCarouselModule
       // HomePageComponentModule
     ],
     declarations: [

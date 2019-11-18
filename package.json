@@ -40,6 +40,7 @@
     "@fullcalendar/timegrid": "^4.3.0",
     "@grpc/proto-loader": "^0.5.1",
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
+    "@ngmodule/material-carousel": "^0.5.1",
     "@paypal/checkout-server-sdk": "^1.0.1",
     "@theo4u/ng-alert": "^2.1.0",
     "acorn": "^6.1.1",

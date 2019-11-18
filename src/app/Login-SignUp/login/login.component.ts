@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
    
+    //check the remember me checked?
     if(localStorage.getItem('remember_me')=='true'){
      (<HTMLInputElement>document.getElementById('user_name')).value=localStorage.getItem('remember_user_email');
      (<HTMLInputElement>document.getElementById('remember_user')).checked=true;
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit {
   }
 
 
+  //validate login
   login_validate(){
 
     let email=(<HTMLInputElement>document.getElementById('user_name')).value;
@@ -37,6 +39,8 @@ export class LoginComponent implements OnInit {
     let remember_token=(<HTMLInputElement>document.getElementById('remember_user')).checked;
     this.checked=remember_token;
     console.log(email);
+
+    //get credentials validation
     this.login_service.checkCredentials(email,password).subscribe((data)=>{
       console.log('Hello')
       this.validation=data;

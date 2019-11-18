@@ -22,6 +22,47 @@
   color:darkslategrey;
 }
 
+.list-group{
+  max-height: 400px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.avatar{
+  border-radius: 50%;
+}
+
+.details{
+  word-spacing: 40px;
+}
+
+.star {
+  font-size: 1.5rem;
+  color: #b0c4de;
+}
+.filled {
+  color: gold;
+}
+.bad {
+  color: #deb0b0;
+}
+.filled.bad {
+  color: #ff1e1e;
+}
+
+.list-group{
+max-height: 400px;
+margin-bottom: 10px;
+overflow:scroll;
+-webkit-overflow-scrolling: touch;
+}
+
+a:hover{
+  text-decoration: none!important;
+  
+}
+
 // #calendar-dates>table>tr>td{
 //   padding: 500px!important;
 // }

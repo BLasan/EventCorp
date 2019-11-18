@@ -117,7 +117,7 @@ import { environment } from '../environments/environment';
     MatIconModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(config),
-    AngularFirestoreModule.enablePersistence(), // firestore
+    AngularFirestoreModule.enablePersistence(), // firestore-persistance mode
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
     FullCalendarModule

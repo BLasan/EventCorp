@@ -10,10 +10,12 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
+
+//admin-routings
 export const ROUTES: RouteInfo[] = [
     { path: '/admin-dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/admin-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/user-details', title: 'Table List',  icon:'content_paste', class: '' },
+    // { path: '/admin-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/user-details', title: 'User-Details',  icon:'content_paste', class: '' },
     { path: '/add-new-moderator', title: 'Add New Moderator',  icon: 'add', class: '' },
     // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
@@ -22,6 +24,8 @@ export const ROUTES: RouteInfo[] = [
     { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
+
+//artist routings
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
@@ -31,6 +35,8 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
+
+//organizer routings
 export const ROUTES2:RouteInfo[]=[
   { path: '/organizer-home', title: 'Home',  icon: 'home', class: '' },
   { path:'/organizer-notifications',title:'Notifications',icon:'notifications',class:''},
@@ -39,10 +45,17 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''}
 ];
 
+
+//venue_owner routings
 export const ROUTES3:RouteInfo[]=[
-  { path: '/location-owner-home', title: 'Home',  icon: 'home', class: '' },
+  { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
+  { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
+  { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
+  { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
 ];
 
+
+//supplier routings
 export const ROUTES4:RouteInfo[]=[
   { path: '/supplier-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/supplier-notifications', title: 'Notifications',icon:'notifications',class:''},
@@ -69,7 +82,7 @@ export class SidebarComponent implements OnInit {
    
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
       this.menuItems=ROUTES1.filter(listTitle=>listTitle);
-      this.route_link="/artist-notifications  ";
+      this.route_link="/artist-notifications";
   }
 
   else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){

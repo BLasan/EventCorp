@@ -28,6 +28,7 @@ import { AuthGuardCustomerService } from './services/Authentication/authGuard_cu
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
+import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -139,14 +140,15 @@ const routes: Routes =[
   //     loadChildren: './layouts/organizer-layout/organizer-layout.module#OrganizerLayoutModule'
   // }]},
 
-  // {
-  //   path: '',
-  //   component: LocationOwnerLayoutComponent,
-  //  children: [
-  //       {
-  //     path: '',
-  //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
-  // }]},
+  {
+    path: '',
+    component: LocationOwnerLayoutComponent,
+    canActivate:[AuthGuardVenueOwnerService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
+  }]},
 
   // {
   //   path: '',

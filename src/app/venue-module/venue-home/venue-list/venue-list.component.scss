@@ -44,11 +44,18 @@ img{
 
 .text-col{
   margin-top: 20px;
+  padding-left: 50px;
+}
+
+.actions-col{
+  padding-right:20px;
+  padding-left:300px;
 }
 
 .action {
   margin-top: 30px;
-  margin-right: 20px;
+  // margin-right: 20px;
+  padding-right:20px;
 }
 
 .search-bar {

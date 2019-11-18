@@ -18,11 +18,11 @@ export class UserProfileComponent implements OnInit{
 
   ngOnInit() {
 
-    this.socket=io('http://localhost:4700/user',{path:'/user',reconnect:true,forceNew:true});
-    this.socket.on('update_data',data=>{
-      console.log(data);
-      this.name=data;
-    });
+    // this.socket=io('http://localhost:4700/user',{path:'/user',reconnect:true,forceNew:true});
+    // this.socket.on('update_data',data=>{
+    //   console.log(data);
+    //   this.name=data;
+    // });
     
 
   

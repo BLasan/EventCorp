@@ -120,6 +120,7 @@ export class RatingSystemComponent implements OnInit {
   }
 
   load(){
+    // alert("Hello")
     add_comment_script();
   }
 

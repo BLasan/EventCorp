@@ -15,6 +15,8 @@ export class AuthGuardCustomerService implements CanActivate {
     console.log(path)
     if(path==='/about-us')
     return true;
+    else if(path==='/')
+    return true;
     else if(path==='/contact-us') 
     return true;
     else if(path==='/home')

@@ -41,7 +41,7 @@
                 </li> -->
                   <!-- if not admin -->
                 <li class="nav-item">
-                        <a class="nav-link" href="#" title="home">
+                        <a class="nav-link" id="home_link" [href]="home_link" title="home">
                             <i class="material-icons " style="color:#878d8d">home</i>
                             <p>
                                 <span class="d-lg-none d-md-block">Home</span>
@@ -51,7 +51,7 @@
                     <!-- end if else-->
                 <li class="nav-item ">
                     <!-- <a class="nav-link" href="notifications" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-                        <a class="nav-link" href="{{route_link}}" title="notifications">
+                        <a class="nav-link" id="notification_link" href="{{route_link}}" title="notifications">
                         <i class="material-icons"  style="color:#878d8d">notifications</i>
                         <span class="notification" id="notification_count_id">{{count}}</span>
                         <p>
@@ -68,7 +68,7 @@
                 </li>
                 <li class="nav-item">
                    
-                    <a class="nav-link" href="#" id="profileDropDown" (click)="show()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                    <a class="nav-link"  href="#" id="profileDropDown" (click)="show()" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                         <i class="material-icons"  style="color:#878d8d">person</i>
                         <i class="material-icons" style="color:#878d8d">arrow_drop_down</i>
                         <p>
@@ -76,8 +76,8 @@
                         </p>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropDown" id="menuList">
-                        <a class="dropdown-item" href="/my-chat-list"><i class="material-icons">chat</i>My Chats</a>
-                        <a class="dropdown-item" href="/home" (click)="logoutUser()"><i class="material-icons">power_settings_new</i>Log out</a>
+                        <a class="dropdown-item" id="chat_link" href="/my-chat-list"><i class="material-icons">chat</i>My Chats</a>
+                        <a class="dropdown-item" id="logout_link" href="/home" (click)="logoutUser()"><i class="material-icons">power_settings_new</i>Log out</a>
                     </div>
                 </li>
             </ul>

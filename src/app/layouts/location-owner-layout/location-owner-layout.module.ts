@@ -37,8 +37,6 @@ import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
 
 
-import { from } from "rxjs";
-
 @NgModule({
   imports: [
     CommonModule,

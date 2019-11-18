@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
     emp:any=[{age:'abdcc'}]
     count:any=0;
     role:string;
+    home_link:String;
     route_link:string;
     location: Location;
     data:any=[];
@@ -39,45 +40,49 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit(){
     
-    // if(localStorage.getItem('notification_count'))
-    // this.count=localStorage.getItem('notification_count');
-    // this.count=this.notifications.get_notification_count();
-    // alert(this.count);
-    //   this.getUser=onIdentify();
+    //get notification count
     if(localStorage.getItem('role')!='admin')
     this.getNotificationCount();
     else
     this.getAdminNotificationCount();
+
     //previous_mode();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
         this.route_link="/artist-notifications  ";
+        this.home_link="/artist-home";
     }
   
     else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES2.filter(listTitle=>listTitle);
-        this.route_link="/organizer-notifications"
+        this.route_link="/organizer-notifications";
+        this.home_link="/organizer-home";
     }
    
     else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES4.filter(listTitle=>listTitle);
-        this.route_link="/supplier-notifications"
+        this.route_link="/supplier-notifications";
+        this.home_link="/supplier-home"
     }
     
 
     else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES.filter(listTitle=>listTitle);
-        this.route_link="/admin-notifications"
+        this.route_link="/admin-notifications";
+        this.home_link="/admin-dashboard";
     }
     
 
     else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES3.filter(listTitle=>listTitle);
-        this.route_link="/venue-owner-notifications"
+        this.route_link="/venue-owner-notifications";
+        this.home_link="/venueList";
     }
 
     var _this=this;
 
+
+    //get user details
     var docRef = this.database.firestore.collection('register_user');
     docRef.get()
     .then(snapshot => {
@@ -94,21 +99,8 @@ export class NavbarComponent implements OnInit {
         console.log('Error getting documents', err);
     });
 
-    // this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-    //     this.user_details=data;
-    //     // if(localStorage.getItem('searched_user_email'))
-    //     //   localStorage.removeItem('searched_user_email');
-    //     console.log(this.user_details);
-    // });
-
-    //   if(this.getUser=='artist')
-    //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);
-
-    //   else{
-    //     this.listTitles = ROUTES.filter(listTitle => listTitle);
-    //     this.isAdmin=true;
-    //   }
      
+      //toggling feature
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
@@ -121,6 +113,7 @@ export class NavbarComponent implements OnInit {
      });
     }
 
+    //open sidebar
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];
@@ -132,12 +125,14 @@ export class NavbarComponent implements OnInit {
 
         this.sidebarVisible = true;
     };
+
     sidebarClose() {
         const body = document.getElementsByTagName('body')[0];
         this.toggleButton.classList.remove('toggled');
         this.sidebarVisible = false;
         body.classList.remove('nav-open');
     };
+
     sidebarToggle() {
         // const toggleButton = this.toggleButton;
         // const body = document.getElementsByTagName('body')[0];
@@ -196,6 +191,7 @@ export class NavbarComponent implements OnInit {
         }
     };
 
+    //get title of the routing
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
@@ -210,21 +206,25 @@ export class NavbarComponent implements OnInit {
       }
     }
 
+
     logoutUser(){
         this._loginService.logOut();
         if(localStorage.getItem('searched_user_email'))
          localStorage.removeItem('searched_user_email');
     }
 
+    //store searched user email
     addUserEmail(email:string){
         alert(email)
         localStorage.setItem('searched_user_email',email);
         //click_redirect_href();
     }
 
+
     update_count(count:number){
         this.count=count;
     }
+
 
     getNotificationCount(){
         let user=localStorage.getItem('user_name');
@@ -242,6 +242,7 @@ export class NavbarComponent implements OnInit {
         })
     }                                                                                                                                       
 
+    
     show(){
         if(this.onLoaded)
         disable_drop_down();

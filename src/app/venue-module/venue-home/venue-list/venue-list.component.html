@@ -2,7 +2,6 @@
   <div class="container-fluid">
 
     <div class="row">
-
       <div class="col-md-4">
         <div class="input-group">
             <div class="input-group-append">
@@ -39,10 +38,10 @@
       <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
 
         <div class="row">
-          <div class="col col-md-1 image-col">
+          <div class="col-md-1 image-col">
             <img class="image" src="./../../../assets/img/building.jpg">
           </div>
-          <div class="col col-md-5 text-col">
+          <div class="col-md-5 text-col">
             <h5 class="mb-1">{{item.payload.doc.data().v_name}}</h5>
             <small>{{item.payload.doc.data().fee}}</small>
           </div>
