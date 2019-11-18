@@ -56,6 +56,7 @@ import { AboutUsComponent } from './Modules/Customer-Module/about-us/about-us.co
 import { ContactUsComponent } from './Modules/Customer-Module/contact-us/contact-us.component';
 import { FaqComponent } from './Modules/Customer-Module/faq/faq.component';
 import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
+import { FeedbackComponent } from './Modules/Customer-Module/feedback/feedback.component';
 
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",

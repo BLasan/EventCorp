@@ -28,10 +28,10 @@ export class MyChatsComponent implements OnInit {
     deactivate_searchBar();
     this.user=localStorage.getItem('nameId');
     this.loadAllChats();
-  //   this._chat.newUserJoined().subscribe(data=>{
-  //     console.log(data+"Data")
-  //     this.messageArray.push(data);
-  //  });
+    this._chat.newUserJoined().subscribe(data=>{
+      console.log(data+"Data")
+      this.messageArray.push(data);
+   });
   }
 
   loadAllChats(){
@@ -41,7 +41,7 @@ export class MyChatsComponent implements OnInit {
     var docRef = this.database.firestore.collection('chats');
     docRef.get()
     .then(snapshot => {
-    if (snapshot.empty) {
+    if (snapshot.empty) { 
       console.log('No matching documents.');
       return;
     }  
@@ -79,12 +79,13 @@ export class MyChatsComponent implements OnInit {
     this.isOpened=true;
     if(localStorage.getItem('role')=='organizer'){
     this.isOrganizer=true;
-    for(var chat of this.chats.filter(x=>x.receiver_name==chat_user_name)){
+    for(var chat of this.chats.filter(x=>x.sender_email==user)){
       for(var message of chat.message)  this.messageArray.push(message)
     }
     }
     else{
-      for(var chat of this.chats.filter(x=>x.sender_name==chat_user_name)){
+      console.log(user)
+      for(var chat of this.chats.filter(x=>x.receiver_email==user)){
         for(var message of chat.message)  this.messageArray.push(message)
       }
     }
@@ -95,9 +96,14 @@ export class MyChatsComponent implements OnInit {
 
   sendMessage(){
     var _this=this;
-    let room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.chat_user_email);
+    if(localStorage.getItem('role')==="organizer")
+    var room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.chat_user_email);
+    else
+    var room_id=generate_chat_id(this.chat_user_email,new Date(),localStorage.getItem('user_name'));
+
+   // let room_id=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.chat_user_email);
     let date=new Date();
-    alert(localStorage.getItem('user_name'))
+    alert(localStorage.getItem('user_name'));
     var docRef = this.database.firestore.collection('register_user').doc(this.chat_user_email);
     docRef.get().then(function(doc) {
         console.log("UseData:"+doc.data().role)
@@ -172,7 +178,7 @@ export class MyChatsComponent implements OnInit {
         if(doc.data()){
             _this.active_status=doc.data().active_status;
             if(_this.active_status=="logout"){
-              let chat_id=_this.generate_id(_this.chat_user_email);
+              var chat_id=_this.generate_id(_this.chat_user_email);
               alert(chat_id)
               var notifications= _this.database.collection('chats').doc(chat_id).set({receiver_name:_this.chat_user_name,date:date,sender_name:_this.user,roomId:chat_id,message:_this.messageArray,receiver_email:_this.chat_user_email,sender_email:localStorage.getItem('user_name'),organizer:localStorage.getItem('role')}).then(function(){
                 if(localStorage.getItem('role')=='organizer')
@@ -211,13 +217,16 @@ export class MyChatsComponent implements OnInit {
     //     });
     //   }
       this.messageArray=[];
+      this._chat.close_connection();
     // });
   }
     else if(localStorage.getItem('role')!='organizer'){
     let isOrganzier='non-organizer';
-    var docRef = this.database.firestore.collection('register_user').doc(_this.chat_user_email);
+    console.log(this.chat_user_email);
+    var _this=this;
+    var docRef = this.database.firestore.collection('register_user').doc(this.chat_user_email);
     docRef.get().then(function(doc) {
-        console.log("UseData:"+doc.data().role)
+        console.log("UseData:->"+doc.data().role)
         if(doc.data()){
             _this.active_status=doc.data().active_status;
             if(_this.active_status=="logout"){
@@ -229,7 +238,7 @@ export class MyChatsComponent implements OnInit {
                 if(receiver_notifications){ 
                   _this._snackbar.open("User is offline.Your message has been sent successfully","OK", {
                     duration: 3000,
-                  });
+                  }); 
                 }
                 else{
                     console.log("Fail to send message");
@@ -261,6 +270,7 @@ export class MyChatsComponent implements OnInit {
     //   this.messageArray=[];
     // });
     this.messageArray=[];
+    this._chat.close_connection();
   }
   }
 
