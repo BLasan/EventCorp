@@ -14,10 +14,10 @@
                 <mat-list role="list" [ngClass]="{'list-group':chats.length>6}">
                   <div *ngFor="let chats of chats">
                     <a href="#" *ngIf="chats.organizer=='organizer'" (click)="open_selected_chat(chats.receiver_email,chats.roomId,chats.receiver_name)" id="open_chat_selected">
-                      <mat-list-item role="listitem"><mat-icon mat-list-icon><img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" ></mat-icon> <p mat-line style="margin-left:10px;margin-top:-5px;" >{{chats.receiver_name}}</p></mat-list-item>
+                      <mat-list-item role="listitem"><mat-icon mat-list-icon><img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" ></mat-icon> <p mat-line style="margin-left:10px;margin-top:-5px;" >{{chats.sender_name}}</p></mat-list-item>
                     </a>
                     <a href="#" *ngIf="chats.organizer=='non-organizer'" (click)="open_selected_chat(chats.sender_email,chats.roomId,chats.sender_name)" id="open_chat_selected">
-                      <mat-list-item role="listitem"><mat-icon mat-list-icon><img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" ></mat-icon> <p mat-line style="margin-left:10px;margin-top:-5px;" >{{chats.sender_name}}</p></mat-list-item>
+                      <mat-list-item role="listitem"><mat-icon mat-list-icon><img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" ></mat-icon> <p mat-line style="margin-left:10px;margin-top:-5px;" >{{chats.receiver_name}}</p></mat-list-item>
                     </a>
                     <mat-divider></mat-divider>
                   </div>

@@ -33,6 +33,13 @@ export class ChatService {
         this.socket.emit('chat',message);
     }
 
+    close_connection(){
+        this.socket.disconnect();
+        this.socket.on('disconnect',function(){
+            console.log('Dis')
+        })
+    }
+
     newUserJoined(){
         console.log('initial');
 

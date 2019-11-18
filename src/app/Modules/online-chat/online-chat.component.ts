@@ -234,9 +234,9 @@ export class OnlineChatComponent implements OnInit {
 
         _this.messageArray.push({user:_this.user,message:_this.message,date:date});
         alert(_this.message);
-        
         _this.chat_service.joinRoom({user:_this.user,room:room_id,message:_this.message});
         _this.message=" ";
+     
         
     }).catch(function(error) {
       console.log("Error getting document:", error);

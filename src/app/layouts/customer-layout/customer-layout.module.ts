@@ -22,6 +22,7 @@ import { HomePageComponentModule } from 'app/Modules/home-page/home-page.module'
 import { AboutUsComponent } from 'app/Modules/Customer-Module/about-us/about-us.component';
 import { FaqComponent } from 'app/Modules/Customer-Module/faq/faq.component';
 import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/contact-us.component';
+import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback.component';
 
   @NgModule({
     imports: [
@@ -43,7 +44,8 @@ import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/conta
      CustomerHomeComponent,
      AboutUsComponent,
      FaqComponent,
-     ContactUsComponent
+     ContactUsComponent,
+     FeedbackComponent,
     ],
   })
   

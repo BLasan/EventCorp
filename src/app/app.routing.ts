@@ -83,6 +83,7 @@ const routes: Routes =[
   {
     path: '',
     component: CustomerLayoutComponent,
+    canActivate:[AuthGuardCustomerService],
     children: [
         {
       path: '',
