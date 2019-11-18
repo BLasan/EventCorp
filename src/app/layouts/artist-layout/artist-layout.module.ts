@@ -29,6 +29,22 @@ import {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatSlideToggleModule,
+    MatRadioModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatAutocompleteModule,
+    MatButtonToggleModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatStepperModule,
   } from '@angular/material';
 import { PaypalPaymentComponent } from 'app/Modules/paypal-payment/paypal-payment.component';
 import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking-info/view-booking-info.component';
@@ -37,12 +53,12 @@ import { RatingSystemComponent } from 'app/shared-components/rating-system/ratin
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
   @NgModule({
     imports: [
       CommonModule,
       RouterModule.forChild(ArtistLayoutRoutes),
-      FormsModule,
       MatButtonModule,
       MatRippleModule,
       MatFormFieldModule,
@@ -55,8 +71,30 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
       MatDatepickerModule,
       MatNativeDateModule,
       MatChipsModule,
-      MatIconModule,
+      MatSliderModule,
       NgbModule,
+      MatAutocompleteModule,
+      MatButtonToggleModule,
+      MatCheckboxModule,
+      MatDialogModule,
+      MatExpansionModule,
+      MatGridListModule,
+      MatIconModule,
+      MatMenuModule,
+      MatPaginatorModule,
+      MatProgressBarModule,
+      MatProgressSpinnerModule,
+      MatRadioModule,
+      MatSidenavModule,
+      MatSlideToggleModule,
+      MatSnackBarModule,
+      MatSortModule,
+      MatTableModule,
+      MatTabsModule,
+      MatToolbarModule,
+      MatStepperModule,
+      MatListModule,
+      NgxMatSelectSearchModule,
       SharedComponentsModule,
 
     ],

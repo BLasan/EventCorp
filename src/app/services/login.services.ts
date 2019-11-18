@@ -58,4 +58,9 @@ export class LoginService {
         localStorage.removeItem('remember_user_email');
     }
 
+    currentUser(): string {
+        return localStorage.getItem('user_name');
+    }
+
+
 }

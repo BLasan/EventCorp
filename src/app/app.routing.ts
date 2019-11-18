@@ -25,8 +25,9 @@ import { AuthGuardSupplierService } from './services/Authentication/athGuard_sup
 import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
 import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
 import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
-
-
+import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+// import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -37,7 +38,7 @@ const routes: Routes =[
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  }, 
+  },
 
   {
     path:'email-verify',
@@ -90,14 +91,71 @@ const routes: Routes =[
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
   {
+    path:'settings',
+    component:SettingsComponent
+  },
+  // {
+  //   path:'ratings/:token',
+  //   component:RatingSystemComponent
+  // },
+  {
     path: '',
     component: SupplierLayoutComponent,
     canActivate:[AuthGuardSupplierService],
    children: [
         {
       path: '',
-      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+      loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
+  {
+    path:'login',
+    component:LoginComponent
+  },
+
+  {
+    path:'signup',
+    component:SignupComponent
+  },
+  {
+    path:'payment',
+    component:PaypalPaymentComponent
+  },
+
+  // {
+  //   path: '',
+  //   component: CustomerLayoutComponent,
+  //  children: [
+  //       {
+  //     path: '',
+  //     loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
+  // }]},
+
+  // {
+  //   path: '',
+  //   component: OrganizerLayoutComponent,
+  //  children: [
+  //       {
+  //     path: '',
+  //     loadChildren: './layouts/organizer-layout/organizer-layout.module#OrganizerLayoutModule'
+  // }]},
+
+  // {
+  //   path: '',
+  //   component: LocationOwnerLayoutComponent,
+  //  children: [
+  //       {
+  //     path: '',
+  //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
+  // }]},
+
+  // {
+  //   path: '',
+  //   component: SupplierLayoutComponent,
+  //  children: [
+  //       {
+  //     path: '',
+  //     loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+  // }]},
 
  {
     path: '',
@@ -108,7 +166,24 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
-
+  // {path: 'venueProfile' , component: VenueProfileComponent},
+  {path: 'venueCalendar' , component: VenueCalendarComponent},
+  // {
+  //   path:'location_owner',
+  //   component:LocationOwnerLayoutComponent
+  // },
+  {
+    path:'page-not-found',
+    component:ErrorPageComponent
+  },
+  {
+    path:'chat-app',
+    component:OnlineChatComponent
+  },
+  {
+    path:'**',
+    component:ErrorPageComponent
+  },
   {
     path:'login',
     component:LoginComponent

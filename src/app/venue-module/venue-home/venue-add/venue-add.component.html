@@ -1,0 +1,60 @@
+<div class="main-content">
+  <div class="container-fluid">    
+    
+    <form [formGroup]="myForm1" [hidden]="success" (ngSubmit)="submitHandler1()">
+
+      <h3>Venue Registration Form</h3>
+        <hr><br><br>
+    
+        <mat-form-field>
+          <input matInput placeholder="Venue Name" formControlName="v_name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="venue_address">
+        </mat-form-field>        
+  
+        <mat-form-field>
+          <input matInput placeholder="Telephone Number" formControlName="tel_no">
+        </mat-form-field>     
+    
+  
+        <!-- <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="Start date" formControlName = "event_start">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field> -->
+  
+        <mat-form-field>
+          <input matInput placeholder="Air Conditioned?" formControlName="ac">
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="End date" formControlName = "event_end">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field> -->
+  
+        <mat-form-field>
+          <input matInput placeholder="Car Parking Available?" formControlName="car_parking">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Booking Fee" formControlName="fee">
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Number of Seats" formControlName="seating_capacity">
+        </mat-form-field>    
+    
+    
+        <button mat-button color="primary" type="submit" [disabled]="myForm1.invalid">Submit Form</button>
+    
+    </form>   
+
+    <div *ngIf="success" class="notification is-success">
+        Registration Completed!
+    </div>
+
+  </div>
+</div>

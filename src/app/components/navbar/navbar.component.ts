@@ -121,7 +121,6 @@ export class NavbarComponent implements OnInit {
      });
     }
 
-
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];
@@ -133,7 +132,6 @@ export class NavbarComponent implements OnInit {
 
         this.sidebarVisible = true;
     };
-
     sidebarClose() {
         const body = document.getElementsByTagName('body')[0];
         this.toggleButton.classList.remove('toggled');

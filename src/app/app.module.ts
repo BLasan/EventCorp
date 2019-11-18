@@ -57,6 +57,9 @@ import { ContactUsComponent } from './Modules/Customer-Module/contact-us/contact
 import { FaqComponent } from './Modules/Customer-Module/faq/faq.component';
 import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
 import { FeedbackComponent } from './Modules/Customer-Module/feedback/feedback.component';
+import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component'
+import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
+import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
 
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
@@ -67,6 +70,16 @@ const config = {
   messagingSenderId: "886719532814",
   appId: "1:886719532814:web:9424058ace3d13af"
 };
+
+// import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { environment } from '../environments/environment';
+// import {MatDatepickerModule} from '@angular/material/datepicker';
+// import { MatNativeDateModule } from '@angular/material';
+// import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
+// import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
+// import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
 
 @NgModule({
   imports: [
@@ -106,7 +119,8 @@ const config = {
     AngularFireModule.initializeApp(config),
     AngularFirestoreModule.enablePersistence(), // firestore
     AngularFireAuthModule, // auth
-    AngularFireStorageModule // storage
+    AngularFireStorageModule, // storage
+    FullCalendarModule
     
   ],
   declarations: [
@@ -122,6 +136,8 @@ const config = {
     EmailVerifyComponent,
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
+    VenueCalendarComponent,
+    LocationOwnerLayoutComponent
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
@@ -129,7 +145,7 @@ const config = {
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
