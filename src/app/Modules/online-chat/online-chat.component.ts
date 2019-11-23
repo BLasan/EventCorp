@@ -45,7 +45,7 @@ export class OnlineChatComponent implements OnInit {
       console.log(data+"========>Data")
       this.messageArray.push(data);
     });
-    this.get_searched_user_role();
+    this.get_searched_user_status();
   }
 
   join(){
@@ -58,11 +58,13 @@ export class OnlineChatComponent implements OnInit {
     this.chat_service.joinRoom({user:this.user,room:this.room,message:this.message,date:new Date()});
   }
 
-  get_searched_user_role(){
+  
+  get_searched_user_status(){
     var _this=this;
     console.log(this.searched_user)
     this.database.firestore.collection('register_user').doc(this.searched_user).get().then(doc=>{
       // console.log(_this.searched_user+"->"+doc.data().role);
+      _this.active_status=doc.data().active_status;
       if((doc.data().role==="organizer" && localStorage.getItem('role')!="organizer") || (doc.data().role!="organizer" && localStorage.getItem('role')==="organizer"))
        _this.showChat=true;
     }).catch(err=>{

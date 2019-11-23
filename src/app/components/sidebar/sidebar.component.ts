@@ -32,6 +32,7 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/artist-notifications', title: 'Notifications',  icon: 'view_list', class: '' },
   { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
+  { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 

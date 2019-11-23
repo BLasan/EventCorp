@@ -1,30 +1,39 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import { AngularFireAuth } from '@angular/fire/auth';
+import {redirect_to} from '../../scripts/redirect_to';
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
     private _url: string = "http://localhost:4600";
     
-    constructor(private http: HttpClient,private database:AngularFirestore) { }
+    constructor(private http: HttpClient,private database:AngularFirestore,private auth:AngularFireAuth) { }
 
     checkCredentials(email:string,password:string){
         return this.http.post(`${this._url}/login_credentials`,[email,password]);
     }
 
-    logIn(role:string,email:string,user_token:string,name:string){
+    logIn(role:string,email:string,user_token:string,name:string,hash:any){
+        console.log(role)
         localStorage.setItem('loggedIn','true');
         localStorage.setItem('nameId',name);
         localStorage.setItem('user_name',email);
         localStorage.setItem('role',role);
+        this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
+            console.log(user.user.uid);
+            redirect_to(role);
+        }).catch(err=>{
+            console.log(err);
+        })
        // localStorage.setItem('user_token',user_token);
     }
 
     logOut(){
         let success:any;
         localStorage.removeItem('loggedIn');
+        this.auth.auth.signOut();
         // this.http.post(`${this._url}/logout_user`,[localStorage.getItem('user_name')]).subscribe(data=>{
         //     success=data;
         //     //alert('LOGGED OUTR')
@@ -44,7 +53,9 @@ export class LoginService {
             localStorage.removeItem('nameId');
         }).catch(err=>{
             alert('Error logging-out');
-        })
+        });
+
+
 
     }
 

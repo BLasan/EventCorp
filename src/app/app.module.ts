@@ -75,6 +75,7 @@ const config = {
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
+import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -137,7 +138,7 @@ import { environment } from '../environments/environment';
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
     VenueCalendarComponent,
-    LocationOwnerLayoutComponent
+    LocationOwnerLayoutComponent,
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,

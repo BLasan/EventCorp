@@ -330,15 +330,15 @@
           //var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
           //var token = randomToken(40);
           var user_name=req.body.user_name;
-          var user_email=req.body.user_email;
-          var role=req.body.role_sel;
+          var user_email=req.body.email;
+          var role=req.body.role;
           var address1=req.body.address1;
           var address2=req.body.address2;
           var city=req.body.city;
-          var state=req.body.state_sel;
-          var country_code=req.body.countryCode_sel;
+          var state=req.body.state;
+          var country_code=req.body.country_code;
           var contact=req.body.contact;
-          var user_password=req.body.user_password;
+          var user_password=req.body.password;
           var send_sign_up={email:user_email,user_name:user_name}
           console.log(user_password);
           const user_signup=require('./src/scripts/signup');

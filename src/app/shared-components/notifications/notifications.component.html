@@ -7,7 +7,7 @@
                 <h3 class="card-title" *ngIf="!isBookingView">Notifications</h3>
                 <h3 class="card-title" *ngIf="isBookingView">Booking Requests</h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" *ngIf="(isBookingView && booking_data.length>0) || (!isBookingView && message_data.length>0)">
                 <div class="row" *ngIf="isBookingView && user_role=='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-success alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Confirmed' && booking_data.view==false">
@@ -55,6 +55,12 @@
                         </div> 
                     </div>
                 </div>
+            </div>
+            <div class="card-body" *ngIf="!isBookingView && message_data.length==0">
+                <h3 style="color:green" class="blink"><b>EMPTY NOTIFICATIONS</b></h3>
+            </div>
+            <div class="card-body" *ngIf="isBookingView && booking_data.length==0">
+                <h3 style="color:green" class="blink"><b>EMPTY REQUESTS</b></h3>
             </div>
         </div>
 

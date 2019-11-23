@@ -9,6 +9,8 @@ import { BookingService } from 'app/services/booking.service';
 import {deactivate_searchBar} from '../../../scripts/search_bar_activate';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_load_more} from '../../../scripts/disable_a_href';
+import CryptoJS from 'crypto-js';
+import { disable_modal_open} from '../../../scripts/disable_a_href';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -22,6 +24,7 @@ export class RatingSystemComponent implements OnInit {
   address_vis:boolean=true;
   play_list_vis:boolean=true;
   my_events:String="";
+  my_events_array:any=[];
   currentRate:any=0;
   userRate:any=0;
   success:any;
@@ -32,6 +35,9 @@ export class RatingSystemComponent implements OnInit {
   user_comments:any;
   comments_prev:any=[];
   current_rate:any;
+  modal_details:any;
+  artists_participated:string="";
+  suppliers_participated:string="";
   success_booking:any={success:false};
   booking_details:any;
   isProcessing:boolean=false;
@@ -130,10 +136,12 @@ export class RatingSystemComponent implements OnInit {
     let timeStamp=new Date();
     let date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
     let obj={comment:this.myComment,date:date,user_name:this.organizer_name};
+    let comment_id=this.organizer_name+"-"+this.searched_user_email+"@"+date;
+    var hash= CryptoJS.SHA256(comment_id).toString();
     this.comments_array.push(obj);
     console.log(this.comments_array.length);
     this.myComment="";
-    this.database.collection('comments').doc(this.searched_user_email).set({comments:this.comments_array}).then(docs=>{
+    this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({comments:this.comments_array}).then(docs=>{
      // _this.loadComments();
       _this._snackBar.open("Successfully Posted","Done", {
         duration: 2000,
@@ -199,13 +207,16 @@ export class RatingSystemComponent implements OnInit {
    loadComments(){
     var _this=this;
     this.comments_array=[];
-    var docRef = this.database.firestore.collection('comments').doc(this.searched_user_email);
+    var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('comments');
     docRef.get().then(async function(doc) {
-        console.log(doc.data());
         
-        if (doc.data()) {
-          _this.comments_array=doc.data().comments;
-          console.log(_this.comments_array.length);
+        if (!doc.empty) {
+          doc.forEach(docs=>{
+            console.log(docs.id)
+            _this.comments_array.push(docs.data().comments)
+          })
+          // _this.comments_array=doc.data().comments;
+          // console.log(_this.comments_array.length);
           if(_this.comments_array.length>5) bind_scroll();
         } 
         else{
@@ -386,10 +397,33 @@ export class RatingSystemComponent implements OnInit {
       if(snapshot.empty) console.log("Empty Events");
       else{
         snapshot.forEach(doc=>{
-          _this.my_events+=doc.data().event_name+" /"
+          _this.my_events+=doc.data().event_name+" /";
+          _this.my_events_array.push(doc.data());
         })
       }
     })
+  }
+
+  
+  load_modal(event_id:any){
+    disable_modal_open();
+    console.log(event_id);
+    this.modal_details=this.my_events_array.filter(x=>x.event_id===event_id);
+    console.log(this.modal_details)
+    for(var artists of this.modal_details){
+      for(var artist_names of artists.artists){
+        console.log(artist_names)
+        this.artists_participated+=" / "+artist_names;
+      }
+    }
+
+    for(var suppliers of this.modal_details){
+      for(var supplier_names of suppliers.suppliers){
+        console.log(supplier_names)
+        this.suppliers_participated+=" / "+supplier_names;
+      }
+    }
+
   }
 
 }

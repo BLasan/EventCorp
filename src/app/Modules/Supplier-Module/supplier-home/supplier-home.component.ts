@@ -21,7 +21,7 @@ export class SupplierHomeComponent implements OnInit {
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
-    loadCalendar();
+    // loadCalendar();
     activate_searchBar();
     this.get_top_users();
     this.get_product_items();

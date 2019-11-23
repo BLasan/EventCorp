@@ -17,12 +17,16 @@ export class ArtistHomeComponent implements OnInit {
   data:any;
   default_rate:any=0;
   isDone:boolean=false;
+  my_playlist:any=[]
+  user_comments:Array<{comment:String,date:any,user_name:String}>=[];
   constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
 
   ngOnInit() {
-    loadCalendar();
+    // loadCalendar();
     activate_searchBar();
     this.get_top_users();
+    this.load_comments();
+    this.load_playlist();
   }
 
   get_top_users(){
@@ -82,6 +86,31 @@ export class ArtistHomeComponent implements OnInit {
   addUserEmail(email:string){
     alert(email)
     localStorage.setItem('searched_user_email',email);
+  }
+
+  load_comments(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments').get().then(docs=>{
+      if(!docs.empty){
+        docs.forEach(doc=>{
+          _this.user_comments.push(doc.data().comments)
+        })
+      }
+      else console.log("Empty Comments");
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  load_playlist(){
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').get().then(snapshot=>{
+      if(snapshot.empty) console.log("Empty Data");
+      else{
+        snapshot.forEach(doc=>{
+          this.my_playlist.push(doc.data());
+        })
+      }
+    })
   }
 
 }

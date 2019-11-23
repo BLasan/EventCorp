@@ -106,7 +106,7 @@ const routes: Routes =[
    children: [
         {
       path: '',
-      loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
+      loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
   }]},
   {
     path:'login',
