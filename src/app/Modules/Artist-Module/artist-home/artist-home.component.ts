@@ -17,7 +17,8 @@ export class ArtistHomeComponent implements OnInit {
   data:any;
   default_rate:any=0;
   isDone:boolean=false;
-  my_playlist:any=[]
+  my_playlist:any=[];
+  playlist_title:string;
   user_comments:Array<{comment:String,date:any,user_name:String}>=[];
   constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
 
@@ -103,12 +104,12 @@ export class ArtistHomeComponent implements OnInit {
   }
 
   load_playlist(){
-    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').get().then(snapshot=>{
-      if(snapshot.empty) console.log("Empty Data");
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').doc('playlist').get().then(snapshot=>{
+      if(!snapshot.exists) console.log("Empty Data");
       else{
-        snapshot.forEach(doc=>{
-          this.my_playlist.push(doc.data());
-        })
+       _this.my_playlist.push(snapshot.data());
+       _this.playlist_title=snapshot.data().playList_name;
       }
     })
   }

@@ -76,3 +76,9 @@ export function disable_modal_open(){
        
     })    
 }
+
+export function disable_remove_files(){
+    $(document).on('click','#remove_files',function(e){
+        e.preventDefault();
+    })    
+}

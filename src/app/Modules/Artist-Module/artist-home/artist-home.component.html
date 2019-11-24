@@ -91,9 +91,26 @@
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title">My PlayList</h4>
+            <p class="card-category"><b style="color:red">{{playlist_title}}</b></p>
           </div>
           <div class="card-body" *ngIf="my_playlist.length==0">
             <h3 style="color:red" align="center" class="blink"><b>EMPTY PLAYLIST</b></h3>
+          </div>
+          <div class="card-body" *ngIf="my_playlist.length!=0">
+            <!-- <a href="#">
+              <div class="card card-header" style="background-color:greenyellow" *ngFor="let playlist of my_playlist">
+                <h6 class="card-title" style="vertical-align:center;">{{playlist.playList_name}}    <b style="color:green;padding-left:50px">{{playlist.date}}</b> 
+                  <i class="material-icons" style="padding-left:80px;font-size:36px;">arrow_drop_down</i></h6>
+              </div>
+            </a> -->
+            <mat-list role="list" *ngFor="let playlist of my_playlist">
+              <mat-list-item *ngFor="let url of playlist.playlist">
+                {{url.name}}
+                <audio controls style="height:30px;padding-left:10px">
+                  <source src="{{url.url}}" type="audio/mpeg">
+                </audio>
+              </mat-list-item>
+            </mat-list>
           </div>
         </div>
       </div>

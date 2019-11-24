@@ -25,6 +25,7 @@ export class RatingSystemComponent implements OnInit {
   play_list_vis:boolean=true;
   my_events:String="";
   my_events_array:any=[];
+  artist_playlist:any=[];
   currentRate:any=0;
   userRate:any=0;
   success:any;
@@ -62,10 +63,10 @@ export class RatingSystemComponent implements OnInit {
     deactivate_searchBar();
     this.getRequestDetails();
     this.loadUserRatings();
-    this.loadComments();
-    this.load_user_events();
-    this.load_view_settings();
     this.getSearchedUserData();
+    this.loadComments();
+    this.load_view_settings();
+    this.load_user_events();
     //localStorage.removeItem('searched_user_email');
   }
 
@@ -354,9 +355,10 @@ export class RatingSystemComponent implements OnInit {
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
           _this.search_user_about=doc.data().bio;
+          if(!_this.search_user_about) _this.search_user_about="Not Updated";
           _this.search_user_contact=doc.data().contact;
           _this.searched_user_email=doc.data().email;
-          _this.search_user_address=doc.data().address;
+          _this.search_user_address=doc.data().address1+" "+doc.data().address2;
         }
         else{
            alert("Empty Data");
@@ -401,6 +403,20 @@ export class RatingSystemComponent implements OnInit {
           _this.my_events_array.push(doc.data());
         })
       }
+    })
+  }
+
+  load_artist_playlist(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('my_playlist').get().then(doc=>{
+      if(doc.empty) console.log("Empty Data");
+      else{
+        doc.forEach(docs=>{
+          _this.artist_playlist.push(docs.data());
+        })
+      }
+    }).catch(err=>{
+      console.log(err);
     })
   }
 

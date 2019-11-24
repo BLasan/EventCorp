@@ -101,7 +101,10 @@
                 <div class="col-6" style="float: left">
                   <p><b>About</b></p>
                 </div>
-                <div class="col-6" style="float:left">
+                <div class="col-6" *ngIf="search_user_about==='Not Updated'" style="float:left;color:red">
+                  <p>{{search_user_about}}</p>
+                </div>
+                <div class="col-6" *ngIf="search_user_about!=='Not Updated'" style="float:left">
                   <p>{{search_user_about}}</p>
                 </div>
               </div>
@@ -166,19 +169,21 @@
                   </mat-form-field>
                   <button mat-raised-button color="accent" (click)="postComment()">Post</button>
                   <hr>
-                  <p><b>Rate User</b></p>
-                  <ngb-rating [(rate)]="currentRate" max="5">
-                    <ng-template let-fill="fill" let-index="index">
-                      <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-                    </ng-template>
-                  </ngb-rating>
-                  <hr>
-                  <div class="row">
-                    <div class="col-md-4">
-                      Stars: <b>{{currentRate}}</b>
-                    </div>
-                    <div class="col-md-4">
-                      <button mat-raised-button style="background-color: green" (click)="rateUser()">Rate</button>
+                  <div *ngIf="search_user_role!=='artist'">
+                    <p><b>Rate User</b></p>
+                    <ngb-rating [(rate)]="currentRate" max="5">
+                      <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                      </ng-template>
+                    </ngb-rating>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-4">
+                        Stars: <b>{{currentRate}}</b>
+                      </div>
+                      <div class="col-md-4">
+                        <button mat-raised-button style="background-color: green" (click)="rateUser()">Rate</button>
+                      </div>
                     </div>
                   </div>
                 </mat-card-content>
@@ -192,7 +197,7 @@
                 <h4 class="card-title"><b>MY EVENTS</b></h4>
                 <p class="card-category">Organized Events</p>
               </div>
-              <div class="card-body" [ngClass]="{'list-group':my_events_array.length>10}">
+              <div class="card-body" *ngIf="my_events_array.length==0" [ngClass]="{'list-group':my_events_array.length>10}">
                 <table class="table table-dark">
                   <thead>
                       <th scope="col"><b>ID</b></th>
@@ -209,6 +214,39 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="card-body" *ngIf="my_events_array.length==0">
+                <h3 style="color:red"><b>Empty Playlist</b></h3>
+              </div>
+            </div>
+            <div class="card" *ngIf="search_user_role==='artist' && play_list_vis">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"><b>MY PLAYLIST</b></h4>
+                <p class="card-category">Best Playlist</p>
+              </div>
+              <div class="card-body" *ngIf="artist_playlist.length>0" [ngClass]="{'list-group':my_events_array.length>10}">
+                <table class="table table-dark">
+                  <thead>
+                    <th scope="col"><b>ID</b></th>
+                    <th scope="col"><b>Song Name</b></th>
+                    <th scope="col"></th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let playlist of artist_playlist;let index=index">
+                      <th scope="row">{{index+1}}</th>
+                      <td>{{playlist.playlist_name}}</td>
+                      <td>
+                        <audio controls>
+                          <!-- <source src="" type="audio/ogg"> -->
+                          <source src="{{playlist.playlist[i]}}" type="audio/mpeg">
+                        </audio>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-body" *ngIf="artist_playlist.length==0">
+                <h3 style="color:red"><b>Empty Playlist</b></h3>
               </div>
             </div>
           </div>

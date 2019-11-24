@@ -42,11 +42,17 @@
                   <a href="#" id="add_playlist" (click)="upload_files()">
                     <i class="material-icons" style="font-size:50px;">perm_media</i>
                   </a>
-                  <input type="file" id="playlist_uploader" accept=".mp3,audio/*" (change)="audio_upload($event)" style="display: none;">
+                  <input type="file" id="playlist_uploader" accept=".mp3,audio/*" (change)="audio_upload($event)" style="display: none;" multiple>
                 </div>
                 <div class="col-md-6">
-                  <span id="size" style="color:red" *ngIf="total_size<50"><b>Size:</b>  {{total_size}} MB</span>
-                  <span id="size" style="color:red" *ngIf="total_size>50"><b>File Size too Large. Maximum size 50MB</b></span>
+                  <span id="size" style="color:red" *ngIf="total_size<60"><b>Size:</b>  {{total_size}} MB</span>
+                  <span id="size" style="color:red" *ngIf="total_size>=60"><b>File Size too Large. Maximum size 50MB</b></span>
+                  <span id="progress_bar" style="display: none;">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                  </span>
+                  <span class="remove_files" style="display: none;" id="remove_file">
+                    <a href="#" (click)="remove()" id="remove_files">Remove Files</a>
+                  </span>
                 </div>
               </div>
               <div class="row" style="padding-top:30px;padding-left:100px">
