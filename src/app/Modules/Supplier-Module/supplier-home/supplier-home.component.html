@@ -25,7 +25,7 @@
         </div> 
       </div>
     </div>
-    <div class="row" style="margin-top:15px" *ngIf="product_items.length>0">
+    <div class="row" style="margin-top:15px" *ngIf="load_items==='loaded'">
       <div class="rect">
         <h2 style="color:black;padding-top:5px"><b>OUR ITEMS</b></h2>
       </div>
@@ -40,7 +40,7 @@
                       <div mat-card-avatar class="example-header-image"></div>
                       <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
                     </mat-card-header>
-                    <img mat-card-image [src]="items.image_url" alt="item_image">
+                    <img mat-card-image [src]="items.image_url" height="200px" alt="item_image">
                     <mat-card-content>
                     <hr>
                     <div class="row">
@@ -126,7 +126,7 @@
             </div>  
           </div> 
         </div>  
-        <div class="row" style="margin-top:15px" *ngIf="product_items.length==0">
+        <div class="row" style="margin-top:15px" *ngIf="load_items==='loading'">
           <div class="col-md-4"></div>
           <div class="col-md-4">
             <div class="loader" align="center"></div>

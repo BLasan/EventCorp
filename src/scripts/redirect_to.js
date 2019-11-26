@@ -46,6 +46,7 @@ export function navigate_to_signup(){
 }
 
 export function redirect_to_login(){
+    console.log("Login")
     $('#redirect_to_login')[0].click();
 }
 

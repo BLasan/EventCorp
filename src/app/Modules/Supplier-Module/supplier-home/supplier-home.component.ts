@@ -15,6 +15,7 @@ export class SupplierHomeComponent implements OnInit {
   top_artists=[];
   top_venue_owners=[];
   data:any;
+  load_items:string="loading";
   default_rate:any=0;
   isDone:boolean=false;
   product_items:any=[];
@@ -70,9 +71,13 @@ export class SupplierHomeComponent implements OnInit {
   get_product_items(){
     var _this=this;
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(snapshot=>{
-      if(snapshot.empty) alert("Empty Products");
+      if(snapshot.empty){
+        alert("Empty Products");
+        _this.load_items="empty"
+      }
       else{
         snapshot.forEach(doc=>{
+          _this.load_items="loaded";
           _this.product_items.push(doc.data());
         })
       }

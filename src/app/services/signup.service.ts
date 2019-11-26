@@ -19,6 +19,7 @@ export class SignupService{
             console.log("Successfull "+value.user.uid);
             value.user.updateProfile({displayName:user_data.user_name});
             var json_obj={user_name:user_data.email,nameId:user_data.user_name,role:user_data.role};
+            localStorage.setItem('signedUpEmail',user_data.email);
             _this._db.collection('register_user').doc(user_data.email).set(user_data).then(doc=>{
                 console.log("Successfully Signup");
                 value.user.sendEmailVerification().then(success=>{

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {redirect_to} from '../../scripts/redirect_to';
+import { ActivatedRoute, Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
@@ -32,6 +33,7 @@ export class LoginService {
 
     logOut(){
         let success:any;
+        var _this=this;
         localStorage.removeItem('loggedIn');
         this.auth.auth.signOut();
         // this.http.post(`${this._url}/logout_user`,[localStorage.getItem('user_name')]).subscribe(data=>{

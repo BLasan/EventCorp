@@ -44,21 +44,37 @@ export class LoginComponent implements OnInit {
     console.log(email);
 
     //get credentials validation
-    this._db.collection('register_user').doc(email).update({active_status:'login'})
-    this._db.firestore.collection('register_user').doc(email).get().then((doc)=>{
-      console.log("Hello")
-      if(doc.data().active_status==="login" && doc.data().password===hash && doc.data().verification){
+    // this._db.collection('register_user').doc(email).update({active_status:'login'})
+    // this._db.firestore.collection('register_user').doc(email).get().then((doc)=>{
+    //   console.log("Hello")
+    //   if(doc.data().active_status==="login" && doc.data().password===hash && doc.data().verification){
+    //     _this.isTrue=true;
+    //     if(_this.checked) _this.login_service.activateRememberUser(email);
+    //     else _this.login_service.destroyRememberUser();
+    //     _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
+    //   }
+    //   else _this.isTrue=false;
+    //   // redirect_to(doc.data().role);
+    // }).catch(err=>{
+    //   console.log(err);
+    //   _this.isTrue=false;
+    // });
+
+
+    this._db.firestore.collection("register_user").doc(email)
+    .onSnapshot({ includeMetadataChanges: true }, function(doc) {
+      if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
         _this.isTrue=true;
         if(_this.checked) _this.login_service.activateRememberUser(email);
         else _this.login_service.destroyRememberUser();
-        _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
+         _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
       }
-      else _this.isTrue=false;
-      // redirect_to(doc.data().role);
-    }).catch(err=>{
-      console.log(err);
-      _this.isTrue=false;
-    })
+      else  _this.isTrue=false;
+          var source = doc.metadata.fromCache ? "local cache" : "server";
+          console.log("Data came from " + source);
+          console.log(doc.data())
+      })
+ 
 
 
     // this.login_service.checkCredentials(email,password).subscribe((data)=>{
