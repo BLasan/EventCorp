@@ -10,7 +10,8 @@ import {deactivate_searchBar} from '../../../scripts/search_bar_activate';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_load_more} from '../../../scripts/disable_a_href';
 import CryptoJS from 'crypto-js';
-import { disable_modal_open} from '../../../scripts/disable_a_href';
+import {calendar} from '../../../scripts/artist/artist_calendar.js'
+import { disable_modal_open,disable_calendarModal} from '../../../scripts/disable_a_href';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -23,6 +24,7 @@ export class RatingSystemComponent implements OnInit {
   contact_vis:boolean=true;
   address_vis:boolean=true;
   play_list_vis:boolean=true;
+  isLoaded:boolean=false;
   my_events:String="";
   my_events_array:any=[];
   artist_playlist:any=[];
@@ -51,6 +53,7 @@ export class RatingSystemComponent implements OnInit {
   search_user_address:String;
   searched_user_email:string;
   viewer:string;
+  user_role:string;
   organizer_name:string;
   isLoadMore:boolean=false;
   comments_array:Array<{comment:String,date:any,user_name:String}>=[];
@@ -60,7 +63,10 @@ export class RatingSystemComponent implements OnInit {
     this.searched_user_email=localStorage.getItem('searched_user_email');
     this.viewer=localStorage.getItem('user_name');
     this.organizer_name=localStorage.getItem('nameId');
+    this.user_role=localStorage.getItem('role');
     deactivate_searchBar();
+    disable_calendarModal();
+    calendar();
     this.getRequestDetails();
     this.loadUserRatings();
     this.getSearchedUserData();
@@ -210,7 +216,6 @@ export class RatingSystemComponent implements OnInit {
     this.comments_array=[];
     var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('comments');
     docRef.get().then(async function(doc) {
-        
         if (!doc.empty) {
           doc.forEach(docs=>{
             console.log(docs.id)
@@ -246,42 +251,59 @@ export class RatingSystemComponent implements OnInit {
 
    book_now(){
     let _this=this;
-    let user_name=localStorage.getItem('user_name');
-    let timeStamp=new Date();
+    let date=new Date();
+    let timeStamp=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+""+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
     this.isProcessing=true;
     console.log(timeStamp);
-    let cityRef = this.database.firestore.collection('register_user').doc(user_name);
-    cityRef.get().then(doc => {
-        _this.isProcessing=false;
-        _this.sent_bookings=true;
-        if(doc.data()){
-        var docRef = _this.database.firestore.collection('register_user').doc(_this.searched_user_email);
-        docRef.get().then(async function(docs) {
-
-          var contact=doc.data().contact;
-          var user_name=doc.data().user_name;
-          var receiver_email=docs.data().email;
-          var receiver_role=docs.data().role;
-          var sender_data={receiver_email:receiver_email,receiver_id:_this.searched_user_email,receiver_name:docs.data().user_name,receiver_role:receiver_role,time:timeStamp,status:'Pending',view:false};
-          var receiver_data={user_name:user_name,user_email:user_name,time:timeStamp,status:'Pending',user_contact:contact,user_role:doc.data().role,view:false};
-          var sender_details=_this.database.collection('register_user').doc(user_name).collection('bookings').doc(receiver_email).set(sender_data);
-          var receiver_details=_this.database.collection('register_user').doc(receiver_email).collection('bookings').doc(user_name).set(receiver_data);
-          if(sender_details && receiver_details)
-          _this._snackBar.open("Successfully Sent","OK", {
-            duration: 3000,
-          });
-        }).catch(function(error) {
-          console.log("Error getting document:", error);
-        });
-        }
-        else if(!doc.data()) alert("Empty Data");
-
-    }).catch(err => {
-      console.log('Error getting document', err);
+    let sender_name=localStorage.getItem('nameId');
+    let sender_email=localStorage.getItem('user_name');
+    let receiver_email=this.searched_user_email;
+    let booking_request={sender_name:sender_name,sender_email:sender_email,receiver_email:receiver_email,date:timeStamp,view:false,status:"Pending"};
+    this.database.collection('register_user').doc(receiver_email).collection('bookings').doc(localStorage.getItem('user_name')).set(booking_request).then(()=>{
+      _this.isProcessing=false;
+      _this.sent_bookings=true;
+      _this._snackBar.open("Successfully Sent","OK", {
+        duration: 3000,
+      });
+    }).catch(err=>{
+      console.log(err);
       _this._snackBar.open("Request sending error","Book Again", {
         duration: 5000,
       });
     });
+
+    // let cityRef = this.database.firestore.collection('register_user').doc(user_name);
+    // cityRef.get().then(doc => {
+    //     _this.isProcessing=false;
+    //     _this.sent_bookings=true;
+    //     if(doc.data()){
+    //     var docRef = _this.database.firestore.collection('register_user').doc(_this.searched_user_email);
+    //     docRef.get().then(async function(docs) {
+
+    //       var contact=doc.data().contact;
+    //       var user_name=doc.data().user_name;
+    //       var receiver_email=docs.data().email;
+    //       var receiver_role=docs.data().role;
+    //       var sender_data={receiver_email:receiver_email,receiver_id:_this.searched_user_email,receiver_name:docs.data().user_name,receiver_role:receiver_role,time:timeStamp,status:'Pending',view:false};
+    //       var receiver_data={user_name:user_name,user_email:user_name,time:timeStamp,status:'Pending',user_contact:contact,user_role:doc.data().role,view:false};
+    //       var sender_details=_this.database.collection('register_user').doc(user_name).collection('bookings').doc(receiver_email).set(sender_data);
+    //       var receiver_details=_this.database.collection('register_user').doc(receiver_email).collection('bookings').doc(user_name).set(receiver_data);
+    //       if(sender_details && receiver_details)
+    //       _this._snackBar.open("Successfully Sent","OK", {
+    //         duration: 3000,
+    //       });
+    //     }).catch(function(error) {
+    //       console.log("Error getting document:", error);
+    //     });
+    //     }
+    //     else if(!doc.data()) alert("Empty Data");
+
+    // }).catch(err => {
+    //   console.log('Error getting document', err);
+    //   _this._snackBar.open("Request sending error","Book Again", {
+    //     duration: 5000,
+    //   });
+    // });
 
     // this.booking.book_user(this.searched_user_email,timeStamp,user_name).subscribe(data=>{
     //   this.success_booking=data;
@@ -307,7 +329,7 @@ export class RatingSystemComponent implements OnInit {
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');
-    var docRef = this.database.firestore.collection('register_user').doc(user_name).collection('bookings').doc(this.searched_user_email);
+    var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name'));
     docRef.get().then(async function(doc) {
         if(doc.data()){
           console.log(doc.data());    
@@ -317,6 +339,7 @@ export class RatingSystemComponent implements OnInit {
             _this.sent_bookings=false;
           else if(doc.data().status=="Confirmed")
             _this.sent_bookings=false;
+          _this.isLoaded=true;
         }
         else{
          // alert("Empty Data");

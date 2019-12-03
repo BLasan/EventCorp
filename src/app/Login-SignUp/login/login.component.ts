@@ -1,10 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'app/services/login.services';
-import {redirect_to} from 'scripts/redirect_to';
+import {redirect_to} from '../../../scripts/redirect_to';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import CryptoJS from 'crypto-js';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   checked:any;
   form: any;
   isTrue:boolean=true;
-  constructor(private login_service:LoginService,private _db:AngularFirestore) { }
+  constructor(private login_service:LoginService,private _db:AngularFirestore,private auth:AngularFireAuth) { }
 
   ngOnInit() {
    
@@ -59,20 +60,29 @@ export class LoginComponent implements OnInit {
     //   console.log(err);
     //   _this.isTrue=false;
     // });
-
-
+    
     this._db.firestore.collection("register_user").doc(email)
-    .onSnapshot({ includeMetadataChanges: true }, function(doc) {
+    .get().then(function(doc) {
       if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
         _this.isTrue=true;
+
         if(_this.checked) _this.login_service.activateRememberUser(email);
         else _this.login_service.destroyRememberUser();
-         _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
+
+        _this._db.firestore.collection("register_user").doc(email).update({active_status:"login"}).then(()=>{
+          localStorage.setItem('loggedIn','true');
+          localStorage.setItem('nameId',doc.data().user_name);
+          localStorage.setItem('user_name',email);
+          localStorage.setItem('role',doc.data().role);
+          _this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
+            redirect_to(doc.data().role);
+          })
+        }).catch(err=>{
+          console.log(err);
+        })
+        //  _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
       }
       else  _this.isTrue=false;
-          var source = doc.metadata.fromCache ? "local cache" : "server";
-          console.log("Data came from " + source);
-          console.log(doc.data())
       })
  
 

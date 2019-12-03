@@ -26,7 +26,7 @@
   const admin=admin_init.get_admin_firebase();
   const ratings=require('./src/scripts/rating');
 
-  app.use(body.json());
+  // app.use(body.json());
   app.use(ExpressValidator());
   app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
   app.use(express.static('src'));

@@ -77,13 +77,14 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropDown" id="menuList">
                         <a class="dropdown-item" id="chat_link" href="/my-chat-list"><i class="material-icons">chat</i>My Chats</a>
-                        <a class="dropdown-item" id="logout_link" href="/home" (click)="logoutUser()"><i class="material-icons">power_settings_new</i>Log out</a>
+                        <a class="dropdown-item" id="logout_link_href" href="/home" (click)="logout_User()"><i class="material-icons">power_settings_new</i>Log out</a>
                     </div>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<a href="/home" id="logout_route" style="display: none;"></a>
 
 <!--
 

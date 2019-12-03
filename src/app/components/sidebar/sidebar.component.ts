@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs-compat/operator/filter';
 import { getRole } from 'app/services/select_role.service.js';
 import { SearchUserService } from 'app/services/search_user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 declare const $: any;
 
 declare interface RouteInfo {
@@ -76,8 +77,8 @@ export class SidebarComponent implements OnInit {
   getUser:String='';
   isAdmin:boolean=false;
   route_link:any;
-  user_details:any;
-  constructor( private _search_user:SearchUserService) { }
+  user_details:any=[];
+  constructor( private _search_user:SearchUserService,private database:AngularFirestore) { }
 
   ngOnInit() {
    
@@ -108,12 +109,31 @@ export class SidebarComponent implements OnInit {
       this.route_link="/venue-owner-notifications"
   }
 
-  this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-    this.user_details=data;
-    // if(localStorage.getItem('searched_user_email'))
-    //   localStorage.removeItem('searched_user_email');
-    console.log(this.user_details);
+  var _this=this;
+
+  var docRef = this.database.firestore.collection('register_user');
+  docRef.get()
+  .then(snapshot => {
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return;
+  }  
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+    if(doc.data().role!=localStorage.getItem('role'))
+    _this.user_details.push(doc.data());
   });
+  })
+.catch(err => {
+  console.log('Error getting documents', err);
+});
+
+  // this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
+  //   this.user_details=data;
+  //   // if(localStorage.getItem('searched_user_email'))
+  //   //   localStorage.removeItem('searched_user_email');
+  //   console.log(this.user_details);
+  // });
 
    
   }

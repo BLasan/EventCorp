@@ -82,3 +82,15 @@ export function disable_remove_files(){
         e.preventDefault();
     })    
 }
+
+export function disable_logout(){
+    $(document).on('click','#logout_link_href',function(e){
+        e.preventDefault();
+    })    
+}
+
+export function disable_calendarModal(){
+    $(document).on('click','#calendarModalLink',function(e){
+        e.preventDefault();
+    }) 
+}

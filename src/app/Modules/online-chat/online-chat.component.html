@@ -13,25 +13,29 @@
       <div class="form-popup" id="chat" style="display: none">
           <div class="form-container message_send">
             <mat-list role="list" [ngClass]="{'list-group':messageArray.length>5}">
+              <mat-list-item>
+                <p mat-line *ngIf="active_status==='login'"> <b>{{searched_user_name}}</b> <span style="padding-left:20px;color:green">online</span></p>
+                <p mat-line *ngIf="active_status==='logout'"><b>{{searched_user_name}}</b> <span style="padding-left:20px;color:red">offline</span></p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
               <div *ngFor="let message of messageArray">
-                <mat-list-item role="listitem" *ngIf="message.user==user">
-                  <mat-icon mat-list-icon>
-                    <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" > 
-                  </mat-icon>
-                  <p mat-line style="margin-left:15px;margin-top:-5px" >{{message.user}}</p>
-                  <p mat-line style="margin-left:15px" style="text-align: justify;">{{message.message}}</p>
-                       <!-- <span small>{{message.date}}</span> -->
-                </mat-list-item>
-               
-                <mat-list-item role="listitem" *ngIf="message.user!=user">
-                  <p mat-line>{{message.user}}</p>
-                  <p mat-line style="text-align: justify;">{{message.message}}</p>
-                  <!-- <span small>{{message.date}}</span> -->
-                  <mat-icon mat-list-icon >
-                    <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-10px;margin-right:-200px" class="avatar1" > 
-                  </mat-icon>
-                </mat-list-item>
-                <mat-divider></mat-divider>
+                <!-- <div *ngFor="let messages of message.message"> -->
+                  <mat-list-item role="listitem" *ngIf="message.user==user">
+                    <mat-icon mat-list-icon>
+                      <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px;margin-left:-20px" class="avatar" > 
+                    </mat-icon>
+                    <p mat-line style="margin-left:15px;margin-top:-5px" >{{message.user}}</p>
+                    <p mat-line style="margin-left:15px" >{{message.message}}</p>
+                  </mat-list-item>
+                  <mat-list-item role="listitem" *ngIf="message.user!=user">
+                    <p mat-line>{{message.user}}</p>
+                    <p mat-line style="text-align: justify;">{{message.message}}</p>
+                    <mat-icon mat-list-icon >
+                      <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-10px;margin-right:-200px" class="avatar1" > 
+                    </mat-icon>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                <!-- </div>        -->
               </div>
             </mat-list> 
             <form>
@@ -47,3 +51,4 @@
       </div>
   <!-- </div>
 </div> -->
+

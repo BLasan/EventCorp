@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchFilterPipe } from './navbar/search-filter.pipe';
 import { MatListModule, MatDividerModule } from '@angular/material';
+import { AngularFireModule } from '@angular/fire';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatListModule, MatDividerModule } from '@angular/material';
     FormsModule,
     ReactiveFormsModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    AngularFireModule
   ],
   declarations: [
     FooterComponent,

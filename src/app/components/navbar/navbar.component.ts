@@ -10,7 +10,10 @@ import {click_redirect_href} from '../../../scripts/search_bar_activate';
 import {disable_drop_down,previous_mode} from '../../../scripts/disable_a_href';
 import { AdminService } from 'app/services/admin.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import { disable_logout} from '../../../scripts/disable_a_href';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { navigate_to_home} from '../../../scripts/logout';
+import { LoadedRouterConfig } from '@angular/router/src/config';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -28,12 +31,12 @@ export class NavbarComponent implements OnInit {
     route_link:string;
     location: Location;
     data:any=[];
-    notification_count:any;
+    notification_count:number=0;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     onLoaded:boolean=true;
     private sidebarVisible: boolean;
-    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private database:AngularFirestore) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private _db:AngularFirestore,private auth:AngularFireAuth) {
       this.location = location;
           this.sidebarVisible = false;
     }
@@ -41,15 +44,15 @@ export class NavbarComponent implements OnInit {
     ngOnInit(){
     
     //get notification count
-    if(localStorage.getItem('role')!='admin')
-    this.getNotificationCount();
-    else
-    this.getAdminNotificationCount();
+    // if(localStorage.getItem('role')!='admin')
+    // this.getNotificationCount();
+    // else
+    // this.getAdminNotificationCount();
 
     //previous_mode();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
-        this.route_link="/artist-notifications  ";
+        this.route_link="/artist-notifications";
         this.home_link="/artist-home";
     }
   
@@ -83,7 +86,7 @@ export class NavbarComponent implements OnInit {
 
 
     //get user details
-    var docRef = this.database.firestore.collection('register_user');
+    var docRef = this._db.firestore.collection('register_user');
     docRef.get()
     .then(snapshot => {
     if (snapshot.empty) {
@@ -204,13 +207,28 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
+
+      if(titlee.indexOf('ratings')>-1) return "View User Details";
     }
 
-
-    logoutUser(){
-        this._loginService.logOut();
-        if(localStorage.getItem('searched_user_email'))
-         localStorage.removeItem('searched_user_email');
+    logout_User(){
+        localStorage.setItem('loggedOut','true');
+        // var _this=this;
+        // var user=localStorage.getItem('user_name');
+        // console.log(user);
+        // alert(user)
+        // // disable_logout();
+        // this._db.collection('register_user').doc(user).update({active_status:'logout'});
+        // localStorage.removeItem('user_name');
+        // localStorage.removeItem('role');
+        // localStorage.removeItem('token');
+        // localStorage.removeItem('nameId');
+        // localStorage.removeItem('loggedIn');
+        //this.auth.auth.signOut();
+        // navigate_to_home();
+        // this._loginService.logOut();
+        // if(localStorage.getItem('searched_user_email'))
+        //  localStorage.removeItem('searched_user_email');
     }
 
     //store searched user email
@@ -227,12 +245,46 @@ export class NavbarComponent implements OnInit {
 
 
     getNotificationCount(){
+        var _this=this;
         let user=localStorage.getItem('user_name');
-        this._notification_service.getNotificationCount(user).subscribe(size=>{
-            console.log(size);
-            this.notification_count=size                                                                                                                                        
-            this.count=this.notification_count.size;
-        });
+        var docRef = this._db.firestore.collection('register_user').doc(user).collection('notification-messages').where("view","==",false);
+        docRef.get()
+        .then(snapshot1 => {
+            var docRefs = _this._db.firestore.collection('register_user').doc(user).collection('bookings').where("view","==",false);
+            docRefs.get()
+            .then(snapshot2 => {
+                  if(snapshot1.empty && snapshot2.empty) _this.notification_count=0;
+                  else if(snapshot2.empty){
+                      snapshot1.forEach(docs=>{
+                          _this.notification_count+=1;
+                      })
+                  }
+                  else if(snapshot1.empty){
+                      snapshot2.forEach(docs=>{
+                          _this.notification_count+=1;
+                      })
+                  }
+                  else if(!snapshot2.empty && !snapshot1.empty){
+                      snapshot1.forEach(docs=>{
+                          _this.notification_count+=1;
+                      })
+                      snapshot2.forEach(docs=>{
+                          _this.notification_count+=1;
+                      })
+                  }
+            })
+          .catch(err => {
+            console.log('Error getting documents', err);
+          });
+        })
+      .catch(err => {
+        console.log('Error getting documents', err);
+      });
+        // this._notification_service.getNotificationCount(user).subscribe(size=>{
+        //     console.log(size);
+        //     this.notification_count=size                                                                                                                                        
+        //     this.count=this.notification_count.size;
+        // });
     }
 
     getAdminNotificationCount(){
