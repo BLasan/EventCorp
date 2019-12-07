@@ -91,6 +91,19 @@
                   <p>{{search_user_address}}</p>
                 </div>
               </div>
+              <div *ngIf="isBookingReq">
+                <hr>
+                <div class="row" style="padding-left:100px;">
+                  <div class="col-md-4">
+                    <button mat-raised-button style="background-color:green" (click)="acceptRequest()"><B>ACCEPT</B></button>
+                  </div>
+                  <div class="col-md-4">
+                    <button mat-raised-button style="background-color:red" (click)="declineRequest()"><B>DECLINE</B></button>
+                  </div>
+                  <h4 *ngIf="acceptBooking==='true'"><b style="color:green"><i class="material-icons">done</i>BOOKING ACCEPTED</b></h4>
+                  <h4 *ngIf="acceptBooking==='false'"><b style="color:red"><i class="material-icons">cancel</i>BOOKING REJECTED</b></h4>
+                </div>
+              </div>
               <hr>
                   <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
               <div *ngIf="user_role==='organizer' && isLoaded">

@@ -42,7 +42,7 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
-    
+    this.getNotificationCount();
     //get notification count
     // if(localStorage.getItem('role')!='admin')
     // this.getNotificationCount();
@@ -247,39 +247,90 @@ export class NavbarComponent implements OnInit {
     getNotificationCount(){
         var _this=this;
         let user=localStorage.getItem('user_name');
-        var docRef = this._db.firestore.collection('register_user').doc(user).collection('notification-messages').where("view","==",false);
-        docRef.get()
-        .then(snapshot1 => {
-            var docRefs = _this._db.firestore.collection('register_user').doc(user).collection('bookings').where("view","==",false);
-            docRefs.get()
-            .then(snapshot2 => {
-                  if(snapshot1.empty && snapshot2.empty) _this.notification_count=0;
-                  else if(snapshot2.empty){
-                      snapshot1.forEach(docs=>{
-                          _this.notification_count+=1;
-                      })
-                  }
-                  else if(snapshot1.empty){
-                      snapshot2.forEach(docs=>{
-                          _this.notification_count+=1;
-                      })
-                  }
-                  else if(!snapshot2.empty && !snapshot1.empty){
-                      snapshot1.forEach(docs=>{
-                          _this.notification_count+=1;
-                      })
-                      snapshot2.forEach(docs=>{
-                          _this.notification_count+=1;
-                      })
-                  }
-            })
-          .catch(err => {
-            console.log('Error getting documents', err);
-          });
-        })
-      .catch(err => {
-        console.log('Error getting documents', err);
-      });
+        console.log(user)
+        this._db.firestore.collection("register_user").doc(user).collection('notification-messages')
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                console.log(element.type)
+                if(element.type=='added'){
+                    _this.notification_count+=1;
+                 }
+     
+                else if(element.type=='modified'){
+                    if(element.doc.data().view)
+                    _this.notification_count-=1;
+                    else
+                    _this.notification_count+=1;
+
+                    console.log(_this.notification_count)
+                }
+     
+                else if(element.type=='removed'){
+                    
+                }
+            });
+        });
+
+        this._db.firestore.collection("register_user").doc(user).collection('bookings')
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                if(element.type=='added'){
+                    _this.notification_count+=1;
+                    (<HTMLInputElement>document.getElementById('notification_count_id')).innerHTML=_this.notification_count.toString();
+                 }
+     
+                else if(element.type=='modified'){
+                    if(element.doc.data().view)
+                    _this.notification_count-=1;
+                    else
+                    _this.notification_count+=1;
+                }
+     
+                else if(element.type=='removed'){
+                   
+                }
+            });
+        });
+
+
+    //     var docRef = this._db.firestore.collection('register_user').doc(user).collection('notification-messages').where("view","==",false);
+    //     docRef.get()
+    //     .then(snapshot1 => {
+    //         var docRefs = _this._db.firestore.collection('register_user').doc(user).collection('bookings').where("view","==",false);
+    //         docRefs.get()
+    //         .then(snapshot2 => {
+    //               if(snapshot1.empty && snapshot2.empty) _this.notification_count=0;
+    //               else if(snapshot2.empty){
+    //                   snapshot1.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                       console.log(_this.notification_count)
+    //                   })
+    //               }
+    //               else if(snapshot1.empty){
+    //                   snapshot2.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                   })
+    //               }
+    //               else if(!snapshot2.empty && !snapshot1.empty){
+    //                   snapshot1.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                   })
+    //                   snapshot2.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                   })
+    //               }
+    //         })
+    //       .catch(err => {
+    //         console.log('Error getting documents', err);
+    //       });
+    //     })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
         // this._notification_service.getNotificationCount(user).subscribe(size=>{
         //     console.log(size);
         //     this.notification_count=size                                                                                                                                        
@@ -290,7 +341,7 @@ export class NavbarComponent implements OnInit {
     getAdminNotificationCount(){
         this._admin_notification_count.get_realtime().subscribe(data=>{
             this.data=data;
-            this.count=this.data.length
+            this.count=this.data.length;
         })
     }                                                                                                                                       
 

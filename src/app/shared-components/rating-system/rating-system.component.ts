@@ -52,9 +52,12 @@ export class RatingSystemComponent implements OnInit {
   search_user_contact:String;
   search_user_address:String;
   searched_user_email:string;
+  isBookingReq:boolean=false;
+  requestStatus:string;
   viewer:string;
   user_role:string;
   organizer_name:string;
+  acceptBooking:string=null;
   isLoadMore:boolean=false;
   comments_array:Array<{comment:String,date:any,user_name:String}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
@@ -64,6 +67,15 @@ export class RatingSystemComponent implements OnInit {
     this.viewer=localStorage.getItem('user_name');
     this.organizer_name=localStorage.getItem('nameId');
     this.user_role=localStorage.getItem('role');
+
+    if(localStorage.getItem('status'))
+    this.requestStatus=localStorage.getItem('status');
+    else
+    this.requestStatus=null;
+
+    if(!localStorage.getItem('isBookingReq')) this.isBookingReq=false;
+    else this.isBookingReq=true;
+
     deactivate_searchBar();
     disable_calendarModal();
     calendar();
@@ -73,6 +85,9 @@ export class RatingSystemComponent implements OnInit {
     this.loadComments();
     this.load_view_settings();
     this.load_user_events();
+    localStorage.removeItem('status');
+    localStorage.removeItem('searched_user_email');
+    localStorage.removeItem('isBookingReq');
     //localStorage.removeItem('searched_user_email');
   }
 
@@ -463,6 +478,40 @@ export class RatingSystemComponent implements OnInit {
       }
     }
 
+  }
+
+  acceptRequest(){
+    this.acceptBooking="true";
+    let user_email=localStorage.getItem('user_name');
+    let user_name=localStorage.getItem('nameId');
+    let today=new Date();
+    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    let status="Confirmed";
+    let object={date:date,user_email:user_email,status:status,user_name:user_name,view:false};
+    this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(this.searched_user_email).update({status:'Confirmed'});
+    this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name')).set(object).then(()=>{
+      // localStorage.removeItem('searched_user_email');
+      // localStorage.removeItem('isBookingReq');
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  declineRequest(){
+    this.acceptBooking="false";
+    let user_email=localStorage.getItem('user_name');
+    let today=new Date();
+    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    let status="Rejected";
+    let user_name=localStorage.getItem('nameId');
+    let object={date:date,user_email:user_email,status:status,user_name:user_name,view:false};
+    this.database.collection('register_user').doc(this.searched_user_email).update({status:'Rejected'});
+    this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name')).set(object).then(()=>{
+      // localStorage.removeItem('searched_user_email');
+      // localStorage.removeItem('isBookingReq');
+    }).catch(err=>{
+      console.log(err)
+    })
   }
 
 }

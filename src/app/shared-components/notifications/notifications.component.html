@@ -8,7 +8,7 @@
                 <h3 class="card-title" *ngIf="isBookingView">Booking Requests</h3>
             </div>
             <div class="card-body" *ngIf="(isBookingView && booking_data.length>0) || (!isBookingView && message_data.length>0)">
-                <div class="row" *ngIf="isBookingView && user_role=='organizer'">
+                <!-- <div class="row" *ngIf="isBookingView && user_role=='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-success alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Confirmed' && booking_data.view==false">
                             <i class="material-icons" data-notify="icon">done_outline</i>
@@ -32,7 +32,7 @@
                             <span><b> Pending  - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} is not accepted yet.</span> 
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row" *ngIf="isBookingView && user_role!='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
@@ -40,7 +40,46 @@
                             <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email)">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>You have received new booking request from {{booking_data.user_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="mark_view_booking_notification(booking_data.user_email)"> view request details</a></b></span>
+                            <span><b>You have received new booking request from {{booking_data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="mark_view_booking_notification(booking_data.sender_email)"> view request details</a></b></span>
+                        </div> 
+                    </div>
+                </div>
+                <div class="row" *ngIf="isBookingView && user_role==='organizer'">
+                    <div class="col-md-12" *ngFor="let booking_data of booking_data">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
+                            <i class="material-icons" data-notify="icon">add_alert</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email)">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span>
+                                <b>Your request to {{booking_data.user_name}} has been {{booking_data.status}}.To do payments click the following button
+                                    <!-- <a href="https://sandbox.payhere.lk/pay/ob5d67668">PayPal</a> -->
+                                </b>
+                                <form #form action="/payment" target="_blank" method="GET">
+                                    <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png" style="width:150px" value="Buy Now" (click)="form.submit()">
+                                </form>
+                                <!-- <form #form1 method="POST" action="https://sandbox.payhere.lk/pay/checkout">   
+                                    <input type="hidden" name="merchant_id" value="1213034"> 
+                                    <input type="hidden" name="return_url" value="http://localhost:4200/organizer-home">
+                                    <input type="hidden" name="cancel_url" value="http://localhost:4200/organizer-home">
+                                    <input type="hidden" name="notify_url" value="http://localhost:4200/organizer-home">  
+                                    <br><br>Item Details<br>
+                                    <input type="text" name="order_id" value="ob5d67668">
+                                    <input type="text" name="items" value="Door bell wireless"><br>
+                                    <input type="text" name="currency" value="LKR">
+                                    <input type="text" name="amount" value="2000">  
+                                    <input type="number" id="quantityInput" value="3">
+                                    <br><br>Customer Details<br>
+                                    <input type="text" name="first_name" value="Saman">
+                                    <input type="text" name="last_name" value="Perera"><br>
+                                    <input type="text" name="email" value="samanp@gmail.com">
+                                    <input type="text" name="phone" value="0771234567"><br>
+                                    <input type="text" name="address" value="No.1, Galle Road">
+                                    <input type="text" name="city" value="Colombo">
+                                    <input type="hidden" name="country" value="Sri Lanka"><br><br> 
+                                    <input type="submit" value="Buy Now" (click)="form1.submit()">   
+                                </form> -->
+                            </span>
                         </div> 
                     </div>
                 </div>
@@ -78,11 +117,11 @@
                         <p><b>From : {{req_from}}</b></p>
                         <p><b>Organizer Name : {{req_name}}</b></p>
                         <p><b>Time : {{req_time}}</b></p>
-                        <p><b>Contact : {{req_contact}}</b></p>
-                        <p align="center"><a href="ratings/{{req_name}}" (click)="addUserEmail(req_from)">View Organizer Details</a></p>
+                        <!-- <p><b>Contact : {{req_contact}}</b></p> -->
+                        <p align="center"><a href="ratings/{{req_name}}" (click)="addUserEmail(req_from,req_status)">View Organizer Details</a></p>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeNotification(req_from)">Close</button>
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@
             </div> -->
         <div class="row">
             <div class="col-md-4">
-                <div class="card" *ngIf="top_artists.length!=0">
+                <div class="card">
                     <div class="card-header card-header-danger">
                       <h4 class="card-title">Top Artists</h4>
                       <p class="card-category">
@@ -44,7 +44,7 @@
                         </ngb-rating>
                       </p>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="top_artists.length!=0">
                       <mat-list [ngClass]="{'list-group':top_artists.length>3}" >
                         <a *ngFor="let artists of top_artists" href="ratings/{{artists.name}}" (click)="addUserEmail(artists.email)">
                         <mat-list-item>
@@ -64,9 +64,12 @@
                         <mat-divider></mat-divider>
                       </mat-list>    
                     </div>
+                    <div class="card-body" *ngIf="top_artists.length==0">
+                      <h3 style="color:blue" class="blink"><b>EMPTY ARTISTS</b></h3>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4" *ngIf="top_venue_owners.length!=0">
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-danger">
                       <h4 class="card-title">Top Venue Owners</h4>
@@ -78,7 +81,7 @@
                         </ngb-rating>
                       </p>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="top_venue_owners.length!=0">
                       <mat-list [ngClass]="{'list-group':top_venue_owners.length>3}">
                         <a *ngFor="let venue_owner of top_venue_owners" (click)="addUserEmail(venue_owner.email)" href="ratings/{{venue_owner.name}}">
                           <mat-list-item >
@@ -98,10 +101,13 @@
                         </a>
                       </mat-list>    
                     </div>
+                    <div class="card-body" *ngIf="top_venue_owners.length==0">
+                      <h3 style="color:blue" class="blink"><b>EMPTY VENUE OWNERS</b></h3>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card" *ngIf="top_suppliers.length!=0">
+                <div class="card">
                     <div class="card-header card-header-danger">
                       <h4 class="card-title">Top Suppliers</h4>
                       <p class="card-category">
@@ -112,7 +118,7 @@
                         </ngb-rating>
                       </p>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" *ngIf="top_suppliers.length!=0">
                       <mat-list [ngClass]="{'list-group':top_suppliers.length>3}">
                         <a  *ngFor="let supplier of top_suppliers" (click)="addUserEmail(supplier.email)" href="ratings/{{supplier.name}}">
                           <mat-list-item>
@@ -131,6 +137,9 @@
                         </a>
                         <mat-divider></mat-divider>
                       </mat-list>    
+                    </div>
+                    <div class="card-body" *ngIf="top_suppliers.length==0">
+                      <h3 style="color:blue" class="blink"><b>EMPTY SUPPLIERS</b></h3>
                     </div>
                 </div>
             </div>
