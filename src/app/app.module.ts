@@ -60,7 +60,7 @@ import { FeedbackComponent } from './Modules/Customer-Module/feedback/feedback.c
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component'
 import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
 import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
-
+import {enableProdMode} from '@angular/core';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -76,12 +76,13 @@ import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-cale
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
 import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
+import { HelpComponent } from './shared-components/help/help.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
 // import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
 // import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
-
+//enableProdMode()
 @NgModule({
   imports: [
     BrowserAnimationsModule,

@@ -29,6 +29,7 @@ import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-cale
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
+import { HelpComponent } from './shared-components/help/help.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -121,6 +122,7 @@ const routes: Routes =[
     path:'payment',
     component:PaypalPaymentComponent
   },
+
 
   // {
   //   path: '',

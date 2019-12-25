@@ -37,10 +37,10 @@
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email)">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.sender_email,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>You have received new booking request from {{booking_data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="mark_view_booking_notification(booking_data.sender_email)"> view request details</a></b></span>
+                            <span><b>You have received new booking request from {{booking_data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="mark_view_booking_notification(booking_data.sender_email,'req')"> view request details</a></b></span>
                         </div> 
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email)">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
                             <span>
@@ -87,10 +87,10 @@
                     <div class="col-md-12" *ngFor="let message_data of message_data">
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="message_data">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(message_data.sender_email)">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(message_data.sender_email,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>You have received new message from {{message_data.sender_name}} on {{message_data.date}}.Click <a href="/my-chat-list" (click)="mark_view_booking_notification(message_data.sender_email)">{{message_data.roomId}}</a> to join the chat.</b></span>
+                            <span><b>You have received new message from {{message_data.sender_name}} on {{message_data.date}}.Click <a href="/my-chat-list" (click)="mark_view_booking_notification(message_data.sender_email,'req')">{{message_data.roomId}}</a> to join the chat.</b></span>
                         </div> 
                     </div>
                 </div>

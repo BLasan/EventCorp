@@ -224,7 +224,7 @@ export class NavbarComponent implements OnInit {
         // localStorage.removeItem('token');
         // localStorage.removeItem('nameId');
         // localStorage.removeItem('loggedIn');
-        //this.auth.auth.signOut();
+        this.auth.auth.signOut();
         // navigate_to_home();
         // this._loginService.logOut();
         // if(localStorage.getItem('searched_user_email'))
@@ -254,7 +254,7 @@ export class NavbarComponent implements OnInit {
             console.log(changes);
             changes.forEach(element => {
                 console.log(element.type)
-                if(element.type=='added'){
+                if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
                  }
      
@@ -278,7 +278,7 @@ export class NavbarComponent implements OnInit {
             let changes=snapshot.docChanges();
             console.log(changes);
             changes.forEach(element => {
-                if(element.type=='added'){
+                if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
                     (<HTMLInputElement>document.getElementById('notification_count_id')).innerHTML=_this.notification_count.toString();
                  }

@@ -84,11 +84,12 @@ export class NotificationsComponent implements OnInit {
     // isDone=true;
   }  
   snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
-    if(doc.data().view==false)
+    if(doc.data().view==false){
+      console.log(doc.id, '=>', doc.data());
     // _this.notification_details.push(doc.data());
     _this.booking_data.push(doc.data());
     _this.notification_count+=1;
+    }
   });
   })
   .catch(err => {
@@ -142,9 +143,10 @@ export class NotificationsComponent implements OnInit {
     
    }
 
-mark_view_booking_notification(sender_email:string){
+mark_view_booking_notification(sender_email:string,type:string){
  // alert(sender_email)
   if(this.isBookingView){
+    console.log(sender_email)
     console.log(this.booking_data);
     this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
     this.req_from=this.filtered_details[0].sender_email;
@@ -168,7 +170,7 @@ mark_view_booking_notification(sender_email:string){
   if(this.isBookingView) this.notification_type="booking";
   else this.notification_type="notifications";
   update_count(this.notification_count);
-  if(this.notification_type==="booking")
+  if(this.notification_type==="booking" && type==='cancel')
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true});
   else
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('notification-messages').doc(sender_email).update({view:true});

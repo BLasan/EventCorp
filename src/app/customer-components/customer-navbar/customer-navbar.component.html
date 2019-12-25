@@ -147,8 +147,9 @@
             </ul>
            <div class="justify-content-end" style="right: 10px; position: absolute;" >
             
-              <a mat-raised-button color="primary" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
-              <a mat-raised-button color="warn" id="signup" href="/signup" style="margin: 6px;"><b>Register</b></a>
+              <a mat-raised-button color="primary" *ngIf="!isLoggedIn" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
+              <a mat-raised-button color="warn" *ngIf="!isLoggedIn" id="signup" href="/signup" style="margin: 6px;"><b>Register</b></a>
+              <a mat-raised-button color="warn" *ngIf="isLoggedIn" (click)="signout()" id="signout" href="/home" style="margin: 6px;"><b>Logout</b></a>
               
            </div> 
            

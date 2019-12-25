@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import {prevent_handeling} from '../../../scripts/navbar_settings';
 import {navigate_to_login,navigate_to_signup} from '../../../scripts/redirect_to';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'customer-navbar',
@@ -14,6 +15,8 @@ export class CustomerNavbarComponent implements OnInit {
   private listTitles: any[];
   getUser:String='';
   isAdmin:boolean=false;
+  isLoggedIn:boolean=false;
+  user_name:string;
   user_details:any;
   emp:any=[{age:'abdcc'}]
   count:any=0;
@@ -25,7 +28,7 @@ export class CustomerNavbarComponent implements OnInit {
   private toggleButton: any;
   private sidebarVisible: boolean;
 
-  constructor(private router:Router,location: Location,private element: ElementRef) { 
+  constructor(private router:Router,location: Location,private element: ElementRef,private auth:AngularFireAuth) { 
     this.location = location;
     this.sidebarVisible = false;
   }
@@ -41,6 +44,16 @@ export class CustomerNavbarComponent implements OnInit {
            this.mobile_menu_visible = 0;
          }
      });
+
+     if(localStorage.getItem('loggedIn')==='true') this.isLoggedIn=true;
+  }
+
+  signout(){
+      alert("Signout");
+      console.log(this.auth.auth.currentUser);
+      this.auth.auth.signOut();
+      localStorage.setItem('loggedOut','true');
+      this.isLoggedIn=false;
   }
 
   // login(){

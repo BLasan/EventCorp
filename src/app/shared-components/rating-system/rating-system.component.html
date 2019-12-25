@@ -95,20 +95,20 @@
                 <hr>
                 <div class="row" style="padding-left:100px;">
                   <div class="col-md-4">
-                    <button mat-raised-button style="background-color:green" (click)="acceptRequest()"><B>ACCEPT</B></button>
+                    <button *ngIf="!isResponded" mat-raised-button style="background-color:green" (click)="acceptRequest()"><B>ACCEPT</B></button>
                   </div>
                   <div class="col-md-4">
-                    <button mat-raised-button style="background-color:red" (click)="declineRequest()"><B>DECLINE</B></button>
-                  </div>
+                    <button *ngIf="!isResponded" mat-raised-button style="background-color:red" (click)="declineRequest()"><B>DECLINE</B></button>
+                  </div> 
                   <h4 *ngIf="acceptBooking==='true'"><b style="color:green"><i class="material-icons">done</i>BOOKING ACCEPTED</b></h4>
                   <h4 *ngIf="acceptBooking==='false'"><b style="color:red"><i class="material-icons">cancel</i>BOOKING REJECTED</b></h4>
                 </div>
               </div>
               <hr>
                   <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
-              <div *ngIf="user_role==='organizer' && isLoaded">
+              <div *ngIf="user_role==='organizer'">
                 <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
-                <button *ngIf="sent_bookings==false" mat-raised-button style="background-color:gold" (click)="book_now()">BOOK NOW</button>
+                <button *ngIf="sent_bookings===false" mat-raised-button style="background-color:gold" (click)="book_now()">BOOK NOW</button>
                 <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
               </div>
             </mat-card-content>

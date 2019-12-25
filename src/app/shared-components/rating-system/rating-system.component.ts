@@ -58,12 +58,14 @@ export class RatingSystemComponent implements OnInit {
   user_role:string;
   organizer_name:string;
   acceptBooking:string=null;
+  isResponded:boolean=false;
   isLoadMore:boolean=false;
   comments_array:Array<{comment:String,date:any,user_name:String}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
     this.searched_user_email=localStorage.getItem('searched_user_email');
+    console.log(this.searched_user_email)
     this.viewer=localStorage.getItem('user_name');
     this.organizer_name=localStorage.getItem('nameId');
     this.user_role=localStorage.getItem('role');
@@ -79,6 +81,7 @@ export class RatingSystemComponent implements OnInit {
     deactivate_searchBar();
     disable_calendarModal();
     calendar();
+    //this.getBookingRequestSent();
     this.getRequestDetails();
     this.loadUserRatings();
     this.getSearchedUserData();
@@ -233,8 +236,10 @@ export class RatingSystemComponent implements OnInit {
     docRef.get().then(async function(doc) {
         if (!doc.empty) {
           doc.forEach(docs=>{
-            console.log(docs.id)
-            _this.comments_array.push(docs.data().comments)
+            console.log(docs.id);
+            var length=docs.data().comments.length;
+            for(var i=0;i<length;i++)
+            _this.comments_array.push(docs.data().comments[i]);
           })
           // _this.comments_array=doc.data().comments;
           // console.log(_this.comments_array.length);
@@ -344,9 +349,14 @@ export class RatingSystemComponent implements OnInit {
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');
+    console.log(this.searched_user_email);
     var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name'));
     docRef.get().then(async function(doc) {
-        if(doc.data()){
+      console.log("Hello")
+        if(!doc.exists) _this.sent_bookings=false;
+        else if(doc.data()){
+          _this.acceptBooking="true";
+          _this.isResponded=true
           console.log(doc.data());    
           if(doc.data().status=="Pending")
             _this.sent_bookings=true;
@@ -482,6 +492,7 @@ export class RatingSystemComponent implements OnInit {
 
   acceptRequest(){
     this.acceptBooking="true";
+    this.isResponded=true;
     let user_email=localStorage.getItem('user_name');
     let user_name=localStorage.getItem('nameId');
     let today=new Date();
@@ -497,8 +508,18 @@ export class RatingSystemComponent implements OnInit {
     })
   }
 
+  // getBookingRequestSent(){
+  //   var _this=this;
+  //   this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(this.searched_user_email).get().then((doc)=>{
+  //     if(!doc.exists) _this.sent_bookings=false;
+  //     else if(doc.data().view===false) _this.sent_bookings=true;
+  //     else _this.sent_bookings=false;
+  //   })
+  // }
+
   declineRequest(){
     this.acceptBooking="false";
+    this.isResponded=true;
     let user_email=localStorage.getItem('user_name');
     let today=new Date();
     let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
@@ -513,5 +534,7 @@ export class RatingSystemComponent implements OnInit {
       console.log(err)
     })
   }
+
+
 
 }
