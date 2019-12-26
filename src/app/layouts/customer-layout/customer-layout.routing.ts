@@ -10,7 +10,7 @@ import { HelpComponent } from 'app/shared-components/help/help.component';
 export const CustomerLayoutRoutes: Routes = [
     
     { path: 'home', component:CustomerHomeComponent },
-    { path: 'contact' , component:ContactUsComponent},
+    { path: 'contact-us' , component:ContactUsComponent},
     { path: 'about-us' , component:AboutUsComponent},
     { path: 'faq' , component:FaqComponent},
     { path: 'feedback' , component:FeedbackComponent},

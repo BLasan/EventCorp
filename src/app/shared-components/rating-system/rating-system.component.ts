@@ -60,6 +60,7 @@ export class RatingSystemComponent implements OnInit {
   acceptBooking:string=null;
   isResponded:boolean=false;
   isLoadMore:boolean=false;
+  image_url:string="assets/img/faces/pro_img.png";
   comments_array:Array<{comment:String,date:any,user_name:String}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
 
@@ -402,6 +403,7 @@ export class RatingSystemComponent implements OnInit {
           // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
+          _this.image_url=doc.data().img_url;
           _this.search_user_about=doc.data().bio;
           if(!_this.search_user_about) _this.search_user_about="Not Updated";
           _this.search_user_contact=doc.data().contact;
