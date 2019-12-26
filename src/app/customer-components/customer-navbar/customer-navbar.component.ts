@@ -49,7 +49,7 @@ export class CustomerNavbarComponent implements OnInit {
   }
 
   signout(){
-      alert("Signout");
+     // alert("Signout");
       console.log(this.auth.auth.currentUser);
       this.auth.auth.signOut();
       localStorage.setItem('loggedOut','true');

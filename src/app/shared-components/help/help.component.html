@@ -1,6 +1,20 @@
 <div class="main-content">
   <div class="container-fluid">
-    
+    <div class="row" style="margin-left:0;margin-right:0">
+      <div class=" card card-header card-header-danger" style="margin-top:150px">
+        <h4 class="card-title" align="center"><b>FREQUENTLY ASKED QUESTIONS</b></h4>
+      </div>
+    </div>
+    <div class="row" style="margin-left: 0;margin-right:0">
+      <div class="card" *ngFor="let faq of faq">
+        <div class="card-header card-header-danger" style="margin:0">
+          <h4 class="card-title"><b>{{faq.question}}</b></h4>
+        </div>
+        <div class="card-body" style="display: none;">
+          {{faq.answer}}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
