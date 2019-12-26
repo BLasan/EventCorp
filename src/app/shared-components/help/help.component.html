@@ -10,10 +10,10 @@
     <div class="row" style="margin-left:50px;margin-right:50px;margin-top:40px">
       <div class="card" *ngFor="let faq of faq;let index=index" style="margin-top:-10px">
         <div class="card-header" style="margin:0;height:50px;background-color: blue;" *ngIf="index%2==0">
-          <h4 class="card-title" align="center"><b>{{faq.question}}</b><a href="#" (click)="loadAnswer(faq.id)" id="faq"><i class="material-icons">arrow_drop_down</i></a></h4>
+          <h4 class="card-title" style="margin-top:-5px"><b>{{faq.question}}</b><a href="#" (click)="loadAnswer(faq.id)" id="faq"><i class="material-icons">arrow_drop_down</i></a></h4>
         </div>
         <div class="card-header" style="margin:0;height:50px;background-color:green;" *ngIf="index%2!=0">
-          <h4 class="card-title" align="center"><b>{{faq.question}}</b><a href="#" (click)="loadAnswer(faq.id)" id="faq"><i class="material-icons">arrow_drop_down</i></a></h4>
+          <h4 class="card-title" style="margin-top:-5px;"><b>{{faq.question}}</b><a href="#" (click)="loadAnswer(faq.id)" id="faq"><i class="material-icons">arrow_drop_down</i></a></h4>
         </div>
         <div class="card-body" *ngIf="showAnswerId===faq.id">
           <p>
