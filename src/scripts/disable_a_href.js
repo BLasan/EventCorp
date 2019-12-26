@@ -94,3 +94,9 @@ export function disable_calendarModal(){
         e.preventDefault();
     }) 
 }
+
+export function disable_faq_icon(){
+    $(document).on('click','#faq',function(e){
+        e.preventDefault();
+    }) 
+}
