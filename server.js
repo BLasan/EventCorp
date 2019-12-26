@@ -26,7 +26,7 @@
   const admin=admin_init.get_admin_firebase();
   const ratings=require('./src/scripts/rating');
 
-  app.use(body.json());
+  // app.use(body.json());
   app.use(ExpressValidator());
   app.use(session({secret: 'krunal', saveUninitialized: false, resave: false}));
   app.use(express.static('src'));
@@ -330,21 +330,21 @@
           //var randomToken = require('random-token').create('abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
           //var token = randomToken(40);
           var user_name=req.body.user_name;
-          var user_email=req.body.user_email;
-          var role=req.body.role_sel;
+          var user_email=req.body.email;
+          var role=req.body.role;
           var address1=req.body.address1;
           var address2=req.body.address2;
           var city=req.body.city;
-          var state=req.body.state_sel;
-          var country_code=req.body.countryCode_sel;
+          var state=req.body.state;
+          var country_code=req.body.country_code;
           var contact=req.body.contact;
-          var user_password=req.body.user_password;
+          var user_password=req.body.password;
           var send_sign_up={email:user_email,user_name:user_name}
           console.log(user_password);
           const user_signup=require('./src/scripts/signup');
           bcrypt.hash(user_password, saltRounds, function(err, hash) {
             if(err) throw err;
-            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false}]
+            var data=[{user_name:user_name,email:user_email,role:role,address1:address1,address2:address2,city:city,state:state,country_code:country_code,contact:contact,password:hash,active_status:'logout',profile_status:'Active',verification:false,view_signup_notification:false}]
             const result=user_signup.signup(data[0],database,res,admin,user_password,firebase);
           });
         });
@@ -558,32 +558,32 @@
 
 
 
-        //get-realtime
-        app.get('/get_realtime',urlencodedParser,function(req,res){
-          let data=[];
-          let success=false;
-          database.collection("signup_notifications")
-          .onSnapshot(function(snapshot) {
-             // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-              let changes=snapshot.docChanges();
-              changes.forEach(element => {
-                  if(element.type=='added' && element.doc.view==false){
-                     // console.log(changes.doc.id)
-                      data.push(element.doc.id);
-                      success=true;
-                  }
+        // //get-realtime
+        // app.get('/get_realtime',urlencodedParser,function(req,res){
+        //   let data=[];
+        //   let success=false;
+        //   database.collection("signup_notifications")
+        //   .onSnapshot(function(snapshot) {
+        //      // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        //       let changes=snapshot.docChanges();
+        //       changes.forEach(element => {
+        //           if(element.type=='added' && element.doc.view==false){
+        //              // console.log(changes.doc.id)
+        //               data.push(element.doc.id);
+        //               success=true;
+        //           }
 
-              });
+        //       });
 
-              if(success){
-                  console.log("SE "+data)
-                  res.send(data);
+        //       if(success){
+        //           console.log("SE "+data)
+        //           res.send(data);
 
-              } 
-              data=[];
-              console.log(" data: ", changes[0].doc.id);
-          });
-        });
+        //       } 
+        //       data=[];
+        //       console.log(" data: ", changes[0].doc.id);
+        //   });
+        // });
 
 
 

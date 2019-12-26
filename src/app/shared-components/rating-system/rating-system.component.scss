@@ -43,8 +43,12 @@
   }
 
 .list-group{
-  max-height: 400px;
+  max-height: 200px;
   margin-bottom: 10px;
-  overflow:scroll;
+  overflow-y:scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+tr:hover{
+  background-color: #878d8d;
 }

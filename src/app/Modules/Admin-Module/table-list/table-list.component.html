@@ -1,3 +1,4 @@
+ 
 <div class="main-content">
   <div class="container-fluid">
       <div class="row">
@@ -21,7 +22,7 @@
                         </thead>
                         <tbody>
                           <tr *ngFor="let user_profile of user_profile;let i = index">
-                            <th scope="row">{{i}}</th>
+                            <th scope="row">{{i+1}}</th>
                             <td>{{user_profile.user_name}}</td>
                             <td>{{user_profile.state}}</td>
                             <td>{{user_profile.email}}</td>
@@ -44,6 +45,3 @@
       </div>
   </div>
 </div>
-        
-      
-         

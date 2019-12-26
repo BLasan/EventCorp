@@ -1,0 +1,80 @@
+.row .col-6-hdhdh .right-main-card{
+    margin-left: 50px;
+    width: 650px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+}
+
+
+.row .col-6 .left-main-card{
+    // margin-left: 50px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+    
+    .row mat-card{
+        width: 745px;
+        text-align: center;
+        margin-top: 30px;
+        margin-left: 15px;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.15);
+        border-style: solid;
+        border-width: 1px;
+        border-color: #BDBDBD;
+    }
+
+    // .row .detail-card{
+    //     padding-left: 300px;
+    // }
+
+    // .row .detail-card-fee{
+    //     margin-left: 10px;
+    //     padding-left: 400px;
+    // }
+}
+
+table{
+    margin-top: 20px;
+}
+
+h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.example-card {
+    border-color: rgb(168, 166, 170);
+    border-style: solid;
+    border-width: 1px;
+  border-radius: 20px;
+  width: 600px;
+  mat-card-header {
+    padding-top: 10px;
+    background-color: #e0e1df;
+  }
+  p {
+    padding-top: 10px;
+    padding-left: 20px;
+  }
+  margin-bottom: 20px;
+}
+
+.example-card-background {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+
+    border-radius: 20px;
+    margin-top: 50px;
+    margin-left: 50px;
+  width: 650px;
+  height: 485px;
+  overflow: scroll;
+  scroll-behavior: auto;
+//   background-color: #bdbebc;  
+}
+
+button{
+    width: 250px;
+}
+

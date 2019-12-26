@@ -1,13 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminNotificationsComponent } from './admin-notifications.component';
+import {AdminNotificationsComponent } from './admin-notifications.component';
+import { MatFormFieldModule } from '@angular/material';
 
-describe('NotificationsComponent', () => {
+describe('AdminNotificationsComponent', () => {
   let component: AdminNotificationsComponent;
   let fixture: ComponentFixture<AdminNotificationsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports:[
+        MatFormFieldModule
+      ],
       declarations: [ AdminNotificationsComponent ]
     })
     .compileComponents();

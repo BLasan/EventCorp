@@ -6,6 +6,7 @@ import { ChatService } from 'app/services/chat.service';
 import {generate_chat_id} from '../../../scripts/generate_id';
 import { filter } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
+// import { pay} from 'scripts/payhere.js';
 declare var $: any;
 @Component({
   selector: 'app-notifications',
@@ -32,9 +33,9 @@ export class NotificationsComponent implements OnInit {
   req_from:string;
   req_time:any;
   req_email:any;
-  req_contact:any;
   req_name:string;
-  constructor(private _notification:NotificationService,private _chatService:ChatService,private database:AngularFirestore) { }
+  req_status:string;
+  constructor(private _notification:NotificationService,private database:AngularFirestore) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
 
@@ -83,11 +84,12 @@ export class NotificationsComponent implements OnInit {
     // isDone=true;
   }  
   snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
-    if(doc.data().view==false)
+    if(doc.data().view==false){
+      console.log(doc.id, '=>', doc.data());
     // _this.notification_details.push(doc.data());
     _this.booking_data.push(doc.data());
     _this.notification_count+=1;
+    }
   });
   })
   .catch(err => {
@@ -141,24 +143,25 @@ export class NotificationsComponent implements OnInit {
     
    }
 
-mark_view_booking_notification(sender_email:string){
+mark_view_booking_notification(sender_email:string,type:string){
  // alert(sender_email)
-  if(this.user_role!='organizer' && this.isBookingView){
+  if(this.isBookingView){
+    console.log(sender_email)
     console.log(this.booking_data);
-    this.filtered_details=this.booking_data.filter(x=>x.user_email==sender_email);
-    this.req_from=this.filtered_details[0].user_email;
-    this.req_name=this.filtered_details[0].user_name;
-    this.req_time=this.filtered_details[0].time;
-    this.req_contact=this.filtered_details[0].user_contact;
-    
+    this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
+    this.req_from=this.filtered_details[0].sender_email;
+    this.req_name=this.filtered_details[0].sender_name;
+    this.req_time=this.filtered_details[0].date;
+    // this.req_contact=this.filtered_details[0].user_contact;
   }
 
-  if(this.user_role!='organizer' && !this.isBookingView){
+  if(!this.isBookingView){
     console.log(this.message_data);
     this.filtered_details=this.message_data.filter(x=>x.sender_email==sender_email);
     this.req_from=this.filtered_details[0].sender_email;
     this.req_name=this.filtered_details[0].sender_name;
     this.req_time=this.filtered_details[0].date; 
+
   }
 
   let user_name=localStorage.getItem('user_name');
@@ -167,7 +170,7 @@ mark_view_booking_notification(sender_email:string){
   if(this.isBookingView) this.notification_type="booking";
   else this.notification_type="notifications";
   update_count(this.notification_count);
-  if(this.notification_type==="booking")
+  if(this.notification_type==="booking" && type==='cancel')
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true});
   else
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('notification-messages').doc(sender_email).update({view:true});
@@ -212,14 +215,25 @@ notifications(){
   this.isBookingView=false;
 }
 
-joinChat(roomId:string){
-  alert('hello');
-  disable_room_id();
-  let user_name=localStorage.getItem('nameId');
-  let date=new Date();
-  let room_id=roomId;
-  this._chatService.joinRoom({user:user_name,room:room_id,message:"Hello",date:date})
+addUserEmail(email,status){
+  // alert(email)
+  localStorage.setItem('searched_user_email',email);
+  localStorage.setItem('isBookingReq','true');
+  localStorage.setItem('status',status);
 }
+
+pay(){
+  // pay();
+}
+
+// joinChat(roomId:string){
+//   alert('hello');
+//   disable_room_id();
+//   let user_name=localStorage.getItem('nameId');
+//   let date=new Date();
+//   let room_id=roomId;
+//   this._chatService.joinRoom({user:user_name,room:room_id,message:"Hello",date:date})
+// }
 
 
 

@@ -1,196 +1,230 @@
-<!-- <div class="main-content"> 
-  <div class="containe-fluid" id="container1">
-    <div class="col-md-4"></div>
 
-    <div class="col-md-4">
-        <div class="card ">
-            <div class="card-header">
-                <h4 class="text-xs-center">Skills<span class="glyphicon glyphicon-saved float-xs-right"></span></h4>
-            </div>
-            <div class="card-block text-xs-center">
-                <p class="lead">
-                    <strong>Technology Overview</strong>
-                </p>
-            </div>
-            <ul class="list-group list-group-flush text-xs-center">
-                <li class="list-group-item">
-                    <div class="skillLineDefault">
-                        <div class="skill float-xs-left text-xs-center">HTML5</div>
-                        <div class="rating" id="rate1"></div>
-                    </div>
-                </li>
-                <li class="list-group-item text-xs-center">
-                    <div class="skillLineDefault">
-                        <div class="skill float-xs-left text-xs-center">CSS</div>
-                        <div class="rating" id="rate2"></div>
-                    </div>
-                </li>
-                <li class="list-group-item text-xs-center">
-                    <div class="skillLineDefault">
-                        <div class="skill float-xs-left text-xs-center">jQuery</div>
-                        <div class="rating" id="rate3"></div>
-                    </div>
-                </li>
-                <li class="list-group-item text-xs-center">
-                    <div class="skillLineDefault">
-                        <div class="skill float-xs-left text-xs-center">C#</div>
-                        <div class="rating" id="rate4"></div>
-                    </div>
-                </li>
-            </ul>
-            <div class="card-footer text-xs-center">
-                <button type="button" class="btn btn-primary btn-lg btn-block">
-                    Submit
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-</div> -->
 <div class="main-content">
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <a href="#" id="calendarModalLink" style="color:white;padding-left:150px;" data-toggle="modal" data-target="#calendarModal"><b>View Calendar</b></a>
+      </div>
+    </div>
     <div class="row" style="margin-top:20px">
       <div class="col-md-6">
-          <mat-card>
-              <mat-card-title style="color:blue;"><h2 align="center"><b>User Info</b></h2></mat-card-title>
-              <mat-card-content>
-                <img mat-card-image src="assets/img/faces/marc.jpg" style="margin-top:10px;width:450px;padding-left:100px;padding-right:100px" height="300px" alt="user_image">
-                  <hr>
-                  <div class="row">
-                    <div class="col-6" style="float: left">
-                      <p><b>Name</b></p>
-                    </div>
-                    <div class="col-6" style="float: left">
-                      <p>{{search_user_name}}</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6" style="float: left">
-                      <p><b>Role</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>{{search_user_role}}</p>
-                    </div>
-                  </div>
-                  <div class="row" *ngIf="events_vis">
-                    <div class="col-6" style="float: left">
-                      <p><b>Events</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>{{my_events}}</p>
-                    </div>
-                  </div>
-                  <div class="row" *ngIf="search_user_role==='artist' && rating_vis">
-                    <div class="col-6" style="float: left">
-                      <p><b>Ratings</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>
-                        <ngb-rating [(rate)]="userRate" max="5"  readonly="true">
-                          <ng-template let-fill="fill" let-index="index">
-                            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-                          </ng-template>
-                        </ngb-rating>  
-                      </p>
-                    </div>
-                  </div>
-                  <div class="row" *ngIf="!isLoadMore && about_vis">
-                    <a style="padding-left:180px;" (click)="load_more()" id="load_more" href="#">View More</a>
-                  </div>
-                  <div class="row" *ngIf="isLoadMore">
-                    <div class="col-6" style="float: left">
-                      <p><b>About</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>{{search_user_about}}</p>
-                    </div>
-                  </div>
-                  <div class="row" *ngIf="isLoadMore && contact_vis">
-                    <div class="col-6" style="float: left">
-                      <p><b>Contact</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>{{search_user_contact}}</p>
-                    </div>
-                  </div>
-                  <div class="row" *ngIf="isLoadMore">
-                    <div class="col-6" style="float: left">
-                      <p><b>Email</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>{{searched_user_email}}</p>
-                    </div>
-                  </div>
-                  <div class="row" *ngIf="isLoadMore && address_vis">
-                    <div class="col-6" style="float: left">
-                      <p><b>Address</b></p>
-                    </div>
-                    <div class="col-6" style="float:left">
-                      <p>{{search_user_address}}</p>
-                    </div>
-                  </div>
-                  <hr>
-                  <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
-                  <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
-                  <button *ngIf="sent_bookings==false" mat-raised-button style="background-color:gold" (click)="book_now()">BOOK NOW</button>
-                  <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
-              </mat-card-content>
-            </mat-card>
-      </div>
-      <div class="col-md-6">
         <mat-card>
-          <mat-card-title></mat-card-title>
-          <mat-card-content>
-              <p><b>Post a comment:</b></p>
-              <p id="load_items">view comment <a href="" id="load_commments" (click)="load()"><i class="material-icons" style="color: black">arrow_drop_down_circle</i></a></p>
-              <p style="display: none" id="remove_items">view comment <a href="" id="remove_commments" (click)="remove()"><i class="material-icons" style="color: black">arrow_drop_up</i></a></p>
-              <!-- <mat-list style="display: none" id="comments"> -->
-                <div style="display:none;" id="comments">
-                  <div *ngFor="let comments of comments_array;let index=index">
-                    <hr *ngIf="index==0">
-                    <p style="color:green"><b>{{comments.date}}</b></p>
-                    <div class="row" style="margin-top:-10px">
-                      <div class="col-md-6 col-sm-12">
-                        <p><b>{{comments.user_name}} : </b></p>
-                      </div>
-                      <div class="col-md-6 col-sm-12" style="padding-left:0">
-                        <p>{{comments.comment}}</p>
-                      </div>
-                    </div>
-                    <hr>
-                        <!-- <mat-list-item>
-                          <p style="font-size: 14px;margin-left: -15px"><b>{{comments.name}}:</b>{{comments.timeStamp}}</p>
-                          <p>{{comments.comment}}</p>
-                        </mat-list-item>
-                        <mat-divider></mat-divider> -->
-                  </div>
-                </div>
-                <!-- <mat-list-item>Item 2</mat-list-item>
-                <mat-divider></mat-divider>
-                <mat-list-item>Item 3</mat-list-item> -->
-              <!-- </mat-list>           -->
-              <mat-form-field>
-                <textarea matInput placeholder="Post your comment here" [(ngModel)]="myComment" ></textarea>
-              </mat-form-field>
-              <button mat-raised-button color="accent" (click)="postComment()">Post</button>
-              <hr>
-              <p><b>Review your Rate</b></p>
-              <ngb-rating [(rate)]="currentRate" max="5">
-                <ng-template let-fill="fill" let-index="index">
-                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-                </ng-template>
-              </ngb-rating>
+          <mat-card-title style="color:blue;"><h2 align="center"><b>USER DETAILS</b></h2></mat-card-title>
+            <mat-card-content>
+              <img mat-card-image src="assets/img/faces/marc.jpg" style="margin-top:10px;width:450px;padding-left:100px;padding-right:100px;border-radius:50%;" height="300px" alt="user_image">
               <hr>
               <div class="row">
-                <div class="col-md-4">
-                  Stars: <b>{{currentRate}}</b>
+                <div class="col-6" style="float: left">
+                  <p><b>Name</b></p>
                 </div>
-                <div class="col-md-4">
-                  <button mat-raised-button style="background-color: green" (click)="rateUser()">Rate</button>
+                <div class="col-6" style="float: left">
+                  <p>{{search_user_name}}</p>
                 </div>
               </div>
-          </mat-card-content>
-        </mat-card>
+              <div class="row">
+                <div class="col-6" style="float: left">
+                  <p><b>Role</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{search_user_role}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="events_vis">
+                <div class="col-6" style="float: left">
+                  <p><b>Events</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{my_events}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="search_user_role!=='artist' && rating_vis">
+                <div class="col-6">
+                  <p><b>Ratings</b></p>
+                </div>
+                <div class="col-6" style="float:left;margin-top:-10px">
+                  <p>
+                    <ngb-rating [(rate)]="userRate" max="5"  readonly="true">
+                      <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                      </ng-template>
+                    </ngb-rating>  
+                  </p>
+                </div>
+              </div>
+              <div class="row" *ngIf="!isLoadMore && about_vis">
+                <a style="padding-left:180px;" (click)="load_more()" id="load_more" href="#">View More</a>
+              </div>
+              <div class="row" *ngIf="isLoadMore">
+                <div class="col-6" style="float: left">
+                  <p><b>About</b></p>
+                </div>
+                <div class="col-6" *ngIf="search_user_about==='Not Updated'" style="float:left;color:red">
+                  <p>{{search_user_about}}</p>
+                </div>
+                <div class="col-6" *ngIf="search_user_about!=='Not Updated'" style="float:left">
+                  <p>{{search_user_about}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="isLoadMore && contact_vis">
+                <div class="col-6" style="float: left">
+                  <p><b>Contact</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{search_user_contact}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="isLoadMore">
+                <div class="col-6" style="float: left">
+                  <p><b>Email</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{searched_user_email}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="isLoadMore && address_vis">
+                <div class="col-6" style="float: left">
+                  <p><b>Address</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{search_user_address}}</p>
+                </div>
+              </div>
+              <div *ngIf="isBookingReq">
+                <hr>
+                <div class="row" style="padding-left:100px;">
+                  <div class="col-md-4">
+                    <button *ngIf="!isResponded" mat-raised-button style="background-color:green" (click)="acceptRequest()"><B>ACCEPT</B></button>
+                  </div>
+                  <div class="col-md-4">
+                    <button *ngIf="!isResponded" mat-raised-button style="background-color:red" (click)="declineRequest()"><B>DECLINE</B></button>
+                  </div> 
+                  <h4 *ngIf="acceptBooking==='true'"><b style="color:green"><i class="material-icons">done</i>BOOKING ACCEPTED</b></h4>
+                  <h4 *ngIf="acceptBooking==='false'"><b style="color:red"><i class="material-icons">cancel</i>BOOKING REJECTED</b></h4>
+                </div>
+              </div>
+              <hr>
+                  <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
+              <div *ngIf="user_role==='organizer'">
+                <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
+                <button *ngIf="sent_bookings===false" mat-raised-button style="background-color:gold" (click)="book_now()">BOOK NOW</button>
+                <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
+              </div>
+            </mat-card-content>
+          </mat-card>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-card>
+              <mat-card-title></mat-card-title>
+                <mat-card-content>
+                  <p><b>Post a comment:</b></p>
+                  <p id="load_items">view comment <a href="#" id="load_comments_users" (click)="load()"><i class="material-icons" style="color: black">arrow_drop_down_circle</i></a></p>
+                  <p style="display: none" id="remove_items">view comment <a href="" id="remove_comments_users" (click)="remove()"><i class="material-icons" style="color: black">arrow_drop_up</i></a></p>
+                  <div style="display:none;" id="comments">
+                    <div *ngFor="let comments of comments_array;let index=index">
+                      <hr *ngIf="index==0">
+                      <p style="color:green"><b>{{comments.date}}</b></p>
+                      <div class="row" style="margin-top:-10px">
+                        <div class="col-md-6 col-sm-12">
+                          <p><b>{{comments.user_name}} : </b></p>
+                        </div>
+                        <div class="col-md-6 col-sm-12" style="padding-left:0">
+                          <p>{{comments.comment}}</p>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <mat-form-field>
+                    <textarea matInput placeholder="Post your comment here" [(ngModel)]="myComment" ></textarea>
+                  </mat-form-field>
+                  <button mat-raised-button color="accent" (click)="postComment()">Post</button>
+                  <hr>
+                  <div *ngIf="search_user_role!=='artist'">
+                    <p><b>Rate User</b></p>
+                    <ngb-rating [(rate)]="currentRate" max="5">
+                      <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                      </ng-template>
+                    </ngb-rating>
+                    <hr>
+                    <div class="row">
+                      <div class="col-md-4">
+                        Stars: <b>{{currentRate}}</b>
+                      </div>
+                      <div class="col-md-4">
+                        <button mat-raised-button style="background-color: green" (click)="rateUser()">Rate</button>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card" *ngIf="search_user_role==='organizer' && events_vis">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"><b>MY EVENTS</b></h4>
+                <p class="card-category">Organized Events</p>
+              </div>
+              <div class="card-body" *ngIf="my_events_array.length>0" [ngClass]="{'list-group':my_events_array.length>10}">
+                <table class="table table-dark">
+                  <thead>
+                      <th scope="col"><b>ID</b></th>
+                      <th scope="col"><b>Event Name</b></th>
+                      <th scope="col"><b>Date</b></th>
+                      <th scope="col"><b>View More</b></th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let events of my_events_array;let index=index">
+                      <th scope="row">{{index+1}}</th>
+                      <td>{{events.event_name}}</td>
+                      <td>{{events.date}}</td>
+                      <td><a href="#" id="modal_open" (click)="load_modal(events.event_id)" data-toggle="modal" data-target="#exampleModal"><b>View More</b></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-body" *ngIf="my_events_array.length==0">
+                <h3 style="color:red"><b>Empty Playlist</b></h3>
+              </div>
+            </div>
+            <div class="card" *ngIf="search_user_role==='artist' && play_list_vis">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"><b>MY PLAYLIST</b></h4>
+                <p class="card-category">Best Playlist</p>
+              </div>
+              <div class="card-body" *ngIf="artist_playlist.length>0" [ngClass]="{'list-group':my_events_array.length>10}">
+                <table class="table table-dark">
+                  <thead>
+                    <th scope="col"><b>ID</b></th>
+                    <th scope="col"><b>Song Name</b></th>
+                    <th scope="col"></th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let playlist of artist_playlist;let index=index">
+                      <th scope="row">{{index+1}}</th>
+                      <td>{{playlist.playlist_name}}</td>
+                      <td>
+                        <audio controls>
+                          <!-- <source src="" type="audio/ogg"> -->
+                          <source src="{{playlist.playlist[i]}}" type="audio/mpeg">
+                        </audio>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-body" *ngIf="artist_playlist.length==0">
+                <h3 style="color:red"><b>Empty Playlist</b></h3>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -198,20 +232,54 @@
     </div>
   </div>
 </div>
-<!-- <app-online-chat [user_auth]="search_token"></app-online-chat> -->
 
-<!-- <p><b>Name</b></p>
-<p><b>Role</b></p>
-    <p><b>Events</b></p>
-      <div class="row">
-          <div class="col-4">
-            <b>Ratings</b>
-          </div>
-          <div class="col-8">
-              <ngb-rating [(rate)]="currentRate" max="5"  readonly="true">
-                <ng-template let-fill="fill" let-index="index">
-                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-                </ng-template>
-              </ngb-rating> 
-          </div>
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: transparent;">
+      <div class="modal-header">
+        <h5 class="modal-title" *ngFor="let modal_details of modal_details" id="exampleModalLabel">{{modal_details.event_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let modal_details of modal_details">
+            <p>Date : {{modal_details.date}}</p>
+            <p>Time Started : {{modal_details.time}}</p>
+            <p>Artists Participated : {{artists_participated}}</p>
+            <p>Venue : {{modal_details.venue_owners[0]}}</p>
+            <p>Suppliers : {{suppliers_participated}}</p>
+            <!-- <p>Sponsors : {{}}</p> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button mat-raised-button class="btn btn-danger" data-dismiss="modal"><b>CLOSE</b></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div> -->
+        <div id="calendar"></div>
+        <!-- <div class="modal-body">
+          <div id="calendar"></div>
+        </div> -->
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+

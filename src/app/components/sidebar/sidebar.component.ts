@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs-compat/operator/filter';
 import { getRole } from 'app/services/select_role.service.js';
 import { SearchUserService } from 'app/services/search_user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 declare const $: any;
 
 declare interface RouteInfo {
@@ -10,27 +11,34 @@ declare interface RouteInfo {
     icon: string;
     class: string;
 }
+
+//admin-routings
 export const ROUTES: RouteInfo[] = [
     { path: '/admin-dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
-    { path: '/admin-profile', title: 'User Profile',  icon:'person', class: '' },
-    { path: '/user-details', title: 'Table List',  icon:'content_paste', class: '' },
+    // { path: '/admin-profile', title: 'User Profile',  icon:'person', class: '' },
+    { path: '/user-details', title: 'User-Details',  icon:'content_paste', class: '' },
     { path: '/add-new-moderator', title: 'Add New Moderator',  icon: 'add', class: '' },
     // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
+    // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     { path: '/admin-notifications', title: 'Notifications',  icon:'notifications', class: '' },
     { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
+
+//artist routings
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
   { path: '/artist-notifications', title: 'Notifications',  icon: 'view_list', class: '' },
   { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
+  { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
   { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
+
+//organizer routings
 export const ROUTES2:RouteInfo[]=[
   { path: '/organizer-home', title: 'Home',  icon: 'home', class: '' },
   { path:'/organizer-notifications',title:'Notifications',icon:'notifications',class:''},
@@ -39,10 +47,17 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''}
 ];
 
+
+//venue_owner routings
 export const ROUTES3:RouteInfo[]=[
-  { path: '/location-owner-home', title: 'Home',  icon: 'home', class: '' },
+  { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
+  { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
+  { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
+  { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
 ];
 
+
+//supplier routings
 export const ROUTES4:RouteInfo[]=[
   { path: '/supplier-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/supplier-notifications', title: 'Notifications',icon:'notifications',class:''},
@@ -62,14 +77,14 @@ export class SidebarComponent implements OnInit {
   getUser:String='';
   isAdmin:boolean=false;
   route_link:any;
-  user_details:any;
-  constructor( private _search_user:SearchUserService) { }
+  user_details:any=[];
+  constructor( private _search_user:SearchUserService,private database:AngularFirestore) { }
 
   ngOnInit() {
    
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
       this.menuItems=ROUTES1.filter(listTitle=>listTitle);
-      this.route_link="/artist-notifications  ";
+      this.route_link="/artist-notifications";
   }
 
   else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){
@@ -94,12 +109,31 @@ export class SidebarComponent implements OnInit {
       this.route_link="/venue-owner-notifications"
   }
 
-  this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-    this.user_details=data;
-    // if(localStorage.getItem('searched_user_email'))
-    //   localStorage.removeItem('searched_user_email');
-    console.log(this.user_details);
+  var _this=this;
+
+  var docRef = this.database.firestore.collection('register_user');
+  docRef.get()
+  .then(snapshot => {
+  if (snapshot.empty) {
+    console.log('No matching documents.');
+    return;
+  }  
+  snapshot.forEach(doc => {
+    console.log(doc.id, '=>', doc.data());
+    if(doc.data().role!=localStorage.getItem('role'))
+    _this.user_details.push(doc.data());
   });
+  })
+.catch(err => {
+  console.log('Error getting documents', err);
+});
+
+  // this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
+  //   this.user_details=data;
+  //   // if(localStorage.getItem('searched_user_email'))
+  //   //   localStorage.removeItem('searched_user_email');
+  //   console.log(this.user_details);
+  // });
 
    
   }

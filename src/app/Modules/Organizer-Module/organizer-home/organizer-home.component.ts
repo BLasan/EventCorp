@@ -21,7 +21,7 @@ export class OrganizerHomeComponent implements OnInit {
   constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
 
   ngOnInit() {
-    loadCalendar();
+    // loadCalendar();
     activate_searchBar();
     this.get_top_users();
   }

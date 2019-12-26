@@ -39,7 +39,7 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
     SearchUserComponent,
     SettingsComponent,
     RatingSystemComponent,
-    MyChatsComponent
+    MyChatsComponent,
   ],
   imports: [
     CommonModule,

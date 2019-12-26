@@ -1,0 +1,85 @@
+/* Structure */
+// table {
+//     width: 100%;
+//   }
+  
+//   .mat-form-field {
+//     font-size: 14px;
+//     width: 100%;
+//   }
+mat-card {
+  width: 100%;
+  margin-bottom: 10px   
+}
+
+.example-header-image {
+  background-image: url(../../../../assets/img/building.jpg);
+  background-size: cover;
+}
+
+.mat-raised-button {
+  // width: 100px;
+  margin-right: 10px;
+  // right: auto;
+}
+
+.card-buttons {
+  margin-right: 100px;
+}
+
+.b2{
+  // width: 1000px;
+  background-color: #7B1FA2;
+}
+
+.b3{
+  // width: 1000px;
+  background-color: #D32F2F;
+}
+
+img{
+  width: 100px;
+  height: 100px;
+}
+
+.text-col{
+  margin-top: 20px;
+  padding-left: 50px;
+}
+
+.actions-col{
+  padding-right:20px;
+  padding-left:300px;
+}
+
+.action {
+  margin-top: 30px;
+  // margin-right: 20px;
+  padding-right:20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.input-group-text {
+  background-color: lightgrey;
+}
+
+.filter-title{
+  margin-left: 20px;
+  margin-bottom: 20px ;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: whitesmoke - 10;
+
+}
+
+// .slider{
+  
+//   padding-bottom: -10px;
+//   background-color: #C5CAE9;
+//   height: 35px;
+
+// }

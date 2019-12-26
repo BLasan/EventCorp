@@ -7,10 +7,18 @@ import {paypalClient} from '../../../scripts/organizer/paypal.js'
 })
 export class PaypalPaymentComponent implements OnInit {
 
+  amount:number=1000.00;
   constructor() { }
 
   ngOnInit() {
    // paypalClient()
+  }
+
+  changeQuantity(){
+    let quantity=parseInt((<HTMLInputElement>document.getElementById('quantityInput')).value);
+    let unitPrice=parseFloat((<HTMLInputElement>document.getElementById('unitPrice')).value);
+    this.amount=quantity*unitPrice;
+    (<HTMLInputElement>document.getElementById('amount')).innerHTML=this.amount.toString();
   }
 
 }

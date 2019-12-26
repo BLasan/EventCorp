@@ -1,0 +1,17 @@
+.vertical-center{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container{
+    width: 100%;
+    padding-right:10px;
+    padding-left: 10px;
+    max-width: 420px;
+}
+
+form{
+    display: block;
+    margin-top:0em;
+}

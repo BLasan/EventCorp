@@ -1,4 +1,4 @@
-<div class="main-content">
+<!-- <div class="main-content">
     <div class="container-fluid">
         <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
@@ -31,4 +31,69 @@
                     </a>
                   </div>
     </div>
+</div> -->
+
+
+<div class="main-content">
+  <div class="container-fluid" style="padding-top:100px">
+<mat-carousel
+timings="250ms ease-in"
+[autoplay]="true"
+interval="5000"
+color="accent"
+maxWidth="auto"
+proportion="40"
+slides="5"
+[loop]="true"
+[hideArrows]="true"
+[hideIndicators]="false"
+[useKeyboard]="true"
+[useMouseWheel]="false"
+orientation="ltr"
+>
+<mat-carousel-slide #matCarouselSlide overlayColor="#00000040" [hideOverlay]="true">
+  <img src="assets\img\storage\home\14.jpg" alt="" width="100%" style="vertical-align:middle;padding-left:0;padding-right:0;">
+</mat-carousel-slide>
+
+<mat-carousel-slide #matCarouselSlide overlayColor="#00000040" [hideOverlay]="true">
+  <img src="assets\img\storage\home\15.jpg" alt="" width="100%" style="vertical-align:middle;padding-left:0;padding-right:0;">
+</mat-carousel-slide>
+
+<mat-carousel-slide #matCarouselSlide overlayColor="#00000040" [hideOverlay]="true">
+<img src="assets\img\storage\home\17.jpg" alt="" width="100%" style="vertical-align:middle;padding-left:0;padding-right:0;">
+</mat-carousel-slide>
+
+<mat-carousel-slide #matCarouselSlide overlayColor="#00000040" [hideOverlay]="true">
+<img src="assets\img\storage\home\3.jpg" alt="" width="100%" style="vertical-align:middle;padding-left:0;padding-right:0;">
+</mat-carousel-slide>
+
+<mat-carousel-slide #matCarouselSlide overlayColor="#00000040" [hideOverlay]="true">
+<img src="assets\img\storage\home\2 .jpg" alt="" width="100%" style="vertical-align:middle;padding-left:0;padding-right:0;">
+</mat-carousel-slide>
+
+</mat-carousel>
+
+<div class="container features">
+<div class="row">
+  <div class="col-md-3 col-sm-6" style="margin-top: 20px;">
+      <img src="assets\img\storage\home\singer.jpg"  alt="">  
+        <h5 >Artists</h5>
+  </div>
+  <div class="col-md-3 col-sm-6" style="margin-top: 20px;">
+      <img src="assets\img\storage\home\band.jpg"  alt=""> 
+      <h5>Music Bands</h5> 
+  </div>
+  <div class="col-md-3 col-sm-6" style="margin-top: 20px;">
+      <img src="assets\img\storage\home\supp.jpg"  alt="">
+      <h5>Equipment Providers</h5>  
+  </div>
+  <div class="col-md-3 col-sm-6" style="margin-top: 20px;">
+      <img src="assets\img\storage\home\hall.jpg"  alt=""> 
+      <h5>Halls</h5> 
+  </div>
+  
+</div>
+</div>
+                  
+  </div>
 </div>

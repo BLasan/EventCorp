@@ -15,6 +15,8 @@ export class AuthGuardCustomerService implements CanActivate {
     console.log(path)
     if(path==='/about-us')
     return true;
+    else if(path==='/')
+    return true;
     else if(path==='/contact-us') 
     return true;
     else if(path==='/home')
@@ -22,6 +24,8 @@ export class AuthGuardCustomerService implements CanActivate {
     else if(path==='/feedback')
     return true;
     else if(path==='/faq')
+    return true;
+    else if(path==='/help')
     return true;
     else {
       this.router.navigate(['/page-not-found']);

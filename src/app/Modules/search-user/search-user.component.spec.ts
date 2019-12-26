@@ -14,6 +14,7 @@ describe('SearchUserComponent', () => {
   }));
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(SearchUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

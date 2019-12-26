@@ -11,7 +11,8 @@ import {
     MatTooltipModule,
     MatSelectModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatSliderModule
   } from '@angular/material';
 
 import { from } from 'rxjs';
@@ -23,7 +24,8 @@ import { AboutUsComponent } from 'app/Modules/Customer-Module/about-us/about-us.
 import { FaqComponent } from 'app/Modules/Customer-Module/faq/faq.component';
 import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/contact-us.component';
 import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback.component';
-
+import { MatCarouselModule, MatCarouselComponent, MatCarouselSlideComponent } from '@ngmodule/material-carousel';
+import { HelpComponent } from 'app/shared-components/help/help.component';
   @NgModule({
     imports: [
       CommonModule,
@@ -38,6 +40,8 @@ import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback
       MatToolbarModule,
       MatIconModule,
       MatButtonModule,
+      MatCarouselModule,
+      MatSliderModule
       // HomePageComponentModule
     ],
     declarations: [
@@ -46,6 +50,10 @@ import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback
      FaqComponent,
      ContactUsComponent,
      FeedbackComponent,
+     HelpComponent
+     
+    //  MatCarouselComponent,
+    //  MatCarouselSlideComponent
     ],
   })
   

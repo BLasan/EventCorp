@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PaypalPaymentComponent } from './paypal-payment.component';
 
 describe('PaypalPaymentComponent', () => {
@@ -14,6 +13,7 @@ describe('PaypalPaymentComponent', () => {
   }));
 
   beforeEach(() => {
+
     fixture = TestBed.createComponent(PaypalPaymentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

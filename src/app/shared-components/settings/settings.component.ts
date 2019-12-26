@@ -7,6 +7,9 @@ import { LoginService } from 'app/services/login.services';
 import {deactivate_searchBar} from '../../../scripts/search_bar_activate'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_visibility} from '../../../scripts/disable_a_href';
+import { AngularFireAuth } from '@angular/fire/auth';
+import CryptoJS from 'crypto-js';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -24,7 +27,7 @@ export class SettingsComponent implements OnInit {
   contact_vis:boolean=true;
   address_vis:boolean=true;
   play_list_vis:boolean=true;
-  constructor(private database:AngularFirestore,private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService) { }
+  constructor(private database:AngularFirestore,private dialog:MatDialog,private _accountDel:DeleteAccountService,private _logout:LoginService,private auth:AngularFireAuth,private signout:LoginService,private router:Router) { }
 
   ngOnInit() {
     //disable_visibility()
@@ -356,6 +359,26 @@ export class SettingsComponent implements OnInit {
         if(doc.data().rating===false && _this.user_role!='artist') _this.rating_vis=false;
       }
     });
+  }
+
+  reset_password(){
+    var _this=this;
+    let password=this.form.controls['new_password'].value;
+    var hash= CryptoJS.SHA256(password).toString();
+    console.log(password);
+    this.database.collection('register_user').doc(localStorage.getItem('user_name')).update({password:hash});
+    console.log("AUTH->"+this.auth.auth.currentUser);
+    this.auth.auth.currentUser.updatePassword(hash).then(()=>{
+      _this.reset_form();
+      _this.signout.logOut();
+      _this.router.navigateByUrl('/login')
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  reset_form(){
+    this.form.reset();
   }
 
 

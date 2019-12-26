@@ -10,7 +10,10 @@ import {click_redirect_href} from '../../../scripts/search_bar_activate';
 import {disable_drop_down,previous_mode} from '../../../scripts/disable_a_href';
 import { AdminService } from 'app/services/admin.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-
+import { disable_logout} from '../../../scripts/disable_a_href';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { navigate_to_home} from '../../../scripts/logout';
+import { LoadedRouterConfig } from '@angular/router/src/config';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -24,61 +27,66 @@ export class NavbarComponent implements OnInit {
     emp:any=[{age:'abdcc'}]
     count:any=0;
     role:string;
+    home_link:String;
     route_link:string;
     location: Location;
     data:any=[];
-    notification_count:any;
+    notification_count:number=0;
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     onLoaded:boolean=true;
     private sidebarVisible: boolean;
-    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private database:AngularFirestore) {
+    constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private _db:AngularFirestore,private auth:AngularFireAuth) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit(){
-    
-    // if(localStorage.getItem('notification_count'))
-    // this.count=localStorage.getItem('notification_count');
-    // this.count=this.notifications.get_notification_count();
-    // alert(this.count);
-    //   this.getUser=onIdentify();
-    if(localStorage.getItem('role')!='admin')
     this.getNotificationCount();
-    else
-    this.getAdminNotificationCount();
+    //get notification count
+    // if(localStorage.getItem('role')!='admin')
+    // this.getNotificationCount();
+    // else
+    // this.getAdminNotificationCount();
+
     //previous_mode();
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
-        this.route_link="/artist-notifications  ";
+        this.route_link="/artist-notifications";
+        this.home_link="/artist-home";
     }
   
     else if(localStorage.getItem('role')=='organizer' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES2.filter(listTitle=>listTitle);
-        this.route_link="/organizer-notifications"
+        this.route_link="/organizer-notifications";
+        this.home_link="/organizer-home";
     }
    
     else if(localStorage.getItem('role')=='supplier' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES4.filter(listTitle=>listTitle);
-        this.route_link="/supplier-notifications"
+        this.route_link="/supplier-notifications";
+        this.home_link="/supplier-home"
     }
     
 
     else if(localStorage.getItem('role')=='admin' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES.filter(listTitle=>listTitle);
-        this.route_link="/admin-notifications"
+        this.route_link="/admin-notifications";
+        this.home_link="/admin-dashboard";
     }
     
 
     else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES3.filter(listTitle=>listTitle);
-        this.route_link="/venue-owner-notifications"
+        this.route_link="/venue-owner-notifications";
+        this.home_link="/venueList";
     }
 
     var _this=this;
 
-    var docRef = this.database.firestore.collection('register_user');
+
+    //get user details
+    var docRef = this._db.firestore.collection('register_user');
     docRef.get()
     .then(snapshot => {
     if (snapshot.empty) {
@@ -94,21 +102,8 @@ export class NavbarComponent implements OnInit {
         console.log('Error getting documents', err);
     });
 
-    // this._search_user.getUsers(localStorage.getItem('role')).subscribe(data=>{
-    //     this.user_details=data;
-    //     // if(localStorage.getItem('searched_user_email'))
-    //     //   localStorage.removeItem('searched_user_email');
-    //     console.log(this.user_details);
-    // });
-
-    //   if(this.getUser=='artist')
-    //   this.listTitles=ROUTES1.filter(listTitle=>listTitle);
-
-    //   else{
-    //     this.listTitles = ROUTES.filter(listTitle => listTitle);
-    //     this.isAdmin=true;
-    //   }
      
+      //toggling feature
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
@@ -121,7 +116,7 @@ export class NavbarComponent implements OnInit {
      });
     }
 
-
+    //open sidebar
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];
@@ -140,6 +135,7 @@ export class NavbarComponent implements OnInit {
         this.sidebarVisible = false;
         body.classList.remove('nav-open');
     };
+
     sidebarToggle() {
         // const toggleButton = this.toggleButton;
         // const body = document.getElementsByTagName('body')[0];
@@ -198,6 +194,7 @@ export class NavbarComponent implements OnInit {
         }
     };
 
+    //get title of the routing
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
       if(titlee.charAt(0) === '#'){
@@ -210,40 +207,145 @@ export class NavbarComponent implements OnInit {
               return this.listTitles[item].title;
           }
       }
+
+      if(titlee.indexOf('ratings')>-1) return "View User Details";
     }
 
-    logoutUser(){
-        this._loginService.logOut();
-        if(localStorage.getItem('searched_user_email'))
-         localStorage.removeItem('searched_user_email');
+    logout_User(){
+        localStorage.setItem('loggedOut','true');
+        // var _this=this;
+        // var user=localStorage.getItem('user_name');
+        // console.log(user);
+        // alert(user)
+        // // disable_logout();
+        // this._db.collection('register_user').doc(user).update({active_status:'logout'});
+        // localStorage.removeItem('user_name');
+        // localStorage.removeItem('role');
+        // localStorage.removeItem('token');
+        // localStorage.removeItem('nameId');
+        // localStorage.removeItem('loggedIn');
+        this.auth.auth.signOut();
+        // navigate_to_home();
+        // this._loginService.logOut();
+        // if(localStorage.getItem('searched_user_email'))
+        //  localStorage.removeItem('searched_user_email');
     }
 
+    //store searched user email
     addUserEmail(email:string){
         alert(email)
         localStorage.setItem('searched_user_email',email);
         //click_redirect_href();
     }
 
+
     update_count(count:number){
         this.count=count;
     }
 
+
     getNotificationCount(){
+        var _this=this;
         let user=localStorage.getItem('user_name');
-        this._notification_service.getNotificationCount(user).subscribe(size=>{
-            console.log(size);
-            this.notification_count=size                                                                                                                                        
-            this.count=this.notification_count.size;
+        console.log(user)
+        this._db.firestore.collection("register_user").doc(user).collection('notification-messages')
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                console.log(element.type)
+                if(element.type=='added' && element.doc.data().view===false){
+                    _this.notification_count+=1;
+                 }
+     
+                else if(element.type=='modified'){
+                    if(element.doc.data().view)
+                    _this.notification_count-=1;
+                    else
+                    _this.notification_count+=1;
+
+                    console.log(_this.notification_count)
+                }
+     
+                else if(element.type=='removed'){
+                    
+                }
+            });
         });
+
+        this._db.firestore.collection("register_user").doc(user).collection('bookings')
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                if(element.type=='added' && element.doc.data().view===false){
+                    _this.notification_count+=1;
+                    (<HTMLInputElement>document.getElementById('notification_count_id')).innerHTML=_this.notification_count.toString();
+                 }
+     
+                else if(element.type=='modified'){
+                    if(element.doc.data().view)
+                    _this.notification_count-=1;
+                    else
+                    _this.notification_count+=1;
+                }
+     
+                else if(element.type=='removed'){
+                   
+                }
+            });
+        });
+
+
+    //     var docRef = this._db.firestore.collection('register_user').doc(user).collection('notification-messages').where("view","==",false);
+    //     docRef.get()
+    //     .then(snapshot1 => {
+    //         var docRefs = _this._db.firestore.collection('register_user').doc(user).collection('bookings').where("view","==",false);
+    //         docRefs.get()
+    //         .then(snapshot2 => {
+    //               if(snapshot1.empty && snapshot2.empty) _this.notification_count=0;
+    //               else if(snapshot2.empty){
+    //                   snapshot1.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                       console.log(_this.notification_count)
+    //                   })
+    //               }
+    //               else if(snapshot1.empty){
+    //                   snapshot2.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                   })
+    //               }
+    //               else if(!snapshot2.empty && !snapshot1.empty){
+    //                   snapshot1.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                   })
+    //                   snapshot2.forEach(docs=>{
+    //                       _this.notification_count+=1;
+    //                   })
+    //               }
+    //         })
+    //       .catch(err => {
+    //         console.log('Error getting documents', err);
+    //       });
+    //     })
+    //   .catch(err => {
+    //     console.log('Error getting documents', err);
+    //   });
+        // this._notification_service.getNotificationCount(user).subscribe(size=>{
+        //     console.log(size);
+        //     this.notification_count=size                                                                                                                                        
+        //     this.count=this.notification_count.size;
+        // });
     }
 
     getAdminNotificationCount(){
         this._admin_notification_count.get_realtime().subscribe(data=>{
             this.data=data;
-            this.count=this.data.length
+            this.count=this.data.length;
         })
     }                                                                                                                                       
 
+    
     show(){
         if(this.onLoaded)
         disable_drop_down();

@@ -60,3 +60,37 @@ export function disable_visibility(){
         e.preventDefault();
     }) 
 }
+
+
+export function disable_playlist_uploader(){
+    $(document).on('click','#add_playlist',function(e){
+        e.preventDefault();
+        $('#playlist_uploader').click();
+    }) 
+}
+
+
+export function disable_modal_open(){
+    $(document).on('click','#modal_open',function(e){
+        e.preventDefault();
+       
+    })    
+}
+
+export function disable_remove_files(){
+    $(document).on('click','#remove_files',function(e){
+        e.preventDefault();
+    })    
+}
+
+export function disable_logout(){
+    $(document).on('click','#logout_link_href',function(e){
+        e.preventDefault();
+    })    
+}
+
+export function disable_calendarModal(){
+    $(document).on('click','#calendarModalLink',function(e){
+        e.preventDefault();
+    }) 
+}

@@ -18,7 +18,8 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/api"
             ],
             "styles": [
              
@@ -98,7 +99,7 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js"
-              
+             
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
