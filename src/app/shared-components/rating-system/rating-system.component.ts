@@ -394,7 +394,7 @@ export class RatingSystemComponent implements OnInit {
    }
 
    getSearchedUserData(){
-     console.log("hrll");
+    
      var _this=this;
      var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email);
      docRef.get().then(function(doc) {
@@ -403,6 +403,15 @@ export class RatingSystemComponent implements OnInit {
           // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
+          if(_this.search_user_role==='artist'){
+            _this.database.firestore.collection('register_user').doc(_this.searched_user_email).collection('my_playlist').doc('playlist').get().then(docs=>{
+              if(!docs.exists) console.log("Empty Data")
+              else{
+               _this.artist_playlist.push(docs.data().playlist)
+               console.log(_this.artist_playlist)
+              }
+            })
+          }
           _this.image_url=doc.data().img_url;
           _this.search_user_about=doc.data().bio;
           if(!_this.search_user_about) _this.search_user_about="Not Updated";

@@ -303,26 +303,15 @@
                 <h4 class="card-title"><b>MY PLAYLIST</b></h4>
                 <p class="card-category">Best Playlist</p>
               </div>
-              <div class="card-body" *ngIf="artist_playlist.length>0" [ngClass]="{'list-group':my_events_array.length>10}">
-                <table class="table table-dark">
-                  <thead>
-                    <th scope="col"><b>ID</b></th>
-                    <th scope="col"><b>Song Name</b></th>
-                    <th scope="col"></th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let playlist of artist_playlist;let index=index">
-                      <th scope="row">{{index+1}}</th>
-                      <td>{{playlist.playlist_name}}</td>
-                      <td>
-                        <audio controls>
-                          <!-- <source src="" type="audio/ogg"> -->
-                          <source src="{{playlist.playlist[i]}}" type="audio/mpeg">
-                        </audio>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="card-body" *ngIf="artist_playlist.length>0" [ngClass]="{'list-group':artist_playlist.length>10}">
+                <mat-list role="list" *ngFor="let playlist of artist_playlist">
+                  <mat-list-item *ngFor="let url of playlist.playlist">
+                    {{url.name}}
+                    <audio controls style="height:30px;padding-left:10px">
+                      <source src="{{url.url}}" type="audio/mpeg">
+                    </audio>
+                  </mat-list-item>
+                </mat-list>
               </div>
               <div class="card-body" *ngIf="artist_playlist.length==0">
                 <h3 style="color:red"><b>Empty Playlist</b></h3>

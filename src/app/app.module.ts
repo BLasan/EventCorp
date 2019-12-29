@@ -77,6 +77,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
 import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
 import { HelpComponent } from './shared-components/help/help.component';
+import { PaymentBillComponent } from './Modules/Organizer-Module/payment-bill/payment-bill.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';

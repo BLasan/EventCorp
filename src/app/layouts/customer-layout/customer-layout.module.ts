@@ -41,7 +41,8 @@ import { HelpComponent } from 'app/shared-components/help/help.component';
       MatIconModule,
       MatButtonModule,
       MatCarouselModule,
-      MatSliderModule
+      MatSliderModule,
+      ReactiveFormsModule
       // HomePageComponentModule
     ],
     declarations: [

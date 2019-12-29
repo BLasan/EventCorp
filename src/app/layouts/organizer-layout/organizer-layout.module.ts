@@ -55,6 +55,7 @@ import { ComponentsModule } from 'app/components/components.module';
 import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
 import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
+import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
 
   @NgModule({
     imports: [
@@ -107,6 +108,7 @@ import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
       OrganizerProfileComponent,
       OrganizerEventsComponent,
       FilterUsersPipe,
+      PaymentBillComponent
       // RatingSystemComponent
     ],
    
