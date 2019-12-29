@@ -35,7 +35,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel"><b style="color:red">RAISE A NEW QUERY</b></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" id="close_modal" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -43,36 +43,52 @@
         <form [formGroup]="form">
           <div class="row">
             <div class="col-md-12">
-              <mat-form-field class="example-full-width">
+              <mat-form-field class="example-full-width" [ngClass]="{'has-success':form.controls.user_name.valid && (form.controls.user_name.dirty || form.controls.user_name.touched),'has-danger':form.controls.user_name.invalid && (form.controls.user_name.dirty || form.controls.user_name.touched)}">
                 <input matInput type="text" placeholder="Name" formControlName="user_name">
-                  <!-- <span class="form-control-feedback">
+                  <span class="form-control-feedback" *ngIf="form.controls.user_name.valid && (form.controls.user_name.dirty || form.controls.user_name.touched)">
                     <i class="material-icons">done</i>
-                  </span> -->
+                  </span>
+                  <span class="form-control-feedback" *ngIf="form.controls.user_name.invalid && (form.controls.user_name.dirty || form.controls.user_name.touched)">
+                    <i class="material-icons">clear</i>
+                  </span>
               </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <mat-form-field class="example-full-width">
+              <mat-form-field class="example-full-width" [ngClass]="{'has-success':form.controls.user_email.valid && (form.controls.user_email.dirty || form.controls.user_email.touched),'has-danger':form.controls.user_email.invalid && (form.controls.user_email.dirty || form.controls.user_email.touched)}">
                 <input matInput type="text" placeholder="Email" formControlName="user_email">
-                <!-- <span class="form-control-feedback">
+                <span class="form-control-feedback" *ngIf="form.controls.user_email.valid && (form.controls.user_email.dirty || form.controls.user_email.touched)">
                   <i class="material-icons">done</i>
-                </span> -->
+                </span>
+                <span class="form-control-feedback" *ngIf="form.controls.user_email.invalid && (form.controls.user_email.dirty || form.controls.user_email.touched)">
+                  <i class="material-icons">clear</i>
+                </span>
               </mat-form-field>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
-              <mat-form-field class="example-full-width">
+              <mat-form-field class="example-full-width" [ngClass]="{'has-success':form.controls.query.valid && (form.controls.query.dirty || form.controls.query.touched),'has-danger':form.controls.query.invalid && (form.controls.query.dirty || form.controls.query.touched)}">
                 <textarea matInput placeholder="Enter your query" formControlName="query"></textarea>
+                <span class="form-control-feedback" *ngIf="form.controls.query.valid && (form.controls.query.dirty || form.controls.query.touched)">
+                  <i class="material-icons">done</i>
+                </span>
+                <span class="form-control-feedback" *ngIf="form.controls.query.invalid && (form.controls.query.dirty || form.controls.query.touched)">
+                  <i class="material-icons">clear</i>
+                </span>
               </mat-form-field> 
             </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
-        <button type="button" class="btn btn-success" (click)="submitQuery()"><b>SUBMIT QUERY</b></button>
+        <button type="button" class="btn btn-success" disabled="!form.valid" (click)="submitQuery()"><b>SUBMIT QUERY</b></button>
+      </div> -->
+      <div class="modal-footer">
+          <button type="button" class="btn btn-success" [disabled]="!form.valid" (click)="submitQuery()"><b>SUBMIT QUERY</b></button>
+
       </div>
     </div>
   </div>

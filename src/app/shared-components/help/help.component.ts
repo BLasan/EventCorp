@@ -51,7 +51,10 @@ export class HelpComponent implements OnInit {
           }
         })
       }
-    })
+    });
+    this.form.reset();
+    let element:HTMLElement=document.getElementById('close_modal') as HTMLElement;
+    element.click();
   }
 
 }
