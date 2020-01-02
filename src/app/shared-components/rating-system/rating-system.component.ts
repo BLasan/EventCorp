@@ -350,14 +350,22 @@ export class RatingSystemComponent implements OnInit {
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');
+    console.log(user_name);
     console.log(this.searched_user_email);
+    let today=new Date();
+    console.log(today)
+    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+    let exp_date=today.setDate(today.getDate()+3);
+    console.log(exp_date);
     var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name'));
-    docRef.get().then(async function(doc) {
-      console.log("Hello")
+    docRef.get().then(doc=> {
+      console.log("Hello");
         if(!doc.exists) _this.sent_bookings=false;
         else if(doc.data()){
+        
           _this.acceptBooking="true";
-          _this.isResponded=true
+          _this.isResponded=true;
+          _this.isBookingReq=true;
           console.log(doc.data());    
           if(doc.data().status=="Pending")
             _this.sent_bookings=true;
@@ -507,9 +515,11 @@ export class RatingSystemComponent implements OnInit {
     let user_email=localStorage.getItem('user_name');
     let user_name=localStorage.getItem('nameId');
     let today=new Date();
-    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+    let exp_date=today.setDate(today.getDate()+3);
+    let time=today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     let status="Confirmed";
-    let object={date:date,user_email:user_email,status:status,user_name:user_name,view:false};
+    let object={date:date,time:time,user_email:user_email,status:status,user_name:user_name,view:false};
     this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(this.searched_user_email).update({status:'Confirmed'});
     this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name')).set(object).then(()=>{
       // localStorage.removeItem('searched_user_email');

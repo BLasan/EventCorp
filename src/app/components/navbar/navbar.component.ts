@@ -75,6 +75,11 @@ export class NavbarComponent implements OnInit {
         this.home_link="/admin-dashboard";
     }
     
+    else if(localStorage.getItem('role')=='moderator' && localStorage.getItem('loggedIn')){
+        this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+        this.route_link="/moderator-notifications";
+        this.home_link="/moderator-home";
+    }
 
     else if(localStorage.getItem('role')=='venue_owner' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES3.filter(listTitle=>listTitle);

@@ -67,6 +67,14 @@ export const ROUTES4:RouteInfo[]=[
   { path:'/supplier-add-items',title:'Product Catalog',icon:'add',class:''}
 ];
 
+//moderator routings
+export const ROUTES5:RouteInfo[]=[
+  { path: '/moderator-dashboard', title: 'Home',  icon: 'home', class: '' },
+  { path: '/moderator-notifications', title: 'Notifications',icon:'notifications',class:''},
+  { path:'/moderator-settings',title:'Settings',icon:'settings',class:''},
+  { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}
+];
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -109,6 +117,11 @@ export class SidebarComponent implements OnInit {
       this.route_link="/venue-owner-notifications"
   }
 
+  else if(localStorage.getItem('role')=='moderator' && localStorage.getItem('loggedIn')){
+    this.menuItems=ROUTES5.filter(listTitle=>listTitle);
+    this.route_link="/moderator-notifications"  
+  }
+  
   var _this=this;
 
   var docRef = this.database.firestore.collection('register_user');
