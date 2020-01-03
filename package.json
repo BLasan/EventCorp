@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy-conf.json",
-    "build": "ng build && nodemon server.js ",
+    "start": "ng serve --port 4200 --disable-host-check",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -64,6 +64,7 @@
     "classlist.js": "1.1.20150312",
     "core-js": "2.4.1",
     "cors": "^2.8.5",
+    "crypto-js": "^3.1.9-1",
     "date-fns": "^1.30.1",
     "dotenv": "^7.0.0",
     "ejs": "^2.6.1",

@@ -1,0 +1,67 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Add PlayList</h4>
+            <p class="card-category">Create your own playlist</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="form">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" [ngClass]="{'has-success':form.controls.playlist_name.valid && (form.controls.playlist_name.dirty || form.controls.playlist_name.touched),'has-danger':form.controls.playlist_name.invalid && (form.controls.playlist_name.dirty || form.controls.playlist_name.touched)}">
+                    <input matInput type="text" placeholder="PlayList name" id="playlist_name" formControlName="playlist_name">
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="form.controls.playlist_name.valid && (form.controls.playlist_name.dirty || form.controls.playlist_name.touched)">done</i>
+                    </span>
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="form.controls.playlist_name.invalid && (form.controls.playlist_name.dirty || form.controls.playlist_name.touched)">clear</i>
+                    </span>
+                    <mat-error *ngIf="hasError('playlist_name', 'required')">Name is required</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" [ngClass]="{'has-success':form.controls.playlist_description.valid && (form.controls.playlist_description.dirty || form.controls.playlist_description.touched),'has-danger':form.controls.playlist_description.invalid && (form.controls.playlist_description.dirty || form.controls.playlist_description.touched)}">
+                    <textarea matInput type="text" placeholder="Description" id="description" formControlName="playlist_description"></textarea>
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="form.controls.playlist_description.valid && (form.controls.playlist_description.dirty || form.controls.playlist_description.touched)">done</i>
+                    </span>
+                    <span class="form-control-feedback">
+                      <i class="material-icons" *ngIf="form.controls.playlist_description.invalid && (form.controls.playlist_description.dirty || form.controls.playlist_description.touched)">clear</i>
+                    </span>
+                    <mat-error *ngIf="hasError('playlist_description', 'required')">Description is required</mat-error>
+                  </mat-form-field>
+                </div>  
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <a href="#" id="add_playlist" (click)="upload_files()">
+                    <i class="material-icons" style="font-size:50px;">perm_media</i>
+                  </a>
+                  <input type="file" id="playlist_uploader" accept=".mp3,audio/*" (change)="audio_upload($event)" style="display: none;" multiple>
+                </div>
+                <div class="col-md-6">
+                  <span id="size" style="color:red" *ngIf="total_size<60"><b>Size:</b>  {{total_size}} MB</span>
+                  <span id="size" style="color:red" *ngIf="total_size>=60"><b>File Size too Large. Maximum size 50MB</b></span>
+                  <span id="progress_bar" style="display: none;">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                  </span>
+                  <span class="remove_files" style="display: none;" id="remove_file">
+                    <a href="#" (click)="remove()" id="remove_files">Remove Files</a>
+                  </span>
+                </div>
+              </div>
+              <div class="row" style="padding-top:30px;padding-left:100px">
+                <button mat-raised-button class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()"><b>CREATE</b></button>     
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

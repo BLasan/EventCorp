@@ -13,11 +13,21 @@ const firebaseConfig = {
   projectId: "eventcorppro",
   storageBucket: "eventcorppro.appspot.com",
   messagingSenderId: "886719532814",
-  appId: "1:886719532814:web:9424058ace3d13af"
+  appId: "1:886719532814:web:9424058ace3d13af",
+  
 };
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+// firebase.firestore().enablePersistence().catch(function(err){
+//   if(err.code==="failed-precondition"){
+
+//   }
+//   else if(err.code==="unimplemented"){
+
+//   }
+// })
 
 
 firebase.auth().createUserWithEmailAndPassword("benuraab@gmail.com","benura").catch(function(error) {

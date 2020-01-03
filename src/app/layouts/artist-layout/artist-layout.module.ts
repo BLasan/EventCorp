@@ -54,11 +54,13 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
 
   @NgModule({
     imports: [
       CommonModule,
       RouterModule.forChild(ArtistLayoutRoutes),
+      FormsModule,
       MatButtonModule,
       MatRippleModule,
       MatFormFieldModule,
@@ -107,6 +109,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
      ArtistCalendarComponent,
      ArtistSettingsComponent,
      ViewBookingInfoComponent,
+     AddPlaylistComponent
     ],
    
   })

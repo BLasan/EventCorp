@@ -25,6 +25,8 @@ export class AuthGuardCustomerService implements CanActivate {
     return true;
     else if(path==='/faq')
     return true;
+    else if(path==='/help')
+    return true;
     else {
       this.router.navigate(['/page-not-found']);
       return false;

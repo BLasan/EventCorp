@@ -23,6 +23,7 @@ export class AdminNotificationsComponent implements OnInit {
   ngOnInit() {
 
     this.get_realtime_notifications();
+    
     // this._realtime_data.get_realtime().subscribe(data=>{
     //   console.log(data);
     //   this.data=data;
@@ -65,6 +66,7 @@ export class AdminNotificationsComponent implements OnInit {
     // });
   }
 
+  //get realtime notifications
   get_realtime_notifications(){
     var _this=this;
     this.database.firestore.collection('register_user').onSnapshot(snapshot=>{

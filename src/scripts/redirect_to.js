@@ -1,31 +1,34 @@
 export function redirect_to(role){
 
     // var role=$('#user_role').val();
-     alert(role)
+    //  alert(role)
      
     if(role=='artist'){
         $('#redirect_link').attr('href','/artist-home');
-       // $('#redirect_link')[0].click();
+    //    $('#redirect_link')[0].click();
     }
 
     else if(role=='admin'){
         $('#redirect_link').attr('href','/admin-dashboard');
-       // $('#redirect_link')[0].click();
+    //    $('#redirect_link')[0].click();
     }
 
     else if(role=='organizer'){
         $('#redirect_link').attr('href','/organizer-home');
-       // $('#redirect_link')[0].click();
+    //    $('#redirect_link')[0].click();
     }
 
     else if(role=='supplier'){
         $('#redirect_link').attr('href','/supplier-home');
-       // $('#redirect_link')[0].click();
+    //    $('#redirect_link')[0].click();
     }
 
     else if(role=='venue_owner'){
         $('#redirect_link').attr('href','/venueList');
-       // $('#redirect_link')[0].click();
+        //$('#redirect_link')[0].click();
+    }
+    else if(role==='moderator'){
+        $('#redirect_link').attr('href','/moderator-dashboard');
     }
     else{
         alert("Unauthorized User!Please select a role")
@@ -46,6 +49,7 @@ export function navigate_to_signup(){
 }
 
 export function redirect_to_login(){
+    console.log("Login")
     $('#redirect_to_login')[0].click();
 }
 

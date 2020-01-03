@@ -19,6 +19,8 @@ export class AuthGuardSupplierService implements CanActivate {
     } 
     else if(path.indexOf("/ratings")>-1)
     return true;
+    // else if(path==='/supplier-home')
+    // return true;
     else if(path==="/my-chat-list") 
     return true;
     else {

@@ -93,7 +93,7 @@
           </div>
           <div class="card-body">
             <h4 style="color:blue"><b>Password Reset</b></h4>
-            <form #form_reset [formGroup]="form" action="reset_password" method="POST">
+            <form [formGroup]="form">
               <mat-form-field>
                 <input matInput placeholder="Enter New Password" type="password" formControlName="new_password" name="new_password">
                 <mat-error *ngIf="hasError('new_password', 'required')">*Password required</mat-error>
@@ -104,9 +104,7 @@
                 <mat-error *ngIf="hasError('re_enter_password', 'required')">*Re enter password</mat-error>
                 <mat-error *ngIf="hasError('re_enter_password', 'notequal')">*Password not matching</mat-error>
               </mat-form-field> 
-              <input type="hidden" name="user" value="{{user_email}}">
-              <input type="hidden" name="role" value="{{user_role}}">
-              <button mat-raised-button color="accent" (click)="form_reset.submit()">Reset</button>
+              <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="reset_password()">Reset</button>
             </form>
             <hr>
             <h4 style="color:blue"><b>Change Visibility</b></h4>

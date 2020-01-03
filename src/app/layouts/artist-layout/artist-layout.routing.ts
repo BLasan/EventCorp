@@ -10,6 +10,7 @@ import { RatingSystemComponent } from '../../shared-components/rating-system/rat
 import { NotificationsComponent } from 'app/shared-components/notifications/notifications.component';
 import { MyChatsComponent } from '../../shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
+import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -17,6 +18,7 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'artist-calendar', component:ArtistCalendarComponent},
     { path:'artist-notifications' , component:ArtistRequestComponent},
     { path:'artist-home' ,component:ArtistHomeComponent},
+    { path:'add-playlist' ,component:AddPlaylistComponent},
     { path:'view_booking_info' ,component:ViewBookingInfoComponent},
     { path:'my-chat-list',component:MyChatsComponent},
     { path:'artist-settings' , component:ArtistSettingsComponent},

@@ -60,7 +60,7 @@ import { FeedbackComponent } from './Modules/Customer-Module/feedback/feedback.c
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component'
 import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
 import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
-
+import {enableProdMode} from '@angular/core';
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -75,12 +75,21 @@ const config = {
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
+import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
+import { HelpComponent } from './shared-components/help/help.component';
+import { PaymentBillComponent } from './Modules/Organizer-Module/payment-bill/payment-bill.component';
+import { ModeratorNotificationsComponent } from './Modules/Moderator-Module/moderator-notifications/moderator-notifications.component';
+import { ModeratorDashboardComponent } from './Modules/Moderator-Module/moderator-dashboard/moderator-dashboard.component';
+import { ModeratorSettingsComponent } from './Modules/Moderator-Module/moderator-settings/moderator-settings.component';
+import { ReportWarningsComponent } from './Modules/Moderator-Module/report-warnings/report-warnings.component';
+import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
+import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
 // import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
 // import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
-
+//enableProdMode()
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -137,7 +146,8 @@ import { environment } from '../environments/environment';
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
     VenueCalendarComponent,
-    LocationOwnerLayoutComponent
+    LocationOwnerLayoutComponent,
+    ModeratorLayoutComponent
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
@@ -145,7 +155,7 @@ import { environment } from '../environments/environment';
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

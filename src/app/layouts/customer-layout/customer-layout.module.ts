@@ -25,6 +25,7 @@ import { FaqComponent } from 'app/Modules/Customer-Module/faq/faq.component';
 import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/contact-us.component';
 import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback.component';
 import { MatCarouselModule, MatCarouselComponent, MatCarouselSlideComponent } from '@ngmodule/material-carousel';
+import { HelpComponent } from 'app/shared-components/help/help.component';
   @NgModule({
     imports: [
       CommonModule,
@@ -40,7 +41,8 @@ import { MatCarouselModule, MatCarouselComponent, MatCarouselSlideComponent } fr
       MatIconModule,
       MatButtonModule,
       MatCarouselModule,
-      MatSliderModule
+      MatSliderModule,
+      ReactiveFormsModule
       // HomePageComponentModule
     ],
     declarations: [
@@ -49,6 +51,8 @@ import { MatCarouselModule, MatCarouselComponent, MatCarouselSlideComponent } fr
      FaqComponent,
      ContactUsComponent,
      FeedbackComponent,
+     HelpComponent
+     
     //  MatCarouselComponent,
     //  MatCarouselSlideComponent
     ],
