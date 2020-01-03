@@ -84,6 +84,7 @@ import { ModeratorSettingsComponent } from './Modules/Moderator-Module/moderator
 import { ReportWarningsComponent } from './Modules/Moderator-Module/report-warnings/report-warnings.component';
 import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
 import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
+import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -147,7 +148,7 @@ import { AuthGuardModeratorService } from './services/Authentication/authGuard_m
     ResetPasswordFirebaseComponent,
     VenueCalendarComponent,
     LocationOwnerLayoutComponent,
-    ModeratorLayoutComponent
+    ModeratorLayoutComponent,
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,

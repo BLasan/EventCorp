@@ -28,6 +28,7 @@ import { ModeratorDashboardComponent } from 'app/Modules/Moderator-Module/modera
 import { ModeratorNotificationsComponent } from 'app/Modules/Moderator-Module/moderator-notifications/moderator-notifications.component';
 import { ModeratorSettingsComponent } from 'app/Modules/Moderator-Module/moderator-settings/moderator-settings.component';
 import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-warnings/report-warnings.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-war
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    MatCarouselModule
   ],
   declarations: [
    ModeratorDashboardComponent,

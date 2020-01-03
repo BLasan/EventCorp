@@ -12,7 +12,8 @@ import {
     MatSelectModule,
     MatToolbarModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    MatListModule
   } from '@angular/material';
 
 import { from } from 'rxjs';
@@ -26,11 +27,15 @@ import { ContactUsComponent } from 'app/Modules/Customer-Module/contact-us/conta
 import { FeedbackComponent } from 'app/Modules/Customer-Module/feedback/feedback.component';
 import { MatCarouselModule, MatCarouselComponent, MatCarouselSlideComponent } from '@ngmodule/material-carousel';
 import { HelpComponent } from 'app/shared-components/help/help.component';
+import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events/latest-events.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   @NgModule({
     imports: [
       CommonModule,
       RouterModule.forChild(CustomerLayoutRoutes),
       FormsModule,
+      NgbModule,
       MatButtonModule,
       MatRippleModule,
       MatFormFieldModule,
@@ -42,7 +47,9 @@ import { HelpComponent } from 'app/shared-components/help/help.component';
       MatButtonModule,
       MatCarouselModule,
       MatSliderModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      NgxMatSelectSearchModule,
+      MatListModule,
       // HomePageComponentModule
     ],
     declarations: [
@@ -51,8 +58,8 @@ import { HelpComponent } from 'app/shared-components/help/help.component';
      FaqComponent,
      ContactUsComponent,
      FeedbackComponent,
-     HelpComponent
-     
+     HelpComponent,
+     LatestEventsComponent
     //  MatCarouselComponent,
     //  MatCarouselSlideComponent
     ],
