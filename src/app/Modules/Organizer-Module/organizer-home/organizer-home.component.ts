@@ -37,9 +37,9 @@ export class OrganizerHomeComponent implements OnInit {
     }  
     snapshot.forEach(doc => {
       console.log(doc.id, '=>', doc.data());
-      if(doc.data().role=="artist" && doc.data().rating>=3){
-        _this.top_artists.push(doc.data());
-         _this.top_artists.sort().reverse();
+      if(doc.data().role=="artist"){
+        // _this.top_artists.push(doc.data());
+        //  _this.top_artists.sort().reverse();
       }
      
       else if(doc.data().role=="supplier" && doc.data().rating>=3){

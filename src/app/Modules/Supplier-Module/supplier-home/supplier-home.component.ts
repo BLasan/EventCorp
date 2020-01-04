@@ -44,10 +44,10 @@ export class SupplierHomeComponent implements OnInit {
          _this.top_organizers.sort().reverse();
       }
      
-      else if(doc.data().role=="artist" && doc.data().rating>=3){
-        _this.top_artists.push(doc.data());
-         _this.top_artists.sort().reverse();
-      }
+      // else if(doc.data().role=="artist"){
+      //   _this.top_artists.push(doc.data());
+      //    _this.top_artists.sort().reverse();
+      // }
       
       else if(doc.data().role=="venue_owner" && doc.data().rating>=3){
         _this.top_venue_owners.push(doc.data());

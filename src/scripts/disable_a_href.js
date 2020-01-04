@@ -106,3 +106,9 @@ export function disable_event_images(){
         e.preventDefault();
     }) 
 }
+
+export function disable_report_comments(){
+    $(document).on('click','#report_comment',function(e){
+        e.preventDefault();
+    }) 
+}

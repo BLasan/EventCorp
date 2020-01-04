@@ -109,9 +109,16 @@
               <hr>
                   <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
               <div *ngIf="user_role==='organizer'">
-                <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
-                <button *ngIf="sent_bookings===false" mat-raised-button style="background-color:gold" (click)="book_now()">BOOK NOW</button>
-                <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
+                  </div>
+                  <div class="col-md-4">
+                    <button *ngIf="sent_bookings===false" mat-raised-button class="btn btn-warning" (click)="book_now()">BOOK NOW</button>
+                    <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
               </div>
           </div>
         </div>
@@ -233,11 +240,18 @@
                       <hr *ngIf="index==0">
                       <p style="color:green"><b>{{comments.date}}</b></p>
                       <div class="row" style="margin-top:-10px">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-6 col-sm-6">
                           <p><b>{{comments.user_name}} : </b></p>
                         </div>
-                        <div class="col-md-6 col-sm-12" style="padding-left:0">
+                        <div class="col-md-6 col-sm-6" style="padding-left:0">
                           <p>{{comments.comment}}</p>
+                        </div>
+                      </div>
+                      <div class="row" style="margin-top:-10px">
+                        <div class="col-md-4 col-sm-4"></div>
+                        <div class="col-md-4 col-sm-4"></div>
+                        <div class="col-md-4 col-sm-4">
+                          <p style="color:red"><a href="#" id="report_comment" style="text-decoration: none;color:red" (click)="reportComment(comments.id,comments.comment,comments.user_name,comments.date)">REPORT COMMENT</a></p>
                         </div>
                       </div>
                       <hr>
@@ -295,10 +309,10 @@
                 </table>
               </div>
               <div class="card-body" *ngIf="my_events_array.length==0">
-                <h3 style="color:red"><b>Empty Playlist</b></h3>
+                <h3 style="color:red"><b>Empty Events</b></h3>
               </div>
             </div>
-            <div class="card" *ngIf="search_user_role==='artist' && play_list_vis">
+            <div class="card" *ngIf="search_user_role==='artist' && play_list_vis===true">
               <div class="card-header card-header-primary">
                 <h4 class="card-title"><b>MY PLAYLIST</b></h4>
                 <p class="card-category">Best Playlist</p>

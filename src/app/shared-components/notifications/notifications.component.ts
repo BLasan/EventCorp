@@ -148,10 +148,18 @@ mark_view_booking_notification(sender_email:string,type:string){
   if(this.isBookingView){
     console.log(sender_email)
     console.log(this.booking_data);
-    this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
-    this.req_from=this.filtered_details[0].sender_email;
-    this.req_name=this.filtered_details[0].sender_name;
-    this.req_time=this.filtered_details[0].date;
+    if(localStorage.getItem('role')==='organizer'){
+      this.filtered_details=this.booking_data.filter(x=>x.user_email==sender_email);
+      this.req_from=this.filtered_details[0].user_email;
+      this.req_name=this.filtered_details[0].user_name;
+      this.req_time=this.filtered_details[0].date;
+    }
+    else{
+      this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
+      this.req_from=this.filtered_details[0].sender_email;
+      this.req_name=this.filtered_details[0].sender_name;
+      this.req_time=this.filtered_details[0].date;
+    }
     // this.req_contact=this.filtered_details[0].user_contact;
   }
 
@@ -165,17 +173,17 @@ mark_view_booking_notification(sender_email:string,type:string){
   }
 
   let user_name=localStorage.getItem('user_name');
-  this.notification_count-=1;
+ // this.notification_count-=1;
   console.log(sender_email)
   if(this.isBookingView) this.notification_type="booking";
   else this.notification_type="notifications";
-  update_count(this.notification_count);
   if(this.notification_type==="booking" && type==='cancel')
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true});
   else
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('notification-messages').doc(sender_email).update({view:true});
   if(mark_notifications){
     this.notification_count-=1;
+    update_count(this.notification_count);
     this.getRequestDetails();
   }
 
