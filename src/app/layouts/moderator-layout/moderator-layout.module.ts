@@ -29,6 +29,8 @@ import { ModeratorNotificationsComponent } from 'app/Modules/Moderator-Module/mo
 import { ModeratorSettingsComponent } from 'app/Modules/Moderator-Module/moderator-settings/moderator-settings.component';
 import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-warnings/report-warnings.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { ModeratorService } from 'app/services/moderator.service';
+
 
 
 @NgModule({
@@ -62,6 +64,6 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
    ModeratorSettingsComponent,
    ReportWarningsComponent
   ],
-  providers: []
+  providers: [ModeratorService]
 })
 export class ModeratorLayoutModule {}
