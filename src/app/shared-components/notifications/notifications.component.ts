@@ -16,6 +16,7 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   notification:string="This is a new notification";
+  chat_messages:any=[];
   notification_details:any=[];
   booking_data:any=[];
   message_details:any;
@@ -130,6 +131,23 @@ export class NotificationsComponent implements OnInit {
     console.log('Error getting documents', err);
   });
 
+  var docRef = this.database.firestore.collection('register_user').doc(user_name).collection('chats');
+    docRef.get()
+    .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+    }  
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+      if(doc.data().view==false)
+      _this.chat_messages.push(doc.data());
+      _this.notification_count+=1;
+    });
+    })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+
     // this._notification.get_message_notifications(user_name).subscribe(data=>{
     //   this.notification_details=data;
     //   if(this.notification_details.isEmpty==false){
@@ -208,6 +226,13 @@ mark_view_booking_notification(sender_email:string,type:string){
   //  // localStorage.setItem('notification_count',this.notification_count.toString());
   // });
   
+}
+
+
+mark_chat_notifications(id:string){
+  alert(id)
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('chats').doc(id).update({view:true});
+  localStorage.setItem('searched_user_email',id);
 }
 
 

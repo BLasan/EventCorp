@@ -285,7 +285,30 @@ export class NavbarComponent implements OnInit {
             changes.forEach(element => {
                 if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
-                    (<HTMLInputElement>document.getElementById('notification_count_id')).innerHTML=_this.notification_count.toString();
+                    (document.getElementById('notification_count_id') as HTMLElement).innerHTML=_this.notification_count.toString();
+                 }
+     
+                else if(element.type=='modified'){
+                    if(element.doc.data().view)
+                    _this.notification_count-=1;
+                    else
+                    _this.notification_count+=1;
+                }
+     
+                else if(element.type=='removed'){
+                   
+                }
+            });
+        });
+
+        this._db.firestore.collection("register_user").doc(user).collection('chats')
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                if(element.type=='added' && element.doc.data().view===false){
+                    _this.notification_count+=1;
+                    (document.getElementById('notification_count_id') as HTMLElement).innerHTML=_this.notification_count.toString();
                  }
      
                 else if(element.type=='modified'){

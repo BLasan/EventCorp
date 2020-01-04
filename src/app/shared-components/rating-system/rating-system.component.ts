@@ -12,6 +12,7 @@ import { disable_load_more} from '../../../scripts/disable_a_href';
 import CryptoJS from 'crypto-js';
 import {calendar} from '../../../scripts/artist/artist_calendar.js'
 import { disable_modal_open,disable_calendarModal,disable_report_comments} from '../../../scripts/disable_a_href';
+import { timestamp } from 'rxjs/operators';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -161,7 +162,10 @@ export class RatingSystemComponent implements OnInit {
    // let user_id=this.search_token;
     var _this=this;
     let timeStamp=new Date();
-    let date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
+    if(timeStamp.getMonth()<10)
+    var date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+1+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
+    else
+    var date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
     let comment_id=this.organizer_name+"-"+this.searched_user_email+"@"+date;
     var hash= CryptoJS.SHA256(comment_id).toString();
     let obj={comment:this.myComment,date:date,user_name:this.organizer_name,id:hash};

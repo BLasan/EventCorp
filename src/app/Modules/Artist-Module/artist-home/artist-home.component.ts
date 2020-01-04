@@ -19,7 +19,7 @@ export class ArtistHomeComponent implements OnInit {
   isDone:boolean=false;
   my_playlist:any=[];
   playlist_title:string;
-  user_comments:Array<{comment:String,date:any,user_name:String}>=[];
+  user_comments:any=[];
   constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -94,13 +94,14 @@ export class ArtistHomeComponent implements OnInit {
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments').get().then(docs=>{
       if(!docs.empty){
         docs.forEach(doc=>{
-          _this.user_comments.push(doc.data().comments)
+          _this.user_comments.push(doc.data().comments);
         })
       }
       else console.log("Empty Comments");
     }).catch(err=>{
       console.log(err);
-    })
+    });
+    console.log(this.user_comments)
   }
 
   load_playlist(){
