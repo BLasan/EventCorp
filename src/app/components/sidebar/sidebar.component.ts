@@ -133,7 +133,7 @@ export class SidebarComponent implements OnInit {
     return;
   }  
   snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
+    // console.log(doc.id, '=>', doc.data());
     if(doc.data().role!=localStorage.getItem('role'))
     _this.user_details.push(doc.data());
   });

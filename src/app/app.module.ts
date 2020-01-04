@@ -85,6 +85,8 @@ import { ReportWarningsComponent } from './Modules/Moderator-Module/report-warni
 import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
 import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
 import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
+import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.component';
+import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -130,7 +132,9 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
     AngularFirestoreModule.enablePersistence(), // firestore-persistance mode
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    FullCalendarModule
+    FullCalendarModule,
+    MatDialogModule,
+    MatRadioModule
     
   ],
   declarations: [
@@ -149,6 +153,8 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
     VenueCalendarComponent,
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
+    ReportDialogComponent,
+    // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
@@ -157,7 +163,8 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
   ],
 
   providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ReportDialogComponent]
 })
 export class AppModule { }
 

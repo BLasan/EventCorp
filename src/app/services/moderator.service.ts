@@ -19,4 +19,20 @@ export class ModeratorService {
   getQueries(){
     return this.db.collection('queries').snapshotChanges();
   }
+
+  getVenues(){
+    return this.db.collection('Venues').snapshotChanges();
+  }
+
+  getArtists(){
+    return this.db.collection('register_user',ref => ref.where('role', '==', 'artist')).snapshotChanges();
+  }
+
+  getOrganizers(){
+    return this.db.collection('register_user',ref => ref.where('role', '==', 'organizer')).snapshotChanges();
+  }
+
+  getSuppliers(){
+    return this.db.collection('register_user',ref => ref.where('role', '==', 'supplier')).snapshotChanges();
+  }
 }

@@ -163,14 +163,16 @@
         <mat-card-header mat1>
           <mat-card-title>Comments</mat-card-title>
         </mat-card-header>
-        <mat-card *ngFor="let comment of comments" class="example-card">
+        <mat-card *ngFor="let comment of comments; trackBy: trackHero; let i = index" class="example-card">
           <mat-card-header class="header-inner">
-            <mat-card-title>{{comment?.user_name}}</mat-card-title>
+            <mat-card-title>{{comment?.user_name}}  {{i}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <p>
               {{comment?.comment}}
+              <span><button mat-button class="report-button" color="primary" (click)="openReportCommentsDialog(i)">Report</button></span>
             </p>
+            
           </mat-card-content>
         </mat-card>
       </mat-card>

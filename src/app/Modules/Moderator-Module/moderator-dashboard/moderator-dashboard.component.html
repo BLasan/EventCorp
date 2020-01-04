@@ -1,4 +1,113 @@
 <div class="main-content">
   <div class="container-fluid">
+
+    <div class="row">
+
+      <!-- <div class="col-md-4">
+        <div class="input-group">
+            <div class="input-group-append">
+                <div class="input-group-text"><i class="material-icons">
+                    search
+                  </i>
+                </div>
+              </div>
+          <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
+            placeholder="Search by name..." (keyup)="searchByName()">        
+        </div>
+      </div> -->
+
+      <input [(ngModel)]="searchText" placeholder="search text goes here">
+
+      <div class="top-button-row">
+        <button mat-raised-button color="primary" (click)="getArtistData()" type="button">Artist</button>
+        <button mat-raised-button color="accent" (click)="getVenueData()" type="button">Venues</button>
+        <button mat-raised-button color="warn" (click)="getOrganizerData()" type="button">Organizer</button>
+        <button mat-raised-button color="black" (click)="getSupplierData()" type="button">Supplier</button>
+      </div>
+
+    </div>
+
+    <div class="list-group users-list"  *ngIf="role === 'artist'">
+      <div *ngFor="let item of items | filter : searchText" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+          <!-- <div class="col-md-1 image-col">
+            <img class="image" src="./../../../assets/img/building.jpg">
+          </div> -->
+          <div class="col-md-5 text-col" id="myUL">
+            <h5 class="mb-1" id="searchByText">{{item.payload.doc.data().user_name}}</h5>
+            <small>{{item.payload.doc.data().email}}</small>
+          </div>
+          <div class="col col-md-6 actions-col">
+            <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>
+            <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+              Calendar</button>
+            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-group users-list"  *ngIf="role === 'venue'">
+      <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+          <!-- <div class="col-md-1 image-col">
+            <img class="image" src="./../../../assets/img/building.jpg">
+          </div> -->
+          <div class="col-md-5 text-col">
+            <h5 class="mb-1">{{item.payload.doc.data().v_name}}</h5>
+            <small>Seating Capacity : {{item.payload.doc.data().seating_capacity}}</small>
+          </div>
+          <div class="col col-md-6 actions-col">
+            <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>
+            <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+              Calendar</button>
+            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-group users-list"  *ngIf="role === 'organizer'">
+      <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+          <!-- <div class="col-md-1 image-col">
+            <img class="image" src="./../../../assets/img/building.jpg">
+          </div> -->
+          <div class="col-md-5 text-col">
+            <h5 class="mb-1">{{item.payload.doc.data().user_name}}</h5>
+            <small>{{item.payload.doc.data().email}}</small>
+          </div>
+          <div class="col col-md-6 actions-col">
+            <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>
+            <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+              Calendar</button>
+            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="list-group users-list"  *ngIf="role === 'supplier'">
+      <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="row">
+          <!-- <div class="col-md-1 image-col">
+            <img class="image" src="./../../../assets/img/building.jpg">
+          </div> -->
+          <div class="col-md-5 text-col">
+            <h5 class="mb-1">{{item.payload.doc.data().user_name}}</h5>
+            <small>{{item.payload.doc.data().email}}</small>
+          </div>
+          <div class="col col-md-6 actions-col">
+            <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>
+            <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+              Calendar</button>
+            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
   </div>
 </div>

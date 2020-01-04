@@ -32,8 +32,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ModeratorService } from 'app/services/moderator.service';
 import { ModeratorQueriesComponent } from 'app/Modules/Moderator-Module/moderator-queries/moderator-queries.component';
 import { QueryReplyDialogComponent } from 'app/Modules/Moderator-Module/query-reply-dialog/query-reply-dialog.component';
-
-
+import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
 
 
 
@@ -70,6 +69,7 @@ import { QueryReplyDialogComponent } from 'app/Modules/Moderator-Module/query-re
    ReportWarningsComponent,
    ModeratorQueriesComponent,
    QueryReplyDialogComponent,
+   FilterPipe
   ],
   providers: [ModeratorService],
   entryComponents: [QueryReplyDialogComponent]
