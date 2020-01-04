@@ -30,6 +30,10 @@ import { ModeratorSettingsComponent } from 'app/Modules/Moderator-Module/moderat
 import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-warnings/report-warnings.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ModeratorService } from 'app/services/moderator.service';
+import { ModeratorQueriesComponent } from 'app/Modules/Moderator-Module/moderator-queries/moderator-queries.component';
+import { QueryReplyDialogComponent } from 'app/Modules/Moderator-Module/query-reply-dialog/query-reply-dialog.component';
+
+
 
 
 
@@ -56,14 +60,18 @@ import { ModeratorService } from 'app/services/moderator.service';
     MatGridListModule,
     MatIconModule,
     MatSliderModule,
-    MatCarouselModule
+    MatCarouselModule,
+
   ],
   declarations: [
    ModeratorDashboardComponent,
    ModeratorNotificationsComponent,
    ModeratorSettingsComponent,
-   ReportWarningsComponent
+   ReportWarningsComponent,
+   ModeratorQueriesComponent,
+   QueryReplyDialogComponent,
   ],
-  providers: [ModeratorService]
+  providers: [ModeratorService],
+  entryComponents: [QueryReplyDialogComponent]
 })
 export class ModeratorLayoutModule {}

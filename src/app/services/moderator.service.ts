@@ -15,4 +15,8 @@ export class ModeratorService {
   getReports(){
     return this.db.collection('reports').snapshotChanges();
   }
+
+  getQueries(){
+    return this.db.collection('queries').snapshotChanges();
+  }
 }

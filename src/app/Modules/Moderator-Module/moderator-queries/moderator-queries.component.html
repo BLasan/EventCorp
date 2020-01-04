@@ -1,0 +1,29 @@
+<div class="main-content">
+  <div class="container-fluid">
+  <h1>User Queries</h1>
+  <div class="list-group users-list">
+
+      <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+
+        <div class="row tile">
+          <!-- <div class="col-md-1 image-col">
+            <img class="image" src="./../../../assets/img/building.jpg">
+          </div> -->
+          <div class="col-md-5 text-col">
+            <span><small> ID: {{item.payload.doc.data().u_name}}</small></span>
+            <p class="mb-1">{{item.payload.doc.data().q_content}}</p>
+            <small>{{item.payload.doc.data().u_email}}</small>
+            <small class="b-title-row">2019-01-08</small>
+          </div>
+          <div class="col col-md-6 actions-col">
+            <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Reply</button>
+            <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+              Calendar</button>
+            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
