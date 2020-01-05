@@ -31,7 +31,6 @@ app.use(body.json());
   // var password='',repassword='',name='',email='',country='';
   // var LocalStorage = require('node-localstorage').LocalStorage;
   // localStorage = new LocalStorage('./scratch');
-  const RECAPTCHA_SECRET = "6Le6daAUAAAAAD-dA1jOUI_dZKVg2z7v4MDFfl9p";
   // const grpc = require('grpc')
   // const protoLoader = require('@grpc/proto-loader')
   // const packageDefinition = protoLoader.loadSync('notes.proto');
