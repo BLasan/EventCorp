@@ -11,7 +11,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_load_more} from '../../../scripts/disable_a_href';
 import CryptoJS from 'crypto-js';
 import {calendar} from '../../../scripts/artist/artist_calendar.js'
-import { disable_modal_open,disable_calendarModal} from '../../../scripts/disable_a_href';
+import { disable_modal_open,disable_calendarModal,disable_report_comments} from '../../../scripts/disable_a_href';
+import { timestamp } from 'rxjs/operators';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -60,10 +61,12 @@ export class RatingSystemComponent implements OnInit {
   acceptBooking:string=null;
   isResponded:boolean=false;
   isLoadMore:boolean=false;
-  comments_array:Array<{comment:String,date:any,user_name:String}>=[];
+  image_url:string="assets/img/faces/pro_img.png";
+  comments_array:Array<{comment:string,date:any,user_name:string,id:string}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
+    disable_report_comments()
     this.searched_user_email=localStorage.getItem('searched_user_email');
     console.log(this.searched_user_email)
     this.viewer=localStorage.getItem('user_name');
@@ -87,7 +90,7 @@ export class RatingSystemComponent implements OnInit {
     this.getSearchedUserData();
     this.loadComments();
     this.load_view_settings();
-    this.load_user_events();
+   // this.load_user_events();
     localStorage.removeItem('status');
     localStorage.removeItem('searched_user_email');
     localStorage.removeItem('isBookingReq');
@@ -159,14 +162,17 @@ export class RatingSystemComponent implements OnInit {
    // let user_id=this.search_token;
     var _this=this;
     let timeStamp=new Date();
-    let date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
-    let obj={comment:this.myComment,date:date,user_name:this.organizer_name};
+    if(timeStamp.getMonth()<10)
+    var date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+1+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
+    else
+    var date=timeStamp.getFullYear()+"-"+timeStamp.getMonth()+"-"+timeStamp.getDate()+" "+timeStamp.getHours()+":"+timeStamp.getMinutes();
     let comment_id=this.organizer_name+"-"+this.searched_user_email+"@"+date;
     var hash= CryptoJS.SHA256(comment_id).toString();
+    let obj={comment:this.myComment,date:date,user_name:this.organizer_name,id:hash};
     this.comments_array.push(obj);
     console.log(this.comments_array.length);
     this.myComment="";
-    this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({comments:this.comments_array}).then(docs=>{
+    this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({id:hash,comments:this.comments_array}).then(docs=>{
      // _this.loadComments();
       _this._snackBar.open("Successfully Posted","Done", {
         duration: 2000,
@@ -238,8 +244,15 @@ export class RatingSystemComponent implements OnInit {
           doc.forEach(docs=>{
             console.log(docs.id);
             var length=docs.data().comments.length;
-            for(var i=0;i<length;i++)
-            _this.comments_array.push(docs.data().comments[i]);
+            for(var i=0;i<length;i++){
+              var comment=docs.data().comments[i].comment;
+              var date=docs.data().comments[i].date;
+              var user_name=docs.data().comments[i].user_name;
+              var id=docs.id;
+              var obj={comment:comment,date:date,user_name:user_name,id:id};
+              _this.comments_array.push(obj);
+            }
+           
           })
           // _this.comments_array=doc.data().comments;
           // console.log(_this.comments_array.length);
@@ -344,26 +357,48 @@ export class RatingSystemComponent implements OnInit {
 
    }
 
+   reportComment(id:any,comment:string,user_name:string,date:string){
+     var _this=this;
+     this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name')}).then(()=>{
+       console.log("Success");
+       _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+        duration: 3000,
+      });
+     }).catch(err=>{
+       console.log(err);
+     })
+
+   }
+
    getRequestDetails(){
     console.log('Hello');
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');
-    console.log(this.searched_user_email);
+    console.log(user_name);
+    let today=new Date();
+    let diff_date=new Date(today.getTime()-(1000*60*60*24*3));
+    console.log(diff_date);
     var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name'));
-    docRef.get().then(async function(doc) {
-      console.log("Hello")
+    docRef.get().then(doc=> {
+      console.log("Hello");
         if(!doc.exists) _this.sent_bookings=false;
         else if(doc.data()){
-          _this.acceptBooking="true";
-          _this.isResponded=true
-          console.log(doc.data());    
-          if(doc.data().status=="Pending")
-            _this.sent_bookings=true;
-          else if(doc.data().status=="Rejected")
-            _this.sent_bookings=false;
-          else if(doc.data().status=="Confirmed")
-            _this.sent_bookings=false;
+          var date_created=new Date(doc.data().date);
+          console.log(diff_date<=date_created);
+          console
+          if(diff_date<=date_created){
+            _this.acceptBooking="true";
+            _this.isResponded=true;
+            _this.isBookingReq=true;
+            console.log(doc.data());    
+            if(doc.data().status=="Pending")
+              _this.sent_bookings=true;
+            else if(doc.data().status=="Rejected")
+              _this.sent_bookings=false;
+            else if(doc.data().status=="Confirmed")
+              _this.sent_bookings=false;
+          }
           _this.isLoaded=true;
         }
         else{
@@ -393,8 +428,9 @@ export class RatingSystemComponent implements OnInit {
    }
 
    getSearchedUserData(){
-     console.log("hrll");
+    
      var _this=this;
+     console.log(this.searched_user_email)
      var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email);
      docRef.get().then(function(doc) {
       //  alert("UseData:"+doc.data().role)
@@ -402,6 +438,18 @@ export class RatingSystemComponent implements OnInit {
           // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
+          if(_this.search_user_role==='artist') _this.load_artist_playlist();
+          else if(_this.search_user_role!=='artist') _this.load_user_events();          // if(_this.search_user_role==='artist'){
+          //   _this.database.firestore.collection('register_user').doc(_this.searched_user_email).collection('my_playlist').doc('playlist').get().then(docs=>{
+          //     if(!docs.exists) console.log("Empty Data")
+          //     else{
+          //       console.log(docs.data().playList_name);
+          //      _this.artist_playlist.push(docs.data().playlist)
+          //      console.log(_this.artist_playlist);
+          //     }
+          //   })
+          // }
+          _this.image_url=doc.data().img_url;
           _this.search_user_about=doc.data().bio;
           if(!_this.search_user_about) _this.search_user_about="Not Updated";
           _this.search_user_contact=doc.data().contact;
@@ -456,12 +504,10 @@ export class RatingSystemComponent implements OnInit {
 
   load_artist_playlist(){
     var _this=this;
-    this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('my_playlist').get().then(doc=>{
-      if(doc.empty) console.log("Empty Data");
+    this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('my_playlist').doc('playlist').get().then(doc=>{
+      if(!doc.exists) console.log("Empty Data");
       else{
-        doc.forEach(docs=>{
-          _this.artist_playlist.push(docs.data());
-        })
+       _this.artist_playlist.push(doc.data());
       }
     }).catch(err=>{
       console.log(err);
@@ -496,9 +542,11 @@ export class RatingSystemComponent implements OnInit {
     let user_email=localStorage.getItem('user_name');
     let user_name=localStorage.getItem('nameId');
     let today=new Date();
-    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+    let exp_date=today.setDate(today.getDate()+3);
+    let time=today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
     let status="Confirmed";
-    let object={date:date,user_email:user_email,status:status,user_name:user_name,view:false};
+    let object={date:date,time:time,user_email:user_email,status:status,user_name:user_name,view:false};
     this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(this.searched_user_email).update({status:'Confirmed'});
     this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name')).set(object).then(()=>{
       // localStorage.removeItem('searched_user_email');

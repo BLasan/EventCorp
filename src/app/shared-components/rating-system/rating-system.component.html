@@ -10,10 +10,12 @@
     </div>
     <div class="row" style="margin-top:20px">
       <div class="col-md-6">
-        <mat-card>
-          <mat-card-title style="color:blue;"><h2 align="center"><b>USER DETAILS</b></h2></mat-card-title>
-            <mat-card-content>
-              <img mat-card-image src="assets/img/faces/marc.jpg" style="margin-top:10px;width:450px;padding-left:100px;padding-right:100px;border-radius:50%;" height="300px" alt="user_image">
+        <div class="card" style="margin-top:-2px">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title" align="center"><b>USER DETAILS</b></h4>
+          </div>
+          <div class="card-body">
+              <img mat-card-image [src]="image_url" style="margin-top:10px;width:450px;padding-left:100px;padding-right:100px;border-radius:50%;" height="300px" alt="user_image">
               <hr>
               <div class="row">
                 <div class="col-6" style="float: left">
@@ -107,12 +109,122 @@
               <hr>
                   <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
               <div *ngIf="user_role==='organizer'">
+                <div class="row">
+                  <div class="col-md-4">
+                    <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
+                  </div>
+                  <div class="col-md-4">
+                    <button *ngIf="sent_bookings===false" mat-raised-button class="btn btn-warning" (click)="book_now()">BOOK NOW</button>
+                    <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
+                  </div>
+                  <div class="col-md-4"></div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <!-- <mat-card>
+          <mat-card-title style="color:white;background-color: maroon;"><h2 align="center"><b>USER DETAILS</b></h2></mat-card-title>
+            <mat-card-content>
+              <img mat-card-image src="assets/img/faces/marc.jpg" style="margin-top:10px;width:450px;padding-left:100px;padding-right:100px;border-radius:50%;" height="300px" alt="user_image">
+              <hr>
+              <div class="row">
+                <div class="col-6" style="float: left">
+                  <p><b>Name</b></p>
+                </div>
+                <div class="col-6" style="float: left">
+                  <p>{{search_user_name}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6" style="float: left">
+                  <p><b>Role</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{search_user_role}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="events_vis">
+                <div class="col-6" style="float: left">
+                  <p><b>Events</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{my_events}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="search_user_role!=='artist' && rating_vis">
+                <div class="col-6">
+                  <p><b>Ratings</b></p>
+                </div>
+                <div class="col-6" style="float:left;margin-top:-10px">
+                  <p>
+                    <ngb-rating [(rate)]="userRate" max="5"  readonly="true">
+                      <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                      </ng-template>
+                    </ngb-rating>  
+                  </p>
+                </div>
+              </div>
+              <div class="row" *ngIf="!isLoadMore && about_vis">
+                <a style="padding-left:180px;" (click)="load_more()" id="load_more" href="#">View More</a>
+              </div>
+              <div class="row" *ngIf="isLoadMore">
+                <div class="col-6" style="float: left">
+                  <p><b>About</b></p>
+                </div>
+                <div class="col-6" *ngIf="search_user_about==='Not Updated'" style="float:left;color:red">
+                  <p>{{search_user_about}}</p>
+                </div>
+                <div class="col-6" *ngIf="search_user_about!=='Not Updated'" style="float:left">
+                  <p>{{search_user_about}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="isLoadMore && contact_vis">
+                <div class="col-6" style="float: left">
+                  <p><b>Contact</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{search_user_contact}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="isLoadMore">
+                <div class="col-6" style="float: left">
+                  <p><b>Email</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{searched_user_email}}</p>
+                </div>
+              </div>
+              <div class="row" *ngIf="isLoadMore && address_vis">
+                <div class="col-6" style="float: left">
+                  <p><b>Address</b></p>
+                </div>
+                <div class="col-6" style="float:left">
+                  <p>{{search_user_address}}</p>
+                </div>
+              </div>
+              <div *ngIf="isBookingReq">
+                <hr>
+                <div class="row" style="padding-left:100px;">
+                  <div class="col-md-4">
+                    <button *ngIf="!isResponded" mat-raised-button style="background-color:green" (click)="acceptRequest()"><B>ACCEPT</B></button>
+                  </div>
+                  <div class="col-md-4">
+                    <button *ngIf="!isResponded" mat-raised-button style="background-color:red" (click)="declineRequest()"><B>DECLINE</B></button>
+                  </div> 
+                  <h4 *ngIf="acceptBooking==='true'"><b style="color:green"><i class="material-icons">done</i>BOOKING ACCEPTED</b></h4>
+                  <h4 *ngIf="acceptBooking==='false'"><b style="color:red"><i class="material-icons">cancel</i>BOOKING REJECTED</b></h4>
+                </div>
+              </div>
+              <hr>
+                 
+              <div *ngIf="user_role==='organizer'">
                 <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
                 <button *ngIf="sent_bookings===false" mat-raised-button style="background-color:gold" (click)="book_now()">BOOK NOW</button>
                 <h4 *ngIf="sent_bookings==true"><b style="color:green"><i class="material-icons">done</i>Request Sent</b></h4>
               </div>
             </mat-card-content>
-          </mat-card>
+          </mat-card> -->
       </div>
       <div class="col-md-6">
         <div class="row">
@@ -128,13 +240,20 @@
                       <hr *ngIf="index==0">
                       <p style="color:green"><b>{{comments.date}}</b></p>
                       <div class="row" style="margin-top:-10px">
-                        <div class="col-md-6 col-sm-12">
+                        <div class="col-md-6 col-sm-6">
                           <p><b>{{comments.user_name}} : </b></p>
                         </div>
-                        <div class="col-md-6 col-sm-12" style="padding-left:0">
+                        <div class="col-md-6 col-sm-6" style="padding-left:0">
                           <p>{{comments.comment}}</p>
                         </div>
                       </div>
+                      <!-- <div class="row" style="margin-top:-10px">
+                        <div class="col-md-4 col-sm-4"></div>
+                        <div class="col-md-4 col-sm-4"></div>
+                        <div class="col-md-4 col-sm-4">
+                          <p style="color:red"><a href="#" id="report_comment" style="text-decoration: none;color:red" (click)="reportComment(comments.id,comments.comment,comments.user_name,comments.date)"><i class="material-icons">warning</i>REPORT</a></p>
+                        </div>
+                      </div> -->
                       <hr>
                     </div>
                   </div>
@@ -190,34 +309,23 @@
                 </table>
               </div>
               <div class="card-body" *ngIf="my_events_array.length==0">
-                <h3 style="color:red"><b>Empty Playlist</b></h3>
+                <h3 style="color:red"><b>Empty Events</b></h3>
               </div>
             </div>
-            <div class="card" *ngIf="search_user_role==='artist' && play_list_vis">
+            <div class="card" *ngIf="search_user_role==='artist' && play_list_vis===true">
               <div class="card-header card-header-primary">
                 <h4 class="card-title"><b>MY PLAYLIST</b></h4>
                 <p class="card-category">Best Playlist</p>
               </div>
-              <div class="card-body" *ngIf="artist_playlist.length>0" [ngClass]="{'list-group':my_events_array.length>10}">
-                <table class="table table-dark">
-                  <thead>
-                    <th scope="col"><b>ID</b></th>
-                    <th scope="col"><b>Song Name</b></th>
-                    <th scope="col"></th>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let playlist of artist_playlist;let index=index">
-                      <th scope="row">{{index+1}}</th>
-                      <td>{{playlist.playlist_name}}</td>
-                      <td>
-                        <audio controls>
-                          <!-- <source src="" type="audio/ogg"> -->
-                          <source src="{{playlist.playlist[i]}}" type="audio/mpeg">
-                        </audio>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="card-body" *ngIf="artist_playlist.length>0" [ngClass]="{'list-group':artist_playlist.length>10}">
+                <mat-list role="list" *ngFor="let playlist of artist_playlist">
+                  <mat-list-item *ngFor="let url of playlist.playlist">
+                    {{url.name}}
+                    <audio controls style="height:30px;padding-left:10px">
+                      <source src="{{url.url}}" type="audio/mpeg">
+                    </audio>
+                  </mat-list-item>
+                </mat-list>
               </div>
               <div class="card-body" *ngIf="artist_playlist.length==0">
                 <h3 style="color:red"><b>Empty Playlist</b></h3>

@@ -61,16 +61,18 @@
       </div> -->
     </div>
   </div>
+
   <div class="container-fluid">
     <div class="row" style="padding-top:30px">
       <div class="col-md-6">
         <div class="card">
           <div class="card-header card-header-primary">
             <h4 class="card-title">User Comments</h4>
-          </div>
+          </div>  
+         
           <div class="card-body" *ngIf="user_comments.length>0">
             <mat-list [ngClass]="{'list-group':user_comments>4}" >
-              <a *ngFor="let comments of user_comments">
+              <a href="" *ngFor="let comments of user_comments[0]">
                 <mat-list-item>
                   <mat-icon mat-list-icon>
                     <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 

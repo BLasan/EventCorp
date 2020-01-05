@@ -77,6 +77,14 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
 import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
 import { HelpComponent } from './shared-components/help/help.component';
+import { PaymentBillComponent } from './Modules/Organizer-Module/payment-bill/payment-bill.component';
+import { ModeratorNotificationsComponent } from './Modules/Moderator-Module/moderator-notifications/moderator-notifications.component';
+import { ModeratorDashboardComponent } from './Modules/Moderator-Module/moderator-dashboard/moderator-dashboard.component';
+import { ModeratorSettingsComponent } from './Modules/Moderator-Module/moderator-settings/moderator-settings.component';
+import { ReportWarningsComponent } from './Modules/Moderator-Module/report-warnings/report-warnings.component';
+import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
+import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
+import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -140,6 +148,7 @@ import { HelpComponent } from './shared-components/help/help.component';
     ResetPasswordFirebaseComponent,
     VenueCalendarComponent,
     LocationOwnerLayoutComponent,
+    ModeratorLayoutComponent,
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
@@ -147,7 +156,7 @@ import { HelpComponent } from './shared-components/help/help.component';
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

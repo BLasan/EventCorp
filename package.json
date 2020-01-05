@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy-conf.json",
-    "build": "ng build && nodemon server.js ",
+    "start": "ng serve --port 4200 --disable-host-check",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

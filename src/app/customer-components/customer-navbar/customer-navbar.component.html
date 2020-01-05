@@ -133,7 +133,7 @@
                 </li> -->
                 
               <li class="nav-item">
-                  <a href="#" class="nav-link link" id="events" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>Latest Events</b></a>
+                  <a href="/latest-events" class="nav-link link" id="events" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>Latest Events</b></a>
               </li>
               <li class="nav-item">
                   <a href="/about-us" class="nav-link link" id="about" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>About</b></a>
@@ -146,19 +146,13 @@
               </li>
             </ul>
            <div class="justify-content-end" style="right: 10px; position: absolute;" >
-            
               <a mat-raised-button color="primary" *ngIf="!isLoggedIn" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
               <a mat-raised-button color="warn" *ngIf="!isLoggedIn" id="signup" href="/signup" style="margin: 6px;"><b>Register</b></a>
               <a mat-raised-button color="warn" *ngIf="isLoggedIn" (click)="signout()" id="signout" href="/home" style="margin: 6px;"><b>Logout</b></a>
-              
-           </div> 
-           
+           </div>   
         </div>
-      
-    </div>
-            
-        
-    </div>
+    </div>  
+  </div>
 </nav>
 
 

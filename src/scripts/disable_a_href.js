@@ -94,3 +94,21 @@ export function disable_calendarModal(){
         e.preventDefault();
     }) 
 }
+
+export function disable_faq_icon(){
+    $(document).on('click','#faq',function(e){
+        e.preventDefault();
+    }) 
+}
+
+export function disable_event_images(){
+    $(document).on('click','#event_image',function(e){
+        e.preventDefault();
+    }) 
+}
+
+export function disable_report_comments(){
+    $(document).on('click','#report_comment',function(e){
+        e.preventDefault();
+    }) 
+}
