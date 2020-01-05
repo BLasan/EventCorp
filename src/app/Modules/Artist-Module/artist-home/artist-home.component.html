@@ -72,7 +72,7 @@
          
           <div class="card-body" *ngIf="user_comments.length>0">
             <mat-list [ngClass]="{'list-group':user_comments>4}" >
-              <a href="" *ngFor="let comments of user_comments[0]">
+              <a href="ratings/{{comments.user_name}}" (click)="addUserEmail(comments.sender_mail)" *ngFor="let comments of user_comments">
                 <mat-list-item>
                   <mat-icon mat-list-icon>
                     <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 

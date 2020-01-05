@@ -172,7 +172,7 @@ export class RatingSystemComponent implements OnInit {
     this.comments_array.push(obj);
     console.log(this.comments_array.length);
     this.myComment="";
-    this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({id:hash,comments:this.comments_array}).then(docs=>{
+    this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({id:hash,comments:this.comments_array,sender_mail:localStorage.getItem('user_name')}).then(docs=>{
      // _this.loadComments();
       _this._snackBar.open("Successfully Posted","Done", {
         duration: 2000,
