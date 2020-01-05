@@ -1,13 +1,10 @@
 <div class="main-content">
   <div class="container-fluid">
-
     <div class="row">
       <div class="col-6">     <!--left main card-->
         <mat-card class="left-main-card">
-
           <h1 class="ml-1">{{ item?.v_name }}</h1>
           <h1 class="ml-1" *ngIf="this.item == NULL">{{ user?.v_name }}</h1>
-
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
               <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -16,13 +13,13 @@
             </ol>
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="../../assets/img/venues/nelum_pokuna/nelum1.jpg" class="d-block w-100" alt="...">
+                <img src="{{ item?.photo1 }}" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="../../assets/img/venues/nelum_pokuna/nelum2.jpg" class="d-block w-100" alt="...">
+                <img src="{{ item?.photo2 }}" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="../../assets/img/venues/nelum_pokuna/nelum3.jpg" class="d-block w-100" alt="...">
+                <img src="{{ item?.photo3 }}" class="d-block w-100" alt="...">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -34,7 +31,6 @@
               <span class="sr-only">Next</span>
             </a>
           </div>
-
           <div class="row">
             <mat-card>
               <div class="row">
@@ -43,16 +39,14 @@
             </div>
             </mat-card>
           </div>
-
           <div class="row">
               <mat-card style="margin-top:20px">
                 <div class="row">
                 <div class="col">Fee </div>
-                <div class="col">{{ item?.fee }}</div>
+                <div class="col">Rs. {{ item?.fee }}</div>
               </div>
               </mat-card>
             </div>
-
             <div class="row">
                 <mat-card style="margin-top:20px">
                   <div class="row">
@@ -61,7 +55,6 @@
                 </div>
                 </mat-card>
               </div>
-
           <!-- <table class="table table-light text-center tab-under-caro">
             <tbody>
               <tr>
@@ -81,23 +74,18 @@
               </tr> -->
               <!-- <tr>
                 <th scope="col">Fee</th>
-
                 <td *ngIf="this.item == NULL; else elseBlock2">{{ user?.fee }}</td>
                 <ng-template #elseBlock2>{{ item?.fee }}</ng-template>
-
               </tr>
               <tr>
                 <th scope="col">Car Parking</th>
                 <td *ngIf="this.item == NULL; else elseBlock3">{{ user?.car_parking }}</td>
                 <ng-template #elseBlock3>{{ item?.car_parking }}</ng-template>
-
               </tr>
             </tbody>
           </table> -->
-
         </mat-card>
       </div>
-
       <div class="col-6-hdhdh">     <!--right main card-->
         <mat-card class="right-main-card">
         <table class="table table-light text-center">
@@ -123,15 +111,12 @@
                         <h3>Ground Floor</h3>
                         <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_groundfloor.jpg"
                           class="img-fluid" alt="Responsive image">
-
                         <h3>First Balcony</h3>
                         <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_firstBalcony.jpg"
                           class="img-fluid" alt="Responsive image">
-
                         <h3>Second Balcony</h3>
                         <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_secondBalcony.jpg"
                           class="img-fluid" alt="Responsive image">
-
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -140,7 +125,6 @@
                   </div>
                 </div>
               </td>
-
             </tr>
             <tr>
               <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button>
@@ -157,29 +141,26 @@
           </tbody>
         </table>
       </mat-card>
-
       <!-- Comments Section -->
     <mat-card class="example-card-background">
         <mat-card-header mat1>
           <mat-card-title>Comments</mat-card-title>
         </mat-card-header>
-        <mat-card *ngFor="let comment of comments" class="example-card">
+        <mat-card *ngFor="let comment of comments; trackBy: trackHero; let i = index" class="example-card">
           <mat-card-header class="header-inner">
-            <mat-card-title>{{comment?.user_name}}</mat-card-title>
+            <mat-card-title>{{comment?.user_name}}  {{i}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <p>
               {{comment?.comment}}
+              <span><button mat-button class="report-button" color="primary" (click)="openReportCommentsDialog(i)">Report</button></span>
             </p>
+            
           </mat-card-content>
         </mat-card>
       </mat-card>
-
       </div>
     </div>
-
     
-
-
   </div>
 </div>

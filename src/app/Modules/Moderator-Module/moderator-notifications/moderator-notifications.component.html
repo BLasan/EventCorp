@@ -1,4 +1,31 @@
 <div class="main-content">
     <div class="container-fluid">
+      <h1>Report Notifications</h1>
+
+    <div class="list-group users-list">
+
+        <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
+  
+          <div class="row">
+            <!-- <div class="col-md-1 image-col">
+              <img class="image" src="./../../../assets/img/building.jpg">
+            </div> -->
+            <div class="col-md-5 text-col">
+              <span>User ID: CU35232523</span>
+              <p class="mb-1">{{item.payload.doc.data().comment_id}}</p>
+              <small>{{item.payload.doc.data().reported_by}}    2019-01-08    reported by - {{item.payload.doc.data().comment_id}} </small>
+            </div>
+            <div class="col col-md-6 actions-col">
+              <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Send Warning</button>
+              <button class="btn btn-outline-danger action" (click)="viewDetails(item)" type="button">Delete User</button>
+
+              <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+                Calendar</button>
+              <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+  
     </div>
 </div>
