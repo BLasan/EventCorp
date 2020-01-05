@@ -94,7 +94,17 @@ export class ArtistHomeComponent implements OnInit {
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments').get().then(docs=>{
       if(!docs.empty){
         docs.forEach(doc=>{
-          _this.user_comments.push(doc.data().comments);
+          console.log(doc.id);
+            var length=doc.data().comments.length;
+            for(var i=0;i<length;i++){
+              var comment=doc.data().comments[i].comment;
+              var date=doc.data().comments[i].date;
+              var user_name=doc.data().comments[i].user_name;
+              var id=doc.id;
+              var sender_mail=doc.data().sender_mail;
+              var obj={comment:comment,date:date,user_name:user_name,id:id,sender_mail:sender_mail};
+              _this.user_comments.push(obj);
+            }
         })
       }
       else console.log("Empty Comments");

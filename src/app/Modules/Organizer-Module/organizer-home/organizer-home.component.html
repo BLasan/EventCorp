@@ -31,6 +31,63 @@
                 <div id="calendar-dates"></div>
                 </div>
             </div> -->
+            <div class="row" style="padding-top:30px">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header card-header-primary">
+                    <h4 class="card-title">User Comments</h4>
+                  </div>   
+                  <div class="card-body" *ngIf="user_comments.length>0">
+                    <mat-list [ngClass]="{'list-group':user_comments>4}">
+                      <a href="ratings/{{comments.user_name}}" (click)="addUserEmail(comments.sender_mail)" *ngFor="let comments of user_comments">
+                      <mat-list-item>
+                        <mat-icon mat-list-icon>
+                          <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                        </mat-icon>
+                        <p mat-line style="margin-left:15px" ><b>{{comments.user_name}}</b> on  <b style="color:green">{{comments.date}}</b></p>
+                        <p mat-line style="margin-left:15px">
+                          {{comments.comment}}
+                        </p>
+                      </mat-list-item>
+                      </a>
+                      <mat-divider></mat-divider>
+                    </mat-list>         
+                  </div>
+                  <div class="card-body" *ngIf="user_comments.length==0">
+                    <h3 style="color:red" align="center" class="blink"><b>NO COMMENTS FOUND</b></h3>     
+                  </div>
+                </div>
+              </div>
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header card-header-primary">
+                      <h4 class="card-title">My Events</h4>
+                      <p class="card-category"><b style="color:red">All events</b></p>
+                    </div>
+                    <div class="card-body" *ngIf="events.length==0">
+                      <h3 style="color:red" align="center" class="blink"><b>EMPTY EVENTS</b></h3>
+                    </div>
+                    <div class="card-body" *ngIf="events.length>0" [ngClass]="{'list-group':events.length>1}">
+                      <table class="table table-dark">
+                        <thead>
+                          <th scope="col"><b>ID</b></th>
+                          <th scope="col"><b>Event Name</b></th>
+                          <th scope="col"><b>Date</b></th>
+                          <th scope="col"><b>View More</b></th>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let events of events;let index=index">
+                            <th scope="row">{{index+1}}</th>
+                            <td>{{events.event_name}}</td>
+                            <td>{{events.date}}</td>
+                            <td><a href="#" id="modal_open" (click)="load_modal(events.event_id)" data-toggle="modal" data-target="#exampleModal"><b>View More</b></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
         <div class="row">
             <!-- <div class="col-md-4">
                 <div class="card">
@@ -150,6 +207,33 @@
   <!-- <app-paypal-payment></app-paypal-payment>
   <app-rating-system></app-rating-system> -->
   
-  
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: transparent;">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngFor="let modal_details of modal_details" id="exampleModalLabel">{{modal_details.event_name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div *ngFor="let modal_details of modal_details">
+              <p>Date : {{modal_details.date}}</p>
+              <p>Time Started : {{modal_details.time}}</p>
+              <p>Artists Participated : {{artists_participated}}</p>
+              <p>Venue : {{modal_details.venue_owners[0]}}</p>
+              <p>Suppliers : {{suppliers_participated}}</p>
+              <!-- <p>Sponsors : {{}}</p> -->
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button mat-raised-button class="btn btn-danger" data-dismiss="modal"><b>CLOSE</b></button>
+        </div>
+      </div>
+    </div>
+  </div>
   
   
