@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component';
+import { ROUTES, ROUTES2, ROUTES4, ROUTES3, ROUTES5 } from '../sidebar/sidebar.component';
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
     }
     
     else if(localStorage.getItem('role')=='moderator' && localStorage.getItem('loggedIn')){
-        this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+        this.listTitles=ROUTES5.filter(listTitle=>listTitle);
         this.route_link="/moderator-notifications";
         this.home_link="/moderator-home";
     }
@@ -202,6 +202,7 @@ export class NavbarComponent implements OnInit {
     //get title of the routing
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+      //console.log(titlee)
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }

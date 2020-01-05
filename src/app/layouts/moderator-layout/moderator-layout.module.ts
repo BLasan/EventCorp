@@ -20,7 +20,7 @@ import {
   MatDialogModule,
   MatCardModule,
   MatListModule,
-  MatChipsModule
+  MatChipsModule,
   // MatTableModule
 } from "@angular/material";
 

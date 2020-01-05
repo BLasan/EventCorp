@@ -112,3 +112,9 @@ export function disable_report_comments(){
         e.preventDefault();
     }) 
 }
+
+export function disable_report_notification(){
+    $(document).on('click','#report_notification',function(e){
+        e.preventDefault();
+    }) 
+}

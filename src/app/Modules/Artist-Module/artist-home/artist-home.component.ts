@@ -3,6 +3,7 @@ import {loadCalendar} from '../../../../scripts/artist/artist-home'
 import {activate_searchBar} from '../../../../scripts/search_bar_activate'
 import { RateUserService } from 'app/services/rate-user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-artist-home',
   templateUrl: './artist-home.component.html',
@@ -20,7 +21,7 @@ export class ArtistHomeComponent implements OnInit {
   my_playlist:any=[];
   playlist_title:string;
   user_comments:any=[];
-  constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
@@ -123,6 +124,19 @@ export class ArtistHomeComponent implements OnInit {
        _this.playlist_title=snapshot.data().playList_name;
       }
     })
+  }
+
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+    var _this=this;
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+      console.log("Success");
+      _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+       duration: 3000,
+     });
+    }).catch(err=>{
+      console.log(err);
+    })
+
   }
 
 }

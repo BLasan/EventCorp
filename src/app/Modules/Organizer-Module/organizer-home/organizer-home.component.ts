@@ -4,7 +4,8 @@ import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
 import {NavbarComponent} from 'app/components/navbar/navbar.component';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { disable_modal_open} from '../../.././../scripts/disable_a_href.js';
+import { disable_modal_open,disable_report_comments} from '../../.././../scripts/disable_a_href.js';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-organizer-home',
   templateUrl: './organizer-home.component.html',
@@ -24,11 +25,12 @@ export class OrganizerHomeComponent implements OnInit {
   modal_details:any;
   artists_participated:string="";
   suppliers_participated:string="";
-  constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
     activate_searchBar();
+    disable_report_comments();
     this.get_top_users();
     this.load_events();
     this.load_comments();
@@ -92,6 +94,19 @@ export class OrganizerHomeComponent implements OnInit {
   addUserEmail(email:string){
     alert(email)
     localStorage.setItem('searched_user_email',email);
+  }
+
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+    var _this=this;
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+      console.log("Success");
+      _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+       duration: 3000,
+     });
+    }).catch(err=>{
+      console.log(err);
+    })
+
   }
 
   // load_comments(){

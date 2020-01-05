@@ -357,19 +357,6 @@ export class RatingSystemComponent implements OnInit {
 
    }
 
-   reportComment(id:any,comment:string,user_name:string,date:string){
-     var _this=this;
-     this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name')}).then(()=>{
-       console.log("Success");
-       _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
-        duration: 3000,
-      });
-     }).catch(err=>{
-       console.log(err);
-     })
-
-   }
-
    getRequestDetails(){
     console.log('Hello');
     var _this=this;

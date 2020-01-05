@@ -1,15 +1,31 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <h1>Report Notifications</h1>
-
-    <div class="list-group users-list">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h3 class="card-title">Notifications</h3>
+        </div>
+        <div class="card-body">
+          <div class="row" *ngIf="reports.length>0">
+            <div class="col-md-12" *ngFor="let reports of reports">
+              <div class="alert alert-info alert-with-icon" data-notify="container">
+                <i class="material-icons" data-notify="icon">add_alert</i>
+                <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <i class="material-icons">close</i>
+                </button>
+                <span><b>You have received new Report from {{reports.reported_by}} on {{reports.date}}. <a href="" id="report_notification" style="text-decoration:none;color:red" data-toggle="modal" data-target="#exampleModal" (click)="filterComment(reports.id)">Click Here to View Report Details</a></b></span>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+    <!-- <div class="list-group users-list">
 
         <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
   
           <div class="row">
-            <!-- <div class="col-md-1 image-col">
-              <img class="image" src="./../../../assets/img/building.jpg">
-            </div> -->
+           
             <div class="col-md-5 text-col">
               <span>User ID: CU35232523</span>
               <p class="mb-1">{{item.payload.doc.data().comment_id}}</p>
@@ -18,14 +34,36 @@
             <div class="col col-md-6 actions-col">
               <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Send Warning</button>
               <button class="btn btn-outline-danger action" (click)="viewDetails(item)" type="button">Delete User</button>
-
-              <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
-                Calendar</button>
-              <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
   
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><b style="color:red">Report</b></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><b>Comment :</b> {{comment}}</p>
+          <p><b>Reported By :</b> {{reported_by}}</p>
+          <p><b>Commented User Name :</b> {{user_name}}</p>
+          <p><b>Comment User Email :</b> {{user_mail}}</p>
+          <p><b>Date :</b> {{date}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="sendWarning()"><b>SEND WARNING</b></button>
+          <button type="button" class="btn btn-danger" (click)="deleteUser()"><b>DELETE USER</b></button>
+        </div>
+      </div>
+    </div>
+  </div>

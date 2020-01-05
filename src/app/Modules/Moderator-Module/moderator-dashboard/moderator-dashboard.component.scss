@@ -1,5 +1,5 @@
 .top-button-row{
-    position: fixed;
+    position: relative;
     right: 20px;
     .mat-raised-button{
         margin-left: 10px;
@@ -14,6 +14,6 @@
     // margin-top: 20px;
 }
 
-.col-md-4{
-    // margin-top: 20px;
+tr:hover{
+    background-color: #878d8d;
 }
