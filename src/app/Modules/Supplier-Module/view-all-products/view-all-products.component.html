@@ -1,0 +1,79 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-4"></div>
+      <div class="col-md-4 col-sm-4">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <p style="padding-top:20px;color:white">Filter Products :</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <mat-form-field>
+              <mat-select (selectionChange)="filterProduct($event)" id="selection" [(ngModel)]="selection" [ngModelOptions]="{standalone: true}" placeholder="{{selection}}">
+                <mat-option value="{{types.type_value}}" *ngFor="let types of itemTypes">{{types.type_name}}</mat-option>
+                <mat-option value="all">All</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <p style="padding-top:20px;color:white">Search Products :</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="form-group" style="padding-top:5px">
+              <input type="text" placeholder="Search Here" class="form-control" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+          </div>    
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-12" style="margin-top:15px" *ngFor="let items of productArray | searchItems:searchText">
+        <mat-card class="card-color">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="{{items.image_url}}" alt="item_image" style="height:200px">
+          <mat-card-content>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Code</b></p> 
+              <p class="col-6" style="text-align: right;">{{items.code}}</p>
+            </div>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Quantity</b></p> 
+              <p class="col-6" style="text-align: right;">{{items.quantity}}</p>
+            </div>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Price</b></p> 
+              <p class="col-6" style="text-align: right;">{{items.price}}</p>
+            </div>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Description</b></p> 
+            </div>
+            <p>
+              {{items.description}}
+            </p>
+            <hr>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4" style="margin-left: -30px;">
+                <button  mat-raised-button class="btn btn-success" (click)="bookProduct()"><b>BOOK NOW</b></button>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

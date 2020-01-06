@@ -31,12 +31,13 @@
                     <mat-error *ngIf="hasError('quantity', 'required')">Quantity is required</mat-error>
                   </mat-form-field>
                 </div>
-                <!-- <div class="col-6">
+                <div class="col-6">
                   <mat-form-field>
-                    <input matInput placeholder="Code" id="code" style="color:white" [(ngModel)]="code" disabled> 
-                    <mat-error *ngIf="hasError('code', 'required')">Code is required</mat-error>
+                    <mat-select id="selection" (selectionChange)="getType($event)" formControlName="item_type">
+                      <mat-option value="{{items.type_value}}" *ngFor="let items of item_categories">{{items.type_name}}</mat-option>
+                    </mat-select>
                   </mat-form-field>
-                </div> -->
+                </div>
               </div>
               <mat-form-field>
                 <textarea matInput placeholder="Description" style="color: white"   id="description" formControlName="description"></textarea>

@@ -215,6 +215,7 @@ export class NavbarComponent implements OnInit {
       }
 
       if(titlee.indexOf('ratings')>-1) return "View User Details";
+      if(titlee.indexOf('view-all-products')>-1) return "All Products";
     }
 
     logout_User(){
