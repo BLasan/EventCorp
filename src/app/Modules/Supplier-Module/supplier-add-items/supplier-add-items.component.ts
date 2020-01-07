@@ -18,6 +18,7 @@ export class SupplierAddItemsComponent implements OnInit {
   item_categories:any;
   category:string;
   isEmpty:boolean=false;
+  selection:string="Select Category";
   constructor(private database:AngularFirestore,private storage:AngularFireStorage,private snackBar:MatSnackBar) { }
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class SupplierAddItemsComponent implements OnInit {
       item_name:new FormControl('',Validators.required),
       price:new FormControl('',[Validators.required]),
       quantity:new FormControl('',Validators.required),
-      item_type:new FormControl('',Validators.required),
+      // item_type:new FormControl('Select Type',Validators.required),
       description:new FormControl('',Validators.required),
       item_image:new FormControl('',Validators.required)
     });  
@@ -39,6 +40,10 @@ export class SupplierAddItemsComponent implements OnInit {
 
   getType(event:any){
     this.category=event.value;
+    if(event.value=='CH')  this.selection="Chair";
+    else if(event.value=='TB')  this.selection="Table";
+    else if(event.value=='MC')  this.selection="Musical Items";
+    else if(event.value=='LT')  this.selection="Lights";
   }
 
   onSubmit(){

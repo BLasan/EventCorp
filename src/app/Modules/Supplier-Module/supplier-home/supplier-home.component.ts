@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {activate_searchBar} from '../../../../scripts/search_bar_activate';
 import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { disable_view_products } from '../../../../scripts/disable_a_href.js';
 @Component({
   selector: 'app-supplier-home',
   templateUrl: './supplier-home.component.html',
@@ -86,6 +87,10 @@ export class SupplierHomeComponent implements OnInit {
         })
       }
     })
+  }
+
+  bookProduct(){
+    //disable_view_products();
   }
 
 }
