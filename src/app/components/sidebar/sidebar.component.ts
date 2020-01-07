@@ -72,6 +72,7 @@ export const ROUTES5:RouteInfo[]=[
   { path: '/moderator-dashboard', title: 'Home',  icon: 'home', class: '' },
   { path: '/moderator-notifications', title: 'Notifications',icon:'notifications',class:''},
   { path:'/moderator-settings',title:'Settings',icon:'settings',class:''},
+  { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
   { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}
 ];
 
@@ -132,7 +133,7 @@ export class SidebarComponent implements OnInit {
     return;
   }  
   snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
+    // console.log(doc.id, '=>', doc.data());
     if(doc.data().role!=localStorage.getItem('role'))
     _this.user_details.push(doc.data());
   });

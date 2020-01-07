@@ -84,6 +84,10 @@ import { ModeratorSettingsComponent } from './Modules/Moderator-Module/moderator
 import { ReportWarningsComponent } from './Modules/Moderator-Module/report-warnings/report-warnings.component';
 import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
 import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
+import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
+import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.component';
+import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
+import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -129,7 +133,9 @@ import { AuthGuardModeratorService } from './services/Authentication/authGuard_m
     AngularFirestoreModule.enablePersistence(), // firestore-persistance mode
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    FullCalendarModule
+    FullCalendarModule,
+    MatDialogModule,
+    MatRadioModule
     
   ],
   declarations: [
@@ -147,7 +153,9 @@ import { AuthGuardModeratorService } from './services/Authentication/authGuard_m
     ResetPasswordFirebaseComponent,
     VenueCalendarComponent,
     LocationOwnerLayoutComponent,
-    ModeratorLayoutComponent
+    ModeratorLayoutComponent,
+    ReportDialogComponent,
+    // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
@@ -156,7 +164,8 @@ import { AuthGuardModeratorService } from './services/Authentication/authGuard_m
   ],
 
   providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ReportDialogComponent]
 })
 export class AppModule { }
 

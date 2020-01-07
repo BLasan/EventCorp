@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component';
+import { ROUTES, ROUTES2, ROUTES4, ROUTES3, ROUTES5 } from '../sidebar/sidebar.component';
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
     }
     
     else if(localStorage.getItem('role')=='moderator' && localStorage.getItem('loggedIn')){
-        this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+        this.listTitles=ROUTES5.filter(listTitle=>listTitle);
         this.route_link="/moderator-notifications";
         this.home_link="/moderator-home";
     }
@@ -99,7 +99,7 @@ export class NavbarComponent implements OnInit {
       return;
     }  
     snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
+    //   console.log(doc.id, '=>', doc.data());
       if(doc.data().role!=localStorage.getItem('role'))
       _this.user_details.push(doc.data());
     });
@@ -202,6 +202,7 @@ export class NavbarComponent implements OnInit {
     //get title of the routing
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+      //console.log(titlee)
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
@@ -214,6 +215,7 @@ export class NavbarComponent implements OnInit {
       }
 
       if(titlee.indexOf('ratings')>-1) return "View User Details";
+      if(titlee.indexOf('view-all-products')>-1) return "All Products";
     }
 
     logout_User(){
@@ -285,7 +287,30 @@ export class NavbarComponent implements OnInit {
             changes.forEach(element => {
                 if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
-                    (<HTMLInputElement>document.getElementById('notification_count_id')).innerHTML=_this.notification_count.toString();
+                    (document.getElementById('notification_count_id') as HTMLElement).innerHTML=_this.notification_count.toString();
+                 }
+     
+                else if(element.type=='modified'){
+                    if(element.doc.data().view)
+                    _this.notification_count-=1;
+                    else
+                    _this.notification_count+=1;
+                }
+     
+                else if(element.type=='removed'){
+                   
+                }
+            });
+        });
+
+        this._db.firestore.collection("register_user").doc(user).collection('chats')
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                if(element.type=='added' && element.doc.data().view===false){
+                    _this.notification_count+=1;
+                    (document.getElementById('notification_count_id') as HTMLElement).innerHTML=_this.notification_count.toString();
                  }
      
                 else if(element.type=='modified'){

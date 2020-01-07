@@ -19,6 +19,7 @@ export class SupplierHomeComponent implements OnInit {
   default_rate:any=0;
   isDone:boolean=false;
   product_items:any=[];
+  init_items:any;
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -44,10 +45,10 @@ export class SupplierHomeComponent implements OnInit {
          _this.top_organizers.sort().reverse();
       }
      
-      else if(doc.data().role=="artist" && doc.data().rating>=3){
-        _this.top_artists.push(doc.data());
-         _this.top_artists.sort().reverse();
-      }
+      // else if(doc.data().role=="artist"){
+      //   _this.top_artists.push(doc.data());
+      //    _this.top_artists.sort().reverse();
+      // }
       
       else if(doc.data().role=="venue_owner" && doc.data().rating>=3){
         _this.top_venue_owners.push(doc.data());
@@ -69,16 +70,19 @@ export class SupplierHomeComponent implements OnInit {
   }
 
   get_product_items(){
+    var count=-0;
     var _this=this;
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(snapshot=>{
       if(snapshot.empty){
-        alert("Empty Products");
-        _this.load_items="empty"
+        //alert("Empty Products");
+        _this.load_items="empty";
       }
       else{
         snapshot.forEach(doc=>{
+          count=count+1;
           _this.load_items="loaded";
-          _this.product_items.push(doc.data());
+          if(count==1) _this.init_items=doc.data();
+          else _this.product_items.push(doc.data());
         })
       }
     })

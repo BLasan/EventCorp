@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Report Comment</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="onFormSubmit()" #psForm="ngForm">
+  <mat-radio-group class="radioButtonsGroup" formControlName="reportOption">
+    <mat-radio-button value="1" color="primary" class="person-radio-button">Unwanted commercial content or spam
+    </mat-radio-button>
+    <mat-radio-button value="2" color="accent" class="person-radio-button">Hate Speech</mat-radio-button>
+    <mat-radio-button value="3" color="warn" class="person-radio-button">Harressment or bullying</mat-radio-button>
+  </mat-radio-group>
+
+  <div>
+    <button mat-raised-button color="primary">Submit</button>
+  </div>
+  </form>
+
+  <!-- <label id="example-radio-group-label"></label> -->
+  <!-- <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="favoriteSeason">
+    <mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option">
+      {{option}}
+    </mat-radio-button>
+  </mat-radio-group> -->
+
+</mat-dialog-content>
+
+<!-- <hr>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="close()">Close</button>
+  <button mat-raised-button color="primary" (click)="save()">Report</button>
+</mat-dialog-actions> -->

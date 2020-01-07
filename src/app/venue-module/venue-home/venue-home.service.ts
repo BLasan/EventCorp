@@ -3,6 +3,7 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Report } from '../venue-home/report'
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,13 @@ export class VenueHomeService {
 
   searchUsersByAge(value){
     return this.db.collection('Venues',ref => ref.orderBy('seating_capacity').startAt(value)).snapshotChanges();
+  }
+
+  savePerson(report: Report){
+    console.log(report);
+    return this.db.collection('reports').add({
+      content: report.reportOption
+    });
   }
 
 

@@ -10,6 +10,9 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommentsService } from 'app/services/comments.service';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import { ReportDialogComponent } from 'app/Modules/report-dialog/report-dialog.component';
+
 
 
 @Component({
@@ -22,6 +25,7 @@ export class VenueProfileComponent implements OnInit {
   user: any;
   item: any;
   comments: any;
+  result: any;
 
   constructor(
     private db: AngularFirestore,
@@ -30,6 +34,7 @@ export class VenueProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
+    private dialog: MatDialog
   ) {
     // this.users = 
     console.log('Current User - ',loginService.currentUser())
@@ -41,6 +46,27 @@ export class VenueProfileComponent implements OnInit {
     });
 
   }
+
+//   trackHero(index, comment) {
+//     console.log(comment.id);
+//     // return comment ? comment.id : undefined;
+
+// }
+
+  openReportCommentsDialog(i) {
+    // console.log("Comment ID - "+comment);
+    const dialogConfig = new MatDialogConfig();
+    // console.log("Real Comment iD - "+this.comments.uid);
+    // dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      idx: i,
+      // title: 'Angular For Beginners'
+  };
+
+    this.dialog.open(ReportDialogComponent, dialogConfig);
+}
 
   ngOnInit() {
     this.route.data.subscribe(routeData => {

@@ -7,7 +7,7 @@
                 <h3 class="card-title" *ngIf="!isBookingView">Notifications</h3>
                 <h3 class="card-title" *ngIf="isBookingView">Booking Requests</h3>
             </div>
-            <div class="card-body" *ngIf="(isBookingView && booking_data.length>0) || (!isBookingView && message_data.length>0)">
+            <div class="card-body" *ngIf="(isBookingView && booking_data.length>0) || (!isBookingView && (message_data.length>0 || chat_messages.length>0))">
                 <!-- <div class="row" *ngIf="isBookingView && user_role=='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-success alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Confirmed' && booking_data.view==false">
@@ -85,7 +85,7 @@
                 </div>
                 <div class="row" *ngIf="!isBookingView">
                     <div class="col-md-12" *ngFor="let message_data of message_data">
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="message_data">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="message_data.length>0">
                             <i class="material-icons" data-notify="icon">add_alert</i>
                             <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(message_data.sender_email,'cancel')">
                                 <i class="material-icons">close</i>
@@ -94,8 +94,19 @@
                         </div> 
                     </div>
                 </div>
+                <div class="row" *ngIf="!isBookingView">
+                    <div class="col-md-12" *ngFor="let chats of chat_messages">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="chat_messages.length>0">
+                            <i class="material-icons" data-notify="icon">add_alert</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_chat_notifications(chats.sender)">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span><b>You have received {{chats.message}}{{chats.sender}} on {{chats.date}}<a href="ratings/{{chats.user_name}}" id="redirect_user_href" (click)="mark_chat_notifications(chats.sender)">{{chats.chat_id}}</a> to join the chat.</b></span>
+                        </div> 
+                    </div>
+                </div>
             </div>
-            <div class="card-body" *ngIf="!isBookingView && message_data.length==0">
+            <div class="card-body" *ngIf="!isBookingView && message_data.length==0 && chat_messages.length==0">
                 <h3 style="color:green" class="blink"><b>EMPTY NOTIFICATIONS</b></h3>
             </div>
             <div class="card-body" *ngIf="isBookingView && booking_data.length==0">

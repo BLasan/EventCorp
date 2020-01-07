@@ -1,7 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 col-12">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
@@ -27,189 +27,208 @@
     </div>
     <div class="row" style="margin-top:15px" *ngIf="load_items==='loaded'">
       <div class="rect">
-        <h2 style="color:black;padding-top:5px"><b>OUR ITEMS</b></h2>
+        <h2 style="color:black;padding-top:5px"><b><a title="View All" href="/view-all-products" style="text-decoration: none;color:black">OUR ITEMS</a></b></h2>
       </div>
-      <div class="col-md-12" style="padding-top:20px">
+      <div class="col-md-12 col-12" style="padding-top:20px">
         <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div class="row">
-                <div class="col-4" *ngFor="let items of product_items;let index=index">
-                  <mat-card class="card-color" *ngIf="index<3">
-                    <mat-card-header>
-                      <div mat-card-avatar class="example-header-image"></div>
-                      <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
-                    </mat-card-header>
-                    <img mat-card-image [src]="items.image_url" height="200px" alt="item_image">
-                    <mat-card-content>
-                    <hr>
-                    <div class="row">
-                      <p class="col-6"><b>Code</b></p> 
-                      <p class="col-6" style="text-align: right;">{{items.code}}</p>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <p class="col-6"><b>Quantity</b></p> 
-                      <p class="col-6" style="text-align: right;">{{items.quantity}}</p>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <p class="col-6"><b>Price</b></p> 
-                      <p class="col-6" style="text-align: right;">{{items.price}}</p>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <p class="col-6"><b>Description</b></p> 
-                    </div>
-                    <p>
-                      {{items.description}}
-                    </p>
-                    <hr>
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <button  mat-raised-button class="btn btn-success"><b>BOOK NOW</b></button>
-                  </mat-card-actions>
-                  </mat-card>
-                    </div>
-                  </div>
-                </div>
-                <div class="carousel-item">
-                  <div class="row">
-                    <div class="col-md-4" *ngFor="let items of product_items;let index=index">
-                      <mat-card class="card-color" *ngIf="index>=3"> 
-                        <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
-                        </mat-card-header>
-                        <img mat-card-image [src]="items.image_url" alt="item_image">
-                        <mat-card-content>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Code</b></p> 
-                            <p class="col-6" style="text-align: right;">{{items.code}}</p>
+                <div class="col-md-4 col-sm-12"></div>
+                <div class="col-md-4 col-sm-12">
+                  <a title="View All" href="/view-all-products" style="text-decoration: none;">
+                    <mat-card class="card-color">
+                      <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title><b>{{init_items.item_name}}</b></mat-card-title>
+                      </mat-card-header>
+                      <img mat-card-image src="{{init_items.image_url}}" alt="item_image" style="height:200px">
+                      <mat-card-content>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Code</b></p> 
+                          <p class="col-6" style="text-align: right;">{{init_items.code}}</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Quantity</b></p> 
+                          <p class="col-6" style="text-align: right;">{{init_items.quantity}}</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Price</b></p> 
+                          <p class="col-6" style="text-align: right;">{{init_items.price}}</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Description</b></p> 
+                        </div>
+                        <p>
+                          {{init_items.description}}
+                        </p>
+                        <hr>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <div class="row">
+                          <div class="col-md-4"></div>
+                          <div class="col-md-4" style="margin-left: -30px;">
+                            <button  mat-raised-button class="btn btn-success" (click)="bookProduct()"><b>BOOK NOW</b></button>
                           </div>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Quantity</b></p> 
-                            <p class="col-6" style="text-align: right;">{{items.quantity}}</p>
-                          </div>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Price</b></p> 
-                            <p class="col-6" style="text-align: right;">{{items.price}}</p>
-                          </div>
-                          <hr>
-                          <div class="row">
-                            <p class="col-6"><b>Description</b></p> 
-                          </div>
-                          <p>
-                            {{items.description}}
-                          </p>
-                          <hr>
-                        </mat-card-content>
-                        <mat-card-actions>
-                          <button  mat-raised-button class="btn btn-success"><b>BOOK NOW</b></button>
-                        </mat-card-actions>
-                      </mat-card>
-                    </div>
-                  </div>
+                          <div class="col-md-4"></div>
+                        </div>
+                      </mat-card-actions>
+                    </mat-card>
+                  </a>
                 </div>
               </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
-            </div>  
-          </div> 
-        </div>  
-        <div class="row" style="margin-top:15px" *ngIf="load_items==='loading'">
-          <div class="col-md-4"></div>
-          <div class="col-md-4">
-            <div class="loader" align="center"></div>
-            <span style="color:red">Loading Items</span>
+            </div>
+            <div class="carousel-item" *ngFor="let items of product_items;let index=index">
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <a href="/view-all-products">
+                    <mat-card class="card-color"> 
+                      <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
+                      </mat-card-header>
+                      <img mat-card-image [src]="items.image_url" alt="item_image" style="height:200px">
+                      <mat-card-content>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Code</b></p> 
+                          <p class="col-6" style="text-align: right;">{{items.code}}</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Quantity</b></p> 
+                          <p class="col-6" style="text-align: right;">{{items.quantity}}</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Price</b></p> 
+                          <p class="col-6" style="text-align: right;">{{items.price}}</p>
+                        </div>
+                        <hr>
+                        <div class="row">
+                          <p class="col-6"><b>Description</b></p> 
+                        </div>
+                        <p>
+                          {{items.description}}
+                        </p>
+                        <hr>
+                      </mat-card-content>
+                      <mat-card-actions>
+                        <div class="row">
+                          <div class="col-md-4"></div>
+                          <div class="col-md-4" style="margin-left: -30px;">
+                            <button  mat-raised-button class="btn btn-success"><b>BOOK NOW</b></button>
+                          </div>
+                          <div class="col-md-4"></div>
+                        </div>
+                      </mat-card-actions>
+                    </mat-card>
+                  </a>
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+            </div>
           </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls1" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls1" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>  
-        <hr style="margin-top:15px;border:10px solid greenyellow" *ngIf="product_items.length>0">
-        <div class="row" style="padding-top:10px">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                      <h4 class="card-title">Top Organizers</h4>
-                      <p class="card-category">
-                        <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
-                          <ng-template let-fill="fill" let-index="index">
-                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
-                          </ng-template>
-                        </ngb-rating>
-                      </p>
-                    </div>
-                    <div class="card-body" *ngIf="top_organizers.length!=0">
-                      <mat-list [ngClass]="{'list-group':top_organizers.length>3}" >
-                        <a *ngFor="let organizer of top_organizers" href="ratings/{{organizer.name}}" (click)="addUserEmail(organizer.email)">
-                        <mat-list-item>
-                          <mat-icon mat-list-icon>
-                            <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
-                          </mat-icon>
-                          <p mat-line style="margin-left:15px" >{{organizer.name}}</p>
-                          <p mat-line style="margin-left:15px">
-                            <ngb-rating [(rate)]="organizer.rating" max="5" readonly="true">
-                              <ng-template let-fill="fill" let-index="index">
-                                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-                              </ng-template>
-                            </ngb-rating>
-                          </p>
-                        </mat-list-item>
-                        </a>
-                        <mat-divider></mat-divider>
-                      </mat-list>    
-                    </div>
-                    <div class="card-body" *ngIf="top_organizers.length==0">
-                      <h3 style="color:blue;text-align:center;" class="blink">NO TOP ORGANIZERS</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                      <h4 class="card-title">Top Venue Owners</h4>
-                      <p class="card-category">
-                        <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
-                          <ng-template let-fill="fill" let-index="index">
-                            <span class="star" [class.filled]="fill === 100">&#9733;</span>
-                          </ng-template>
-                        </ngb-rating>
-                      </p>
-                    </div>
-                    <div class="card-body" *ngIf="top_venue_owners.length!=0">
-                      <mat-list [ngClass]="{'list-group':top_venue_owners.length>3}">
-                        <a *ngFor="let venue_owner of top_venue_owners" (click)="addUserEmail(venue_owner.email)" href="ratings/{{venue_owner.name}}">
-                          <mat-list-item >
-                            <mat-icon mat-list-icon>
-                              <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
-                            </mat-icon>
-                            <p mat-line style="margin-left:15px" >{{venue_owner.name}}</p>
-                            <p mat-line style="margin-left:15px">
-                              <ngb-rating [(rate)]="venue_owner.rating" max="5" readonly="true">
-                                <ng-template let-fill="fill" let-index="index">
-                                  <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
-                                </ng-template>
-                              </ngb-rating>
-                            </p>
-                          </mat-list-item>
-                          <mat-divider></mat-divider>
-                        </a>
-                      </mat-list>    
-                    </div>
-                    <div class="card-body" *ngIf="top_venue_owners.length==0">
-                      <h3 style="color:blue;text-align:center;" class="blink">NO TOP VENUE OWNERS</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
+      </div> 
+    </div>  
+    <div class="row" style="margin-top:15px" *ngIf="load_items==='loading'">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <div class="loader" align="center"></div>
+        <span style="color:red">Loading Items</span>
+      </div>
+    </div>  
+    <hr style="margin-top:15px;border:10px solid greenyellow" *ngIf="product_items.length>0">
+    <div class="row" style="padding-top:10px">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Top Organizers</h4>
+            <p class="card-category">
+              <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
+                <ng-template let-fill="fill" let-index="index">
+                  <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                </ng-template>
+              </ngb-rating>
+            </p>
+          </div>
+          <div class="card-body" *ngIf="top_organizers.length!=0">
+            <mat-list [ngClass]="{'list-group':top_organizers.length>3}" >
+              <a *ngFor="let organizer of top_organizers" href="ratings/{{organizer.name}}" (click)="addUserEmail(organizer.email)">
+                <mat-list-item>
+                  <mat-icon mat-list-icon>
+                    <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                  </mat-icon>
+                  <p mat-line style="margin-left:15px" >{{organizer.name}}</p>
+                  <p mat-line style="margin-left:15px">
+                    <ngb-rating [(rate)]="organizer.rating" max="5" readonly="true">
+                      <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                      </ng-template>
+                    </ngb-rating>
+                  </p>
+                </mat-list-item>
+              </a>
+              <mat-divider></mat-divider>
+            </mat-list>    
+          </div>
+          <div class="card-body" *ngIf="top_organizers.length==0">
+            <h3 style="color:blue;text-align:center;" class="blink">NO TOP ORGANIZERS</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Top Venue Owners</h4>
+            <p class="card-category">
+              <ngb-rating [(rate)]="default_rate" max="5" readonly="true">
+                <ng-template let-fill="fill" let-index="index">
+                  <span class="star" [class.filled]="fill === 100">&#9733;</span>
+                </ng-template>
+              </ngb-rating>
+            </p>
+          </div>
+          <div class="card-body" *ngIf="top_venue_owners.length!=0">
+            <mat-list [ngClass]="{'list-group':top_venue_owners.length>3}">
+              <a *ngFor="let venue_owner of top_venue_owners" (click)="addUserEmail(venue_owner.email)" href="ratings/{{venue_owner.name}}">
+                <mat-list-item >
+                  <mat-icon mat-list-icon>
+                    <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                  </mat-icon>
+                  <p mat-line style="margin-left:15px" >{{venue_owner.name}}</p>
+                  <p mat-line style="margin-left:15px">
+                    <ngb-rating [(rate)]="venue_owner.rating" max="5" readonly="true">
+                      <ng-template let-fill="fill" let-index="index">
+                        <span class="star" [class.filled]="fill === 100" [class.bad]="index < 2">&#9733;</span>
+                      </ng-template>
+                    </ngb-rating>
+                  </p>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-list>    
+          </div>
+          <div class="card-body" *ngIf="top_venue_owners.length==0">
+            <h3 style="color:blue;text-align:center;" class="blink">NO TOP VENUE OWNERS</h3>
+          </div>
+        </div>
+      </div>
+            <!-- <div class="col-md-4">
                 <div class="card">
                     <div class="card-header card-header-danger">
                       <h4 class="card-title">Top Artists</h4>
@@ -245,7 +264,7 @@
                       <h3 style="color:blue;text-align:center;" class="blink">NO TOP ARTISTS</h3>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

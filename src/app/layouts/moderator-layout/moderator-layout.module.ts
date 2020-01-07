@@ -20,7 +20,7 @@ import {
   MatDialogModule,
   MatCardModule,
   MatListModule,
-  MatChipsModule
+  MatChipsModule,
   // MatTableModule
 } from "@angular/material";
 
@@ -28,6 +28,12 @@ import { ModeratorDashboardComponent } from 'app/Modules/Moderator-Module/modera
 import { ModeratorNotificationsComponent } from 'app/Modules/Moderator-Module/moderator-notifications/moderator-notifications.component';
 import { ModeratorSettingsComponent } from 'app/Modules/Moderator-Module/moderator-settings/moderator-settings.component';
 import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-warnings/report-warnings.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { ModeratorService } from 'app/services/moderator.service';
+import { ModeratorQueriesComponent } from 'app/Modules/Moderator-Module/moderator-queries/moderator-queries.component';
+import { QueryReplyDialogComponent } from 'app/Modules/Moderator-Module/query-reply-dialog/query-reply-dialog.component';
+import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
+
 
 
 @NgModule({
@@ -52,14 +58,20 @@ import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-war
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    MatCarouselModule,
+
   ],
   declarations: [
    ModeratorDashboardComponent,
    ModeratorNotificationsComponent,
    ModeratorSettingsComponent,
-   ReportWarningsComponent
+   ReportWarningsComponent,
+   ModeratorQueriesComponent,
+   QueryReplyDialogComponent,
+   FilterPipe
   ],
-  providers: []
+  providers: [ModeratorService],
+  entryComponents: [QueryReplyDialogComponent]
 })
 export class ModeratorLayoutModule {}

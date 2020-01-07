@@ -3,6 +3,7 @@ import { faq} from '../../../scripts/faq.js';
 import { disable_faq_icon} from '../../../scripts/disable_a_href.js';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
+import CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-help',
   templateUrl: './help.component.html',
@@ -36,22 +37,29 @@ export class HelpComponent implements OnInit {
     let email=this.form.get('user_email').value;
     let message=this.form.get('query').value;
     var date=new Date();
+    var _id=email+"@"+date;
+    var faq_id=CryptoJS.SHA256(_id).toString();
     let date_time=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-    let obj={name:name,email:email,message:message,timestamp:date_time};
-    this.database.firestore.collection('register_user').get().then(snapshot=>{
-      if(snapshot.empty) console.log("Empty");
-      else{
-        snapshot.forEach(docs=>{
-          if(docs.data().role==='admin'){
-            _this.database.firestore.collection('register_user').doc(docs.id).collection('notifications').doc(email).set(obj).then(()=>{
-              console.log("Success");
-            }).catch(err=>{
-              console.log(err);
-            })
-          }
-        })
-      }
-    });
+    let obj={id:faq_id,name:name,email:email,message:message,timestamp:date_time};
+    this.database.collection('faq').doc(faq_id).set(obj).then(()=>{
+
+    }).catch(err=>{
+      console.log(err);
+    })
+    // this.database.firestore.collection('register_user').get().then(snapshot=>{
+    //   if(snapshot.empty) console.log("Empty");
+    //   else{
+    //     snapshot.forEach(docs=>{
+    //       if(docs.data().role==='admin'){
+    //         _this.database.firestore.collection('register_user').doc(docs.id).collection('notifications').doc(email).set(obj).then(()=>{
+    //           console.log("Success");
+    //         }).catch(err=>{
+    //           console.log(err);
+    //         })
+    //       }
+    //     })
+    //   }
+    // });
     this.form.reset();
     let element:HTMLElement=document.getElementById('close_modal') as HTMLElement;
     element.click();

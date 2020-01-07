@@ -14,6 +14,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class LoginComponent implements OnInit {
 
   isInValid:boolean=false;
+  isLoading:boolean=false;
   validation:any;
   checked:any;
   form: any;
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
 
   //validate login
   login_validate(){
+    this.isLoading=true;
     var _this=this;
     let email=(<HTMLInputElement>document.getElementById('user_name')).value;
     let password=(<HTMLInputElement>document.getElementById('password')).value;
@@ -65,11 +67,11 @@ export class LoginComponent implements OnInit {
     .get().then(function(doc) {
       if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
         _this.isTrue=true;
-
         if(_this.checked) _this.login_service.activateRememberUser(email);
         else _this.login_service.destroyRememberUser();
 
         _this._db.firestore.collection("register_user").doc(email).update({active_status:"login"}).then(()=>{
+          _this.isLoading=false;
           localStorage.setItem('loggedIn','true');
           localStorage.setItem('nameId',doc.data().user_name);
           localStorage.setItem('user_name',email);
@@ -82,7 +84,11 @@ export class LoginComponent implements OnInit {
         })
         //  _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
       }
-      else  _this.isTrue=false;
+      else{
+        _this.isTrue=false;
+        _this.isLoading=false;
+      } 
+
       })
  
 

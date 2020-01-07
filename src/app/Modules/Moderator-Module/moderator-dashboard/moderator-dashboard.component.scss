@@ -1,0 +1,19 @@
+.top-button-row{
+    position: relative;
+    right: 20px;
+    .mat-raised-button{
+        margin-left: 10px;
+        
+    }
+    // margin-bottom: 20px;
+}
+
+.list-group.users-list{
+    position: relative;
+    top: 20px;
+    // margin-top: 20px;
+}
+
+tr:hover{
+    background-color: #878d8d;
+}
