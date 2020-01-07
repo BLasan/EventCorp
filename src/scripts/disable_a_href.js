@@ -118,3 +118,10 @@ export function disable_report_notification(){
         e.preventDefault();
     }) 
 }
+
+export function disable_view_products(){
+    $(document).on('click','#view_products',function(e){
+        alert("Stop");
+        e.preventDefault();
+    }) 
+}

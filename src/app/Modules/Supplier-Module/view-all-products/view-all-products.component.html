@@ -67,12 +67,46 @@
             <div class="row">
               <div class="col-md-4"></div>
               <div class="col-md-4" style="margin-left: -30px;">
-                <button  mat-raised-button class="btn btn-success" (click)="bookProduct()"><b>BOOK NOW</b></button>
+                <button  mat-raised-button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="openModal(items.code,items.item_name,items.price,items.item_type)"><b>BOOK NOW</b></button>
               </div>
               <div class="col-md-4"></div>
             </div>
           </mat-card-actions>
         </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><b>BOOKING</b></h5>
+        <button type="button" class="close" id="close_btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Name : {{modalData[0].name}}</p>
+        <p>Date : {{modalData[0].date}}</p>
+        <p>Time : {{modalData[0].time}}</p>
+        <p>Price : {{modalData[0].price*quantity}}</p>
+        <p>Type : {{modalData[0].type}}</p>
+        <form>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <label><b>Quantity</b></label>
+                <input type="number" value="{{quantity}}" [(ngModel)]="quantity" [ngModelOptions]="{standalone: true}" class="form-control"/>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="bookProduct()">Book Now</button>
       </div>
     </div>
   </div>

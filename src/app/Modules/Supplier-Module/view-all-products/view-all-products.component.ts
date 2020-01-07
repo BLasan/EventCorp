@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { item_types } from '../../../../scripts/item_types.js';
-import {deactivate_searchBar} from '../../../../scripts/search_bar_activate'
+import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
+import CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-view-all-products',
   templateUrl: './view-all-products.component.html',
@@ -13,7 +14,9 @@ export class ViewAllProductsComponent implements OnInit {
   productArray:any=[];
   itemTypes:any;
   selection:string="All";
+  quantity:number=1;
   searchText:string;
+  modalData:any=[{id:'',date:'',time:'',name:'',price:'',type:''}];
   constructor(private db:AngularFirestore) { }
 
   ngOnInit() {
@@ -56,5 +59,49 @@ export class ViewAllProductsComponent implements OnInit {
       }
     })
   }
+
+  openModal(code:any,name:string,price:any,type:string){
+    this.modalData=[];
+    let today=new Date();
+    let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate();
+    let time=today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+    let bookingId=code+"@"+date;
+    let hashedId=CryptoJS.SHA256(bookingId).toString();
+    let obj={id:hashedId,date:date,time:time,name:name,price:price,type:type,code:code};
+    this.modalData.push(obj);
+  }
+
+  bookProduct(){
+    var _this=this;
+    let id=this.modalData[0].id;
+    let code=this.modalData[0].code;
+    let item_name=this.modalData[0].name;
+    let date=this.modalData[0].date;
+    let time=this.modalData[0].time;
+    let price=this.quantity*this.modalData[0].price;
+    let type=this.modalData[0].type;
+    let obj={name:item_name,id:id,date:date,time:time,price:price,type:type};
+    this.db.collection('bookings').doc(id).set(obj).then(()=>{
+      _this.modalData=[];
+      console.log("Booked Item");
+    }).catch(err=>{
+      console.log(err);
+    });
+
+    this.db.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(doc=>{
+      if(doc.empty) console.log("Empty");
+      else{
+        doc.forEach(docs=>{
+          if(docs.data().code===code){
+            _this.db.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(id).update({quantity:docs.data().quantity-_this.quantity})
+          }
+        })
+      }
+    })
+
+    let btn=document.getElementById('close_btn') as HTMLElement;
+    btn.click();
+  }
+
 
 }

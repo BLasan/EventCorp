@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-6">
                   <mat-form-field>
-                    <mat-select id="selection" (selectionChange)="getType($event)" formControlName="item_type">
+                    <mat-select id="selection" (selectionChange)="getType($event)" [(ngModel)]="selection" [ngModelOptions]="{standalone: true}" placeholder="{{selection}}">
                       <mat-option value="{{items.type_value}}" *ngFor="let items of item_categories">{{items.type_name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
