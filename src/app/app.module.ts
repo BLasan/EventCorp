@@ -156,7 +156,7 @@ import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-pro
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
     ReportDialogComponent,
-    EventsAddComponent,
+    // EventsAddComponent,
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,

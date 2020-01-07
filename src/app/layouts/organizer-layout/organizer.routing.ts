@@ -7,6 +7,7 @@ import { OrganizerSettingsComponent } from 'app/Modules/Organizer-Module/organiz
 import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
+import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-events/events-add/events-add.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -17,5 +18,7 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'organizer-notifications',component:OrganizerNotificationsComponent},
     { path:'organizer-settings',component:OrganizerSettingsComponent},
     { path:'ratings/:name' , component:RatingSystemComponent}, 
-    { path:'payment-bill' , component:PaymentBillComponent}
+    { path:'payment-bill' , component:PaymentBillComponent},
+    { path:'add-events' , component:EventsAddComponent}
+
 ];

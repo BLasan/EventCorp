@@ -44,7 +44,9 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-notifications',title:'Notifications',icon:'notifications',class:''},
   { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
   { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
-  { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''}
+  { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
+  { path:'/add-events',title:'Add an event',icon:'add',class:''}
+
 ];
 
 
