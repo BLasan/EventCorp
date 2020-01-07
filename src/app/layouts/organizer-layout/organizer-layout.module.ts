@@ -56,6 +56,8 @@ import { RatingSystemComponent } from 'app/shared-components/rating-system/ratin
 import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 
   @NgModule({
     imports: [
@@ -99,6 +101,7 @@ import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/
       MatListModule,
       NgxMatSelectSearchModule,
       SharedComponentsModule,
+      FullCalendarModule
       
     ],
     declarations: [

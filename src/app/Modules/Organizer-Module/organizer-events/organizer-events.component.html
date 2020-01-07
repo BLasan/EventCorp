@@ -1,6 +1,16 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <full-calendar [events]="calendarEvents" [plugins]="calendarPlugins"></full-calendar>
+  </div>
+</div>
+<!-- <div class="main-content">
+  <div class="container-fluid">
+    <router-outlet>
+      <full-calendar [events]="calendarEvents" [plugins]="calendarPlugins"></full-calendar>
+
+  </router-outlet> -->
+
+<!-- <div class="row">
       <div id='calendar'></div>
     </div>
     <div class="row" style="margin-top:50px;margin-left:50px">
@@ -12,12 +22,14 @@
                 <mat-form-field>
                   <input matInput placeholder="Event Name" id="event_name" name="event_name" formControlName='event_name'>
                   <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
-                </mat-form-field>    
-                <!-- <mat-form-field>
+                </mat-form-field>     -->
+
+<!-- <mat-form-field>
                   <input matInput placeholder="Venue" name="venue" formControlName='venue'>
                   <mat-error *ngIf="hasError('venue', 'required')"><small>Venue is required</small></mat-error>
                 </mat-form-field>    -->
-                <mat-form-field color="accent">
+
+<!-- <mat-form-field color="accent">
                   <input matInput [matDatepicker]="picker" id="date" placeholder="Choose a date" name="date" formControlName='date'>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
@@ -62,11 +74,13 @@
                   </div>
                   <div class="col-4">
                     <mat-form-field>
-                      <mat-select [formControl]="venue_owner_data" placeholder="Venues">
-                        <!-- <mat-select-trigger>
+                      <mat-select [formControl]="venue_owner_data" placeholder="Venues"> -->
+
+<!-- <mat-select-trigger>
                           {{venue_owner_data.value ? venue_owner_data.value[0] : ''}}
                         </mat-select-trigger> -->
-                        <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+
+<!-- <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
                         <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
                           {{bank}}
                         </mat-option>
@@ -110,6 +124,7 @@
             </mat-card-content>
         </mat-card> 
       </div>
-    </div>
-  </div>
-</div>
+    </div> -->
+
+<!-- </div>
+</div> -->
