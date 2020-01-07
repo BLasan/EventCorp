@@ -42,7 +42,7 @@
                 <div class="row">
                   <div class="col-4">
                     <mat-form-field>
-                      <mat-select [formControl]="artist_data" placeholder="Artists" [multiple]="true">
+                      <mat-select [formControl]="artist_data" placeholder="Artists" [multiple]="true" #multiSelect>
                         <mat-select-trigger>
                           {{artist_data.value ? artist_data.value[0] : ''}}
                           <span *ngIf="artist_data.value?.length > 1" class="example-additional-selection">

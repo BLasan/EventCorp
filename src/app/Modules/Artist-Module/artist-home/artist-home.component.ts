@@ -3,6 +3,7 @@ import {loadCalendar} from '../../../../scripts/artist/artist-home'
 import {activate_searchBar} from '../../../../scripts/search_bar_activate'
 import { RateUserService } from 'app/services/rate-user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-artist-home',
   templateUrl: './artist-home.component.html',
@@ -19,8 +20,8 @@ export class ArtistHomeComponent implements OnInit {
   isDone:boolean=false;
   my_playlist:any=[];
   playlist_title:string;
-  user_comments:Array<{comment:String,date:any,user_name:String}>=[];
-  constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
+  user_comments:any=[];
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
@@ -94,13 +95,24 @@ export class ArtistHomeComponent implements OnInit {
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments').get().then(docs=>{
       if(!docs.empty){
         docs.forEach(doc=>{
-          _this.user_comments.push(doc.data().comments)
+          console.log(doc.id);
+            var length=doc.data().comments.length;
+            for(var i=0;i<length;i++){
+              var comment=doc.data().comments[i].comment;
+              var date=doc.data().comments[i].date;
+              var user_name=doc.data().comments[i].user_name;
+              var id=doc.id;
+              var sender_mail=doc.data().sender_mail;
+              var obj={comment:comment,date:date,user_name:user_name,id:id,sender_mail:sender_mail};
+              _this.user_comments.push(obj);
+            }
         })
       }
       else console.log("Empty Comments");
     }).catch(err=>{
       console.log(err);
-    })
+    });
+    console.log(this.user_comments)
   }
 
   load_playlist(){
@@ -112,6 +124,19 @@ export class ArtistHomeComponent implements OnInit {
        _this.playlist_title=snapshot.data().playList_name;
       }
     })
+  }
+
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+    var _this=this;
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+      console.log("Success");
+      _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+       duration: 3000,
+     });
+    }).catch(err=>{
+      console.log(err);
+    })
+
   }
 
 }

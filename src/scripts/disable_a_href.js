@@ -106,3 +106,22 @@ export function disable_event_images(){
         e.preventDefault();
     }) 
 }
+
+export function disable_report_comments(){
+    $(document).on('click','#report_comment',function(e){
+        e.preventDefault();
+    }) 
+}
+
+export function disable_report_notification(){
+    $(document).on('click','#report_notification',function(e){
+        e.preventDefault();
+    }) 
+}
+
+export function disable_view_products(){
+    $(document).on('click','#view_products',function(e){
+        alert("Stop");
+        e.preventDefault();
+    }) 
+}

@@ -16,6 +16,7 @@ declare var $: any;
 export class NotificationsComponent implements OnInit {
 
   notification:string="This is a new notification";
+  chat_messages:any=[];
   notification_details:any=[];
   booking_data:any=[];
   message_details:any;
@@ -130,6 +131,23 @@ export class NotificationsComponent implements OnInit {
     console.log('Error getting documents', err);
   });
 
+  var docRef = this.database.firestore.collection('register_user').doc(user_name).collection('chats');
+    docRef.get()
+    .then(snapshot => {
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+    }  
+    snapshot.forEach(doc => {
+      console.log(doc.id, '=>', doc.data());
+      if(doc.data().view==false)
+      _this.chat_messages.push(doc.data());
+      _this.notification_count+=1;
+    });
+    })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
+
     // this._notification.get_message_notifications(user_name).subscribe(data=>{
     //   this.notification_details=data;
     //   if(this.notification_details.isEmpty==false){
@@ -148,10 +166,18 @@ mark_view_booking_notification(sender_email:string,type:string){
   if(this.isBookingView){
     console.log(sender_email)
     console.log(this.booking_data);
-    this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
-    this.req_from=this.filtered_details[0].sender_email;
-    this.req_name=this.filtered_details[0].sender_name;
-    this.req_time=this.filtered_details[0].date;
+    if(localStorage.getItem('role')==='organizer'){
+      this.filtered_details=this.booking_data.filter(x=>x.user_email==sender_email);
+      this.req_from=this.filtered_details[0].user_email;
+      this.req_name=this.filtered_details[0].user_name;
+      this.req_time=this.filtered_details[0].date;
+    }
+    else{
+      this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
+      this.req_from=this.filtered_details[0].sender_email;
+      this.req_name=this.filtered_details[0].sender_name;
+      this.req_time=this.filtered_details[0].date;
+    }
     // this.req_contact=this.filtered_details[0].user_contact;
   }
 
@@ -165,17 +191,17 @@ mark_view_booking_notification(sender_email:string,type:string){
   }
 
   let user_name=localStorage.getItem('user_name');
-  this.notification_count-=1;
+ // this.notification_count-=1;
   console.log(sender_email)
   if(this.isBookingView) this.notification_type="booking";
   else this.notification_type="notifications";
-  update_count(this.notification_count);
   if(this.notification_type==="booking" && type==='cancel')
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true});
   else
   var mark_notifications=this.database.collection('register_user').doc(user_name).collection('notification-messages').doc(sender_email).update({view:true});
   if(mark_notifications){
     this.notification_count-=1;
+    update_count(this.notification_count);
     this.getRequestDetails();
   }
 
@@ -200,6 +226,13 @@ mark_view_booking_notification(sender_email:string,type:string){
   //  // localStorage.setItem('notification_count',this.notification_count.toString());
   // });
   
+}
+
+
+mark_chat_notifications(id:string){
+  alert(id)
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('chats').doc(id).update({view:true});
+  localStorage.setItem('searched_user_email',id);
 }
 
 

@@ -4,6 +4,8 @@ import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
 import {NavbarComponent} from 'app/components/navbar/navbar.component';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { disable_modal_open,disable_report_comments} from '../../.././../scripts/disable_a_href.js';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-organizer-home',
   templateUrl: './organizer-home.component.html',
@@ -17,13 +19,21 @@ export class OrganizerHomeComponent implements OnInit {
   top_suppliers:any=[];
   top_venue_owners:any=[];
   data:any;
+  user_comments:any=[];
+  events:any=[];
   isDone:boolean=false;
-  constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
+  modal_details:any;
+  artists_participated:string="";
+  suppliers_participated:string="";
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
     activate_searchBar();
+    disable_report_comments();
     this.get_top_users();
+    this.load_events();
+    this.load_comments();
   }
 
   get_top_users(){
@@ -37,9 +47,9 @@ export class OrganizerHomeComponent implements OnInit {
     }  
     snapshot.forEach(doc => {
       console.log(doc.id, '=>', doc.data());
-      if(doc.data().role=="artist" && doc.data().rating>=3){
-        _this.top_artists.push(doc.data());
-         _this.top_artists.sort().reverse();
+      if(doc.data().role=="artist"){
+        // _this.top_artists.push(doc.data());
+        //  _this.top_artists.sort().reverse();
       }
      
       else if(doc.data().role=="supplier" && doc.data().rating>=3){
@@ -84,6 +94,96 @@ export class OrganizerHomeComponent implements OnInit {
   addUserEmail(email:string){
     alert(email)
     localStorage.setItem('searched_user_email',email);
+  }
+
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+    var _this=this;
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+      console.log("Success");
+      _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+       duration: 3000,
+     });
+    }).catch(err=>{
+      console.log(err);
+    })
+
+  }
+
+  // load_comments(){
+  //   var _this=this;
+  //   this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments').get().then(docs=>{
+  //     if(!docs.empty){
+  //       docs.forEach(doc=>{
+  //         _this.user_comments.push(doc.data().comments);
+  //       })
+  //     }
+  //     else console.log("Empty Comments");
+  //   }).catch(err=>{
+  //     console.log(err);
+  //   });
+  //   console.log(this.user_comments)
+  // }
+
+  load_comments(){
+    var _this=this;
+    var docRef = this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments');
+    docRef.get().then(async function(doc) {
+        if (!doc.empty) {
+          doc.forEach(docs=>{
+            console.log(docs.id);
+            var length=docs.data().comments.length;
+            for(var i=0;i<length;i++){
+              var comment=docs.data().comments[i].comment;
+              var date=docs.data().comments[i].date;
+              var user_name=docs.data().comments[i].user_name;
+              var id=docs.id;
+              var sender_email=docs.data().sender_mail;
+              var obj={comment:comment,date:date,user_name:user_name,id:id,sender_mail:sender_email};
+              _this.user_comments.push(obj);
+            }
+           
+          })
+        } 
+        else{
+           console.log('No Documents'); 
+        }
+    }).catch(err => {
+      console.log('Error getting documents', err);
+    });
+   }
+
+  load_modal(event_id:any){
+    disable_modal_open();
+    console.log(event_id);
+    this.modal_details=this.events.filter(x=>x.event_id===event_id);
+    console.log(this.modal_details)
+    for(var artists of this.modal_details){
+      for(var artist_names of artists.artists){
+        console.log(artist_names)
+        this.artists_participated+=" / "+artist_names;
+      }
+    }
+
+    for(var suppliers of this.modal_details){
+      for(var supplier_names of suppliers.suppliers){
+        console.log(supplier_names)
+        this.suppliers_participated+=" / "+supplier_names;
+      }
+    }
+
+  }
+
+  load_events(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').get().then(snapshot=>{
+      if(snapshot.empty) console.log("Empty Data");
+      else{
+        snapshot.forEach(docs=>{
+          _this.events.push(docs.data());
+        })
+      }
+    });
+    console.log(this.events);
   }
 
 

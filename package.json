@@ -42,6 +42,7 @@
     "@ng-bootstrap/ng-bootstrap": "^4.2.2",
     "@ngmodule/material-carousel": "^0.5.1",
     "@paypal/checkout-server-sdk": "^1.0.1",
+    "@sendgrid/mail": "^6.4.0",
     "@theo4u/ng-alert": "^2.1.0",
     "acorn": "^6.1.1",
     "ajv": "6.4.0",

@@ -114,7 +114,8 @@
                       </form>
                   </div>
                   <div class="d-flex justify-content-center mt-3 login_container">
-                      <button type="button" name="button" class="btn login_btn" (click)="login_validate()">Login</button>
+                      <button type="button" *ngIf="!isLoading" name="button" class="btn login_btn" (click)="login_validate()">Login</button>
+                      <button type="button" *ngIf="isLoading" name="button"  class="btn login_btn" disabled>Loading...</button>
                   </div>
               </div>
         </div>

@@ -67,12 +67,19 @@ export class OnlineChatComponent implements OnInit {
     let time_date=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getTime();
    
     this.messageArray.push({user:_this.user,message:_this.message,date:time_date});
-    this.database.collection('chats').doc(this.hashed_id).set({message:this.messageArray}).then(()=>{
+    this.database.collection('chats').doc(this.hashed_id).set({sender:localStorage.getItem('user_name'),message:this.messageArray}).then(()=>{
       _this.message="";
       _this.realtime_listen()
     }).catch(err=>{
       console.log(err);
-    })
+    });
+
+    this.database.collection('register_user').doc(this.searched_user).collection('chats').doc(localStorage.getItem('user_name')).set({sender:localStorage.getItem('user_name'),date:time_date,message:"1 New Message from ",view:false,chat_id:this.hashed_id,user_name:this.searched_user_name}).then(()=>{
+      console.log("Success");
+    }).catch(err=>{
+      console.log(err);
+    });
+
   }
 
   realtime_listen(){
@@ -122,11 +129,19 @@ export class OnlineChatComponent implements OnInit {
 
 openChat(){
     open_chat();
+    var _this=this;
     this.message="";
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('chats').doc(this.searched_user).get().then((doc)=>{
+      if(!doc.exists) console.log("Error Updating");
+      else{
+        _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('chats').doc(this.searched_user).update({view:true});
+      }
+    })
 }
 
 closeChat(){
   close_chat();
+ 
 }
 
   // join(){
