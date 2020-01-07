@@ -87,6 +87,7 @@ import { AuthGuardModeratorService } from './services/Authentication/authGuard_m
 import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
 import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.component';
 import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
+import { EventsAddComponent } from './Modules/Organizer-Module/organizer-events/events-add/events-add.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -154,6 +155,7 @@ import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
     ReportDialogComponent,
+    EventsAddComponent,
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
