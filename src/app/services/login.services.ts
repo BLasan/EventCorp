@@ -54,6 +54,7 @@ export class LoginService {
         localStorage.removeItem('token');
         localStorage.removeItem('nameId');
         localStorage.removeItem('loggedIn');
+        localStorage.removeItem('searched_user_email');
         this.auth.auth.signOut().then(suc=>{
             alert(suc)
         }).catch(err=>{

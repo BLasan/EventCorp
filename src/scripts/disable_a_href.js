@@ -121,7 +121,27 @@ export function disable_report_notification(){
 
 export function disable_view_products(){
     $(document).on('click','#view_products',function(e){
-        alert("Stop");
         e.preventDefault();
     }) 
+}
+
+export function disable_event_links(){
+    $(document).on('click','#artist_select',function(e){
+        e.preventDefault();
+    });
+    $(document).on('click','#organizer_select',function(e){
+        e.preventDefault();
+    });
+    $(document).on('click','#venue_select',function(e){
+        e.preventDefault();
+    });
+}
+
+export function disable_uploaders(){
+    $(document).on('click','#event_image_uploader',function(e){
+        e.preventDefault();
+    });
+    $(document).on('click','#video_uploader',function(e){
+        e.preventDefault();
+    });
 }

@@ -331,6 +331,37 @@
                 <h3 style="color:red"><b>Empty Playlist</b></h3>
               </div>
             </div>
+            <div class="card" *ngIf="search_user_role==='supplier'">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"><b>MY ITEMS</b></h4>
+                <p class="card-category">Item Details</p>
+              </div>
+              <div class="card-body" *ngIf="productItems.length>0" [ngClass]="{'list-group':productItems.length>5}">
+                <table class="table table-dark">
+                  <thead>
+                      <th scope="col"><b>ID</b></th>
+                      <th scope="col"><b>Product Name</b></th>
+                      <th scope="col"><b>Price (Rs:)</b></th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let products of productItems;let index=index">
+                      <th scope="row">{{index+1}}</th>
+                      <td>{{products.item_name}}</td>
+                      <td>{{products.price}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row">
+                  <div class="col-md-4 col-sm-12"></div>
+                  <div class="col-md-4 col-sm-12">
+                    <a href="/view-all-products" title="View All" style="text-decoration: none;">View All</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body" *ngIf="productItems.length==0">
+                <h3 style="color:red"><b>Empty Items</b></h3>
+              </div>
+            </div>
           </div>
         </div>
       </div>

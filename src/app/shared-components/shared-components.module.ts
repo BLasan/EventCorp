@@ -31,6 +31,8 @@ import {
 } from '@angular/material';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 import { MyChatsComponent } from './my-chats/my-chats.component';
+import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
     SettingsComponent,
     RatingSystemComponent,
     MyChatsComponent,
+    ViewAllProductsComponent,
+    SearchItemsPipe
   ],
   imports: [
     CommonModule,
@@ -71,7 +75,9 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
     NotificationsComponent,
     PaypalPaymentComponent,
     RatingSystemComponent,
-    MyChatsComponent
+    MyChatsComponent,
+    ViewAllProductsComponent,
+    SearchItemsPipe
   ]
 })
 export class SharedComponentsModule { }
