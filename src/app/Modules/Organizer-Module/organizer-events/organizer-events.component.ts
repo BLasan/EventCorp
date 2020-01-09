@@ -178,8 +178,8 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
               for(var i=0;i<artist.length;i++){
                 let obj={user:artist[i],status:"Pending"};
                 allUsers.push(obj);
-                let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(localStorage.getItem('user_name')).set(booking_request).then(()=>{
+                let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
+                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -188,10 +188,10 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
           
               //send requests to suppliers
               for(var i=0;i<supplier.length;i++){
-                let obj={user:supplier,status:"Pending"};
+                let obj={user:supplier[i],status:"Pending"};
                 allUsers.push(obj);
-                let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(localStorage.getItem('user_name')).set(booking_request).then(()=>{
+                let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
+                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -200,10 +200,10 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
           
               //send requests to venues
               for(var i=0;i<venue.length;i++){
-                let obj={user:venue,status:"Pending"};
+                let obj={user:venue[i],status:"Pending"};
                 allUsers.push(obj);
                 let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(localStorage.getItem('user_name')).set(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -212,7 +212,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
           
           
               //keep track of sent requests
-              let obj={user_data:allUsers};
+              let obj={user_data:allUsers,event_name:event_name,event_id:hash_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
               _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(hash_id).set(obj).then(()=>{
                 console.log("Successfully Added");
               }).catch(err=>{

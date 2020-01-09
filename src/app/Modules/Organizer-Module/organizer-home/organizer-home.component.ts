@@ -170,21 +170,21 @@ export class OrganizerHomeComponent implements OnInit {
     for(var artists of this.modal_details){
       for(var artist_names of artists.artists){
         console.log(artist_names.name)
-        this.artists_participated+=" / "+artist_names.name;
+        this.artists_participated+=artist_names.name+" / ";
       }
     }
 
     for(var suppliers of this.modal_details){
       for(var supplier_names of suppliers.suppliers){
         console.log(supplier_names.name)
-        this.suppliers_participated+=" / "+supplier_names.name;
+        this.suppliers_participated+=supplier_names.name+" / ";
       }
     }
 
     for(var venue of this.modal_details){
       for(var venue_names of venue.venue_owners){
         console.log(venue_names.name)
-        this.venue+=" / "+venue_names.name;
+        this.venue+=venue_names.name+" / ";
       }
     }
 

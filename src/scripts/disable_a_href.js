@@ -149,3 +149,9 @@ export function disable_uploaders(){
     });
 
 }
+
+export function disable_cancel_req(){
+    $(document).on('click','#cancel_req',function(e){
+        e.preventDefault();
+    });
+}

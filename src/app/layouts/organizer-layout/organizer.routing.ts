@@ -8,6 +8,7 @@ import { RatingSystemComponent } from 'app/shared-components/rating-system/ratin
 import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -20,4 +21,5 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'ratings/:name' , component:RatingSystemComponent}, 
     { path:'payment-bill' , component:PaymentBillComponent},
     {path:'view-all-products',component:ViewAllProductsComponent},
+    {path:'view-request-status',component:ViewRequestStatusComponent},
 ];
