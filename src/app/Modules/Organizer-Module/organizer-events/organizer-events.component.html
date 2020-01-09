@@ -203,7 +203,7 @@
       <div class="col-md-4 col-sm-12" *ngFor="let artists of artistList">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"><b>{{artists.user_name}}</b></h4>
+            <h4 class="card-title"><b><a href="ratings/{{artists.user_name}}" title="View More" id="view_user" (click)="addUserEmail(artists.email)">{{artists.user_name}}</a></b></h4>
             <img [src]="artists.img_url" width="100%">
           </div>
           <div class="card-body">

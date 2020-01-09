@@ -359,8 +359,9 @@ export class RatingSystemComponent implements OnInit {
 
    }
 
+
    getRequestDetails(){
-    console.log('Hello');
+   // console.log('Hello');
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');

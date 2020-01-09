@@ -144,4 +144,8 @@ export function disable_uploaders(){
     $(document).on('click','#video_uploader',function(e){
         e.preventDefault();
     });
+    $(document).on('click','#view_user',function(e){
+        e.preventDefault();
+    });
+
 }
