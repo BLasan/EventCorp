@@ -3,6 +3,7 @@ import { filter } from 'rxjs-compat/operator/filter';
 import { getRole } from 'app/services/select_role.service.js';
 import { SearchUserService } from 'app/services/search_user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
 declare const $: any;
 
 declare interface RouteInfo {
@@ -22,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
     // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     { path: '/admin-notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
 
@@ -30,11 +31,11 @@ export const ROUTES: RouteInfo[] = [
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
-  { path: '/artist-notifications', title: 'Notifications',  icon: 'view_list', class: '' },
+  { path: '/artist-notifications', title: 'Notifications',  icon: 'notifications', class: '' },
   { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
-  { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+  // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
 
@@ -44,7 +45,8 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-notifications',title:'Notifications',icon:'notifications',class:''},
   { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
   { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
-  { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''}
+  { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
+  { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''}
 ];
 
 

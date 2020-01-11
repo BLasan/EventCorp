@@ -40,7 +40,7 @@
                             <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.sender_email,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>You have received new booking request from {{booking_data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="mark_view_booking_notification(booking_data.sender_email,'req')"> view request details</a></b></span>
+                            <span><b>You have received new booking request from {{booking_data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="openModal(booking_data.sender_email,booking_data.sender_name,booking_data.event_name,booking_data.event_id,booking_data.date)"> view request details</a></b></span>
                         </div> 
                     </div>
                 </div>
@@ -127,12 +127,14 @@
                     <div class="modal-body">
                         <p><b>From : {{req_from}}</b></p>
                         <p><b>Organizer Name : {{req_name}}</b></p>
-                        <p><b>Time : {{req_time}}</b></p>
+                        <p><b>Date : {{req_time}}</b></p>
+                        <p><b>Event Name : {{eventName}}</b></p>
                         <!-- <p><b>Contact : {{req_contact}}</b></p> -->
                         <p align="center"><a href="ratings/{{req_name}}" (click)="addUserEmail(req_from,req_status)">View Organizer Details</a></p>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="removeNotification(req_from)">Close</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="decline(req_id)">DECLINE</button>
+                      <button type="button" class="btn btn-success" data-dismiss="modal" (click)="accept(req_id)">ACCEPT</button>
                     </div>
                 </div>
             </div>

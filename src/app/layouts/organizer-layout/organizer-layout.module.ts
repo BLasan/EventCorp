@@ -56,6 +56,9 @@ import { RatingSystemComponent } from 'app/shared-components/rating-system/ratin
 import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
+import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
+import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
 
   @NgModule({
     imports: [
@@ -108,7 +111,8 @@ import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/
       OrganizerProfileComponent,
       OrganizerEventsComponent,
       FilterUsersPipe,
-      PaymentBillComponent
+      PaymentBillComponent,
+      ViewRequestStatusComponent,
       // RatingSystemComponent
     ],
    

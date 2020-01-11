@@ -16,7 +16,6 @@ export const SupplierLayoutRoutes: Routes = [
     {path:'supplier-profile',component:SupplierProfileComponent},
     {path:'my-chat-list',component:MyChatsComponent},
     {path:'supplier-settings',component:SupplierSettingsComponent},
-    {path:'view-all-products',component:ViewAllProductsComponent},
     {path:'ratings/:name' , component:RatingSystemComponent}, 
     {path:'supplier-add-items',component:SupplierAddItemsComponent}
 ];

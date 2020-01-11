@@ -61,6 +61,7 @@ export class RatingSystemComponent implements OnInit {
   acceptBooking:string=null;
   isResponded:boolean=false;
   isLoadMore:boolean=false;
+  productItems:any=[];
   image_url:string="assets/img/faces/pro_img.png";
   comments_array:Array<{comment:string,date:any,user_name:string,id:string}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
@@ -90,9 +91,10 @@ export class RatingSystemComponent implements OnInit {
     this.getSearchedUserData();
     this.loadComments();
     this.load_view_settings();
+    this.load_supplier_items();
    // this.load_user_events();
     localStorage.removeItem('status');
-    localStorage.removeItem('searched_user_email');
+    // localStorage.removeItem('searched_user_email');
     localStorage.removeItem('isBookingReq');
     //localStorage.removeItem('searched_user_email');
   }
@@ -357,8 +359,9 @@ export class RatingSystemComponent implements OnInit {
 
    }
 
+
    getRequestDetails(){
-    console.log('Hello');
+   // console.log('Hello');
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');
@@ -415,7 +418,6 @@ export class RatingSystemComponent implements OnInit {
    }
 
    getSearchedUserData(){
-    
      var _this=this;
      console.log(this.searched_user_email)
      var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email);
@@ -501,6 +503,20 @@ export class RatingSystemComponent implements OnInit {
     })
   }
 
+  load_supplier_items(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('our_items').get().then(doc=>{
+      if(doc.empty) console.log("Empty Data");
+      else{
+        doc.forEach(docs=>{
+          _this.productItems.push(docs.data());
+        })
+      }
+    }).catch(err=>{
+      console.log(err);
+    }) 
+  }
+
   
   load_modal(event_id:any){
     disable_modal_open();
@@ -510,14 +526,14 @@ export class RatingSystemComponent implements OnInit {
     for(var artists of this.modal_details){
       for(var artist_names of artists.artists){
         console.log(artist_names)
-        this.artists_participated+=" / "+artist_names;
+        this.artists_participated+=artist_names+" / ";
       }
     }
 
     for(var suppliers of this.modal_details){
       for(var supplier_names of suppliers.suppliers){
         console.log(supplier_names)
-        this.suppliers_participated+=" / "+supplier_names;
+        this.suppliers_participated+=supplier_names+" / ";
       }
     }
 

@@ -88,6 +88,8 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
 import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.component';
 import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
 import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { SearchItemsPipe } from './Modules/Supplier-Module/searchItems.pipe';
+import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-request-status/view-request-status.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';

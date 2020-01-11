@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
+       // disable_logout();
     this.getNotificationCount();
     //get notification count
     // if(localStorage.getItem('role')!='admin')
@@ -218,19 +219,19 @@ export class NavbarComponent implements OnInit {
       if(titlee.indexOf('view-all-products')>-1) return "All Products";
     }
 
-    logout_User(){
-        localStorage.setItem('loggedOut','true');
-        // var _this=this;
-        // var user=localStorage.getItem('user_name');
-        // console.log(user);
+    logout_User(){       
+        var _this=this;
+        var user=localStorage.getItem('user_name');
+        console.log(user);
         // alert(user)
-        // // disable_logout();
-        // this._db.collection('register_user').doc(user).update({active_status:'logout'});
-        // localStorage.removeItem('user_name');
-        // localStorage.removeItem('role');
-        // localStorage.removeItem('token');
-        // localStorage.removeItem('nameId');
-        // localStorage.removeItem('loggedIn');
+        // disable_logout();
+        this._db.firestore.collection('register_user').doc(user).update({active_status:'logout'});
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('role');
+        localStorage.removeItem('token');
+        localStorage.removeItem('nameId');
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('searched_user_email');
         this.auth.auth.signOut();
         // navigate_to_home();
         // this._loginService.logOut();

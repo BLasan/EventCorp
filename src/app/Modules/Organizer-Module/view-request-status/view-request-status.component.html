@@ -1,0 +1,30 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-warning" >
+        <h4 class="card-title"><b>REQUESTS</b></h4>
+        <p class="card-category">View,Cancel Requests</p>
+      </div>
+      <div class="card-content table-responsive table-full-width">
+        <table class="table">
+          <thead class="text-primary">
+            <th>User Name</th>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Cancel Request</th>
+          </thead>
+          <tbody>
+           <tr *ngFor="let status of reqStatusArray">
+             <td>{{status.user.name}}</td>
+             <td>{{status.event_name}}</td>
+             <td>{{status.date}}</td>
+             <td>{{status.status}}</td>
+             <td><a href="" id="cancel_req" style="text-decoration: none;color:red" (click)="cancelReq(status.user.email,status.event_id)">CANCEL REQUEST</a></td>
+           </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
