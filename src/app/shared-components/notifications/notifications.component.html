@@ -55,7 +55,7 @@
                                 <b>Your request to {{booking_data.user_name}} has been {{booking_data.status}}.To do payments click the following button
                                     <!-- <a href="https://sandbox.payhere.lk/pay/ob5d67668">PayPal</a> -->
                                 </b>
-                                <form #form action="/payment" target="_blank" method="GET">
+                                <form #form action="/payment/{{booking_data.user_name}}/0/1000" target="_blank" method="GET">
                                     <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png" style="width:150px" value="Buy Now" (click)="form.submit()">
                                 </form>
                                 <!-- <form #form1 method="POST" action="https://sandbox.payhere.lk/pay/checkout">   
@@ -130,7 +130,7 @@
                         <p><b>Date : {{req_time}}</b></p>
                         <p><b>Event Name : {{eventName}}</b></p>
                         <!-- <p><b>Contact : {{req_contact}}</b></p> -->
-                        <p align="center"><a href="ratings/{{req_name}}" (click)="addUserEmail(req_from,req_status)">View Organizer Details</a></p>
+                        <p align="center"><a href="ratings/{{req_name}}" target="_blank"  (click)="addUserEmail(req_from,req_status)">View Organizer Details</a></p>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="decline(req_id)">DECLINE</button>

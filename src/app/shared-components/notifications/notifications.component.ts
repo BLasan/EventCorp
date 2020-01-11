@@ -271,55 +271,122 @@ pay(){
   // pay();
 }
 
+
+//decline request
 decline(id:any){
   var _this=this;
   let temArray:any=[];
-  let count=document.getElementById('notification_count_id').innerHTML.toString();
+  let userArrayTemp:any=[];
+  let date=new Date();
+  let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
   let _count=parseInt(count)-1;
   console.log(_count);
-  update_notification_count(_count);
-  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true});
+  update_notification_count(_count);   //update notification count
+
+  //update view of the notification
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true,status:"Rejected"});  
+
+  //update booking status
   this.database.firestore.collection('register_user').doc(this.req_from).collection('BookingStatus').doc(id).get().then(docs=>{
     if(!docs.exists) console.log("Empty Data");
     else{
       for(var i=0;i<docs.data().user_data.length;i++){
         if(docs.data().user_data[i].user.email===localStorage.getItem('user_name')){
-          var obj={date:docs.data().user_data[i].date,event_id:docs.data().event_id,event_name:docs.data().user_data[i].event_id,status:"Decline",user:{email:docs.data().user_data[i].user.email,name:docs.data().user_data[i].user.name}};
+          var obj={status:"Rejected",user:{email:docs.data().user_data[i].user.email,name:docs.data().user_data[i].user.name}};
           temArray.push(obj);
         }
         else{
           temArray.push(docs.data().user_data[i]);  
         }
       }
+      _this.database.collection('register_user').doc(_this.req_from).collection('BookingStatus').doc(id).update({user_data:temArray});   //update booking status
+    }
+  });
+
+  //remove from the booked users
+  this.database.firestore.collection('register_user').doc(this.req_from).collection('MyEvents').doc(id).get().then(docs=>{
+    if(!docs.exists) console.log("Empty Data");
+    else{
+      if(localStorage.getItem('role')==='artist'){
+        for(var i=0;i<docs.data().artists;i++){
+          if(localStorage.getItem('user_name')!==docs.data().artists[i].email)
+          userArrayTemp.push(docs.data().artists[i]);
+        }
+        _this.database.firestore.collection('register_user').doc(_this.req_from).collection('MyEvents').doc(id).update({artists:userArrayTemp});   //update to the event
+      }
+      else if(localStorage.getItem('user_name')==='supplier'){
+        for(var i=0;i<docs.data().suppliers;i++){
+          if(localStorage.getItem('user_name')!==docs.data().suppliers[i].email)
+          userArrayTemp.push(docs.data().suppliers[i]);
+        }
+        _this.database.firestore.collection('register_user').doc(_this.req_from).collection('MyEvents').doc(id).update({suppliers:userArrayTemp});  //update to the event
+      }
+      else if(localStorage.getItem('user_name')==='venue_owner'){
+        for(var i=0;i<docs.data().venue_owners;i++){
+          if(localStorage.getItem('user_name')!==docs.data().venue_owners[i].email)
+          userArrayTemp.push(docs.data().venue_owners[i]);
+        }
+        _this.database.firestore.collection('register_user').doc(_this.req_from).collection('MyEvents').doc(id).update({venue_owners:userArrayTemp});   //update to the event
+      }
+      //update booking requests notification
+      let booking_request={user_name:localStorage.getItem('nameId'),user_email:localStorage.getItem('user_name'),receiver_email:_this.req_from,date:date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate(),view:false,status:"Rejected"};
+      _this.database.collection('register_user').doc(_this.req_from).collection('bookings').doc(id).set(booking_request).then(()=>{
+        console.log("Updated");;
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+  });
+
+  //remove notification
+  this.booking_data=this.booking_data.filter(x=>x.sender_email!==this.req_from);
+}
+
+
+//accept the request
+accept(id:any){
+  var _this=this;
+  let date=new Date();
+  console.log(this.req_from);
+  let count=document.getElementById('notification_count_id').innerHTML.toString();    //get current notification count
+  let _count=parseInt(count)-1;
+  console.log(_count);
+
+  //update count
+  update_notification_count(_count);
+  let temArray:any=[];
+
+  //update the view of the event
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true,status:"Accepted"});
+
+  //update booking status of the organizer
+  this.database.firestore.collection('register_user').doc(this.req_from).collection('BookingStatus').doc(id).get().then(docs=>{
+    if(!docs.exists) console.log("Empty Data");
+    else{
+      for(var i=0;i<docs.data().user_data.length;i++){
+        if(docs.data().user_data[i].user.email===localStorage.getItem('user_name')){
+          console.log(_this.req_from+" "+docs.data().user_data[i].user.name);
+          var obj={status:"Accepted",user:{email:docs.data().user_data[i].user.email,name:docs.data().user_data[i].user.name}};
+          temArray.push(obj);
+        }
+        else{
+          temArray.push(docs.data().user_data[i]);  
+        }
+      }
+      //update booking requests notification
+      let booking_request={user_name:localStorage.getItem('nameId'),user_email:localStorage.getItem('user_name'),receiver_email:_this.req_from,date:date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate(),view:false,status:"Accepted"};
+      _this.database.collection('register_user').doc(_this.req_from).collection('bookings').doc(id).set(booking_request).then(()=>{
+        console.log("Updated");;
+      }).catch(err=>{
+        console.log(err);
+      });
+      console.log(temArray);
       _this.database.collection('register_user').doc(_this.req_from).collection('BookingStatus').doc(id).update({user_data:temArray});
     }
   });
-}
 
-accept(id:any){
-  var _this=this;
-  console.log(this.req_from);
-  let count=document.getElementById('notification_count_id').innerHTML.toString();
-  let _count=parseInt(count)-1;
-  console.log(_count);
-  update_notification_count(_count);
-  let temArray:any=[]
-  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true});
-  this.database.firestore.collection('register_user').doc(this.req_from).collection('BookingStatus').doc(id).get().then(docs=>{
-    if(!docs.exists) console.log("Empty Data");
-    else{
-      for(var i=0;i<docs.data().user_data.length;i++){
-        if(docs.data().user_data[i].user.email===localStorage.getItem('user_name')){
-          var obj={date:docs.data().user_data[i].date,event_id:docs.data().event_id,event_name:docs.data().user_data[i].event_id,status:"Accepted",user:{email:docs.data().user_data[i].user.email,name:docs.data().user_data[i].user.name}};
-          temArray.push(obj);
-        }
-        else{
-          temArray.push(docs.data().user_data[i]);  
-        }
-      }
-      _this.database.collection('register_user').doc(_this.req_from).collection('BookingStatus').doc(id).update({user_data:temArray});
-    }
-  })
+   //remove notification
+   this.booking_data=this.booking_data.filter(x=>x.sender_email!==this.req_from);
 }
 
 // joinChat(roomId:string){

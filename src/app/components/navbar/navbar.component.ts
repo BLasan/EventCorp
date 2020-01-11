@@ -217,11 +217,15 @@ export class NavbarComponent implements OnInit {
 
       if(titlee.indexOf('ratings')>-1) return "View User Details";
       if(titlee.indexOf('view-all-products')>-1) return "All Products";
+      if(titlee.indexOf('update-events')>-1) return "Edit Events";
+      if(titlee.indexOf('view-all-events')>-1) return "View All Events";
     }
 
     logout_User(){       
         var _this=this;
         var user=localStorage.getItem('user_name');
+        alert(user);
+        alert(this.auth.auth.currentUser.uid)
         console.log(user);
         // alert(user)
         // disable_logout();

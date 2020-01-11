@@ -9,6 +9,10 @@ import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.compon
 import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
+import { PaypalPaymentComponent } from 'app/shared-components/paypal-payment/paypal-payment.component';
+import { PaymentUsersComponent } from 'app/Modules/Organizer-Module/payment-users/payment-users.component';
+import { UpdateEventsComponent } from 'app/Modules/Organizer-Module/update-events/update-events.component';
+import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -20,6 +24,10 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'organizer-settings',component:OrganizerSettingsComponent},
     { path:'ratings/:name' , component:RatingSystemComponent}, 
     { path:'payment-bill' , component:PaymentBillComponent},
-    {path:'view-all-products',component:ViewAllProductsComponent},
-    {path:'view-request-status',component:ViewRequestStatusComponent},
+    { path:'view-all-products',component:ViewAllProductsComponent},
+    { path:'view-request-status',component:ViewRequestStatusComponent},
+    { path:'update-events/:event_id',component:UpdateEventsComponent},
+    { path:'view-all-events',component:ViewAllEventsComponent},
+    // { path:'payment/:item_name/:quantity/:amount',component:PaypalPaymentComponent},
+    // { path:'user-payments/:user_name/:quantity/:amount',component:PaymentUsersComponent}
 ];

@@ -59,7 +59,10 @@ import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
-
+import { PaypalPaymentComponent } from 'app/shared-components/paypal-payment/paypal-payment.component';
+import { PaymentUsersComponent } from 'app/Modules/Organizer-Module/payment-users/payment-users.component';
+import { UpdateEventsComponent } from 'app/Modules/Organizer-Module/update-events/update-events.component';
+import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
   @NgModule({
     imports: [
       CommonModule,
@@ -113,6 +116,9 @@ import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-re
       FilterUsersPipe,
       PaymentBillComponent,
       ViewRequestStatusComponent,
+      UpdateEventsComponent,
+      // PaypalPaymentComponent,
+      // PaymentUsersComponent
       // RatingSystemComponent
     ],
    

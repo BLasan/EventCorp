@@ -62,7 +62,7 @@
                 <div class="col-md-6">
                   <div class="card">
                     <div class="card-header card-header-primary">
-                      <h4 class="card-title">My Events</h4>
+                      <h4 class="card-title"><a href="">My Events</a></h4>
                       <p class="card-category"><b style="color:red">All events</b></p>
                     </div>
                     <div class="card-body" *ngIf="events.length==0">
@@ -231,6 +231,7 @@
           </div>
         </div>
         <div class="modal-footer">
+            <a mat-raised-button class="btn btn-success" href="update-events/{{id}}"><b>EDIT DETAILS</b></a>
             <button mat-raised-button class="btn btn-danger" data-dismiss="modal"><b>CLOSE</b></button>
         </div>
       </div>
