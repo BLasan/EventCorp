@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { AngularFirestore } from '@angular/fire/firestore';
+import CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-payment-users',
   templateUrl: './payment-users.component.html',
@@ -13,12 +14,14 @@ export class PaymentUsersComponent implements OnInit {
   item_name:string;
   quantity:number;
   form:any;
-  constructor(private route:ActivatedRoute) { }
+  item_email:string;
+  constructor(private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.item_name=params.user_name;
       this.quantity=params.quantity;
+      this.item_email=params.user_email;
       this.amount=params.amount;
       this.form=new FormGroup({
         first_name:new FormControl('',[Validators.required]),
@@ -30,6 +33,31 @@ export class PaymentUsersComponent implements OnInit {
       })
       console.log(this.amount);
    });
+  }
+
+
+  //get all data
+  getData(){
+    let first_name=this.form.get('first_name').value;
+    let last_name=this.form.get('last_name').value;
+    let email=this.form.get('email').value;
+    let address=this.form.get('address').value;
+    let phone=this.form.get('phone').value;
+    let city=this.form.get('city').value;
+    let receiver_name=this.item_name;
+    let amount=this.amount;
+    let receiver_email=this.item_email;
+    let today=new Date();
+    let obj={name:first_name+" "+last_name,payer_email:email,address:address,phone:phone,city:city,receiver_name:receiver_name,receiver_email:receiver_email,amount:amount,date:today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),time:today.getHours()+":"+today.getMinutes()+":"+today.getSeconds(),status:"Pending"};
+    let _id=CryptoJS.SHA256("Bill"+"@"+new Date()+receiver_email+email).toString();
+    this.database.collection('user_billing').doc(_id).set(obj).then(()=>{
+      console.log("Added");
+    }).catch(err=>{
+      console.log(err);
+    });
+
+    //redirect to the url
+    document.getElementById('checkout').click();
   }
 
 

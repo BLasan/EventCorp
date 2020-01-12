@@ -30,43 +30,9 @@
                     </div>
                 </div>
             </div>
-      <!-- <div class="card card-user">
-        <div class="image">
-          <img src="assets/img/damir-bosnjak.jpg" alt="Profile Picture" id="test">
-        </div>
-        <div class="card-body">
-          <div class="author">
-              <div class="avatar" style="margin-left:30%">
-                <a href="#" id="profile_uploader" class="author">
-                    <img class="border-gray" id="profile_pic" src="assets/img/pro_img.png" alt="Profile Picture" title="upload_picture">
-                </a>
-                <div class="overlay">
-                  <button class="btn btn-primary" id="uploader">Add</button>
-                  <button class="btn btn-danger" id="remove">Remove</button>
-                </div>
-                </div>
-          </div>
-          <h5 class="title" *ngIf="f_name!=undefined&&l_name!=undefined" align="center">{{f_name+" "+l_name}}</h5>
-          <h5 class="title" *ngIf="f_name==undefined||l_name==undefined" align="center">Nilaksha Deemantha</h5>
-          <p class="description text-center" style="margin-top: 10px;color:black">{{bio_des}}</p>
-        </div>
-        <div class="card-footer">
-          <hr>
-          <div class="button-container">
-            <div class="row">
-              <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
-                <h5>2GB
-                  <br>
-                  <small>Memory Used</small>
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
             <div class="col-md-8">
-                <div class="card" style="background-color:#303337">
-                    <div class="card-header card-header-danger" style="color:white">
+                <div class="card">
+                    <div class="card-header card-header-danger">
                         <h4 class="card-title">Profile Details</h4>
                         <p class="card-category">Edit your profile</p>
                     </div>
@@ -75,13 +41,13 @@
                             <div class="row">
                                 <div class="col-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="First Name" id="f_name" style="color:white" formControlName="f_name" name="f_name">
+                                        <input matInput placeholder="First Name" id="f_name" formControlName="f_name" name="f_name">
                                         <mat-error *ngIf="hasError('f_name', 'required')">First name is required</mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Last Name" id="l_name" style="color:white" formControlName="l_name" name="l_name">
+                                        <input matInput placeholder="Last Name" id="l_name" formControlName="l_name" name="l_name">
                                         <mat-error *ngIf="hasError('l_name', 'required')">Last name is required</mat-error>
                                     </mat-form-field>
                                 </div>
@@ -93,28 +59,28 @@
                             <div class="row">
                                 <div class="col-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="City" id="city" style="color:white" formControlName="city" name="city"> 
+                                        <input matInput placeholder="City" id="city" formControlName="city" name="city"> 
                                         <mat-error *ngIf="hasError('city', 'required')">City is required</mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-6">
                                     <mat-form-field>
-                                        <input matInput placeholder="Country" id="country" style="color:white" formControlName="country" name="country">
+                                        <input matInput placeholder="Country" id="country" formControlName="country" name="country">
                                         <mat-error *ngIf="hasError('country', 'required')">Country is required</mat-error>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <mat-form-field>
-                                <input matInput placeholder="Email" id="email" type="email" style="color:white" formControlName="email" name="email">
+                                <input matInput placeholder="Email" id="email" type="email" formControlName="email" name="email">
                                 <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
                                 <mat-error *ngIf="hasError('email', 'email')">Enter a valid email</mat-error>
                             </mat-form-field>
                             <mat-form-field>
-                                <input matInput placeholder="Contact" id="contact" style="color: white" name="contact" formControlName="contact">
+                                <input matInput placeholder="Contact" id="contact" name="contact" formControlName="contact">
                                 <mat-error *ngIf="hasError('contact', 'required')">Contact is required</mat-error>
                             </mat-form-field>
                             <mat-form-field>
-                                <textarea matInput placeholder="About me" style="color: white"   id="about_me" formControlName="about_me" name="about_me"></textarea>
+                                <textarea matInput placeholder="About me" id="about_me" formControlName="about_me" name="about_me"></textarea>
                             </mat-form-field>
                             <input type="file" id="profile_img" name="profile_img" style="display:none" (change)="get_uploaded_image($event)" accept="image/*"> 
                             <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="!form.valid">Update</button>

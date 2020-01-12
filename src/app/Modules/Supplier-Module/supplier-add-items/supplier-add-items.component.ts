@@ -67,7 +67,7 @@ export class SupplierAddItemsComponent implements OnInit {
         count++;
         _this.isEmpty=true;
         var _id=_this.category+"001";
-        let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+date.getTime().toString();
+        let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+_id;
         let storageRef=_this.storage.ref(image_id);
         storageRef.put(image_file).then(snapshot=>{
           storageRef.getDownloadURL().subscribe(url=>{
@@ -96,7 +96,7 @@ export class SupplierAddItemsComponent implements OnInit {
           }
           else if(count>=10 && count<100) var _id=_this.category+"0"+count;
           else if(count>=100) var _id=_this.category+count;
-          let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+date.getTime().toString();
+          let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+_id;
           let storageRef=_this.storage.ref(image_id);
           storageRef.put(image_file).then(snapshot=>{
             storageRef.getDownloadURL().subscribe(url=>{

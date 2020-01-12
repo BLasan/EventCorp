@@ -83,7 +83,7 @@ export class EditProductsComponent implements OnInit {
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(doc=>{
 
       if(!doc.empty){
-        let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+date.getTime().toString();
+        let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+_this._id;
 
         console.log("Hello")
           //get image download url

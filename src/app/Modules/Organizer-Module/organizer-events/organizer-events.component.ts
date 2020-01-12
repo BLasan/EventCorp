@@ -182,7 +182,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<artist.length;i++){
                   let obj={user:artist[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -194,7 +194,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<supplier.length;i++){
                   let obj={user:supplier[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -206,7 +206,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<venue.length;i++){
                   let obj={user:venue[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -269,7 +269,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<artist.length;i++){
                   let obj={user:artist[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -281,7 +281,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<supplier.length;i++){
                   let obj={user:supplier[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -293,7 +293,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<venue.length;i++){
                   let obj={user:venue[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -349,7 +349,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<artist.length;i++){
                   let obj={user:artist[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -361,7 +361,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<supplier.length;i++){
                   let obj={user:supplier[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -373,7 +373,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
                 for(var i=0;i<venue.length;i++){
                   let obj={user:venue[i],status:"Pending"};
                   allUsers.push(obj);
-                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
+                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
                   _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
                     console.log("Successfully Sent");
                   }).catch(err=>{
@@ -427,7 +427,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
         for(var i=0;i<artist.length;i++){
           let obj={user:artist[i],status:"Pending"};
           allUsers.push(obj);
-          let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
+          let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
           _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
             console.log("Successfully Sent");
           }).catch(err=>{
@@ -439,7 +439,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
         for(var i=0;i<supplier.length;i++){
           let obj={user:supplier[i],status:"Pending"};
           allUsers.push(obj);
-          let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
+          let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
           _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
             console.log("Successfully Sent");
           }).catch(err=>{
@@ -451,7 +451,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
         for(var i=0;i<venue.length;i++){
           let obj={user:venue[i],status:"Pending"};
           allUsers.push(obj);
-          let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
+          let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
           _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
             console.log("Successfully Sent");
           }).catch(err=>{

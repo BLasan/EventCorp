@@ -5,7 +5,7 @@
         <form [formGroup]="form" #forms action="https://sandbox.payhere.lk/pay/checkout" method="POST">              
 
           <input type="hidden" name="merchant_id" value="1213034"> 
-          <input type="hidden" name="return_url" value="https://0e5905d6.ngrok.io/organizer-home">
+          <input type="hidden" name="return_url" value="https://0e5905d6.ngrok.io/organizer-bill">
           <input type="hidden" name="cancel_url" value="https://0e5905d6.ngrok.io/organizer-home">
           <input type="hidden" name="notify_url" value="https://0e5905d6.ngrok.io/organizer-home">  
           <input type="hidden" name="order_id" value="ob5d67668">
@@ -135,7 +135,8 @@
                       </div>
                     </div> 
                     <div class="form-group text-center ph-m-30-top">
-                      <button type="submit" id="next-customer-info" class="btn btn-info signup_btn next-button" [disabled]="!form.valid && quantity>0" (click)="forms.submit()"><b>PROCEED TO CHECKOUT</b></button>
+                      <button type="submit" id="next-customer-info" class="btn btn-info signup_btn next-button" [disabled]="!form.valid && quantity>0" (click)="getData()"><b>PROCEED TO CHECKOUT</b></button>
+                      <button type="submit" id="checkout" (click)="forms.submit()" style="display:none"><b>PROCEED TO CHECKOUT</b></button>
                     </div>
                   </div>
                 </div>

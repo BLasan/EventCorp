@@ -5,6 +5,7 @@ import {disable_room_id} from '../../../scripts/disable_a_href';
 import { ChatService } from 'app/services/chat.service';
 import {generate_chat_id} from '../../../scripts/generate_id';
 import { filter } from 'rxjs/operators';
+import CryptoJS from 'crypto-js';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { update_notification_count } from '../../../scripts/notification_count_update';
 // import { pay} from 'scripts/payhere.js';
@@ -278,6 +279,8 @@ decline(id:any){
   let temArray:any=[];
   let userArrayTemp:any=[];
   let date=new Date();
+  let notification_id=id+"@"+localStorage.getItem('user_name');
+  let hash_id=CryptoJS.SHA256(notification_id).toString();
   let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
   let _count=parseInt(count)-1;
   console.log(_count);
@@ -314,23 +317,24 @@ decline(id:any){
         }
         _this.database.firestore.collection('register_user').doc(_this.req_from).collection('MyEvents').doc(id).update({artists:userArrayTemp});   //update to the event
       }
-      else if(localStorage.getItem('user_name')==='supplier'){
+      else if(localStorage.getItem('role')==='supplier'){
         for(var i=0;i<docs.data().suppliers;i++){
           if(localStorage.getItem('user_name')!==docs.data().suppliers[i].email)
           userArrayTemp.push(docs.data().suppliers[i]);
         }
         _this.database.firestore.collection('register_user').doc(_this.req_from).collection('MyEvents').doc(id).update({suppliers:userArrayTemp});  //update to the event
       }
-      else if(localStorage.getItem('user_name')==='venue_owner'){
+      else if(localStorage.getItem('role')==='venue_owner'){
         for(var i=0;i<docs.data().venue_owners;i++){
           if(localStorage.getItem('user_name')!==docs.data().venue_owners[i].email)
           userArrayTemp.push(docs.data().venue_owners[i]);
         }
         _this.database.firestore.collection('register_user').doc(_this.req_from).collection('MyEvents').doc(id).update({venue_owners:userArrayTemp});   //update to the event
       }
+
       //update booking requests notification
-      let booking_request={user_name:localStorage.getItem('nameId'),user_email:localStorage.getItem('user_name'),receiver_email:_this.req_from,date:date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate(),view:false,status:"Rejected"};
-      _this.database.collection('register_user').doc(_this.req_from).collection('bookings').doc(id).set(booking_request).then(()=>{
+      let booking_request={user_name:localStorage.getItem('nameId'),user_email:localStorage.getItem('user_name'),receiver_email:_this.req_from,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),view:false,status:"Rejected",event_id:id};
+      _this.database.collection('register_user').doc(_this.req_from).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
         console.log("Updated");;
       }).catch(err=>{
         console.log(err);
@@ -348,6 +352,8 @@ accept(id:any){
   var _this=this;
   let date=new Date();
   console.log(this.req_from);
+  let notification_id=id+"@"+localStorage.getItem('user_name');
+  let hash_id=CryptoJS.SHA256(notification_id).toString();
   let count=document.getElementById('notification_count_id').innerHTML.toString();    //get current notification count
   let _count=parseInt(count)-1;
   console.log(_count);
@@ -374,8 +380,8 @@ accept(id:any){
         }
       }
       //update booking requests notification
-      let booking_request={user_name:localStorage.getItem('nameId'),user_email:localStorage.getItem('user_name'),receiver_email:_this.req_from,date:date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate(),view:false,status:"Accepted"};
-      _this.database.collection('register_user').doc(_this.req_from).collection('bookings').doc(id).set(booking_request).then(()=>{
+      let booking_request={user_name:localStorage.getItem('nameId'),user_email:localStorage.getItem('user_name'),receiver_email:_this.req_from,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),view:false,status:"Accepted",event_id:id};
+      _this.database.collection('register_user').doc(_this.req_from).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
         console.log("Updated");;
       }).catch(err=>{
         console.log(err);
