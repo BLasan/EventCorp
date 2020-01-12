@@ -66,7 +66,8 @@ export const ROUTES4:RouteInfo[]=[
   { path:'/supplier-settings',title:'Settings',icon:'settings',class:''},
   { path:'/supplier-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/supplier-profile',title:'Edit Profile',icon:'file_copy',class:''},
-  { path:'/supplier-add-items',title:'Product Catalog',icon:'add',class:''}
+  { path:'/supplier-add-items',title:'Add Product Catalog',icon:'add',class:''},
+  { path:'/supplier-products',title:'Manage Products',icon:'shopping_cart',class:''}
 ];
 
 //moderator routings

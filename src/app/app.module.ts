@@ -96,6 +96,7 @@ import { UpdateEventsComponent } from './Modules/Organizer-Module/update-events/
 import { ViewAllEventsComponent } from './Modules/Organizer-Module/view-all-events/view-all-events.component';
 import { EditPlaylistComponent } from './Modules/Artist-Module/edit-playlist/edit-playlist.component';
 import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/edit-products.component';
+import { SupplierProductsTableComponent } from './Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -164,7 +165,6 @@ import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/e
     ReportDialogComponent,
     PaypalPaymentComponent,
     PaymentUsersComponent,
-    EditProductsComponent,
   
     // FilterPipe,
    // MyChatsComponent
