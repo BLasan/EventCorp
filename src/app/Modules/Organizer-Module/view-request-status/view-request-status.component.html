@@ -19,7 +19,7 @@
              <td>{{status.user.name}}</td>
              <td>{{status.event_name}}</td>
              <td>{{status.date}}</td>
-             <td [ngClass]="{'classColor':status.status==='Accepted'}">{{status.status}}</td>
+             <td [ngClass]="{'classColor':status.status==='Accepted','rejectColor':status.status==='Rejected'}">{{status.status}}</td>
              <td><a href="" *ngIf="status.status==='Pending'" id="cancel_req" style="text-decoration: none;color:red" (click)="cancelReq(status.user.email,status.event_id)">CANCEL REQUEST</a></td>
            </tr>
           </tbody>

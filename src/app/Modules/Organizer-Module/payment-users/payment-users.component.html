@@ -6,9 +6,9 @@
 
           <input type="hidden" name="merchant_id" value="1213034"> 
           <input type="hidden" name="return_url" value="https://0e5905d6.ngrok.io/organizer-bill">
-          <input type="hidden" name="cancel_url" value="https://0e5905d6.ngrok.io/organizer-home">
+          <input type="hidden" name="cancel_url" value="http://localhost/organizer-home">
           <input type="hidden" name="notify_url" value="https://0e5905d6.ngrok.io/organizer-home">  
-          <input type="hidden" name="order_id" value="ob5d67668">
+          <input type="hidden" name="order_id" value="o1519b722">
           <input type="hidden" name="currency" value="LKR">
           <input type="hidden" name="amount" [value]="amount">  
           <input type="hidden" name="country" value="Sri Lanka"><br><br> 
@@ -19,23 +19,23 @@
                   <div class="product-details-container-ph">
                     <div class="ph-merchant-title">EventCorp</div>
                     <div class="ph-product-desc">Online checkout</div>                      
-                      <div class="ph-amount"><span id="currencyFormatted">Rs.</span> <span id="amount">{{quantity*amount}}</span>.<span id="amountDecimal">00</span></div>                
+                      <div class="ph-amount"><span id="currencyFormatted">Rs.</span> <span id="amount">{{1*amount}}</span>.<span id="amountDecimal">00</span></div>                
                         <input type="hidden" id="unitPrice" [value]="amount">
                       </div>
                     </div>          
                   </div>
                   <div style="height: 80px">
                     <div class="section-head ph-sh-v2">                                  
-                      <div style="float: right; margin-top: 24px;">
+                      <div style="float: right; margin-top: 24px;" style="display: none;">
                         <div class="form-group" style="height: inherit;">
                           <span class="product-desc">Qty</span>
                             <div class="form-group fname">
-                                <input type="number" value="1" id="quantityInput" name="quantityInput">
+                                <input type="hidden" value="1" id="quantityInput" name="quantityInput">
                             </div>
                         </div>
                       </div>
                       <div class="ph-sm-lbl lgray" style="font-size: 14px; ">PAY FOR</div>
-                        <div style="font-size: 16px; color:#444444; font-weight: 400; line-height: 24px;">{{user_name}}<span id="unit_price_text" style="color: #888888;">(RS:{{amount}})</span></div>
+                        <div style="font-size: 16px; color:#444444; font-weight: 400; line-height: 24px;">{{item_name}}<span id="unit_price_text" style="color: #888888;"> (RS:{{amount}})</span></div>
                         <div>
                           <small style="font-size: 12px; line-height: 15px;"></small>
                         </div>
@@ -60,9 +60,9 @@
                       <div class="form-group ph-m-10-top">
                         <input type="text" name="phone" formControlName="phone" placeholder="Phone No" required="" class="form-control text-box-pay">
                       </div>
-                      <!-- <div class="form-group ph-m-10-top">
-                        <input type="text" name="items" formControlName="items" placeholder="Items" required class="form-control text-box-pay">
-                      </div> -->
+                      <div class="form-group ph-m-10-top">
+                        <input type="text" name="items" formControlName="items" placeholder="User" required class="form-control text-box-pay">
+                      </div>
                     </div>
                     <div id="billing-address">
                       <div class="form-group fname">
@@ -136,7 +136,8 @@
                     </div> 
                     <div class="form-group text-center ph-m-30-top">
                       <button type="submit" id="next-customer-info" class="btn btn-info signup_btn next-button" [disabled]="!form.valid && quantity>0" (click)="getData()"><b>PROCEED TO CHECKOUT</b></button>
-                      <button type="submit" id="checkout" (click)="forms.submit()" style="display:none"><b>PROCEED TO CHECKOUT</b></button>
+                      <!-- <button type="submit" id="next-customer-info" class="btn btn-info signup_btn next-button" [disabled]="!form.valid && quantity>0" (click)="forms.submit()"><b>PROCEED TO CHECKOUT</b></button> -->
+                      <button type="submit" id="checkout_user" (click)="forms.submit()" style="display:none"><b>PROCEED TO CHECKOUT</b></button>
                     </div>
                   </div>
                 </div>

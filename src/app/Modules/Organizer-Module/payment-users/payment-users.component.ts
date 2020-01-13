@@ -15,6 +15,7 @@ export class PaymentUsersComponent implements OnInit {
   quantity:number;
   form:any;
   item_email:string;
+  _id:any;
   constructor(private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class PaymentUsersComponent implements OnInit {
       this.quantity=params.quantity;
       this.item_email=params.user_email;
       this.amount=params.amount;
+      this._id=params._id;
       this.form=new FormGroup({
         first_name:new FormControl('',[Validators.required]),
         last_name:new FormControl('',[Validators.required]),
@@ -30,6 +32,7 @@ export class PaymentUsersComponent implements OnInit {
         email:new FormControl('',[Validators.required,Validators.email]),
         phone:new FormControl('',Validators.required),
         city:new FormControl('',Validators.required),
+        items:new FormControl(this.item_name,Validators.required),
       })
       console.log(this.amount);
    });
@@ -38,6 +41,7 @@ export class PaymentUsersComponent implements OnInit {
 
   //get all data
   getData(){
+    var _this=this;
     let first_name=this.form.get('first_name').value;
     let last_name=this.form.get('last_name').value;
     let email=this.form.get('email').value;
@@ -48,16 +52,22 @@ export class PaymentUsersComponent implements OnInit {
     let amount=this.amount;
     let receiver_email=this.item_email;
     let today=new Date();
-    let obj={name:first_name+" "+last_name,payer_email:email,address:address,phone:phone,city:city,receiver_name:receiver_name,receiver_email:receiver_email,amount:amount,date:today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),time:today.getHours()+":"+today.getMinutes()+":"+today.getSeconds(),status:"Pending"};
+    let booking_id=this._id;
+    var btn=document.getElementById('checkout_user');
+    let obj={name:first_name+" "+last_name,payer_email:email,address:address,phone:phone,city:city,receiver_name:receiver_name,receiver_email:receiver_email,amount:amount,date:today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),time:today.getHours()+":"+today.getMinutes()+":"+today.getSeconds(),status:"Paid"};
     let _id=CryptoJS.SHA256("Bill"+"@"+new Date()+receiver_email+email).toString();
     this.database.collection('user_billing').doc(_id).set(obj).then(()=>{
       console.log("Added");
+      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(booking_id).update({view:true}).then(()=>{
+         //redirect to the url
+         btn.click();
+      }).catch(err=>{
+        console.log(err);
+      })
     }).catch(err=>{
       console.log(err);
     });
 
-    //redirect to the url
-    document.getElementById('checkout').click();
   }
 
 

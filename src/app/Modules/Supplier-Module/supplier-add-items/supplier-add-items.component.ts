@@ -56,7 +56,6 @@ export class SupplierAddItemsComponent implements OnInit {
     let image_file=this.image_file[0];
     let description=this.form.get('description').value;
     let date=new Date();
-    let imageFiles:FileList=this.image_file;
     let code_init=item_name.substr(0,2);
     console.log(code_init)
     let count=0;
@@ -72,7 +71,7 @@ export class SupplierAddItemsComponent implements OnInit {
         storageRef.put(image_file).then(snapshot=>{
           storageRef.getDownloadURL().subscribe(url=>{
             console.log(url);
-            var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:imageFiles.item(0).name};
+            var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:image_file.name};
            _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_id).set(item_details).then(()=>{
              console.log('Added to database');
            }).catch(err=>{
@@ -100,7 +99,7 @@ export class SupplierAddItemsComponent implements OnInit {
           let storageRef=_this.storage.ref(image_id);
           storageRef.put(image_file).then(snapshot=>{
             storageRef.getDownloadURL().subscribe(url=>{
-              var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:imageFiles.item(0).name};
+              var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:image_file.name};
              _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_id).set(item_details).then(()=>{
                console.log('Added to database');
                _this.snackBar.open("Successfully Added!","OK", {

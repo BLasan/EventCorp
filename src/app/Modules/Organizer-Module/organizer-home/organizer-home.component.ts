@@ -207,4 +207,15 @@ export class OrganizerHomeComponent implements OnInit {
     });
     console.log(this.events);
   }
+
+  //delete event
+  deleteEvent(id:any){
+    var _this=this;
+    this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
+      console.log("Successfully Deleted");
+      _this.events=_this.events.filter(x=>x.event_id!==id);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
 }

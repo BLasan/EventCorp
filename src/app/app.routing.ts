@@ -127,7 +127,7 @@ const routes: Routes =[
     component:PaypalPaymentComponent,
     canActivate:[AuthGuardPaymentService],
   },
-  { path:'user-payments/:user_name/:user_email/:quantity/:amount',
+  { path:'user-payments/:user_name/:user_email/:quantity/:amount/:_id',
     component:PaymentUsersComponent,
     canActivate:[AuthGuardPaymentService],
   },

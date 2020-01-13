@@ -91,8 +91,9 @@ export class NotificationsComponent implements OnInit {
   snapshot.forEach(doc => {
     if(doc.data().view==false){
       console.log(doc.id, '=>', doc.data());
+      var obj={_id:doc.id,data:doc.data()};
     // _this.notification_details.push(doc.data());
-    _this.booking_data.push(doc.data());
+    _this.booking_data.push(obj);
     _this.notification_count+=1;
     }
   });

@@ -283,7 +283,7 @@
               </mat-card>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="user_role==='organizer'">
           <div class="col-md-12">
             <div class="card" *ngIf="search_user_role==='organizer' && events_vis">
               <div class="card-header card-header-primary">
@@ -388,7 +388,7 @@
             <p>Date : {{modal_details.date}}</p>
             <p>Time Started : {{modal_details.time}}</p>
             <p>Artists Participated : {{artists_participated}}</p>
-            <p>Venue : {{modal_details.venue_owners[0]}}</p>
+            <p>Venue : {{modal_details.venue_owners[0].name}}</p>
             <p>Suppliers : {{suppliers_participated}}</p>
             <!-- <p>Sponsors : {{}}</p> -->
         </div>

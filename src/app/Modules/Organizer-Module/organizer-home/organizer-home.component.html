@@ -232,7 +232,7 @@
         </div>
         <div class="modal-footer">
             <a mat-raised-button class="btn btn-success" href="update-events/{{id}}"><b>EDIT DETAILS</b></a>
-            <button mat-raised-button class="btn btn-danger" data-dismiss="modal"><b>CLOSE</b></button>
+            <button mat-raised-button class="btn btn-danger" (click)="deleteEvent(id)"><b>DELETE</b></button>
         </div>
       </div>
     </div>
