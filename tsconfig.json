@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "types": ["googlemaps"],
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
@@ -20,5 +21,6 @@
     ],
     "module": "none",
     "strict": false
-  }
+  },
+
 }

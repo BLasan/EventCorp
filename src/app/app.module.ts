@@ -97,6 +97,8 @@ import { ViewAllEventsComponent } from './Modules/Organizer-Module/view-all-even
 import { EditPlaylistComponent } from './Modules/Artist-Module/edit-playlist/edit-playlist.component';
 import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/edit-products.component';
 import { SupplierProductsTableComponent } from './Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
+import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
+import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -165,7 +167,7 @@ import { SupplierProductsTableComponent } from './Modules/Supplier-Module/suppli
     ReportDialogComponent,
     PaypalPaymentComponent,
     PaymentUsersComponent,
-  
+    ViewLocationComponent
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
@@ -174,7 +176,7 @@ import { SupplierProductsTableComponent } from './Modules/Supplier-Module/suppli
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService],
   bootstrap: [AppComponent],
   entryComponents: [ReportDialogComponent]
 })

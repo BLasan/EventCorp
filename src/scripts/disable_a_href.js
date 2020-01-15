@@ -155,3 +155,6 @@ export function disable_cancel_req(){
         e.preventDefault();
     });
 }
+
+
+// --disable-host-check
