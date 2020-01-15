@@ -3,8 +3,8 @@ import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
 import {calendar} from '../../../../scripts/artist/artist_calendar.js'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelect, MatSnackBar } from '@angular/material';
-import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { take, takeUntil, tap, map } from 'rxjs/operators';
 import { ProfileService } from 'app/services/organizer_services.service';
 import { disable_event_links } from '../../../../scripts/disable_a_href.js';
 import {upload_images,upload_video,delete_image,delete_video} from '../../../../scripts/event_image_uploader';
@@ -12,6 +12,8 @@ import { disable_uploaders } from '../../../../scripts/disable_a_href';
 import { AngularFirestore } from '@angular/fire/firestore';
 import CryptoJS from 'crypto-js';
 import { AngularFireStorage } from '@angular/fire/storage';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { VenueCalendarService } from 'app/venue-calendar.service';
 @Component({
   selector: 'app-organizer-events',
   templateUrl: './organizer-events.component.html',
@@ -27,6 +29,8 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   supplierList:any=[];
   isLoaded:boolean=false;
   prefferedRole:string="none";
+  calendarEvents:any[]=[];
+  calendarPlugins=[dayGridPlugin];
   // public artist_data: FormControl = new FormControl();
   // public venue_owner_data: FormControl = new FormControl();
   // public supplier_data: FormControl = new FormControl();
@@ -47,13 +51,14 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   isCreating:boolean=false;
   eventName:string;
   eventId:any;
-  constructor(private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage,private snackBar:MatSnackBar) { }
+  constructor(private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage,private snackBar:MatSnackBar,private svc:VenueCalendarService) { }
  
   ngOnInit() {
-    calendar();
+    this.getData().subscribe(data=>calendar(data))
     disable_event_links();
     deactivate_searchBar();
     disable_uploaders();
+    // this.svc.getData().subscribe(data=> this.calendarEvents=data);
     // upload_images();
     // upload_video();
     // delete_image();
@@ -85,6 +90,12 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
 
   ngAfterViewInit(){
     
+  }
+
+
+  //get data
+  getCalendarData(){
+
   }
 
   //check errors in formfilelds
@@ -133,8 +144,21 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     // console.log(this.user_events.data[0].time+"=>EVENT DATA");
     // calendar(this.user_events.data);
     // });
+  }
 
-    calendar(this.user_events)
+
+
+  //load data to calendar
+  getData():Observable<any[]>{
+    
+    return this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').valueChanges().pipe(
+      tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
+      map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
+        let data:any=event;
+        let obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"}
+        return obj;
+      }))
+    );
   }
 
 

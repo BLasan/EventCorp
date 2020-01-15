@@ -23,10 +23,10 @@ export class ViewLocationComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //this.mapInitializer();
+    this.mapInitializer();
    }
 
-  // mapInitializer() {
+  mapInitializer() {
   //   this.map = new google.maps.Map(this.gmap.nativeElement, 
   //   this.mapOptions);
   //   var marker = new google.maps.Marker({
@@ -34,6 +34,6 @@ export class ViewLocationComponent implements OnInit,AfterViewInit {
   //     map: this.map,
   //   });
   //   marker.setMap(this.map);
-  //  }
+    }
 
 }

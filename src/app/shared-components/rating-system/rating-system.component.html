@@ -283,7 +283,7 @@
               </mat-card>
           </div>
         </div>
-        <div class="row" *ngIf="user_role==='organizer'">
+        <div class="row" *ngIf="user_role==='organizer' || user_role==='admin' || user_role==='moderator'">
           <div class="col-md-12">
             <div class="card" *ngIf="search_user_role==='organizer' && events_vis">
               <div class="card-header card-header-primary">

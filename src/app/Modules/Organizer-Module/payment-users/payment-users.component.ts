@@ -63,7 +63,7 @@ export class PaymentUsersComponent implements OnInit {
          btn.click();
       }).catch(err=>{
         console.log(err);
-      })
+      });
     }).catch(err=>{
       console.log(err);
     });

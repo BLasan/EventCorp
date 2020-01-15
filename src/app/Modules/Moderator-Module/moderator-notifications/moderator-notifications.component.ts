@@ -34,6 +34,8 @@ export class ModeratorNotificationsComponent implements OnInit {
     this.getData();
   }
 
+
+  //get reports
   getData(){
     var _this=this;
     // this.moderatorService.getReports()
@@ -54,6 +56,8 @@ export class ModeratorNotificationsComponent implements OnInit {
 
   }
 
+
+  //filter the user comments when selected
   filterComment(id:any){
     var _this=this;
     this.db.firestore.collection('reports').doc(id).get().then(doc=>{
@@ -69,6 +73,8 @@ export class ModeratorNotificationsComponent implements OnInit {
   console.log(this.user_mail);
   }
 
+
+  //send warning message
   sendWarning(){
     try{
       console.log(this.user_mail);

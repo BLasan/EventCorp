@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/add-new-moderator', title: 'Add New Moderator',  icon: 'add', class: '' },
     // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
+    { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     { path: '/admin-notifications', title: 'Notifications',  icon:'notifications', class: '' },
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
@@ -75,8 +75,8 @@ export const ROUTES5:RouteInfo[]=[
   { path: '/moderator-dashboard', title: 'Home',  icon: 'home', class: '' },
   { path: '/moderator-notifications', title: 'Notifications',icon:'notifications',class:''},
   { path:'/moderator-settings',title:'Settings',icon:'settings',class:''},
-  { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
-  { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}
+  // { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
+  // { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}
 ];
 
 @Component({
