@@ -93,11 +93,6 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   }
 
 
-  //get data
-  getCalendarData(){
-
-  }
-
   //check errors in formfilelds
   public hasError = (controlName: string, errorName: string) =>{
     return this.form.controls[controlName].hasError(errorName);

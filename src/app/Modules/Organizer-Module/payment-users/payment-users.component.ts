@@ -59,8 +59,12 @@ export class PaymentUsersComponent implements OnInit {
     this.database.collection('user_billing').doc(_id).set(obj).then(()=>{
       console.log("Added");
       _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(booking_id).update({view:true}).then(()=>{
-         //redirect to the url
-         btn.click();
+         _this.database.firestore.collection('register_user').doc(_this.item_email).collection('bookings').doc(_this._id).update({paid:true}).then(()=>{
+          //redirect to the url
+          btn.click();
+         }).catch(err=>{
+           console.log(err)
+         })
       }).catch(err=>{
         console.log(err);
       });
