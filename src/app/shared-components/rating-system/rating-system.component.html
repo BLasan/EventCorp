@@ -93,7 +93,7 @@
                   <p>{{search_user_address}}</p>
                 </div>
               </div>
-              <div *ngIf="isBookingReq">
+              <!-- <div *ngIf="isBookingReq">
                 <hr>
                 <div class="row" style="padding-left:100px;">
                   <div class="col-md-4">
@@ -105,10 +105,10 @@
                   <h4 *ngIf="acceptBooking==='true'"><b style="color:green"><i class="material-icons">done</i>BOOKING ACCEPTED</b></h4>
                   <h4 *ngIf="acceptBooking==='false'"><b style="color:red"><i class="material-icons">cancel</i>BOOKING REJECTED</b></h4>
                 </div>
-              </div>
+              </div> -->
               <hr>
                   <!-- <mat-progress-bar mode="indeterminate" *ngIf="isProcessing==true"></mat-progress-bar> -->
-              <div *ngIf="user_role==='organizer'">
+              <!-- <div *ngIf="user_role==='organizer'">
                 <div class="row">
                   <div class="col-md-4">
                     <mat-spinner *ngIf="isProcessing==true" [diameter]="20"></mat-spinner>
@@ -119,7 +119,7 @@
                   </div>
                   <div class="col-md-4"></div>
                 </div>
-              </div>
+              </div> -->
           </div>
         </div>
         <!-- <mat-card>
@@ -283,7 +283,7 @@
               </mat-card>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="user_role==='organizer'">
           <div class="col-md-12">
             <div class="card" *ngIf="search_user_role==='organizer' && events_vis">
               <div class="card-header card-header-primary">
@@ -331,6 +331,37 @@
                 <h3 style="color:red"><b>Empty Playlist</b></h3>
               </div>
             </div>
+            <div class="card" *ngIf="search_user_role==='supplier'">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"><b>MY ITEMS</b></h4>
+                <p class="card-category">Item Details</p>
+              </div>
+              <div class="card-body" *ngIf="productItems.length>0" [ngClass]="{'list-group':productItems.length>5}">
+                <table class="table table-dark">
+                  <thead>
+                      <th scope="col"><b>ID</b></th>
+                      <th scope="col"><b>Product Name</b></th>
+                      <th scope="col"><b>Price (Rs:)</b></th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let products of productItems;let index=index">
+                      <th scope="row">{{index+1}}</th>
+                      <td>{{products.item_name}}</td>
+                      <td>{{products.price}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row">
+                  <div class="col-md-4 col-sm-12"></div>
+                  <div class="col-md-4 col-sm-12">
+                    <a href="/view-all-products" title="View All" style="text-decoration: none;">View All</a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body" *ngIf="productItems.length==0">
+                <h3 style="color:red"><b>Empty Items</b></h3>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -357,7 +388,7 @@
             <p>Date : {{modal_details.date}}</p>
             <p>Time Started : {{modal_details.time}}</p>
             <p>Artists Participated : {{artists_participated}}</p>
-            <p>Venue : {{modal_details.venue_owners[0]}}</p>
+            <p>Venue : {{modal_details.venue_owners[0].name}}</p>
             <p>Suppliers : {{suppliers_participated}}</p>
             <!-- <p>Sponsors : {{}}</p> -->
         </div>

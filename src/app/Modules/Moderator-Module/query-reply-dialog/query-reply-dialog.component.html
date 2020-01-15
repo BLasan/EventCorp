@@ -1,0 +1,17 @@
+<!-- <h2 mat-dialog-title>Reply</h2> -->
+
+<mat-dialog-content [formGroup]="form">  
+    
+  <mat-form-field>
+    <textarea matInput
+            placeholder="Reply"
+           formControlName="description">
+    </textarea>
+  </mat-form-field>   
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

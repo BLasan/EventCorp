@@ -2,7 +2,7 @@
  import {calendar} from '../../../../scripts/artist/artist_calendar.js'
  import { FormGroup, FormControl, Validators } from '@angular/forms';
  import {deactivate_searchBar} from '../../../../scripts/search_bar_activate'
-import { AngularFirestore } from '@angular/fire/firestore';
+ import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
   selector: 'app-artist-calendar',
   templateUrl: './artist-calendar.component.html',

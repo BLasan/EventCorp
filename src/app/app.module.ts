@@ -85,6 +85,18 @@ import { ReportWarningsComponent } from './Modules/Moderator-Module/report-warni
 import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
 import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
 import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
+import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.component';
+import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
+import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { SearchItemsPipe } from './Modules/Supplier-Module/searchItems.pipe';
+import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-request-status/view-request-status.component';
+import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/payment-users.component';
+import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
+import { UpdateEventsComponent } from './Modules/Organizer-Module/update-events/update-events.component';
+import { ViewAllEventsComponent } from './Modules/Organizer-Module/view-all-events/view-all-events.component';
+import { EditPlaylistComponent } from './Modules/Artist-Module/edit-playlist/edit-playlist.component';
+import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/edit-products.component';
+import { SupplierProductsTableComponent } from './Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -130,7 +142,9 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
     AngularFirestoreModule.enablePersistence(), // firestore-persistance mode
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    FullCalendarModule
+    FullCalendarModule,
+    MatDialogModule,
+    MatRadioModule
     
   ],
   declarations: [
@@ -142,13 +156,17 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
     // FormComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
-    PaypalPaymentComponent,
     EmailVerifyComponent,
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
     VenueCalendarComponent,
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
+    ReportDialogComponent,
+    PaypalPaymentComponent,
+    PaymentUsersComponent,
+  
+    // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
     // LocationOwnerLayoutComponent,
@@ -156,8 +174,9 @@ import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/l
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService],
-  bootstrap: [AppComponent]
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService],
+  bootstrap: [AppComponent],
+  entryComponents: [ReportDialogComponent]
 })
 export class AppModule { }
 

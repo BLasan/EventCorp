@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES, ROUTES2, ROUTES4, ROUTES3 } from '../sidebar/sidebar.component';
+import { ROUTES, ROUTES2, ROUTES4, ROUTES3, ROUTES5 } from '../sidebar/sidebar.component';
 import { ROUTES1} from '../sidebar/sidebar.component';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit {
     user_details:any=[];
     emp:any=[{age:'abdcc'}]
     count:any=0;
-    role:string;
     home_link:String;
     route_link:string;
     location: Location;
@@ -35,6 +34,7 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     onLoaded:boolean=true;
+    user_role:string;
     private sidebarVisible: boolean;
     constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private _db:AngularFirestore,private auth:AngularFireAuth) {
       this.location = location;
@@ -42,6 +42,7 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit(){
+       // disable_logout();
     this.getNotificationCount();
     //get notification count
     // if(localStorage.getItem('role')!='admin')
@@ -50,6 +51,7 @@ export class NavbarComponent implements OnInit {
     // this.getAdminNotificationCount();
 
     //previous_mode();
+    this.user_role=localStorage.getItem('role');
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
         this.route_link="/artist-notifications";
@@ -76,7 +78,7 @@ export class NavbarComponent implements OnInit {
     }
     
     else if(localStorage.getItem('role')=='moderator' && localStorage.getItem('loggedIn')){
-        this.listTitles=ROUTES2.filter(listTitle=>listTitle);
+        this.listTitles=ROUTES5.filter(listTitle=>listTitle);
         this.route_link="/moderator-notifications";
         this.home_link="/moderator-home";
     }
@@ -99,7 +101,7 @@ export class NavbarComponent implements OnInit {
       return;
     }  
     snapshot.forEach(doc => {
-      console.log(doc.id, '=>', doc.data());
+    //   console.log(doc.id, '=>', doc.data());
       if(doc.data().role!=localStorage.getItem('role'))
       _this.user_details.push(doc.data());
     });
@@ -202,6 +204,7 @@ export class NavbarComponent implements OnInit {
     //get title of the routing
     getTitle(){
       var titlee = this.location.prepareExternalUrl(this.location.path());
+      //console.log(titlee)
       if(titlee.charAt(0) === '#'){
           titlee = titlee.slice( 1 );
       }
@@ -214,22 +217,38 @@ export class NavbarComponent implements OnInit {
       }
 
       if(titlee.indexOf('ratings')>-1) return "View User Details";
+      if(titlee.indexOf('view-all-products')>-1) return "All Products";
+      if(titlee.indexOf('update-events')>-1) return "Edit Events";
+      if(titlee.indexOf('view-all-events')>-1) return "View All Events";
+      if(titlee==='/payment-bill') return "Payments";
     }
 
-    logout_User(){
-        localStorage.setItem('loggedOut','true');
-        // var _this=this;
-        // var user=localStorage.getItem('user_name');
-        // console.log(user);
+    logout_User(event:any){  
+        event.preventDefault();
+        var _this=this;
+        var user=localStorage.getItem('user_name');
+        alert(user);
+        alert(this.auth.auth.currentUser.uid)
+        console.log(user);
+        var _auth=this.auth.auth;
+        var _home=document.getElementById('logout_route');
         // alert(user)
-        // // disable_logout();
-        // this._db.collection('register_user').doc(user).update({active_status:'logout'});
-        // localStorage.removeItem('user_name');
-        // localStorage.removeItem('role');
-        // localStorage.removeItem('token');
-        // localStorage.removeItem('nameId');
-        // localStorage.removeItem('loggedIn');
-        this.auth.auth.signOut();
+        // disable_logout();
+        this._db.firestore.collection('register_user').doc(user).update({active_status:'logout'}).then(()=>{
+            _auth.signOut();
+            _home.click();
+        }).catch(err=>{
+            console.log(err);
+        });
+
+        //remove localstorage items
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('role');
+        localStorage.removeItem('token');
+        localStorage.removeItem('nameId');
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('searched_user_email');
+
         // navigate_to_home();
         // this._loginService.logOut();
         // if(localStorage.getItem('searched_user_email'))

@@ -55,6 +55,7 @@ import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.compon
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
+import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/edit-playlist.component';
 
   @NgModule({
     imports: [
@@ -109,7 +110,8 @@ import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add
      ArtistCalendarComponent,
      ArtistSettingsComponent,
      ViewBookingInfoComponent,
-     AddPlaylistComponent
+     AddPlaylistComponent,
+     EditPlaylistComponent,
     ],
    
   })

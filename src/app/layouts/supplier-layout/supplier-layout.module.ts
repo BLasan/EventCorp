@@ -52,6 +52,11 @@ import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.compon
 import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-add-items/supplier-add-items.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
+import { EditProductsComponent } from 'app/Modules/Supplier-Module/edit-products/edit-products.component';
+import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
 
   @NgModule({
     imports: [
@@ -94,6 +99,7 @@ import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-
       MatStepperModule,
       MatListModule,
       SharedComponentsModule,
+      MatCarouselModule
     ],
     declarations: [
       SupplierHomeComponent,
@@ -101,7 +107,11 @@ import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-
       SupplierProfileComponent,
       SupplierSettingsComponent,
       SupplierEventsComponent,
-      SupplierAddItemsComponent
+      SupplierAddItemsComponent,
+      EditProductsComponent,
+      SupplierProductsTableComponent,
+      // ViewAllProductsComponent,
+      // SearchItemsPipe
      // MyChatsComponent,
       // CalendarComponent
     ],

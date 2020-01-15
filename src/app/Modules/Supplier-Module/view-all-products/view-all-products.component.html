@@ -1,0 +1,113 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-sm-4"></div>
+      <div class="col-md-4 col-sm-4">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <p style="padding-top:20px;color:white">Filter Products :</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <mat-form-field>
+              <mat-select (selectionChange)="filterProduct($event)" id="selection" [(ngModel)]="selection" [ngModelOptions]="{standalone: true}" placeholder="{{selection}}">
+                <mat-option value="{{types.type_value}}" *ngFor="let types of itemTypes">{{types.type_name}}</mat-option>
+                <mat-option value="all">All</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-4">
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <p style="padding-top:20px;color:white">Search Products :</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="form-group" style="padding-top:5px">
+              <input type="text" placeholder="Search Here" class="form-control" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+          </div>    
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-12" style="margin-top:15px" *ngFor="let items of productArray | searchItems:searchText">
+        <mat-card class="card-color">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title><b>{{items.item_name}}</b></mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="{{items.image_url}}" alt="item_image" style="height:200px">
+          <mat-card-content>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Code</b></p> 
+              <p class="col-6" style="text-align: right;">{{items.code}}</p>
+            </div>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Quantity</b></p> 
+              <p class="col-6" style="text-align: right;">{{items.quantity}}</p>
+            </div>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Price</b></p> 
+              <p class="col-6" style="text-align: right;">{{items.price}}</p>
+            </div>
+            <hr>
+            <div class="row">
+              <p class="col-6"><b>Description</b></p> 
+            </div>
+            <p>
+              {{items.description}}
+            </p>
+            <hr>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-md-4" style="margin-left: -30px;">
+                <button  mat-raised-button class="btn btn-success" data-toggle="modal" data-target="#exampleModal" (click)="openModal(items.code,items.item_name,items.price,items.item_type)"><b>BOOK NOW</b></button>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><b>BOOKING</b></h5>
+        <button type="button" class="close" id="close_btn" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Name : {{modalData[0].name}}</p>
+        <p>Date : {{modalData[0].date}}</p>
+        <p>Time : {{modalData[0].time}}</p>
+        <p>Price : {{modalData[0].price*quantity}}</p>
+        <p>Type : {{modalData[0].type}}</p>
+        <form>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <label><b>Quantity</b></label>
+                <input type="number" value="{{quantity}}" [(ngModel)]="quantity" [ngModelOptions]="{standalone: true}" class="form-control"/>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <a href="/payment/{{modalData[0].name}}/{{quantity}}/{{modalData[0].price}}" target="_blank" type="button" class="btn btn-primary">Book Now</a>
+      </div>
+    </div>
+  </div>
+</div>

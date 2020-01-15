@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {activate_searchBar} from '../../../../scripts/search_bar_activate';
 import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { disable_view_products } from '../../../../scripts/disable_a_href.js';
 @Component({
   selector: 'app-supplier-home',
   templateUrl: './supplier-home.component.html',
@@ -19,6 +20,7 @@ export class SupplierHomeComponent implements OnInit {
   default_rate:any=0;
   isDone:boolean=false;
   product_items:any=[];
+  init_items:any;
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -69,19 +71,26 @@ export class SupplierHomeComponent implements OnInit {
   }
 
   get_product_items(){
+    var count=-0;
     var _this=this;
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(snapshot=>{
       if(snapshot.empty){
-        alert("Empty Products");
-        _this.load_items="empty"
+        //alert("Empty Products");
+        _this.load_items="empty";
       }
       else{
         snapshot.forEach(doc=>{
+          count=count+1;
           _this.load_items="loaded";
-          _this.product_items.push(doc.data());
+          if(count==1) _this.init_items=doc.data();
+          else _this.product_items.push(doc.data());
         })
       }
     })
+  }
+
+  bookProduct(){
+    //disable_view_products();
   }
 
 }

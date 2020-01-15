@@ -4,7 +4,8 @@ import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
 import {NavbarComponent} from 'app/components/navbar/navbar.component';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { disable_modal_open} from '../../.././../scripts/disable_a_href.js';
+import { disable_modal_open,disable_report_comments} from '../../.././../scripts/disable_a_href.js';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-organizer-home',
   templateUrl: './organizer-home.component.html',
@@ -24,16 +25,21 @@ export class OrganizerHomeComponent implements OnInit {
   modal_details:any;
   artists_participated:string="";
   suppliers_participated:string="";
-  constructor(private _ratings:RateUserService,private database:AngularFirestore) { }
+  venue:string="";
+  id:any;
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
     activate_searchBar();
+    disable_report_comments();
     this.get_top_users();
     this.load_events();
     this.load_comments();
   }
 
+
+  //get top users
   get_top_users(){
     var _this=this;
     var docRef=this.database.firestore.collection('ratings');
@@ -89,9 +95,26 @@ export class OrganizerHomeComponent implements OnInit {
 
   }
 
+
+  //add searched user email
   addUserEmail(email:string){
     alert(email)
     localStorage.setItem('searched_user_email',email);
+  }
+
+
+  //report comments
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+    var _this=this;
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+      console.log("Success");
+      _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+       duration: 3000,
+     });
+    }).catch(err=>{
+      console.log(err);
+    })
+
   }
 
   // load_comments(){
@@ -109,6 +132,8 @@ export class OrganizerHomeComponent implements OnInit {
   //   console.log(this.user_comments)
   // }
 
+
+  //load comments
   load_comments(){
     var _this=this;
     var docRef = this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments');
@@ -137,27 +162,39 @@ export class OrganizerHomeComponent implements OnInit {
     });
    }
 
+  //load modal data
   load_modal(event_id:any){
     disable_modal_open();
     console.log(event_id);
+    this.modal_details=[];
+    this.id=event_id;
     this.modal_details=this.events.filter(x=>x.event_id===event_id);
     console.log(this.modal_details)
     for(var artists of this.modal_details){
       for(var artist_names of artists.artists){
-        console.log(artist_names)
-        this.artists_participated+=" / "+artist_names;
+        console.log(artist_names.name)
+        this.artists_participated+=artist_names.name+" / ";
       }
     }
 
     for(var suppliers of this.modal_details){
       for(var supplier_names of suppliers.suppliers){
-        console.log(supplier_names)
-        this.suppliers_participated+=" / "+supplier_names;
+        console.log(supplier_names.name)
+        this.suppliers_participated+=supplier_names.name+" / ";
+      }
+    }
+
+    for(var venue of this.modal_details){
+      for(var venue_names of venue.venue_owners){
+        console.log(venue_names.name)
+        this.venue+=venue_names.name+" / ";
       }
     }
 
   }
 
+
+  //load organizer events
   load_events(){
     var _this=this;
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').get().then(snapshot=>{
@@ -171,6 +208,14 @@ export class OrganizerHomeComponent implements OnInit {
     console.log(this.events);
   }
 
-
-
+  //delete event
+  deleteEvent(id:any){
+    var _this=this;
+    this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
+      console.log("Successfully Deleted");
+      _this.events=_this.events.filter(x=>x.event_id!==id);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
 }
