@@ -10,7 +10,7 @@ export class ArtistNotificationComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    deactivate_searchBar();
+    //deactivate_searchBar();
   }
 
 }

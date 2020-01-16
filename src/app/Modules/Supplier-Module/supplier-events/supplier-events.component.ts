@@ -25,7 +25,7 @@ export class SupplierEventsComponent implements OnInit {
       calendar(data);
     });
 
-    deactivate_searchBar();
+   // deactivate_searchBar();
     this.supplier_email=localStorage.getItem('user_name');
     this.supplier_role=localStorage.getItem('role');
     this.form=new FormGroup({

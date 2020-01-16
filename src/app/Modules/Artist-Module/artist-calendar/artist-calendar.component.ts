@@ -25,7 +25,7 @@ export class ArtistCalendarComponent implements OnInit {
       calendar(data);
     });
 
-    deactivate_searchBar()
+   // deactivate_searchBar()
     this.artist_email=localStorage.getItem('user_name');
     this.artist_role=localStorage.getItem('role');
     this.form=new FormGroup({
