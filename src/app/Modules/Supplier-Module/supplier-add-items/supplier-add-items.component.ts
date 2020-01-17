@@ -106,7 +106,6 @@ export class SupplierAddItemsComponent implements OnInit {
                 duration: 2000,
               }); 
              }).catch(err=>{
-              _this.snackBar.open("There ware some errors in uploading.Try again!","OK", {
               this.snackBar.open("There were some errors in uploading.Try again!","OK", {
                 duration: 2000,
               }); 

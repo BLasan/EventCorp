@@ -106,7 +106,7 @@ export class OrganizerHomeComponent implements OnInit {
   //report comments
   reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
     var _this=this;
-    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail,view:false}).then(()=>{
       console.log("Success");
       _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
        duration: 3000,
