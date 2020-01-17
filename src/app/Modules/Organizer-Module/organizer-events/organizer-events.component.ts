@@ -3,8 +3,8 @@ import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
 import {calendar} from '../../../../scripts/artist/artist_calendar.js'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelect, MatSnackBar } from '@angular/material';
-import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { take, takeUntil, tap, map } from 'rxjs/operators';
 import { ProfileService } from 'app/services/organizer_services.service';
 import { disable_event_links } from '../../../../scripts/disable_a_href.js';
 import {upload_images,upload_video,delete_image,delete_video} from '../../../../scripts/event_image_uploader';
@@ -12,6 +12,8 @@ import { disable_uploaders } from '../../../../scripts/disable_a_href';
 import { AngularFirestore } from '@angular/fire/firestore';
 import CryptoJS from 'crypto-js';
 import { AngularFireStorage } from '@angular/fire/storage';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import { VenueCalendarService } from 'app/venue-calendar.service';
 @Component({
   selector: 'app-organizer-events',
   templateUrl: './organizer-events.component.html',
@@ -27,6 +29,8 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   supplierList:any=[];
   isLoaded:boolean=false;
   prefferedRole:string="none";
+  calendarEvents:any[]=[];
+  calendarPlugins=[dayGridPlugin];
   // public artist_data: FormControl = new FormControl();
   // public venue_owner_data: FormControl = new FormControl();
   // public supplier_data: FormControl = new FormControl();
@@ -47,13 +51,14 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   isCreating:boolean=false;
   eventName:string;
   eventId:any;
-  constructor(private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage,private snackBar:MatSnackBar) { }
+  constructor(private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage,private snackBar:MatSnackBar,private svc:VenueCalendarService) { }
  
   ngOnInit() {
-    calendar();
+    this.getData().subscribe(data=>calendar(data))
     disable_event_links();
     deactivate_searchBar();
     disable_uploaders();
+    // this.svc.getData().subscribe(data=> this.calendarEvents=data);
     // upload_images();
     // upload_video();
     // delete_image();
@@ -86,6 +91,9 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   ngAfterViewInit(){
     
   }
+
+
+  //check errors in formfilelds
   public hasError = (controlName: string, errorName: string) =>{
     return this.form.controls[controlName].hasError(errorName);
   }
@@ -131,8 +139,21 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     // console.log(this.user_events.data[0].time+"=>EVENT DATA");
     // calendar(this.user_events.data);
     // });
+  }
 
-    calendar(this.user_events)
+
+
+  //load data to calendar
+  getData():Observable<any[]>{
+    
+    return this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').valueChanges().pipe(
+      tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
+      map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
+        let data:any=event;
+        let obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"}
+        return obj;
+      }))
+    );
   }
 
 
@@ -143,7 +164,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     let event_name=this.form.get('event_name').value;
     this.eventName=event_name;
     let date=this.form.get('date').value;
-    let date_string=new Date(date).getFullYear()+"-"+new Date(date).getMonth()+"-"+new Date(date).getDate();
+    let date_string=new Date(date).getFullYear()+"-"+new Date(date).getMonth()+1+"-"+new Date(date).getDate();
     let time=this.form.get('time').value;
     //let time_string=new Date(time).getHours()+":"+new Date(time).getMinutes()+":"+new Date(time).getSeconds();
     let today=new Date();
@@ -157,97 +178,331 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     let artist=this.selected_artists;
     let supplier=this.selected_suppliers;
     let venue=this.selected_venue;
+    if(this.videoFile)
     var video=this.videoFile.item(0);
-    console.log(this.videoFile.item(0));
-    storageRef.put(this.imageFile.item(0)).then(snapshot=>{
-      storageRef.getDownloadURL().subscribe(url=>{
-        console.log(video);
-        storageVideoRef.put(video).then(snapshot=>{
-          storageVideoRef.getDownloadURL().subscribe(url1=>{
-
-            let obj={event_name:event_name,date:date_string,time:time,event_id:hash_id,image_path:url,video_path:url1,user_name:localStorage.getItem('user_name'),artists:artist,suppliers:supplier,venue_owners:venue};
-            _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(hash_id).set(obj).then(()=>{
-              console.log("Successfully Created");
-              _this.isCreating=false;
-
-              let date=new Date();
-              let allUsers:any=[];
-              let date_string=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
-          
-              //send requests for artists
-              for(var i=0;i<artist.length;i++){
-                let obj={user:artist[i],status:"Pending"};
-                allUsers.push(obj);
-                let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
-                  console.log("Successfully Sent");
+    //console.log(this.videoFile.item(0));
+    if(this.videoFile && this.imageFile){
+      storageRef.put(this.imageFile.item(0)).then(snapshot=>{
+        storageRef.getDownloadURL().subscribe(url=>{
+          console.log(video);
+          storageVideoRef.put(video).then(snapshot=>{
+            storageVideoRef.getDownloadURL().subscribe(url1=>{
+  
+              let obj={event_name:event_name,date:date_string,time:time,event_id:hash_id,image_path:url,video_path:url1,user_name:localStorage.getItem('user_name'),artists:artist,suppliers:supplier,venue_owners:venue};
+              _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(hash_id).set(obj).then(()=>{
+                console.log("Successfully Created");
+                _this.isCreating=false;
+  
+                let date=new Date();
+                let allUsers:any=[];
+                let date_string=date.getFullYear()+"-"+date.getMonth()+1+"-"+date.getDate();
+            
+                //send requests for artists
+                for(var i=0;i<artist.length;i++){
+                  let obj={user:artist[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+                //send requests to suppliers
+                for(var i=0;i<supplier.length;i++){
+                  let obj={user:supplier[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+                //send requests to venues
+                for(var i=0;i<venue.length;i++){
+                  let obj={user:venue[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+            
+                //keep track of sent requests
+                let obj={user_data:allUsers,event_name:event_name,event_id:hash_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
+                _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(hash_id).set(obj).then(()=>{
+                  console.log("Successfully Added BookingStatus");
                 }).catch(err=>{
                   console.log(err);
+                })
+  
+                _this.snackBar.open("Successfully Created","OK", {
+                  duration: 3000,
                 });
-              }
-          
-              //send requests to suppliers
-              for(var i=0;i<supplier.length;i++){
-                let obj={user:supplier[i],status:"Pending"};
-                allUsers.push(obj);
-                let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
-                  console.log("Successfully Sent");
-                }).catch(err=>{
-                  console.log(err);
-                });
-              }
-          
-              //send requests to venues
-              for(var i=0;i<venue.length;i++){
-                let obj={user:venue[i],status:"Pending"};
-                allUsers.push(obj);
-                let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
-                  console.log("Successfully Sent");
-                }).catch(err=>{
-                  console.log(err);
-                });
-              }
-          
-          
-              //keep track of sent requests
-              let obj={user_data:allUsers,event_name:event_name,event_id:hash_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
-              _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(hash_id).set(obj).then(()=>{
-                console.log("Successfully Added");
               }).catch(err=>{
                 console.log(err);
+                _this.isCreating=false;
+                _this.snackBar.open("Error Creating","Try Again", {
+                  duration: 3000,
+                });
+              }).catch(err=>{
+                _this.isCreating=false
+                _this.snackBar.open("Error Creating","Try Again", {
+                  duration: 3000,
+                });
               })
-
-              _this.snackBar.open("Successfully Created","OK", {
-                duration: 3000,
-              });
-            }).catch(err=>{
-              console.log(err);
-              _this.isCreating=false;
-              _this.snackBar.open("Error Creating","Try Again", {
-                duration: 3000,
-              });
-            }).catch(err=>{
-              _this.isCreating=false
-              _this.snackBar.open("Error Creating","Try Again", {
-                duration: 3000,
+            })
+          }).catch(err=>{
+            _this.isCreating=false;
+            _this.snackBar.open("Error Creating","Try Again", {
+              duration: 3000,
+            });
+          })
+        })
+      }).catch(err=>{
+        _this.isCreating=false;
+        _this.snackBar.open("Error Creating","Try Again", {
+          duration: 3000,
+        });
+      });
+    }
+    else if(this.imageFile && !this.videoFile){
+      storageRef.put(this.imageFile.item(0)).then(snapshot=>{
+        storageRef.getDownloadURL().subscribe(url=>{
+              let obj={event_name:event_name,date:date_string,time:time,event_id:hash_id,image_path:url,video_path:null,user_name:localStorage.getItem('user_name'),artists:artist,suppliers:supplier,venue_owners:venue};
+              _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(hash_id).set(obj).then(()=>{
+                console.log("Successfully Created");
+                _this.isCreating=false;
+  
+                let date=new Date();
+                let allUsers:any=[];
+                let date_string=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+            
+                //send requests for artists
+                for(var i=0;i<artist.length;i++){
+                  let obj={user:artist[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+                //send requests to suppliers
+                for(var i=0;i<supplier.length;i++){
+                  let obj={user:supplier[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+                //send requests to venues
+                for(var i=0;i<venue.length;i++){
+                  let obj={user:venue[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+            
+                //keep track of sent requests
+                let obj={user_data:allUsers,event_name:event_name,event_id:hash_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
+                _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(hash_id).set(obj).then(()=>{
+                  console.log("Successfully Added BookingStatus");
+                }).catch(err=>{
+                  console.log(err);
+                })
+  
+                _this.snackBar.open("Successfully Created","OK", {
+                  duration: 3000,
+                });
+              }).catch(err=>{
+                console.log(err);
+                _this.isCreating=false;
+                _this.snackBar.open("Error Creating","Try Again", {
+                  duration: 3000,
+                });
+              }).catch(err=>{
+                _this.isCreating=false
+                _this.snackBar.open("Error Creating","Try Again", {
+                  duration: 3000,
+                });
+              })
+            });
+      }).catch(err=>{
+        _this.isCreating=false;
+        _this.snackBar.open("Error Creating","Try Again", {
+          duration: 3000,
+        });
+      });
+    }
+    else if(!this.imageFile && this.videoFile){
+      storageRef.put(this.videoFile.item(0)).then(snapshot=>{
+        storageRef.getDownloadURL().subscribe(url=>{ 
+              let obj={event_name:event_name,date:date_string,time:time,event_id:hash_id,image_path:null,video_path:url,user_name:localStorage.getItem('user_name'),artists:artist,suppliers:supplier,venue_owners:venue};
+              _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(hash_id).set(obj).then(()=>{
+                console.log("Successfully Created");
+                _this.isCreating=false;
+  
+                let date=new Date();
+                let allUsers:any=[];
+                let date_string=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+            
+                //send requests for artists
+                for(var i=0;i<artist.length;i++){
+                  let obj={user:artist[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+                //send requests to suppliers
+                for(var i=0;i<supplier.length;i++){
+                  let obj={user:supplier[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+                //send requests to venues
+                for(var i=0;i<venue.length;i++){
+                  let obj={user:venue[i],status:"Pending"};
+                  allUsers.push(obj);
+                  let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
+                  _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+                    console.log("Successfully Sent");
+                  }).catch(err=>{
+                    console.log(err);
+                  });
+                }
+            
+            
+                //keep track of sent requests
+                let obj={user_data:allUsers,event_name:event_name,event_id:hash_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
+                _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(hash_id).set(obj).then(()=>{
+                  console.log("Successfully Added BookingStatus");
+                }).catch(err=>{
+                  console.log(err);
+                })
+  
+                _this.snackBar.open("Successfully Created","OK", {
+                  duration: 3000,
+                });
+              }).catch(err=>{
+                console.log(err);
+                _this.isCreating=false;
+                _this.snackBar.open("Error Creating","Try Again", {
+                  duration: 3000,
+                });
+              }).catch(err=>{
+                _this.isCreating=false
+                _this.snackBar.open("Error Creating","Try Again", {
+                  duration: 3000,
+                });
               });
             })
-          })
-        }).catch(err=>{
-          _this.isCreating=false;
-          _this.snackBar.open("Error Creating","Try Again", {
-            duration: 3000,
-          });
-        })
-      })
-    }).catch(err=>{
-      _this.isCreating=false;
-      _this.snackBar.open("Error Creating","Try Again", {
-        duration: 3000,
+      }).catch(err=>{
+        _this.isCreating=false;
+        _this.snackBar.open("Error Creating","Try Again", {
+          duration: 3000,
+        });
       });
-    });
+    }
+    else{
+      let obj={event_name:event_name,date:date_string,time:time,event_id:hash_id,image_path:null,video_path:null,user_name:localStorage.getItem('user_name'),artists:artist,suppliers:supplier,venue_owners:venue};
+      _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(hash_id).set(obj).then(()=>{
+        console.log("Successfully Created");
+        _this.isCreating=false;
+
+        let date=new Date();
+        let allUsers:any=[];
+        let date_string=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+    
+        //send requests for artists
+        for(var i=0;i<artist.length;i++){
+          let obj={user:artist[i],status:"Pending"};
+          allUsers.push(obj);
+          let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",paid:false};
+          _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+            console.log("Successfully Sent");
+          }).catch(err=>{
+            console.log(err);
+          });
+        }
+    
+        //send requests to suppliers
+        for(var i=0;i<supplier.length;i++){
+          let obj={user:supplier[i],status:"Pending"};
+          allUsers.push(obj);
+          let booking_request={event_name:event_name,event_id:hash_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",paid:false};
+          _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+            console.log("Successfully Sent");
+          }).catch(err=>{
+            console.log(err);
+          });
+        }
+    
+        //send requests to venues
+        for(var i=0;i<venue.length;i++){
+          let obj={user:venue[i],status:"Pending"};
+          allUsers.push(obj);
+          let booking_request={event_name:event_name,event_id:event_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",paid:false};
+          _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(hash_id).set(booking_request).then(()=>{
+            console.log("Successfully Sent");
+          }).catch(err=>{
+            console.log(err);
+          });
+        }
+    
+    
+        //keep track of sent requests
+        let obj={user_data:allUsers,event_name:event_name,event_id:hash_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
+        _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(hash_id).set(obj).then(()=>{
+          console.log("Successfully Added BookingStatus");
+        }).catch(err=>{
+          console.log(err);
+        })
+
+        _this.snackBar.open("Successfully Created","OK", {
+          duration: 3000,
+        });
+      }).catch(err=>{
+        console.log(err);
+        _this.isCreating=false;
+        _this.snackBar.open("Error Creating","Try Again", {
+          duration: 3000,
+        });
+      }).catch(err=>{
+        _this.isCreating=false
+        _this.snackBar.open("Error Creating","Try Again", {
+          duration: 3000,
+        });
+      });
+    }
     //this.sendBookingReq();
     this.reset();
   }

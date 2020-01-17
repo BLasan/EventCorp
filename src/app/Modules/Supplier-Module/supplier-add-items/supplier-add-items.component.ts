@@ -66,12 +66,12 @@ export class SupplierAddItemsComponent implements OnInit {
         count++;
         _this.isEmpty=true;
         var _id=_this.category+"001";
-        let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+date.getTime().toString();
+        let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+_id;
         let storageRef=_this.storage.ref(image_id);
         storageRef.put(image_file).then(snapshot=>{
           storageRef.getDownloadURL().subscribe(url=>{
             console.log(url);
-            var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date};
+            var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:image_file.name};
            _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_id).set(item_details).then(()=>{
              console.log('Added to database');
            }).catch(err=>{
@@ -95,11 +95,11 @@ export class SupplierAddItemsComponent implements OnInit {
           }
           else if(count>=10 && count<100) var _id=_this.category+"0"+count;
           else if(count>=100) var _id=_this.category+count;
-          let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+date.getTime().toString();
+          let image_id="supplier-items/"+localStorage.getItem('user_name')+"/"+_id;
           let storageRef=_this.storage.ref(image_id);
           storageRef.put(image_file).then(snapshot=>{
             storageRef.getDownloadURL().subscribe(url=>{
-              var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date};
+              var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:image_file.name};
              _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_id).set(item_details).then(()=>{
                console.log('Added to database');
                _this.snackBar.open("Successfully Added!","OK", {
@@ -107,6 +107,7 @@ export class SupplierAddItemsComponent implements OnInit {
               }); 
              }).catch(err=>{
               _this.snackBar.open("There ware some errors in uploading.Try again!","OK", {
+              this.snackBar.open("There were some errors in uploading.Try again!","OK", {
                 duration: 2000,
               }); 
                console.log(err);

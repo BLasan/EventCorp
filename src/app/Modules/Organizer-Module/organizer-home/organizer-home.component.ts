@@ -26,6 +26,7 @@ export class OrganizerHomeComponent implements OnInit {
   artists_participated:string="";
   suppliers_participated:string="";
   venue:string="";
+  id:any;
   constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
@@ -165,6 +166,8 @@ export class OrganizerHomeComponent implements OnInit {
   load_modal(event_id:any){
     disable_modal_open();
     console.log(event_id);
+    this.modal_details=[];
+    this.id=event_id;
     this.modal_details=this.events.filter(x=>x.event_id===event_id);
     console.log(this.modal_details)
     for(var artists of this.modal_details){
@@ -205,4 +208,14 @@ export class OrganizerHomeComponent implements OnInit {
     console.log(this.events);
   }
 
+  //delete event
+  deleteEvent(id:any){
+    var _this=this;
+    this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
+      console.log("Successfully Deleted");
+      _this.events=_this.events.filter(x=>x.event_id!==id);
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
 }

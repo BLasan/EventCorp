@@ -4,6 +4,7 @@ import {prevent_handeling} from '../../../scripts/navbar_settings';
 import {navigate_to_login,navigate_to_signup} from '../../../scripts/redirect_to';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'customer-navbar',
@@ -28,7 +29,7 @@ export class CustomerNavbarComponent implements OnInit {
   private toggleButton: any;
   private sidebarVisible: boolean;
 
-  constructor(private router:Router,location: Location,private element: ElementRef,private auth:AngularFireAuth) { 
+  constructor(private router:Router,location: Location,private element: ElementRef,private auth:AngularFireAuth,private db:AngularFirestore) { 
     this.location = location;
     this.sidebarVisible = false;
   }
@@ -49,11 +50,17 @@ export class CustomerNavbarComponent implements OnInit {
   }
 
   signout(){
+      var _this=this;
+      var _ret=document.getElementById('_return');
      // alert("Signout");
-      console.log(this.auth.auth.currentUser);
-      this.auth.auth.signOut();
-      localStorage.setItem('loggedOut','true');
-      this.isLoggedIn=false;
+      this.db.collection('register_user').doc(localStorage.getItem('user_name')).update({active_status:"logout"}).then(()=>{
+        console.log(_this.auth.auth.currentUser);
+        _this.auth.auth.signOut();
+        _ret.click();
+        _this.isLoggedIn=false;
+      }).catch(err=>{
+          console.log(err)
+      })
   }
 
   // login(){

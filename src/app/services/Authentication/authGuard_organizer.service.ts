@@ -20,6 +20,10 @@ export class AuthGuardOrganizerService implements CanActivate {
     } 
     else if(path.indexOf("/ratings")>-1)
     return true;
+    else if(path.indexOf("/user-payments")>-1)
+    return true;
+    else if(path.indexOf("/payment")>-1)
+    return true;
     else {
       this.router.navigate(['/page-not-found']);
       return false;

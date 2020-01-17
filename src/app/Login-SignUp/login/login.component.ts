@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
 
+  
   //validate login
   login_validate(){
     this.isLoading=true;
@@ -63,6 +64,7 @@ export class LoginComponent implements OnInit {
     //   _this.isTrue=false;
     // });
     
+    //get user credentials
     this._db.firestore.collection("register_user").doc(email)
     .get().then(function(doc) {
       if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
@@ -80,6 +82,10 @@ export class LoginComponent implements OnInit {
             redirect_to(doc.data().role);
           })
         }).catch(err=>{
+
+          //if no user occurs
+          _this.isLoading=false;
+          _this.isTrue=false;
           console.log(err);
         })
         //  _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);

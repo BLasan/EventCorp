@@ -90,6 +90,15 @@ import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
 import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from './Modules/Supplier-Module/searchItems.pipe';
 import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-request-status/view-request-status.component';
+import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/payment-users.component';
+import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
+import { UpdateEventsComponent } from './Modules/Organizer-Module/update-events/update-events.component';
+import { ViewAllEventsComponent } from './Modules/Organizer-Module/view-all-events/view-all-events.component';
+import { EditPlaylistComponent } from './Modules/Artist-Module/edit-playlist/edit-playlist.component';
+import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/edit-products.component';
+import { SupplierProductsTableComponent } from './Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
+import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
+import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -149,7 +158,6 @@ import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-requ
     // FormComponent,
     ArtistLayoutComponent,
     ErrorPageComponent,
-    PaypalPaymentComponent,
     EmailVerifyComponent,
     ResetPasswordComponent,
     ResetPasswordFirebaseComponent,
@@ -157,6 +165,9 @@ import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-requ
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
     ReportDialogComponent,
+    PaypalPaymentComponent,
+    PaymentUsersComponent,
+    ViewLocationComponent
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
@@ -165,7 +176,7 @@ import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-requ
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService],
   bootstrap: [AppComponent],
   entryComponents: [ReportDialogComponent]
 })

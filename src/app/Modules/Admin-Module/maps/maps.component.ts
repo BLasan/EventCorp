@@ -123,7 +123,6 @@ export class MapsComponent implements OnInit {
 
     };
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
     var marker = new google.maps.Marker({
         position: myLatlng,
         title: "Hello World!"
