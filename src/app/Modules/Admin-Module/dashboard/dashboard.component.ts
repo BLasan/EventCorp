@@ -118,6 +118,8 @@ export class DashboardComponent implements OnInit {
       // })
   }
 
+
+  //get newly added user counts
   get_realtime_update(){
     var _this=this;
     this.database.firestore.collection("register_user")
@@ -141,54 +143,66 @@ export class DashboardComponent implements OnInit {
  
             else if(element.type=='modified'){
                 console.log(element.doc.data().role);
-                if(element.doc.data().isChangedRole==true){
-                  if(element.doc.data().role=='artist'&& element.doc.data().profile_status=='Active'){
-                    _this.artist_count+=1;
-                    if(element.doc.data().prev_role=='organizer') _this.organizer_count-=1;
-                    else if(element.doc.data().prev_role=='supplier') _this.supplier_count-=1;
-                    else if(element.doc.data().prev_role=='venue_owner') _this.venue_owner_count-=1;
-                  }
-                  else if(element.doc.data().role=='organizer'&& element.doc.data().profile_status=='Active'){
-                    _this.organizer_count+=1;
-                    if(element.doc.data().prev_role=='artist') _this.organizer_count-=1;
-                    else if(element.doc.data().prev_role=='supplier') _this.supplier_count-=1;
-                    else if(element.doc.data().prev_role=='venue_owner') _this.venue_owner_count-=1;
-                  }
-                  else if(element.doc.data().role=='supplier'&& element.doc.data().profile_status=='Active'){
-                    _this.supplier_count+=1;
-                    if(element.doc.data().prev_role=='artist') _this.organizer_count-=1;
-                    else if(element.doc.data().prev_role=='organizer') _this.organizer_count-=1;
-                    else if(element.doc.data().prev_role=='venue_owner') _this.venue_owner_count-=1;
-                  }
-                  else if(element.doc.data().role=='venue_owner'&& element.doc.data().profile_status=='Active'){
-                    _this.venue_owner_count+=1;
-                    if(element.doc.data().prev_role=='artist') _this.organizer_count-=1;
-                    else if(element.doc.data().prev_role=='organizer') _this.organizer_count-=1;
-                    else if(element.doc.data().prev_role=='supplier') _this.venue_owner_count-=1;
-                  }
-                  else if(element.doc.data().role=='artist'&& element.doc.data().profile_status=='Deleted'){
-                    _this.artist_count-=1;
-                    _this.artist_delete_count+=1;
-                  }
+                // if(element.doc.data().isChangedRole==true){
+                  // if(element.doc.data().role=='artist'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.artist_count+=1;
+                  //   if(element.doc.data().prev_role=='organizer') _this.organizer_count-=1;
+                  //   else if(element.doc.data().prev_role=='supplier') _this.supplier_count-=1;
+                  //   else if(element.doc.data().prev_role=='venue_owner') _this.venue_owner_count-=1;
+                  // }
+                  // else if(element.doc.data().role=='organizer'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.organizer_count+=1;
+                  //   if(element.doc.data().prev_role=='artist') _this.organizer_count-=1;
+                  //   else if(element.doc.data().prev_role=='supplier') _this.supplier_count-=1;
+                  //   else if(element.doc.data().prev_role=='venue_owner') _this.venue_owner_count-=1;
+                  // }
+                  // else if(element.doc.data().role=='supplier'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.supplier_count+=1;
+                  //   if(element.doc.data().prev_role=='artist') _this.organizer_count-=1;
+                  //   else if(element.doc.data().prev_role=='organizer') _this.organizer_count-=1;
+                  //   else if(element.doc.data().prev_role=='venue_owner') _this.venue_owner_count-=1;
+                  // }
+                  // else if(element.doc.data().role=='venue_owner'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.venue_owner_count+=1;
+                  //   if(element.doc.data().prev_role=='artist') _this.organizer_count-=1;
+                  //   else if(element.doc.data().prev_role=='organizer') _this.organizer_count-=1;
+                  //   else if(element.doc.data().prev_role=='supplier') _this.venue_owner_count-=1;
+                  // }
+                  // else if(element.doc.data().role=='artist'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.artist_count-=1;
+                  //   _this.artist_delete_count+=1;
+                  // }
                   
-                  else if(element.doc.data().role=='supplier'&& element.doc.data().profile_status=='Deleted'){
-                    _this.supplier_count-=1;
-                    _this.supplier_delete_count+=1;
-                  }
+                  // else if(element.doc.data().role=='supplier'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.supplier_count-=1;
+                  //   _this.supplier_delete_count+=1;
+                  // }
                  
-                  else if(element.doc.data().role=='organizer'&& element.doc.data().profile_status=='Deleted'){
-                    _this.organizer_count-=1;
-                    _this.organizer_delete_count+=1;
-                  }
+                  // else if(element.doc.data().role=='organizer'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.organizer_count-=1;
+                  //   _this.organizer_delete_count+=1;
+                  // }
                  
-                  else if(element.doc.data().role=='venue_owner'&& element.doc.data().profile_status=='Deleted'){
-                    _this.venue_owner_count-=1;
-                    _this.venue_owner_delete_count+=1;
-                  }
+                  // else if(element.doc.data().role=='venue_owner'&& element.doc.data().profile_status=='Deleted'){
+                  //   _this.venue_owner_count-=1;
+                  //   _this.venue_owner_delete_count+=1;
+                  // }
+
+                  //reduce count if user delete the profile
+                  if(element.doc.data().role=='artist'&& element.doc.data().profile_status=='Deleted')
+                  _this.artist_count-=1;
+                  else if(element.doc.data().role=='supplier'&& element.doc.data().profile_status=='Deleted')
+                  _this.supplier_count-=1;
+                  else if(element.doc.data().role=='organizer'&& element.doc.data().profile_status=='Deleted')
+                  _this.organizer_count-=1;
+                  else if(element.doc.data().role=='venue_owner'&& element.doc.data().profile_status=='Deleted')
+                  _this.venue_owner_count-=1;
+
+                  //create the charts
                   _this.createUserChart(_this.artist_count,_this.organizer_count,_this.supplier_count,_this.venue_owner_count);
                   _this.createUserDeletionChart(_this.artist_count,_this.organizer_count,_this.supplier_count,_this.venue_owner_count)
 
-                }
+                // }
             }
  
             else if(element.type=='removed'){

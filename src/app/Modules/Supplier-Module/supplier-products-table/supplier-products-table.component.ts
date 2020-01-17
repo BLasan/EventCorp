@@ -9,6 +9,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class SupplierProductsTableComponent implements OnInit {
 
   items_array:any=[];
+  searchText:string;
   constructor(private db:AngularFirestore) { }
 
   ngOnInit() {

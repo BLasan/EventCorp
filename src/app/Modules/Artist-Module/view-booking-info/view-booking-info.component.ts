@@ -10,7 +10,7 @@ export class ViewBookingInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    deactivate_searchBar();
+   // deactivate_searchBar();
   }
 
 }

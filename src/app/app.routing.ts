@@ -35,6 +35,8 @@ import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-l
 import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/payment-users.component';
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
+import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
+import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -130,6 +132,10 @@ const routes: Routes =[
   { path:'user-payments/:user_name/:user_email/:quantity/:amount/:_id',
     component:PaymentUsersComponent,
     canActivate:[AuthGuardPaymentService],
+  },
+  { path:'view-location/:id',
+    component:ViewLocationComponent,
+    canActivate:[AuthGuardLocationService],
   },
 
 

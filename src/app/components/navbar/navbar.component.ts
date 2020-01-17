@@ -227,8 +227,8 @@ export class NavbarComponent implements OnInit {
         event.preventDefault();
         var _this=this;
         var user=localStorage.getItem('user_name');
-        alert(user);
-        alert(this.auth.auth.currentUser.uid)
+        // alert(user);
+        // alert(this.auth.auth.currentUser.uid)
         console.log(user);
         var _auth=this.auth.auth;
         var _home=document.getElementById('logout_route');

@@ -35,6 +35,7 @@ import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-p
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
 
+
 @NgModule({
   declarations: [
     NotificationsComponent,
@@ -45,7 +46,7 @@ import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-ev
     MyChatsComponent,
     ViewAllProductsComponent,
     SearchItemsPipe,
-    ViewAllEventsComponent
+    ViewAllEventsComponent,
   ],
   imports: [
     CommonModule,
