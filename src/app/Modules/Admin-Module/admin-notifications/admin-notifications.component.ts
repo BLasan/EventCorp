@@ -3,6 +3,7 @@ import * as io from 'socket.io-client';
 import { AdminService } from 'app/services/admin.service';
 import { MatSnackBar } from '@angular/material';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { SendMailService } from 'app/services/sendEmail.service';
 
 //const firebase=require('scripts/realtime_monitor');
 declare var $: any;
@@ -18,7 +19,19 @@ export class AdminNotificationsComponent implements OnInit {
   date:any;
   public data:any=[];
   update_success:any;
-  constructor(private _realtime_data:AdminService,private _snackBar:MatSnackBar,private database:AngularFirestore) { }
+  resultLength: number;
+  reports:any=[];
+  comment:string;
+  reported_by:string;
+  user_name:string;
+  user_mail:string;
+  success:any;
+  constructor(
+    private _realtime_data:AdminService,
+    private _snackBar:MatSnackBar,
+    private database:AngularFirestore,
+    private sendMail:SendMailService,
+    ) { }
  
   ngOnInit() {
 
@@ -86,6 +99,82 @@ export class AdminNotificationsComponent implements OnInit {
         }
       })
     })
+  }
+
+   //get reports
+   getData(){
+    var _this=this;
+    // this.moderatorService.getReports()
+    // .subscribe(result => {
+    //   this.items = result;
+    //   this.resultLength = result.length;
+    //   console.log("\nresultLengeth - "+this.resultLength);
+    // })
+
+    this.database.firestore.collection('reports').get().then(docs=>{
+      if(docs.empty) console.log("Empty Data");
+      else{
+        docs.forEach(doc=>{
+          _this.reports.push(doc.data());
+        })
+      }
+    })
+
+  }
+
+
+  //filter the user comments when selected
+  filterComment(id:any){
+    var _this=this;
+    this.database.firestore.collection('reports').doc(id).get().then(doc=>{
+      if(!doc.exists) console.log("Empty");
+      else{
+        _this.comment=doc.data().comment;
+        _this.date=doc.data().date;
+        _this.user_name=doc.data().user_name;
+        _this.user_mail=doc.data().user_email;
+        _this.reported_by=doc.data().reported_by;
+      } 
+    });
+  console.log(this.user_mail);
+  }
+
+
+  //send warning message
+  sendWarning(){
+    try{
+      console.log(this.user_mail);
+      var today=new Date();
+      let date=today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate()+" "+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds();
+      let sentBy="moderator@eventCorp.com";
+      let message="This is a warning message to inform that you have been reported by the system due to inappropriate behaviour.";
+     // sendGrid.setApiKey('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');
+      const email_message={
+        to: this.user_mail,
+        from: sentBy,
+        subject: "Inappropriate Behaviour Reported",
+        text: message,
+        html: '<strong>'+message+'</strong>',
+      }
+      this.sendMail.sendEmail(email_message).subscribe((data)=>{
+        this.success=data;
+        if(this.success.success===true){
+          this._snackBar.open("Successfully Sent","Done", {
+            duration: 2000,
+          });
+        }
+        else{
+          this._snackBar.open("Retry Sending","Done", {
+            duration: 2000,
+          }); 
+        }
+      })
+     // sendGrid.send(email_message);
+    }catch(err){
+      console.log(err);
+    }
+
+    //api- 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
   }
 
 }

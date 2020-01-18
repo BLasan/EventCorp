@@ -22,21 +22,21 @@ export class SupplierProfileComponent implements OnInit {
   constructor(private database:AngularFirestore,private storage:AngularFireStorage) { }
    
   ngOnInit() {
-    deactivate_searchBar();
+   // deactivate_searchBar();
     this.loadUserProfile();
     this.loadUserEvents();
     this.username=localStorage.getItem('nameId');
-    this.form=new FormGroup({
-      f_name:new FormControl('',Validators.required),
-      l_name:new FormControl('',[Validators.required]),
-      address:new FormControl('',Validators.required),
-      city:new FormControl('',Validators.required),
-      country:new FormControl('',Validators.required),
-      email:new FormControl('',[Validators.email,Validators.required]),
-      contact:new FormControl('',[Validators.required]),
-      about_me:new FormControl('',[])
-      // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    });  
+    // this.form=new FormGroup({
+    //   f_name:new FormControl('',Validators.required),
+    //   l_name:new FormControl('',[Validators.required]),
+    //   address:new FormControl('',Validators.required),
+    //   city:new FormControl('',Validators.required),
+    //   country:new FormControl('',Validators.required),
+    //   email:new FormControl('',[Validators.email,Validators.required]),
+    //   contact:new FormControl('',[Validators.required]),
+    //   about_me:new FormControl('',[])
+    //   // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
+    // });  
   }
 
   onSubmit(){
@@ -55,14 +55,14 @@ export class SupplierProfileComponent implements OnInit {
       if(this.image_file){
         storageRef.put(_this.image_file[0]).then(function(snapshot){
           storageRef.getDownloadURL().subscribe(url=>{
-            var user_details={image_url:url,role:"artist",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+            var user_details={img_url:url,role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
             _this.database.collection('register_user').doc(email).update(user_details); 
             remove_uploader();
             });
           });
       }
       else{
-        var user_details={role:"artist",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+        var user_details={role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
         this.database.collection('register_user').doc(email).update(user_details);
       }
     }
@@ -130,6 +130,18 @@ export class SupplierProfileComponent implements OnInit {
         console.log("UseData:"+doc.data().role)
         if(doc.data()){
             _this.user_profile.push(doc.data());
+            _this.form=new FormGroup({
+              user_name:new FormControl(doc.data().user_name,Validators.required),
+              // l_name:new FormControl('',[Validators.required]),
+              address:new FormControl(doc.data().address1+" "+doc.data().address2,Validators.required),
+              city:new FormControl(doc.data().city,Validators.required),
+              country:new FormControl('Sri Lanka',Validators.required),
+              email:new FormControl(doc.data().email,[Validators.email,Validators.required]),
+              contact:new FormControl(doc.data().contact,[Validators.required]),
+              about_me:new FormControl(doc.data().bio,[])
+              // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
+            });
+
         }
     }).catch(function(error) {
       console.log("Error getting document:", error);

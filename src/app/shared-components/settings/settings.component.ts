@@ -49,10 +49,13 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  //check validation errors
   public hasError = (controlName: string, errorName: string) =>{
     return this.form.controls[controlName].hasError(errorName);
   }
 
+
+  //delete account
   deleteAccount(){
     let user=localStorage.getItem('user_name');
     var delete_account=this.database.collection('register_user').doc(user).update({profile_status:'Deleted'});
@@ -73,6 +76,8 @@ export class SettingsComponent implements OnInit {
     this.dialogRef.close();
   }
 
+
+  //change the visibility of data
   changeView(type:any){
 
     disable_visibility();
@@ -210,6 +215,8 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+
+  //recover to previous
   refresh(type:any){
     disable_visibility();
     var _this=this;
@@ -346,6 +353,8 @@ export class SettingsComponent implements OnInit {
     }
   }
 
+
+  //load view settings
   load_view_settings(){
     var _this=this;
     this.database.firestore.collection('visibility').doc(this.user_email).get().then(doc=>{
@@ -361,6 +370,8 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+
+  //resetting password
   reset_password(){
     var _this=this;
     let password=this.form.controls['new_password'].value;
@@ -377,6 +388,8 @@ export class SettingsComponent implements OnInit {
     })
   }
 
+
+  //reset the form
   reset_form(){
     this.form.reset();
   }

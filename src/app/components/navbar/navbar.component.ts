@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit {
     user_details:any=[];
     emp:any=[{age:'abdcc'}]
     count:any=0;
-    role:string;
     home_link:String;
     route_link:string;
     location: Location;
@@ -35,6 +34,7 @@ export class NavbarComponent implements OnInit {
     mobile_menu_visible: any = 0;
     private toggleButton: any;
     onLoaded:boolean=true;
+    user_role:string;
     private sidebarVisible: boolean;
     constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private _db:AngularFirestore,private auth:AngularFireAuth) {
       this.location = location;
@@ -51,6 +51,7 @@ export class NavbarComponent implements OnInit {
     // this.getAdminNotificationCount();
 
     //previous_mode();
+    this.user_role=localStorage.getItem('role');
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
         this.route_link="/artist-notifications";
@@ -217,22 +218,38 @@ export class NavbarComponent implements OnInit {
 
       if(titlee.indexOf('ratings')>-1) return "View User Details";
       if(titlee.indexOf('view-all-products')>-1) return "All Products";
+      if(titlee.indexOf('update-events')>-1) return "Edit Events";
+      if(titlee.indexOf('view-all-events')>-1) return "View All Events";
+      if(titlee==='/payment-bill') return "Payments";
     }
 
-    logout_User(){       
+    logout_User(event:any){  
+        event.preventDefault();
         var _this=this;
         var user=localStorage.getItem('user_name');
+        // alert(user);
+        // alert(this.auth.auth.currentUser.uid)
         console.log(user);
+        var _auth=this.auth.auth;
+        var _home=document.getElementById('logout_route');
         // alert(user)
         // disable_logout();
-        this._db.firestore.collection('register_user').doc(user).update({active_status:'logout'});
+        this._db.firestore.collection('register_user').doc(user).update({active_status:'logout'}).then(()=>{
+            _auth.signOut();
+            _home.click();
+        }).catch(err=>{
+            console.log(err);
+        });
+
+        //remove localstorage items
         localStorage.removeItem('user_name');
         localStorage.removeItem('role');
         localStorage.removeItem('token');
         localStorage.removeItem('nameId');
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('searched_user_email');
-        this.auth.auth.signOut();
+        localStorage.removeItem('status');
+        localStorage.removeItem('isBookingReq');
         // navigate_to_home();
         // this._loginService.logOut();
         // if(localStorage.getItem('searched_user_email'))

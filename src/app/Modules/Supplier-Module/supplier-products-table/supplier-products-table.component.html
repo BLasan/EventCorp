@@ -1,0 +1,52 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-warning" >
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h4 class="card-title">PRODUCTS AVAILABLE</h4>
+            <p class="card-category">Manage Products Here</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <!-- <p style="padding-top:20px;color:white">Search Products :</p> -->
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <div class="form-group" style="padding-top:5px">
+                  <input type="text" placeholder="Search Here" class="form-control" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+              </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content table-responsive table-full-width" [ngClass]="{'list-group':items_array.length>15}">
+        <table class="table">
+          <thead class="text-primary">
+            <th></th>
+            <th>Item Code</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Remove</th>
+            <th>Edit</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let items of items_array | searchItems:searchText">
+              <td><a style="text-decoration: none;" href="{{items.image_url}}" target="_blank"><img src="{{items.image_url}}" style="height:50px;width:50px"></a></td>
+              <td>{{items.code}}</td>
+              <td>{{items.item_name}}</td>
+              <td>{{items.item_type}}</td>
+              <td>{{items.price}}</td>
+              <td>{{items.quantity}}</td>
+              <td class="text-danger"><b><a style="text-decoration: none;color:red" href="#" (click)="remove(items.code,$event)">REMOVE</a></b></td>
+              <td class="text-success"><b><a href="edit-product/{{items.code}}" style="text-decoration: none;color:green">EDIT</a></b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

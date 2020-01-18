@@ -1,3 +1,70 @@
-<p>
-  payment-bill works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-warning" >
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h4 class="card-title">My Bills</h4>
+            <p class="card-category">All Billing Details</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <p style="padding-top:20px;color:white;padding-left:40px">Search Bills :</p>
+              </div>
+              <div class="col-md-8 col-sm-8">
+                <div class="form-group" style="padding-top:5px">
+                  <input type="text" placeholder="Search By User Name" class="form-control" [(ngModel)]="searchBill" [ngModelOptions]="{standalone: true}"/>
+              </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content table-responsive table-full-width">
+        <table class="table">
+          <thead class="text-danger">
+            <th>ID</th>
+            <th>Date</th>
+            <th>Paid To</th>
+            <th>Amount (Rs:)</th>
+            <th>View More</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bills of bill_array| searchBills:searchBill">
+              <td>{{bills._id}}</td>
+              <td>{{bills.data.date}}</td>
+              <td>{{bills.data.receiver_name}}</td>
+              <td class="text-danger">{{bills.data.amount}}</td>
+              <td><a href="#" style="text-decoration: none;" (click)="openModal(bills._id)" data-toggle="modal" data-target="#exampleModal">View More</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true" *ngIf="isModalOpen">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: transparent;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalTitle" style="color:white">Billing Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: white;">Name : {{filtered_data[0].data.receiver_name}}</p>
+        <p style="color: white;">Email : {{filtered_data[0].data.receiver_email}}</p>
+        <p style="color: white;">Date : {{filtered_data[0].data.date}}</p>
+        <p style="color: white;">Time : {{filtered_data[0].data.time}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="downloadBill()">Download Bill</button>
+      </div>
+    </div>
+  </div>
+</div>

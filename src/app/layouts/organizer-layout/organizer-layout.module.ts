@@ -61,8 +61,12 @@ import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-event
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
-
-
+import { PaypalPaymentComponent } from 'app/shared-components/paypal-payment/paypal-payment.component';
+import { PaymentUsersComponent } from 'app/Modules/Organizer-Module/payment-users/payment-users.component';
+import { UpdateEventsComponent } from 'app/Modules/Organizer-Module/update-events/update-events.component';
+import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
+import { SearchBillsPipe } from 'app/Modules/Organizer-Module/searchBills.pipe';
+import { FullCalendarModule } from '@fullcalendar/angular';
   @NgModule({
     imports: [
       CommonModule,
@@ -105,8 +109,7 @@ import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-re
       MatListModule,
       NgxMatSelectSearchModule,
       SharedComponentsModule,
-      FullCalendarModule
-      
+      FullCalendarModule,
     ],
     declarations: [
       OrganizerHomeComponent,
@@ -118,6 +121,11 @@ import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-re
       PaymentBillComponent,
       EventsAddComponent
       ViewRequestStatusComponent,
+      UpdateEventsComponent,
+      SearchBillsPipe
+      // PaypalPaymentComponent,
+      // PaymentUsersComponent
+      // RatingSystemComponent
     ],
    
   })

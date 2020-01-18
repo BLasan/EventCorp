@@ -1,0 +1,49 @@
+.list-group{
+    max-height: 420px;
+    margin-bottom: 10px;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+
+  .container1 {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .container1 img {
+    width: 100%;
+    height: auto;
+  }
+
+  .container1 video{
+    width: 100%;
+    height: auto;
+  }
+  
+  .container1 .btn1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:transparent;
+    color: red;
+    font-size: 8px;
+    padding: 0px 2px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    width: 10px!important;
+    // height: 5px!important;
+  }
+  
+  .container1 .btn1:hover {
+    background-color: black;
+  }
+
+  a{
+    text-decoration: none;
+  }

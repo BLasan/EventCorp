@@ -19,8 +19,10 @@
              <td>{{status.user.name}}</td>
              <td>{{status.event_name}}</td>
              <td>{{status.date}}</td>
-             <td>{{status.status}}</td>
-             <td><a href="" id="cancel_req" style="text-decoration: none;color:red" (click)="cancelReq(status.user.email,status.event_id)">CANCEL REQUEST</a></td>
+             <td *ngIf="status.status==='Accepted'"><b style="color:green">{{status.status}}</b></td>
+             <td *ngIf="status.status==='Rejected'"><b style="color:red">{{status.status}}</b></td>
+             <td *ngIf="status.status==='Pending'"><b style="color:gold">{{status.status}}</b></td>
+             <td><a href="" *ngIf="status.status==='Pending'" id="cancel_req" style="text-decoration: none;color:red" (click)="cancelReq(status.user.email,status.event_id)">CANCEL REQUEST</a></td>
            </tr>
           </tbody>
         </table>

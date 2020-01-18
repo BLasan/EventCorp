@@ -55,6 +55,8 @@ import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
+import { EditProductsComponent } from 'app/Modules/Supplier-Module/edit-products/edit-products.component';
+import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
 
   @NgModule({
     imports: [
@@ -106,6 +108,8 @@ import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
       SupplierSettingsComponent,
       SupplierEventsComponent,
       SupplierAddItemsComponent,
+      EditProductsComponent,
+      SupplierProductsTableComponent,
       // ViewAllProductsComponent,
       // SearchItemsPipe
      // MyChatsComponent,

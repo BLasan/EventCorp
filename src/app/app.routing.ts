@@ -33,6 +33,10 @@ import { HelpComponent } from './shared-components/help/help.component';
 import { AuthGuardModeratorService } from './services/Authentication/authGuard_moderator.service';
 import { ModeratorLayoutComponent } from './layouts/moderator-layout/moderator-layout.component';
 import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/payment-users.component';
+import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
+import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
+import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -46,7 +50,7 @@ const routes: Routes =[
   },
 
   {
-    path:'email-verify',
+    path:'email-verify/:link',
     component:EmailVerifyComponent
   },
   {
@@ -121,9 +125,17 @@ const routes: Routes =[
     path:'signup',
     component:SignupComponent
   },
-  {
-    path:'payment/:item_name/:quantity/:amount',
-    component:PaypalPaymentComponent
+  { path:'payment/:item_name/:quantity/:amount',
+    component:PaypalPaymentComponent,
+    canActivate:[AuthGuardPaymentService],
+  },
+  { path:'user-payments/:user_name/:user_email/:quantity/:amount/:_id',
+    component:PaymentUsersComponent,
+    canActivate:[AuthGuardPaymentService],
+  },
+  { path:'view-location/:id',
+    component:ViewLocationComponent,
+    canActivate:[AuthGuardLocationService],
   },
 
 
