@@ -89,6 +89,8 @@ import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.com
 import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
 import { EventsAddComponent } from './Modules/Organizer-Module/organizer-events/events-add/events-add.component';
 import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
+import { SearchItemsPipe } from './Modules/Supplier-Module/searchItems.pipe';
+import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-request-status/view-request-status.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';

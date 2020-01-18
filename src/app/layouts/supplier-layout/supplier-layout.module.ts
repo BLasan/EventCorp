@@ -106,8 +106,8 @@ import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
       SupplierSettingsComponent,
       SupplierEventsComponent,
       SupplierAddItemsComponent,
-      ViewAllProductsComponent,
-      SearchItemsPipe
+      // ViewAllProductsComponent,
+      // SearchItemsPipe
      // MyChatsComponent,
       // CalendarComponent
     ],

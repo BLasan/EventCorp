@@ -10,9 +10,10 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommentsService } from 'app/services/comments.service';
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import { MatDialog, MatDialogConfig } from "@angular/material";
 import { ReportDialogComponent } from 'app/Modules/report-dialog/report-dialog.component';
-
+import { UploadService } from '../services/upload.service';
+import { Upload } from '../Modules/upload';
 
 
 @Component({
@@ -27,6 +28,9 @@ export class VenueProfileComponent implements OnInit {
   comments: any;
   result: any;
 
+  selectedFiles: FileList;
+  currentUpload: Upload;
+
   constructor(
     private db: AngularFirestore,
     private loginService: LoginService,
@@ -34,24 +38,35 @@ export class VenueProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private upSvc: UploadService
   ) {
     // this.users = 
-    console.log('Current User - ',loginService.currentUser())
+    console.log('Current User - ', loginService.currentUser())
     db.collection('register_user').doc(loginService.currentUser()).collection('venue').doc('hall').valueChanges()
-    .pipe(first())
-    .subscribe( snapshot => {
-      console.log('snapshot - ',snapshot)
-      this.user = snapshot
-    });
+      .pipe(first())
+      .subscribe(snapshot => {
+        console.log('snapshot - ', snapshot)
+        this.user = snapshot
+      });
 
   }
 
-//   trackHero(index, comment) {
-//     console.log(comment.id);
-//     // return comment ? comment.id : undefined;
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+  }
 
-// }
+  uploadSingle() {
+    let file = this.selectedFiles.item(0)
+    this.currentUpload = new Upload(file);
+    this.upSvc.pushUpload(this.currentUpload)
+  }
+
+  //   trackHero(index, comment) {
+  //     console.log(comment.id);
+  //     // return comment ? comment.id : undefined;
+
+  // }
 
   openReportCommentsDialog(i) {
     // console.log("Comment ID - "+comment);
@@ -63,10 +78,10 @@ export class VenueProfileComponent implements OnInit {
     dialogConfig.data = {
       idx: i,
       // title: 'Angular For Beginners'
-  };
+    };
 
     this.dialog.open(ReportDialogComponent, dialogConfig);
-}
+  }
 
   ngOnInit() {
     this.route.data.subscribe(routeData => {
@@ -80,9 +95,9 @@ export class VenueProfileComponent implements OnInit {
     });
 
     this.db.collection('Venues').doc(this.item.id).collection('comments').valueChanges()
-    .subscribe(result => {
-      this.comments = result;
-      console.log('Comments - ',this.comments);
-    })
+      .subscribe(result => {
+        this.comments = result;
+        console.log('Comments - ', this.comments);
+      })
   }
 }

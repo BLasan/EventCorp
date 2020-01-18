@@ -1,7 +1,8 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-6">     <!--left main card-->
+      <div class="col-6">
+        <!--left main card-->
         <mat-card class="left-main-card">
           <h1 class="ml-1">{{ item?.v_name }}</h1>
           <h1 class="ml-1" *ngIf="this.item == NULL">{{ user?.v_name }}</h1>
@@ -34,27 +35,27 @@
           <div class="row">
             <mat-card>
               <div class="row">
-              <div class="col">Seating Capacity </div>
-              <div class="col">{{ item?.seating_capacity }}</div>
-            </div>
+                <div class="col">Seating Capacity </div>
+                <div class="col">{{ item?.seating_capacity }}</div>
+              </div>
             </mat-card>
           </div>
           <div class="row">
-              <mat-card style="margin-top:20px">
-                <div class="row">
+            <mat-card style="margin-top:20px">
+              <div class="row">
                 <div class="col">Fee </div>
                 <div class="col">Rs. {{ item?.fee }}</div>
               </div>
-              </mat-card>
-            </div>
-            <div class="row">
-                <mat-card style="margin-top:20px">
-                  <div class="row">
-                  <div class="col">Car Park </div>
-                  <div class="col">{{ item?.car_parking }}</div>
-                </div>
-                </mat-card>
+            </mat-card>
+          </div>
+          <div class="row">
+            <mat-card style="margin-top:20px">
+              <div class="row">
+                <div class="col">Car Park </div>
+                <div class="col">{{ item?.car_parking }}</div>
               </div>
+            </mat-card>
+          </div>
           <!-- <table class="table table-light text-center tab-under-caro">
             <tbody>
               <tr>
@@ -62,7 +63,7 @@
                 <td *ngIf="this.item == NULL; else elseBlock1">{{ user?.seating_capacity }}</td>
                 <ng-template #elseBlock1>{{ item?.seating_capacity }}</ng-template>
               </tr> -->
-              <!-- <tr>
+          <!-- <tr>
                 <th scope="col">Air Conditioned</th>
                 <td *ngIf = 'venuek.ac == "Yes"'><i class="material-icons">
                     check
@@ -72,7 +73,7 @@
                   </i></td>
   
               </tr> -->
-              <!-- <tr>
+          <!-- <tr>
                 <th scope="col">Fee</th>
                 <td *ngIf="this.item == NULL; else elseBlock2">{{ user?.fee }}</td>
                 <ng-template #elseBlock2>{{ item?.fee }}</ng-template>
@@ -84,83 +85,112 @@
               </tr>
             </tbody>
           </table> -->
+
+          <div *ngIf="currentUpload">
+            <div class="progress">
+              <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }">
+              </div>
+            </div>
+            Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
+          </div>
+
+          <label>
+            <input type="file" (change)="detectFiles($event)">
+          </label>
+
+          <button [disabled]="!selectedFiles" (click)="uploadSingle()">
+
+            Upload Single
+          </button>
+
+          <label>
+            <input type="file" (change)="detectFiles($event)" multiple>
+          </label>
+
+          <button [disabled]="!selectedFiles" (click)="uploadMulti()">
+
+            Upload Multiple
+          </button>
+
         </mat-card>
       </div>
-      <div class="col-6-hdhdh">     <!--right main card-->
+      <div class="col-6-hdhdh">
+        <!--right main card-->
         <mat-card class="right-main-card">
-        <table class="table table-light text-center">
-          <tbody>
-            <tr>
-              <td colspan="2"><a routerLink="/venueCalendar"><button type="button" name="event_calendar"
-                    class="btn btn-primary">Event Calendar</button></a></td>
-            </tr>
-            <tr>
-              <td colspan="2"><button type="button" name="seating_plan" class="btn btn-primary" data-toggle="modal"
-                  data-target="#seating_plan_modal">Seating Plan</button>
-                <div class="modal fade" id="seating_plan_modal" tabindex="-1" role="dialog"
-                  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:transparent">
-                  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Seating Plan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <h3>Ground Floor</h3>
-                        <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_groundfloor.jpg"
-                          class="img-fluid" alt="Responsive image">
-                        <h3>First Balcony</h3>
-                        <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_firstBalcony.jpg"
-                          class="img-fluid" alt="Responsive image">
-                        <h3>Second Balcony</h3>
-                        <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_secondBalcony.jpg"
-                          class="img-fluid" alt="Responsive image">
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <table class="table table-light text-center">
+            <tbody>
+              <tr>
+                <td colspan="2"><a routerLink="/venueCalendar"><button type="button" name="event_calendar"
+                      class="btn btn-primary">Event Calendar</button></a></td>
+              </tr>
+              <tr>
+                <td colspan="2"><button type="button" name="seating_plan" class="btn btn-primary" data-toggle="modal"
+                    data-target="#seating_plan_modal">Seating Plan</button>
+                  <div class="modal fade" id="seating_plan_modal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:transparent">
+                    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Seating Plan</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <h3>Ground Floor</h3>
+                          <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_groundfloor.jpg"
+                            class="img-fluid" alt="Responsive image">
+                          <h3>First Balcony</h3>
+                          <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_firstBalcony.jpg"
+                            class="img-fluid" alt="Responsive image">
+                          <h3>Second Balcony</h3>
+                          <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_secondBalcony.jpg"
+                            class="img-fluid" alt="Responsive image">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2"><button type="button" name="terms_conditions" class="btn btn-primary">Terms and
-                  Conditions</button></td>
-            </tr>
-            <tr>
-              <td colspan="2"><a routerLink="/venue-reservation-form"><button type="button"
-                    name="venue_reservation_form" class="btn btn-primary">Add Reservation</button></a></td>
-            </tr>
-          </tbody>
-        </table>
-      </mat-card>
-      <!-- Comments Section -->
-    <mat-card class="example-card-background">
-        <mat-card-header mat1>
-          <mat-card-title>Comments</mat-card-title>
-        </mat-card-header>
-        <mat-card *ngFor="let comment of comments; trackBy: trackHero; let i = index" class="example-card">
-          <mat-card-header class="header-inner">
-            <mat-card-title>{{comment?.user_name}}  {{i}}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>
-              {{comment?.comment}}
-              <span><button mat-button class="report-button" color="primary" (click)="openReportCommentsDialog(i)">Report</button></span>
-            </p>
-            
-          </mat-card-content>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2"><button type="button" name="terms_conditions" class="btn btn-primary">Terms and
+                    Conditions</button></td>
+              </tr>
+              <tr>
+                <td colspan="2"><a routerLink="/venue-reservation-form"><button type="button"
+                      name="venue_reservation_form" class="btn btn-primary">Add Reservation</button></a></td>
+              </tr>
+            </tbody>
+          </table>
         </mat-card>
-      </mat-card>
+        <!-- Comments Section -->
+        <mat-card class="example-card-background">
+          <mat-card-header mat1>
+            <mat-card-title>Comments</mat-card-title>
+          </mat-card-header>
+          <mat-card *ngFor="let comment of comments; trackBy: trackHero; let i = index" class="example-card">
+            <mat-card-header class="header-inner">
+              <mat-card-title>{{comment?.user_name}} {{i}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>
+                {{comment?.comment}}
+                <span><button mat-button class="report-button" color="primary"
+                    (click)="openReportCommentsDialog(i)">Report</button></span>
+              </p>
+
+            </mat-card-content>
+          </mat-card>
+        </mat-card>
       </div>
     </div>
-    
+
   </div>
 </div>

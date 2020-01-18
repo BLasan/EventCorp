@@ -6,6 +6,7 @@ import { ChatService } from 'app/services/chat.service';
 import {generate_chat_id} from '../../../scripts/generate_id';
 import { filter } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { update_notification_count } from '../../../scripts/notification_count_update';
 // import { pay} from 'scripts/payhere.js';
 declare var $: any;
 @Component({
@@ -35,7 +36,9 @@ export class NotificationsComponent implements OnInit {
   req_time:any;
   req_email:any;
   req_name:string;
-  req_status:string;
+  req_status:string="";
+  req_id:any="";
+  eventName:string="";
   constructor(private _notification:NotificationService,private database:AngularFirestore) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
@@ -167,13 +170,13 @@ mark_view_booking_notification(sender_email:string,type:string){
     console.log(sender_email)
     console.log(this.booking_data);
     if(localStorage.getItem('role')==='organizer'){
-      this.filtered_details=this.booking_data.filter(x=>x.user_email==sender_email);
+      this.filtered_details=this.booking_data.filter(x=>x.user_email!==sender_email);
       this.req_from=this.filtered_details[0].user_email;
       this.req_name=this.filtered_details[0].user_name;
       this.req_time=this.filtered_details[0].date;
     }
     else{
-      this.filtered_details=this.booking_data.filter(x=>x.sender_email==sender_email);
+      this.filtered_details=this.booking_data.filter(x=>x.sender_email!==sender_email);
       this.req_from=this.filtered_details[0].sender_email;
       this.req_name=this.filtered_details[0].sender_name;
       this.req_time=this.filtered_details[0].date;
@@ -183,7 +186,7 @@ mark_view_booking_notification(sender_email:string,type:string){
 
   if(!this.isBookingView){
     console.log(this.message_data);
-    this.filtered_details=this.message_data.filter(x=>x.sender_email==sender_email);
+    this.filtered_details=this.message_data.filter(x=>x.sender_email!==sender_email);
     this.req_from=this.filtered_details[0].sender_email;
     this.req_name=this.filtered_details[0].sender_name;
     this.req_time=this.filtered_details[0].date; 
@@ -235,6 +238,15 @@ mark_chat_notifications(id:string){
   localStorage.setItem('searched_user_email',id);
 }
 
+//set modal data
+openModal(email:string,name:string,event:string,id:any,date:any){
+  this.req_from=email;
+  this.req_name=name;
+  this.req_time=date;
+  this.eventName=event;
+  this.req_id=id;
+}
+
 
 booking(){
   this.checked=false;
@@ -257,6 +269,57 @@ addUserEmail(email,status){
 
 pay(){
   // pay();
+}
+
+decline(id:any){
+  var _this=this;
+  let temArray:any=[];
+  let count=document.getElementById('notification_count_id').innerHTML.toString();
+  let _count=parseInt(count)-1;
+  console.log(_count);
+  update_notification_count(_count);
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true});
+  this.database.firestore.collection('register_user').doc(this.req_from).collection('BookingStatus').doc(id).get().then(docs=>{
+    if(!docs.exists) console.log("Empty Data");
+    else{
+      for(var i=0;i<docs.data().user_data.length;i++){
+        if(docs.data().user_data[i].user.email===localStorage.getItem('user_name')){
+          var obj={date:docs.data().user_data[i].date,event_id:docs.data().event_id,event_name:docs.data().user_data[i].event_id,status:"Decline",user:{email:docs.data().user_data[i].user.email,name:docs.data().user_data[i].user.name}};
+          temArray.push(obj);
+        }
+        else{
+          temArray.push(docs.data().user_data[i]);  
+        }
+      }
+      _this.database.collection('register_user').doc(_this.req_from).collection('BookingStatus').doc(id).update({user_data:temArray});
+    }
+  });
+}
+
+accept(id:any){
+  var _this=this;
+  console.log(this.req_from);
+  let count=document.getElementById('notification_count_id').innerHTML.toString();
+  let _count=parseInt(count)-1;
+  console.log(_count);
+  update_notification_count(_count);
+  let temArray:any=[]
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true});
+  this.database.firestore.collection('register_user').doc(this.req_from).collection('BookingStatus').doc(id).get().then(docs=>{
+    if(!docs.exists) console.log("Empty Data");
+    else{
+      for(var i=0;i<docs.data().user_data.length;i++){
+        if(docs.data().user_data[i].user.email===localStorage.getItem('user_name')){
+          var obj={date:docs.data().user_data[i].date,event_id:docs.data().event_id,event_name:docs.data().user_data[i].event_id,status:"Accepted",user:{email:docs.data().user_data[i].user.email,name:docs.data().user_data[i].user.name}};
+          temArray.push(obj);
+        }
+        else{
+          temArray.push(docs.data().user_data[i]);  
+        }
+      }
+      _this.database.collection('register_user').doc(_this.req_from).collection('BookingStatus').doc(id).update({user_data:temArray});
+    }
+  })
 }
 
 // joinChat(roomId:string){
