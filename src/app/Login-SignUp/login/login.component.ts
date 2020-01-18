@@ -69,33 +69,55 @@ export class LoginComponent implements OnInit {
       if(!doc.exists){
         _this.isTrue=false;
         _this.isLoading=false;
-
       }
       else{
         if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
           _this.isTrue=true;
           if(_this.checked) _this.login_service.activateRememberUser(email);
           else _this.login_service.destroyRememberUser();
-  
-          _this._db.firestore.collection("register_user").doc(email).update({active_status:"login"}).then(()=>{
+
+          //login with email and password=firebase auth
+          _this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
             _this.isLoading=false;
-            localStorage.setItem('loggedIn','true');
-            localStorage.setItem('nameId',doc.data().user_name);
-            localStorage.setItem('user_name',email);
-            localStorage.setItem('role',doc.data().role);
-            _this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
-            user.user.getIdToken().then(user=>{
-              localStorage.setItem('authToken',user.toString());
-              redirect_to(doc.data().role);
-            });
+            _this._db.firestore.collection('register_user').doc(email).update({active_status:'login',uId:user.user.uid}).then(()=>{
+              //store data
+              localStorage.setItem('loggedIn','true');
+              localStorage.setItem('nameId',doc.data().user_name);
+              localStorage.setItem('user_name',email);
+              localStorage.setItem('role',doc.data().role);
+              //get user token
+              user.user.getIdToken().then(user=>{
+                localStorage.setItem('authToken',user.toString());
+                redirect_to(doc.data().role);
+              });
+            }).catch(err=>{
+              console.log(err);
+              _this.isTrue=false;
+            }).catch(err=>{
+              console.log(err);
+              _this.isTrue=false;
             })
-          }).catch(err=>{
-  
-            //if no user occurs
-            _this.isLoading=false;
-            _this.isTrue=false;
-            console.log(err);
           })
+
+          // _this._db.firestore.collection("register_user").doc(email).update({active_status:"login"}).then(()=>{
+          //   _this.isLoading=false;
+          //   localStorage.setItem('loggedIn','true');
+          //   localStorage.setItem('nameId',doc.data().user_name);
+          //   localStorage.setItem('user_name',email);
+          //   localStorage.setItem('role',doc.data().role);
+          //   _this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
+          //   user.user.getIdToken().then(user=>{
+          //     localStorage.setItem('authToken',user.toString());
+          //     redirect_to(doc.data().role);
+          //   });
+          //   })
+          // }).catch(err=>{
+  
+          //   //if no user occurs
+          //   _this.isLoading=false;
+          //   _this.isTrue=false;
+          //   console.log(err);
+          // })
           //  _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
         }
         else{
@@ -150,7 +172,7 @@ export class LoginComponent implements OnInit {
                   "<table class='m_1283199651525359358row m_1283199651525359358collapse' style='border-collapse:collapse;border-spacing:0;display:table;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'>"+
                     "<th class='m_1283199651525359358small-12 m_1283199651525359358columns' style='Margin:0 auto;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0 auto;padding:0;padding-bottom:0;padding-left:0;padding-right:0;text-align:left;width:588px'><table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><th style='Margin:0;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left'>"+
                     "<h1 style='Margin:0;Margin-bottom:px;color:#ffffff;font-family:Georgia,serif;font-size:30px;font-weight:normal;line-height:1.3;margin:0;margin-bottom:px;padding:0;text-align:left;word-wrap:normal'>"+
-                      "Overleaf"+
+                      "EventCorp"+
                     "</h1>"+
                     "</th>"+
                     "<th class='m_1283199651525359358expander' style='Margin:0;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0!important;text-align:left;width:0'></th></tr></tbody></table></th>"+
@@ -163,27 +185,27 @@ export class LoginComponent implements OnInit {
                   "<table class='m_1283199651525359358row' style='border-collapse:collapse;border-spacing:0;display:table;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'>"+
                     "<th class='m_1283199651525359358small-12 m_1283199651525359358columns' style='Margin:0 auto;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0 auto;padding:0;padding-bottom:16px;padding-left:16px;padding-right:16px;text-align:left;width:564px'><table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><th style='Margin:0;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left'>"+
                     "<h3 class='m_1283199651525359358avoid-auto-linking' style='Margin:0;color:#5d6879;font-family:Georgia,serif;font-size:24px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;word-wrap:normal'>"+
-                       "Password Reset"+
+                       "Verify Email"+
                     "</h3>"+
                   "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
                     "<p style='Margin:0;Margin-bottom:10px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left'>"+
-                     "Hi,"+
+                     "Hello,"+
                     "</p>"+
                     "<p class='m_1283199651525359358avoid-auto-linking' style='Margin:0;Margin-bottom:10px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left'>"+
-                    "</p><p>We got a request to reset your Overleaf password.</p>"+
+                    "</p><p>You have to verify your Email to enter to the EventCorp.</p>"+
                     "<p></p>"+
                     "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
                       "<center style='min-width:532px;width:100%'>"+
                     "<table class='m_1283199651525359358button' style='Margin:0 0 16px 0;border-collapse:collapse;border-spacing:0;float:none;margin:0 0 16px 0;padding:0;text-align:center;vertical-align:top;width:auto'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td style='Margin:0;border-collapse:collapse!important;border-radius:9999px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'><table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td style='Margin:0;background:#4f9c45;border:none;border-collapse:collapse!important;border-radius:9999px;color:#fefefe;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>"+
                       "<a href='https://www.overleaf.com/user/password/set?passwordResetToken=c85f1f226d5acf5212e0069271279a5b7ff96c3a2d7c359c226fec5b8eaeca2a&amp;email=benuraab%40gmail.com' style='Margin:0;border:0 solid #4f9c45;border-radius:9999px;color:#fefefe;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;line-height:1.3;margin:0;padding:8px 16px 8px 16px;text-align:left;text-decoration:none' target='_blank' data-saferedirecturl='https://www.google.com/url?q=https://www.overleaf.com/user/password/set?passwordResetToken%3Dc85f1f226d5acf5212e0069271279a5b7ff96c3a2d7c359c226fec5b8eaeca2a%26email%3Dbenuraab%2540gmail.com&amp;source=gmail&amp;ust=1579308518849000&amp;usg=AFQjCNEJRyD1OJWAP4vbAthF3iUsm5woaw'>"+
-                        "Reset password"+
+                        "Verify Email"+
                       "</a>"+
                     "</td></tr></tbody></table></td></tr></tbody></table>"+
                     "</center>"+
           "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
           "<p class='m_1283199651525359358avoid-auto-linking' style='Margin:0;Margin-bottom:10px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left'>"+
-            "</p><p>If you ignore this message, your password won't be changed.</p>"+
-          "<p>If you didn't request a password reset, let us know.</p>"+
+            "</p><p>If you ignore this message, you will not be eligible to enter to the EventCorp.</p>"+
+          "<p>If you didn't request a email verification, let us know.</p>"+
           "<p></p>"+
           "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
           "<p class='m_1283199651525359358avoid-auto-linking' style='Margin:0;Margin-bottom:10px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:normal;margin:0;margin-bottom:10px;padding:0;text-align:left'>"+

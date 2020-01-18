@@ -1,9 +1,11 @@
 <div class="main-content">
   <div class="container-fluid" style="margin-top:100px;">
     <div class="d-flex justify-content-center">
-        <img src="assets/img/verify_account.jpg" style="width:150px;height:150px" align="center">
+        <img src="assets/img/verify_account.jpg" style="width:150px;height:150px" align="center" *ngIf="!isValidated">
+        <img src="assets/img/link_off.png" style="width:150px;height:150px" align="center" *ngIf="isValidated">
     </div>
-    <h1 style="color:green;margin-top:30px;" align="center"><b>Email Verification Success</b></h1>
+    <h1 style="color:green;margin-top:30px;" align="center" *ngIf="isValidated"><b>Email Verification Success</b></h1>
+    <h1 style="color:red;margin-top:30px;" align="center" *ngIf="!isValidated"><b>This Link is No Longer Available</b>This </h1>
   </div> 
 </div>
 

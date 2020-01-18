@@ -247,6 +247,9 @@ openModal(email:string,name:string,event:string,id:any,date:any){
   this.req_time=date;
   this.eventName=event;
   this.req_id=id;
+  // console.log(this.req_time);
+  // console.log(this.req_from);
+  // console.log(this.req_name);
 }
 
 

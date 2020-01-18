@@ -22,7 +22,10 @@ export class SupplierEventsComponent implements OnInit {
 
     //load events to the calendar
     this.getData().subscribe(data=>{
+      if(data.length>1)
       calendar(data);
+      else
+      calendar({});
     });
 
    // deactivate_searchBar();

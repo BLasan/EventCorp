@@ -54,7 +54,12 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   constructor(private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage,private snackBar:MatSnackBar,private svc:VenueCalendarService) { }
  
   ngOnInit() {
-    this.getData().subscribe(data=>calendar(data))
+    this.getData().subscribe(data=>{
+      if(data.length>1)
+      calendar(data);
+      else
+      calendar({});
+    })
     disable_event_links();
     deactivate_searchBar();
     disable_uploaders();

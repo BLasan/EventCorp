@@ -248,7 +248,8 @@ export class NavbarComponent implements OnInit {
         localStorage.removeItem('nameId');
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('searched_user_email');
-
+        localStorage.removeItem('status');
+        localStorage.removeItem('isBookingReq');
         // navigate_to_home();
         // this._loginService.logOut();
         // if(localStorage.getItem('searched_user_email'))
