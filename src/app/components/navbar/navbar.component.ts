@@ -258,7 +258,7 @@ export class NavbarComponent implements OnInit {
 
     //store searched user email
     addUserEmail(email:string){
-        alert(email)
+        //alert(email)
         localStorage.setItem('searched_user_email',email);
         //click_redirect_href();
     }
@@ -271,6 +271,7 @@ export class NavbarComponent implements OnInit {
 
     getNotificationCount(){
         var _this=this;
+        var elements=document.getElementById('notification_count_id');
         let user=localStorage.getItem('user_name');
         console.log(user)
         this._db.firestore.collection("register_user").doc(user).collection('notification-messages')
@@ -305,7 +306,7 @@ export class NavbarComponent implements OnInit {
             changes.forEach(element => {
                 if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
-                    (document.getElementById('notification_count_id') as HTMLElement).innerHTML=_this.notification_count.toString();
+                    elements.innerHTML=_this.notification_count.toString();
                  }
      
                 else if(element.type=='modified'){
@@ -313,6 +314,7 @@ export class NavbarComponent implements OnInit {
                     _this.notification_count-=1;
                     else
                     _this.notification_count+=1;
+                    elements.innerHTML=_this.notification_count.toString();
                 }
      
                 else if(element.type=='removed'){
@@ -328,7 +330,7 @@ export class NavbarComponent implements OnInit {
             changes.forEach(element => {
                 if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
-                    (document.getElementById('notification_count_id') as HTMLElement).innerHTML=_this.notification_count.toString();
+                    elements.innerHTML=_this.notification_count.toString();
                  }
      
                 else if(element.type=='modified'){
@@ -336,6 +338,7 @@ export class NavbarComponent implements OnInit {
                     _this.notification_count-=1;
                     else
                     _this.notification_count+=1;
+                    elements.innerHTML=_this.notification_count.toString();
                 }
      
                 else if(element.type=='removed'){

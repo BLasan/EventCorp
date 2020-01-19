@@ -55,10 +55,10 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
  
   ngOnInit() {
     this.getData().subscribe(data=>{
-      if(data.length>1)
+      // if(data.length>1)
       calendar(data);
-      else
-      calendar({});
+      // else
+      // calendar({});
     })
     disable_event_links();
     deactivate_searchBar();
@@ -200,7 +200,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   
                 let date=new Date();
                 let allUsers:any=[];
-                let date_string=date.getFullYear()+"-"+date.getMonth()+1+"-"+date.getDate();
+                let date_string=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
             
                 //send requests for artists
                 for(var i=0;i<artist.length;i++){
@@ -287,7 +287,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
   
                 let date=new Date();
                 let allUsers:any=[];
-                let date_string=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate();
+                let date_string=date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
             
                 //send requests for artists
                 for(var i=0;i<artist.length;i++){

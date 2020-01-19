@@ -55,7 +55,7 @@ export function disable_load_more(){
 }
 
 export function disable_visibility(){
-    alert("J")
+    //alert("J")
     $(document).on('click','#visibility',function(e){
         e.preventDefault();
     }) 

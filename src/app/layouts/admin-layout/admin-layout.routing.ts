@@ -22,5 +22,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'admin-notifications',  component: AdminNotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
-    { path:'view-events' , component:ViewUserEventsComponent},
+    // { path:'view-events' , component:ViewUserEventsComponent},
 ];

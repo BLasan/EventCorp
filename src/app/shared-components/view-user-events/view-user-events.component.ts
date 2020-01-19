@@ -19,11 +19,13 @@ export class ViewUserEventsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.getData(params.uid).subscribe(data=>{
         let event_data=data;
-        console.log(event_data[0])
-        if(event_data[0]!==undefined){
-          console.log(data)
-          calendar(data);
-        }
+        calendar(event_data)
+        // console.log(event_data[0])
+        // console.log(event_data===undefined)
+        // if(event_data!==undefined){
+        //   console.log(data)
+        //   calendar(data);
+        // }
         // else
         // calendar({});
       });
@@ -38,9 +40,8 @@ export class ViewUserEventsComponent implements OnInit {
           let data:any=event;
           if(data.paid===true){
             var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
-            return obj;
           }
-          return;
+          return obj;
         }))
       );
     }

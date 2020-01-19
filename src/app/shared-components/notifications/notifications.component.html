@@ -55,7 +55,7 @@
                                 <b>Your request to {{booking_data.data.user_name}} has been {{booking_data.data.status}}.To do payments click the following button
                                     <!-- <a href="https://sandbox.payhere.lk/pay/ob5d67668">PayPal</a> -->
                                 </b>
-                                <form #form action="/user-payments/{{booking_data.data.user_name}}/{{booking_data.data.user_email}}/0/1000/{{booking_data._id}}" target="_blank" method="GET">
+                                <form #form action="/user-payments/{{booking_data.data.user_name}}/{{booking_data.data.user_email}}/0/1000/{{booking_data.data.event_id}}/{{booking_data._id}}" target="_blank" method="GET">
                                     <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png" style="width:150px" value="Buy Now" (click)="form.submit()">
                                 </form>
                             </span>
