@@ -5,6 +5,7 @@ import { VenueReservationFormComponent } from 'app/venue-module/venue-reservatio
 import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
 import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
+import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 
 
 export const LocationOwnerLayoutRoutes: Routes = [
@@ -13,6 +14,6 @@ export const LocationOwnerLayoutRoutes: Routes = [
     { path: 'venueProfile',component:VenueProfileComponent },
     { path: 'venue-reservation-form', component:VenueReservationFormComponent},
     { path: 'venueAdd', component:VenueAddComponent},
-    { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} }
-
+    { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
+    { path: 'view-events/:uid' , component:ViewUserEventsComponent},
 ];
