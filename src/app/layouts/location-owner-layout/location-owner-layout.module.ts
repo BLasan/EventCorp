@@ -7,7 +7,10 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
-import { VenueHomeService } from '../../venue-module/venue-home/venue-home.service'
+import { VenueHomeService } from '../../venue-module/venue-home/venue-home.service';
+// import { SharedComponentsModule } from '../../shared-components/shared-components.module';
+import { VenueNotificationsComponent } from '../../venue-module/venue-notifications/venue-notifications.component';
+
 
 
 import {
@@ -59,13 +62,16 @@ import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    SharedComponentsModule
   ],
   declarations: [
     VenueListComponent,
     VenueProfileComponent,
     VenueReservationFormComponent,
-    VenueAddComponent
+    VenueAddComponent,
+    // NotificationsComponent,
+    VenueNotificationsComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })

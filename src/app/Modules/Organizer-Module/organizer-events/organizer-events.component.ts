@@ -80,18 +80,21 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
       time:new FormControl('',[Validators.required])
     });
 
-  calendarEvents:any[]=[];
-  calendarPlugins=[dayGridPlugin];
-
-  constructor(private svc:VenueCalendarService) { }
-
-  ngOnInit() {
-    this.svc.getData().subscribe(data=> this.calendarEvents=data);
+    // this.bankMultiFilterCtrl.valueChanges
+    //   .pipe(takeUntil(this._onDestroy))
+    //   .subscribe(() => {
+    //     this.filterBanksMulti();
+    //   });
 
   }
 
-  ngAfterViewInit(){
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
+  ngAfterViewInit(){
+    
   }
 
 

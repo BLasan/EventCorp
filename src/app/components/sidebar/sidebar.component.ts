@@ -46,7 +46,7 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
   { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
-  { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''}
+  { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''},
   { path:'/add-events',title:'Add an event',icon:'add',class:''}
 ];
 
@@ -57,6 +57,8 @@ export const ROUTES3:RouteInfo[]=[
   { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
   { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
+  { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
+
 ];
 
 
