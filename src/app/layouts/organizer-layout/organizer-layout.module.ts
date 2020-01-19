@@ -66,7 +66,7 @@ import { PaymentUsersComponent } from 'app/Modules/Organizer-Module/payment-user
 import { UpdateEventsComponent } from 'app/Modules/Organizer-Module/update-events/update-events.component';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
 import { SearchBillsPipe } from 'app/Modules/Organizer-Module/searchBills.pipe';
-import { FullCalendarModule } from '@fullcalendar/angular';
+// import { FullCalendarModule } from '@fullcalendar/angular';
   @NgModule({
     imports: [
       CommonModule,
@@ -119,7 +119,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
       OrganizerEventsComponent,
       FilterUsersPipe,
       PaymentBillComponent,
-      EventsAddComponent
+      EventsAddComponent,
       ViewRequestStatusComponent,
       UpdateEventsComponent,
       SearchBillsPipe
