@@ -1,0 +1,246 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div id='calendar'></div>
+    </div>
+    <div class="row" style="margin-top:50px">
+      <div class="col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+              <h4 class="card-title"><b>EDIT EVENT</b></h4>
+              <p class="card-category">Edit my event</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="form" *ngIf="isLoaded">
+              <mat-form-field>
+                <input matInput placeholder="Event Name" id="event_name" name="event_name" formControlName='event_name'>
+                <mat-error *ngIf="hasError('event_name', 'required')"><small> Name is required</small></mat-error>
+              </mat-form-field>    
+              <mat-form-field color="accent">
+                <input matInput [matDatepicker]="picker" id="date" placeholder="Choose a date" name="date" formControlName='date'>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="hasError('date', 'required')"><small>is required</small></mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput type="time" placeholder="Time" id="time" name="time" formControlName='time'>
+                <mat-error *ngIf="hasError('time', 'required')"><small>Time is required</small></mat-error>
+              </mat-form-field>
+              <div class="row" style="margin-top:5px">
+                <div class="col-md-4 col-sm-4">
+                  <a id="artist_select" href="" (click)="loadArtist()" title="Select Artists">Select Artists</a>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <a id="organizer_select" href="" (click)="loadSuppliers()" title="Select Organizers">Select Organizers</a>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                  <a id="venue_select" href="" (click)="loadVenues()" title="Select Venue">Select Venue</a>
+                </div>
+              </div>
+              <div class="row" style="margin-top:20px">
+                <div class="col-3">
+                  <a mat-fab style="background-color:aqua" (click)="uploadImage($event)" href="#" id="event_image_uploader" name="image_uploader"><img src="assets/img/images.png" style="margin-top:-5px" title="upload_images" alt="upload-images"></a><input type="file" id="imgInput" (change)="get_images($event)" name="imgInput" style="display:none" accept="image/*">   
+                </div>
+                <div class="col-3">
+                  <a mat-fab style="background-color:aqua" (click)="uploadVideo($event)" href="#" id="video_uploader" name="video_uploader"><img src="assets/img/video.png" style="margin-top:-5px" title="upload_video" alt="upload-video"></a><input type="file" id="videoInp" name="videoInp" (change)="get_videos($event)" style="display: none" accept="video/*">
+                </div>
+                <div class="col-3"></div>
+                <div class="col-3"></div>
+              </div>
+              <div class="row" style="margin-top:5px">
+                <div class="col-3">
+                    <div style="width:60px;height:60px" name="imageUploaded" id="imageUploaded">
+                        <div id="container" class="container1">
+                            <img [src]="imageUrl" name="image" id="image">
+                            <button mat-raised-button class="btn1" id="del" (click)="removeImage()"><i class="material-icons">delete_forever</i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div name="videoUploaded" id="videoUploaded" class="container1">
+                        <video src="videoUrl" id="myVideo" controls></video>
+                        <button mat-raised-button class="btn1" id="del_video" (click)="removeVideo()"><i class="material-icons">delete_forever</i></button>
+                    </div> 
+                </div> 
+            </div>
+              <button mat-raised-button color="accent" (click)="editEvent()" style="margin-top:25px" [disabled]="!form.valid" *ngIf="!isCreating">EDIT EVENT</button>
+              <button mat-raised-button color="accent" style="margin-top:25px" disabled *ngIf="isCreating">PROCESSING....</button>
+            </form> 
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <div class="card" *ngIf="selected_artists.length>0 || selected_suppliers.length>0 || selected_venue.length>0">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">SELECTED USERS</h4>
+            <p class="card-category">Artists,Suppliers and Venue</p>
+          </div>
+          <div class="card-body" [ngClass]="{'list-group':(selected_suppliers.length+selected_artists.length+selected_venue.length)>5}">
+            <h5 style="color:red"><b>ARTISTS</b></h5>
+            <mat-list role="list">
+              <mat-list-item role="listitem" *ngFor="let artists of selected_artists">{{artists.name}}</mat-list-item>
+            </mat-list>
+            <mat-divider></mat-divider>
+            <h5 style="margin-top:5px"><b style="color:red">SUPPLIERS</b></h5>
+            <mat-list role="list">
+              <mat-list-item role="listitem" *ngFor="let suppliers of selected_suppliers">{{suppliers.name}}</mat-list-item>
+            </mat-list>
+            <mat-divider></mat-divider>
+            <h5 style="margin-top:5px"><b style="color:red">VENUE</b></h5>
+            <mat-list role="list">
+              <mat-list-item role="listitem" *ngFor="let venues of selected_venue">{{venues.name}}</mat-list-item>
+            </mat-list>
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- load artists -->
+    <div class="row" *ngIf="artistList.length>0 && prefferedRole==='artist'">
+      <div class="col-md-4 col-sm-12" *ngFor="let artists of artistList">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title"><b><a href="ratings/{{artists.user_name}}" title="View More" id="view_user" (click)="addUserEmail(artists.email)">{{artists.user_name}}</a></b></h4>
+            <img [src]="artists.img_url" width="100%">
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 col-sm-12">
+                <p>Email</p>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <p style="text-align: right;">{{artists.email}}</p>
+              </div>
+            </div>
+            <!-- <hr> -->
+            <div class="row">
+              <div class="col-md-4 col-sm-12">
+                <p>Contact</p>
+              </div>
+              <div class="col-md-8 col-sm-12">
+                <p style="text-align: right;">{{artists.contact}}</p>
+              </div>
+            </div>
+            <!-- <hr> -->
+            <div class="row">
+              <div class="col-md-4 col-sm-12">
+                <p>City</p>
+              </div>
+              <div class="col-md-8 col-sm-12">
+              <p style="text-align: right;">{{artists.city}}</p>
+            </div>
+          </div>
+          <!-- <hr> -->
+          <div class="row">
+            <div class="col-md-4 col-sm-4"></div>
+            <div class="col-md-4 col-sm-4">
+              <button mat-raised-button class="btn btn-success" (click)="addArtist(artists.email,artists.user_name)" *ngIf="!isAddedArtist(artists.email)">ADD USER</button>
+              <button mat-raised-button class="btn btn-danger" (click)="removeArtist(artists.email,artists.user_name)" *ngIf="isAddedArtist(artists.email)">REMOVE USER</button>
+            </div>
+            <div class="col-md-4 col-sm-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <!-- laod suppliers -->
+  <div class="row" *ngIf="supplierList.length>0 && prefferedRole==='supplier'">
+    <div class="col-md-4 col-sm-12" *ngFor="let suppliers of supplierList">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"><b>{{suppliers.user_name}}</b></h4>
+          <img [src]="suppliers.img_url" width="100%">
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <p>Email</p>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <p style="text-align: right;">{{suppliers.email}}</p>
+            </div>
+          </div>
+          <!-- <hr> -->
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <p>Contact</p>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <p style="text-align: right;">{{suppliers.contact}}</p>
+            </div>
+          </div>
+          <!-- <hr> -->
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <p>City</p>
+            </div>
+            <div class="col-md-8 col-sm-12">
+            <p style="text-align: right;">{{suppliers.city}}</p>
+          </div>
+        </div>
+        <!-- <hr> -->
+        <div class="row">
+          <div class="col-md-4 col-sm-4"></div>
+          <div class="col-md-4 col-sm-4">
+            <button mat-raised-button class="btn btn-success" (click)="addSupplier(suppliers.email,suppliers.user_name)" *ngIf="!isAddedSupplier(suppliers.email)">ADD USER</button>
+            <button mat-raised-button class="btn btn-danger" (click)="removeSupplier(suppliers.email,suppliers.user_name)" *ngIf="isAddedSupplier(suppliers.email)">REMOVE USER</button>
+          </div>
+          <div class="col-md-4 col-sm-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- load venues -->
+<div class="row" *ngIf="venue_ownerList.length>0 && prefferedRole==='venue'">
+  <div class="col-md-4 col-sm-12" *ngFor="let venues of venue_ownerList">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"><b>{{venues.user_name}}</b></h4>
+        <img [src]="venues.img_url" width="100%">
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <p>Email</p>
+          </div>
+          <div class="col-md-8 col-sm-12">
+            <p style="text-align: right;">{{venues.email}}</p>
+          </div>
+        </div>
+        <!-- <hr> -->
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <p>Contact</p>
+          </div>
+          <div class="col-md-8 col-sm-12">
+            <p style="text-align: right;">{{venues.contact}}</p>
+          </div>
+        </div>
+        <!-- <hr> -->
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <p>City</p>
+          </div>
+          <div class="col-md-8 col-sm-12">
+          <p style="text-align: right;">{{venues.city}}</p>
+        </div>
+      </div>
+      <!-- <hr> -->
+      <div class="row">
+        <div class="col-md-4 col-sm-4"></div>
+        <div class="col-md-4 col-sm-4">
+          <button mat-raised-button class="btn btn-success" (click)="addVenue(venues.email,venues.user_name)" *ngIf="!isAddedVenue(venues.email)">ADD USER</button>
+          <button mat-raised-button class="btn btn-danger" (click)="removeVenue(venues.email,venues.user_name)" *ngIf="isAddedVenue(venues.email)">REMOVE USER</button>
+        </div>
+        <div class="col-md-4 col-sm-4"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>

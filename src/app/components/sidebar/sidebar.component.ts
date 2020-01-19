@@ -3,6 +3,7 @@ import { filter } from 'rxjs-compat/operator/filter';
 import { getRole } from 'app/services/select_role.service.js';
 import { SearchUserService } from 'app/services/search_user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
 declare const $: any;
 
 declare interface RouteInfo {
@@ -20,9 +21,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/add-new-moderator', title: 'Add New Moderator',  icon: 'add', class: '' },
     // { path: '/typography', title: 'Typography',  icon:'library_books', class: '' },
     // { path: '/icons', title: 'Icons',  icon:'bubble_chart', class: '' },
-    // { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
+    { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
     { path: '/admin-notifications', title: 'Notifications',  icon:'notifications', class: '' },
-    { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+    // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
 
@@ -30,11 +31,11 @@ export const ROUTES: RouteInfo[] = [
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
-  { path: '/artist-notifications', title: 'Notifications',  icon: 'view_list', class: '' },
+  { path: '/artist-notifications', title: 'Notifications',  icon: 'notifications', class: '' },
   { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
-  { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
+  // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
 
@@ -45,8 +46,8 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
   { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
+  { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''}
   { path:'/add-events',title:'Add an event',icon:'add',class:''}
-
 ];
 
 
@@ -66,7 +67,8 @@ export const ROUTES4:RouteInfo[]=[
   { path:'/supplier-settings',title:'Settings',icon:'settings',class:''},
   { path:'/supplier-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/supplier-profile',title:'Edit Profile',icon:'file_copy',class:''},
-  { path:'/supplier-add-items',title:'Product Catalog',icon:'add',class:''}
+  { path:'/supplier-add-items',title:'Add Product Catalog',icon:'add',class:''},
+  { path:'/supplier-products',title:'Manage Products',icon:'shopping_cart',class:''}
 ];
 
 //moderator routings
@@ -74,8 +76,8 @@ export const ROUTES5:RouteInfo[]=[
   { path: '/moderator-dashboard', title: 'Home',  icon: 'home', class: '' },
   { path: '/moderator-notifications', title: 'Notifications',icon:'notifications',class:''},
   { path:'/moderator-settings',title:'Settings',icon:'settings',class:''},
-  { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
-  { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}
+  // { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
+  // { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}
 ];
 
 @Component({

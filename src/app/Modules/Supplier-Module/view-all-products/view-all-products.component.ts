@@ -27,16 +27,19 @@ export class ViewAllProductsComponent implements OnInit {
 
   loadAll(){
     var _this=this;
-    this.db.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(doc=>{
+    if(localStorage.getItem('role')==='supplier') var user=localStorage.getItem('user_name');
+    else var user=localStorage.getItem('searched_user_email');
+    this.db.firestore.collection('register_user').doc(user).collection('our_items').get().then(doc=>{
       if(doc.empty) _this.isEmpty=true;
       else{
         _this.isEmpty=false;
         doc.forEach(docs=>{
-          //console.log(docs.data());
+           console.log(docs.data());
           _this.productArray.push(docs.data());
         })
       }
-    })
+    });
+    //localStorage.removeItem('searched_user_email');
   }
 
   filterProduct(event:any){

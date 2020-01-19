@@ -23,7 +23,7 @@ export class AddPlaylistComponent implements OnInit {
       playlist_description:new FormControl('',[Validators.required])
     });
 
-    disable_playlist_uploader();
+    //disable_playlist_uploader();
   }
 
   upload_files(){

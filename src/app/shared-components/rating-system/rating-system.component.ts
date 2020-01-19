@@ -12,7 +12,8 @@ import { disable_load_more} from '../../../scripts/disable_a_href';
 import CryptoJS from 'crypto-js';
 import {calendar} from '../../../scripts/artist/artist_calendar.js'
 import { disable_modal_open,disable_calendarModal,disable_report_comments} from '../../../scripts/disable_a_href';
-import { timestamp } from 'rxjs/operators';
+import { timestamp, tap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-rating-system',
   templateUrl: './rating-system.component.html',
@@ -61,6 +62,7 @@ export class RatingSystemComponent implements OnInit {
   acceptBooking:string=null;
   isResponded:boolean=false;
   isLoadMore:boolean=false;
+  productItems:any=[];
   image_url:string="assets/img/faces/pro_img.png";
   comments_array:Array<{comment:string,date:any,user_name:string,id:string}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
@@ -83,19 +85,23 @@ export class RatingSystemComponent implements OnInit {
 
     deactivate_searchBar();
     disable_calendarModal();
-    calendar();
+    //calendar();
     //this.getBookingRequestSent();
     this.getRequestDetails();
     this.loadUserRatings();
     this.getSearchedUserData();
     this.loadComments();
     this.load_view_settings();
+    this.load_supplier_items();
    // this.load_user_events();
-    localStorage.removeItem('status');
-    localStorage.removeItem('searched_user_email');
-    localStorage.removeItem('isBookingReq');
+    //localStorage.removeItem('status');
+    // localStorage.removeItem('searched_user_email');
+    //localStorage.removeItem('isBookingReq');
     //localStorage.removeItem('searched_user_email');
   }
+
+
+
 
   rateUser(){
     var _this=this;
@@ -157,6 +163,31 @@ export class RatingSystemComponent implements OnInit {
     // alert("Hello")
     add_comment_script();
   }
+
+
+  //load calendar
+  openCalendar(event:any){
+    this.getData().subscribe(data=>{
+      if(data.length>1) calendar(data);
+      else calendar({});
+    })
+  }
+
+
+    //load calendar data
+    getData():Observable<any[]>{  
+
+      return this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').valueChanges().pipe(
+        tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
+        map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
+          let data:any=event;
+          if(data.paid===true){
+            var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
+            return obj;
+          }
+        }))
+      );
+    }
 
   postComment(){
    // let user_id=this.search_token;
@@ -357,8 +388,9 @@ export class RatingSystemComponent implements OnInit {
 
    }
 
+
    getRequestDetails(){
-    console.log('Hello');
+   // console.log('Hello');
     var _this=this;
     console.log(this.searched_user_email);
     let user_name=localStorage.getItem('user_name');
@@ -415,7 +447,6 @@ export class RatingSystemComponent implements OnInit {
    }
 
    getSearchedUserData(){
-    
      var _this=this;
      console.log(this.searched_user_email)
      var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email);
@@ -501,6 +532,20 @@ export class RatingSystemComponent implements OnInit {
     })
   }
 
+  load_supplier_items(){
+    var _this=this;
+    this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('our_items').get().then(doc=>{
+      if(doc.empty) console.log("Empty Data");
+      else{
+        doc.forEach(docs=>{
+          _this.productItems.push(docs.data());
+        })
+      }
+    }).catch(err=>{
+      console.log(err);
+    }) 
+  }
+
   
   load_modal(event_id:any){
     disable_modal_open();
@@ -510,14 +555,14 @@ export class RatingSystemComponent implements OnInit {
     for(var artists of this.modal_details){
       for(var artist_names of artists.artists){
         console.log(artist_names)
-        this.artists_participated+=" / "+artist_names;
+        this.artists_participated+=artist_names.name+" / ";
       }
     }
 
     for(var suppliers of this.modal_details){
       for(var supplier_names of suppliers.suppliers){
         console.log(supplier_names)
-        this.suppliers_participated+=" / "+supplier_names;
+        this.suppliers_participated+=supplier_names.name+" / ";
       }
     }
 

@@ -30,7 +30,7 @@ export class ArtistComponent implements OnInit {
 
 
   ngOnInit() {
-    deactivate_searchBar();
+   // deactivate_searchBar();
     this.loadUserProfile();
     this.loadUserEvents();
     this.username=localStorage.getItem('nameId');

@@ -25,20 +25,9 @@ export class OrganizerProfileComponent implements OnInit {
 
   ngOnInit() {
     deactivate_searchBar();
-    this.loadUserEvents();
+    //this.loadUserEvents();
     this.loadUserProfile();
     this.username=localStorage.getItem('nameId');
-    this.form=new FormGroup({
-      f_name:new FormControl('',Validators.required),
-      l_name:new FormControl('',[Validators.required]),
-      address:new FormControl('',Validators.required),
-      city:new FormControl('',Validators.required),
-      country:new FormControl('',Validators.required),
-      email:new FormControl('',[Validators.email,Validators.required]),
-      contact:new FormControl('',[Validators.required]),
-      about_me:new FormControl('',[])
-      // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
-    });
   }
 
   public hasError = (controlName: string, errorName: string) =>{
@@ -112,6 +101,19 @@ export class OrganizerProfileComponent implements OnInit {
         console.log("UseData:"+doc.data().role)
         if(doc.data()){
             _this.user_profile.push(doc.data());
+
+            //get form controls
+            _this.form=new FormGroup({
+              user_name:new FormControl(doc.data().user_name,Validators.required),
+              // l_name:new FormControl('',[Validators.required]),
+              address:new FormControl(doc.data().address1+" "+doc.data().address2,Validators.required),
+              city:new FormControl(doc.data().city,Validators.required),
+              country:new FormControl('Sri Lanka',Validators.required),
+              email:new FormControl(doc.data().email,[Validators.email,Validators.required]),
+              contact:new FormControl(doc.data().contact,[Validators.required]),
+              about_me:new FormControl(doc.data().bio,[])
+              // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
+            });
         }
     }).catch(function(error) {
       console.log("Error getting document:", error);
@@ -124,7 +126,7 @@ export class OrganizerProfileComponent implements OnInit {
 
   onSubmit(){
     let contact=this.form.get('contact').value;
-    let name=this.form.get('f_name').value+" "+this.form.get('l_name').value;
+    let name=this.form.get('user_name').value;
     let address=this.form.get('address').value;
     let country=this.form.get('country').value;
     let email=this.form.get('email').value;

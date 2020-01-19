@@ -37,5 +37,15 @@
     background-color: black;
   }
 
+  a{
+    text-decoration: none;
+  }
+
+  .list-group{
+    max-height: 420px;
+    margin-bottom: 10px;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+  }
  
 
