@@ -41,7 +41,7 @@ export class SupplierProfileComponent implements OnInit {
 
   onSubmit(){
     let contact=this.form.get('contact').value;
-    let name=this.form.get('f_name').value+" "+this.form.get('l_name').value;
+    let name=this.form.get('user_name').value;
     let address=this.form.get('address').value;
     let country=this.form.get('country').value;
     let email=this.form.get('email').value;

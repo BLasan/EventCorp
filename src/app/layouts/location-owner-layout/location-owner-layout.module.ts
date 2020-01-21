@@ -39,6 +39,7 @@ import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking-info/view-booking-info.component";
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver";
 import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
+// import { ViewUserEventsComponent } from "../../shared-components/view-user-events"
 
 
 @NgModule({

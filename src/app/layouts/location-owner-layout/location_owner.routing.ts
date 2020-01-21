@@ -7,7 +7,7 @@ import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver";
 import { VenueNotificationsComponent } from '../../venue-module/venue-notifications/venue-notifications.component';
 import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
-import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
+// import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 
 
 
@@ -18,7 +18,7 @@ export const LocationOwnerLayoutRoutes: Routes = [
     { path: 'venue-reservation-form', component:VenueReservationFormComponent},
     { path: 'venueAdd', component:VenueAddComponent},
     { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
-    { path: 'view-events/:uid' , component:ViewUserEventsComponent},
-    { path: 'venue-settings', component:VenueSettingsComponent}
-    { path: 'venue-notifications', component:VenueNotificationsComponent},
+    // { path: 'view-events/:uid' , component:ViewUserEventsComponent},
+    { path: 'venue-settings', component:VenueSettingsComponent},
+    { path: 'venue-notifications', component:VenueNotificationsComponent}
 ];
