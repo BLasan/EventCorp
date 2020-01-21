@@ -34,6 +34,7 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
+import { ViewUserEventsComponent } from './view-user-events/view-user-events.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-ev
     ViewAllProductsComponent,
     SearchItemsPipe,
     ViewAllEventsComponent,
+    ViewUserEventsComponent,
   ],
   imports: [
     CommonModule,
@@ -81,7 +83,8 @@ import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-ev
     MyChatsComponent,
     ViewAllProductsComponent,
     SearchItemsPipe,
-    ViewAllEventsComponent
+    ViewAllEventsComponent,
+    ViewUserEventsComponent,
   ]
 })
 export class SharedComponentsModule { }
