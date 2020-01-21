@@ -100,6 +100,7 @@ import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/e
 import { SupplierProductsTableComponent } from './Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
+// import { VenueSettingsComponent } from './venue-module/venue-settings/venue-settings.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -168,7 +169,8 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
     ReportDialogComponent,
     PaypalPaymentComponent,
     PaymentUsersComponent,
-    ViewLocationComponent
+    ViewLocationComponent,
+    
     // EventsAddComponent,
     // FilterPipe,
    // MyChatsComponent

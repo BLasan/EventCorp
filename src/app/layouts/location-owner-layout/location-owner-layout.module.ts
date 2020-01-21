@@ -37,7 +37,8 @@ import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue
 import { SharedComponentsModule } from "app/shared-components/shared-components.module";
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking-info/view-booking-info.component";
-import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
+import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver";
+import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
 
 
 @NgModule({
@@ -71,7 +72,8 @@ import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver
     VenueReservationFormComponent,
     VenueAddComponent,
     // NotificationsComponent,
-    VenueNotificationsComponent
+    VenueNotificationsComponent,
+    VenueSettingsComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })

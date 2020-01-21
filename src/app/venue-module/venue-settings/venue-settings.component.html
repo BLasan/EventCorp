@@ -1,0 +1,266 @@
+<!-- <app-settings></app-settings> -->
+<div class="main-content">
+    <div class="container-fluid">
+      
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <div class="card" style="width: 28rem;margin-top: 30px">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Manage Settings</h4>
+              <p class="card-category">Reset-Password / Delete Account</p>
+            </div>
+            <div class="card-body">
+              <h4 style="color:blue"><b>Password Reset</b></h4>
+              <form [formGroup]="form">
+                <mat-form-field>
+                  <input matInput placeholder="Enter New Password" type="password" formControlName="new_password" name="new_password">
+                  <mat-error *ngIf="hasError('new_password', 'required')">*Password required</mat-error>
+                  <mat-error *ngIf="hasError('new_password', 'minlength')">*Enter 6 characters minimum</mat-error>
+                </mat-form-field>              
+                <mat-form-field>
+                  <input matInput placeholder="Re-Enter Password" type="password" formControlName="re_enter_password">
+                  <mat-error *ngIf="hasError('re_enter_password', 'required')">*Re enter password</mat-error>
+                  <mat-error *ngIf="hasError('re_enter_password', 'notequal')">*Password not matching</mat-error>
+                </mat-form-field> 
+                <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="reset_password()">Reset</button>
+              </form>
+              <hr>
+              <!-- <h4 style="color:blue"><b>Change Visibility</b></h4>
+  
+              <mat-list role="list">
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Contact
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" id="visibility" (click)="changeView('contact')" *ngIf="contact_vis"><img src="assets/img/visible.png"></a>
+                    <a href="#" id="visibility" (click)="refresh('contact')" *ngIf="!contact_vis"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item> -->
+                <!-- <mat-divider></mat-divider> -->
+                <!-- <hr style="margin-top: -4px"> -->
+                <!-- <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Address
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" id="visibility" (click)="changeView('address')" *ngIf="address_vis"><img src="assets/img/visible.png"></a>
+                    <a href="#" id="visibility" (click)="refresh('address')" *ngIf="!address_vis"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item> -->
+                <!-- <mat-divider></mat-divider> -->
+                <!-- <hr style="margin-top: -4px"> -->
+                <!-- <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    About
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" id="visibility" (click)="changeView('about')" *ngIf="about_vis"><img src="assets/img/visible.png"></a>
+                    <a href="#" id="visibility" (click)="refresh('about')" *ngIf="!about_vis"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item> -->
+                <!-- <mat-divider></mat-divider> -->
+                <!-- <hr style="margin-top: -4px"> -->
+                <!-- <mat-list-item role="listitem" *ngIf="user_role=='artist'">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Play-List
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" id="visibility" (click)="changeView('playlist')" *ngIf="play_list_vis"><img src="assets/img/visible.png"></a>
+                    <a href="#" id="visibility" (click)="refresh('playlist')" *ngIf="!play_list_vis"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem" *ngIf="user_role!='artist'">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Rating
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" id="visibility" (click)="changeView('rating')" *ngIf="rating_vis"><img src="assets/img/visible.png"></a>
+                    <a href="#" id="visibility" (click)="refresh('rating')" *ngIf="!rating_vis"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Events
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" id="visibility" (click)="changeView('events')" *ngIf="events_vis"><img src="assets/img/visible.png"></a>
+                    <a href="#" id="visibility" (click)="refresh('events')" *ngIf="!events_vis"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item> -->
+                <!-- <mat-divider></mat-divider> -->
+                <!-- <hr style="margin-top: -4px"> -->
+              <!-- </mat-list>    -->
+  
+              <!-- <mat-list role="list" *ngIf="user_role=='organizer'">
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Contact
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('contact')"><img src="assets/img/visible.png"></a>
+                    <a href="#" (click)="refresh('contact')"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-divider></mat-divider> 
+                <hr style="margin-top: -4px">
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Address
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('address')"><img src="assets/img/visible.png"></a>
+                    <a href="#" (click)="refresh('address')"><img src="assets/img/invisible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    About
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('about')"><img src="assets/img/visible.png"></a>
+  
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Rating
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('rating')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Events Organized
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('events')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+              </mat-list>   
+  
+              <mat-list role="list" *ngIf="user_role=='supplier'">
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Contact
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('contact')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Address
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('address')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    About
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('about')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+               
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Rating
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('rating')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+               
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Events
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('events')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+                
+              </mat-list>   
+  
+              <mat-list role="list" *ngIf="user_role=='venue_owner'">
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Contact
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('contact')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+              
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Address
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('address')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+              
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    About
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="chengeView('about')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+               
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Rating
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('rating')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+               
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Events
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('events')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+               
+                <mat-list-item role="listitem">
+                  <div class="col-md-8" style="margin-left:-14px">
+                    Available Halls
+                  </div>
+                  <div class="col-md-4">
+                    <a href="#" (click)="changeView('halls')"><img src="assets/img/visible.png"></a>
+                  </div>
+                </mat-list-item>
+                
+              </mat-list>    -->
+  
+              <hr>
+              <h4 style="color:red"><b>Delete Account</b></h4>
+              <button mat-raised-button style="background-color: red;color:white;margin-left:80px;margin-top:15px" id="delete_account" (click)="deleteAccount()">Delete Account</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+      <!-- <button mat-raised-button (click)="openDialog()">Pick one</button>
+      <h1 mat-dialog-title>Hi</h1>
+  <div mat-dialog-content>
+    <p>What's your favorite animal?</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+   
+  </div> -->
+  
+    </div>
+  </div>
