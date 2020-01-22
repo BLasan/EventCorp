@@ -41,7 +41,7 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
     ReactiveFormsModule,
     MatListModule,
     MatDividerModule,
-    // SharedComponentsModule,
+    SharedComponentsModule,
   ],
   declarations: [
     DashboardComponent,

@@ -48,7 +48,7 @@ import { ViewUserEventsComponent } from './view-user-events/view-user-events.com
     ViewAllProductsComponent,
     SearchItemsPipe,
     ViewAllEventsComponent,
-    ViewUserEventsComponent,
+    ViewUserEventsComponent
   ],
   imports: [
     CommonModule,
@@ -84,7 +84,7 @@ import { ViewUserEventsComponent } from './view-user-events/view-user-events.com
     ViewAllProductsComponent,
     SearchItemsPipe,
     ViewAllEventsComponent,
-    ViewUserEventsComponent,
+    ViewUserEventsComponent
   ]
 })
 export class SharedComponentsModule { }

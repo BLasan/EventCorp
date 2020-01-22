@@ -61,6 +61,7 @@ import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/lo
 import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
 import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
 import {enableProdMode} from '@angular/core';
+import { CookieService } from "angular2-cookie/services/cookies.service";
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -176,7 +177,7 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService,CookieService],
   bootstrap: [AppComponent],
   entryComponents: [ReportDialogComponent]
 })
