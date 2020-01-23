@@ -7,7 +7,6 @@ import { FeedbackComponent } from '../../Modules/Customer-Module/feedback/feedba
 import { HelpComponent } from 'app/shared-components/help/help.component';
 import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events/latest-events.component';
 
-
 export const CustomerLayoutRoutes: Routes = [
     
     { path: 'home', component:CustomerHomeComponent },
@@ -16,5 +15,7 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'about-us' , component:AboutUsComponent},
     // { path: 'faq' , component:FaqComponent},
     // { path: 'feedback' , component:FeedbackComponent},
-    { path: 'help' , component:HelpComponent}
+    { path: 'help' , component:HelpComponent},
+    // { path:'enter-email-reset-password',component:ResetPasswordComponent},
+    // { path:'password-update/:uid/email',component:ResetPasswordFirebaseComponent},
 ];

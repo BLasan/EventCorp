@@ -51,12 +51,10 @@ import { ViewBookingInfoComponent } from 'app/Modules/Artist-Module/view-booking
 import { RatingSystemComponent } from 'app/shared-components/rating-system/rating-system.component';
 // import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
-import { MyChatsComponent } from 'app/shared-components/my-chats/my-chats.component';
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
 import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/edit-playlist.component';
-import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 
   @NgModule({
     imports: [
