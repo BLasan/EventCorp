@@ -107,9 +107,9 @@
               <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="reset_password()">Reset</button>
             </form>
             <hr>
-            <h4 style="color:blue"><b>Change Visibility</b></h4>
+            <h4 *ngIf="show" style="color:blue"><b>Change Visibility</b></h4>
 
-            <mat-list role="list">
+            <mat-list *ngIf="show" role="list">
               <mat-list-item role="listitem">
                 <div class="col-md-8" style="margin-left:-14px">
                   Contact
