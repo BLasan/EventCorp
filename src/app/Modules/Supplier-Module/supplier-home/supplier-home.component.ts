@@ -15,6 +15,7 @@ export class SupplierHomeComponent implements OnInit {
   top_organizers=[];
   top_artists=[];
   top_venue_owners=[];
+  
   data:any;
   load_items:string="loading";
   default_rate:any=0;
