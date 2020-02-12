@@ -60,7 +60,7 @@ const routes: Routes =[
     component:ResetPasswordComponent
   },
   {
-    path:'reset-password/:uid/:email',
+    path:'reset-password/:link/:uid/:email',
     component:ResetPasswordFirebaseComponent,
     canActivate:[AuthGuardResetPasswordService],
   },

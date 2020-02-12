@@ -169,7 +169,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     let event_name=this.form.get('event_name').value;
     this.eventName=event_name;
     let date=this.form.get('date').value;
-    let date_string=new Date(date).getFullYear()+"-"+new Date(date).getMonth()+1+"-"+new Date(date).getDate();
+    let date_string=new Date(date).getFullYear()+"-"+(new Date(date).getMonth()+1)+"-"+new Date(date).getDate();
     let time=this.form.get('time').value;
     //let time_string=new Date(time).getHours()+":"+new Date(time).getMinutes()+":"+new Date(time).getSeconds();
     let today=new Date();

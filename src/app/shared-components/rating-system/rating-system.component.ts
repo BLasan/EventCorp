@@ -74,6 +74,7 @@ export class RatingSystemComponent implements OnInit {
     this.viewer=localStorage.getItem('user_name');
     this.organizer_name=localStorage.getItem('nameId');
     this.user_role=localStorage.getItem('role');
+  //  alert(this.user_role);
 
     if(localStorage.getItem('status'))
     this.requestStatus=localStorage.getItem('status');
@@ -456,6 +457,7 @@ export class RatingSystemComponent implements OnInit {
           // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
+         // alert(_this.search_user_role)
           if(_this.search_user_role==='artist') _this.load_artist_playlist();
           else if(_this.search_user_role!=='artist') _this.load_user_events();          // if(_this.search_user_role==='artist'){
           //   _this.database.firestore.collection('register_user').doc(_this.searched_user_email).collection('my_playlist').doc('playlist').get().then(docs=>{
@@ -467,7 +469,7 @@ export class RatingSystemComponent implements OnInit {
           //     }
           //   })
           // }
-          _this.image_url=doc.data().img_url;
+          _this.image_url=doc.data().image_url;
           _this.search_user_about=doc.data().bio;
           if(!_this.search_user_about) _this.search_user_about="Not Updated";
           _this.search_user_contact=doc.data().contact;
@@ -495,7 +497,15 @@ export class RatingSystemComponent implements OnInit {
   load_view_settings(){
     var _this=this;
     this.database.firestore.collection('visibility').doc(this.searched_user_email).get().then(doc=>{
-      if(!doc.data()) console.log("Empty Data");
+      if(!doc.data()){
+        _this.events_vis=true;
+        _this.about_vis=true;
+        _this.contact_vis=true;
+        _this.address_vis=true;
+        _this.play_list_vis=true;
+        _this.rating_vis=true;
+        console.log("Empty Data");
+      } 
       else{
         if(doc.data().events===false) _this.events_vis=false;
         if(doc.data().about===false) _this.about_vis=false;

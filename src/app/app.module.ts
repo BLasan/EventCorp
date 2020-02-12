@@ -62,15 +62,26 @@ import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
 import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
 import {enableProdMode} from '@angular/core';
 import { CookieService } from "angular2-cookie/services/cookies.service";
-const config = {
-  apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
-  authDomain: "eventcorppro.firebaseapp.com",
-  databaseURL: "https://eventcorppro.firebaseio.com",
-  projectId: "eventcorppro",
-  storageBucket: "eventcorppro.appspot.com",
-  messagingSenderId: "886719532814",
-  appId: "1:886719532814:web:9424058ace3d13af"
-};
+// const config = {
+//   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
+//   authDomain: "eventcorppro.firebaseapp.com",
+//   databaseURL: "https://eventcorppro.firebaseio.com",
+//   projectId: "eventcorppro",
+//   storageBucket: "eventcorppro.appspot.com",
+//   messagingSenderId: "886719532814",
+//   appId: "1:886719532814:web:9424058ace3d13af"
+// };
+
+const config={
+    apiKey: "AIzaSyCTIdcY84n5a6HJgMAPInQxWKialEj1bNk",
+    authDomain: "eventcorpdeployed.firebaseapp.com",
+    databaseURL: "https://eventcorpdeployed.firebaseio.com",
+    projectId: "eventcorpdeployed",
+    storageBucket: "eventcorpdeployed.appspot.com",
+    messagingSenderId: "821531422676",
+    appId: "1:821531422676:web:5eef3779cb652386eb3041",
+    measurementId: "G-XQCHRW0GY4"
+  }
 
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';

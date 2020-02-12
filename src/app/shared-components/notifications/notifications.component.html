@@ -35,12 +35,19 @@
                 </div> -->
                 <div class="row" *ngIf="isBookingView && user_role!='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.data.paid===false">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.sender_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.event_id,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
                             <span><b>You have received new booking request from {{booking_data.data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="openModal(booking_data.data.sender_email,booking_data.data.sender_name,booking_data.data.event_name,booking_data.data.event_id,booking_data.data.date)"> view request details</a></b></span>
+                        </div> 
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.data.paid===true">
+                            <i class="material-icons" data-notify="icon">add_alert</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.event_id,'cancel')">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span><b>{{booking_data.data.sender_name}} has paid the amount for the event {{booking_data.data.event_name}}.</b></span>
                         </div> 
                     </div>
                 </div>
@@ -48,7 +55,7 @@
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data.data && booking_data.data.status!=='Rejected'">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.user_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.event_id,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
                             <span>
@@ -62,7 +69,7 @@
                         </div> 
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.status==='Rejected'">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.event_id,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
                             <span>
