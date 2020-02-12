@@ -4,8 +4,6 @@ import { ModeratorNotificationsComponent } from 'app/Modules/Moderator-Module/mo
 import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-warnings/report-warnings.component';
 import { ModeratorSettingsComponent } from 'app/Modules/Moderator-Module/moderator-settings/moderator-settings.component';
 import { ModeratorQueriesComponent } from 'app/Modules/Moderator-Module/moderator-queries/moderator-queries.component';
-import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
-
 
 export const ModeratorLayoutRoutes: Routes = [
     
@@ -14,5 +12,5 @@ export const ModeratorLayoutRoutes: Routes = [
     { path: 'report-warnings' , component:ReportWarningsComponent},
     { path: 'moderator-settings' , component:ModeratorSettingsComponent},
     { path: 'moderator-queries' , component:ModeratorQueriesComponent},
-    { path: 'view-events/:uid' , component:ViewUserEventsComponent},
+    // { path: 'view-events/:uid' , component:ViewUserEventsComponent},
 ];

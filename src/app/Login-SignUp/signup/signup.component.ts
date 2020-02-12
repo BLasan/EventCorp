@@ -107,7 +107,7 @@ export class SignupComponent implements OnInit {
       let user_password= (<HTMLInputElement>document.getElementById('user_password')).value;
       var hash= CryptoJS.SHA256(user_password).toString();
       let user_data={user_name:user_name,email:user_email,role:user_role,address1:user_address1,address2:user_address2,city:user_city,state_sel:user_state
-                     ,country_code:user_countryCode,contact:user_contact,password:hash,view_signup_notification:false,active_status:'logout',profile_status:'Active',verification:false,image_url:'assets/img/faces/pro_ing.png',uId:null,verification_link:null};    
+                     ,country_code:user_countryCode,contact:user_contact,password:hash,view_signup_notification:false,active_status:'logout',profile_status:'Active',verification:false,image_url:'assets/img/faces/pro_ing.png',uId:null,verification_link:null,remember_me:false};    
       this.submit(user_data);  
     }
     else{

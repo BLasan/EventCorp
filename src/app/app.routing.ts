@@ -37,6 +37,8 @@ import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -58,9 +60,14 @@ const routes: Routes =[
     component:ResetPasswordComponent
   },
   {
-    path:'reset-password',
-    component:ResetPasswordFirebaseComponent
+    path:'reset-password/:uid/:email',
+    component:ResetPasswordFirebaseComponent,
+    canActivate:[AuthGuardResetPasswordService],
   },
+  // {
+  //   path:'reset-password',
+  //   component:ResetPasswordFirebaseComponent
+  // },
   
   {
     path: '',
@@ -99,10 +106,12 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
-  {
-    path:'settings',
-    component:SettingsComponent
-  },
+  // {
+  //   path:'settings',
+  //   component:SettingsComponent
+  // },
+
+
   // {
   //   path:'ratings/:token',
   //   component:RatingSystemComponent
@@ -136,6 +145,9 @@ const routes: Routes =[
   { path:'view-location/:id',
     component:ViewLocationComponent,
     canActivate:[AuthGuardLocationService],
+  },
+  { path:'view-events/:uid' , 
+    component:ViewUserEventsComponent
   },
 
 

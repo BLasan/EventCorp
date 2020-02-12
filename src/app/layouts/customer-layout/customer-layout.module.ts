@@ -59,7 +59,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
      ContactUsComponent,
      FeedbackComponent,
      HelpComponent,
-     LatestEventsComponent
+     LatestEventsComponent,
     //  MatCarouselComponent,
     //  MatCarouselSlideComponent
     ],

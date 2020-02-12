@@ -61,6 +61,7 @@ import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/lo
 import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
 import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
 import {enableProdMode} from '@angular/core';
+import { CookieService } from "angular2-cookie/services/cookies.service";
 const config = {
   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
   authDomain: "eventcorppro.firebaseapp.com",
@@ -93,14 +94,11 @@ import { SearchItemsPipe } from './Modules/Supplier-Module/searchItems.pipe';
 import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-request-status/view-request-status.component';
 import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/payment-users.component';
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
-import { UpdateEventsComponent } from './Modules/Organizer-Module/update-events/update-events.component';
-import { ViewAllEventsComponent } from './Modules/Organizer-Module/view-all-events/view-all-events.component';
-import { EditPlaylistComponent } from './Modules/Artist-Module/edit-playlist/edit-playlist.component';
-import { EditProductsComponent } from './Modules/Supplier-Module/edit-products/edit-products.component';
-import { SupplierProductsTableComponent } from './Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
-// import { VenueSettingsComponent } from './venue-module/venue-settings/venue-settings.component';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { PasswordResetModule } from './Modules/password_reset.module';
+import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -120,6 +118,7 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
     AppRoutingModule,
     CustomerNavbarModule,
     LoginSignupModule,
+    PasswordResetModule,
     SharedComponentsModule,
     MatButtonModule,
     MatRippleModule,
@@ -148,7 +147,8 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
     AngularFireStorageModule, // storage
     FullCalendarModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    // ViewUserEventsComponent
     
   ],
   declarations: [
@@ -161,8 +161,8 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
     ArtistLayoutComponent,
     ErrorPageComponent,
     EmailVerifyComponent,
-    ResetPasswordComponent,
-    ResetPasswordFirebaseComponent,
+    // ResetPasswordFirebaseComponent,
+    // ResetPasswordComponent,
     VenueCalendarComponent,
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
@@ -170,8 +170,7 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
     PaypalPaymentComponent,
     PaymentUsersComponent,
     ViewLocationComponent,
-    
-    // EventsAddComponent,
+    ViewUserEventsComponent
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
@@ -180,7 +179,7 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService],
+  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService,CookieService],
   bootstrap: [AppComponent],
   entryComponents: [ReportDialogComponent]
 })
