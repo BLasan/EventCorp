@@ -68,6 +68,7 @@ export class UpdateEventsComponent implements OnInit {
     let _id=this.eventId;
     if(this.videoFile)
     var video=this.videoFile.item(0);
+    console.log(artist)
     //console.log(this.videoFile.item(0));
 
     if(this.isRemovedImage || this.isRemovedVideo){
@@ -89,36 +90,74 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to suppliers
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        console.log("Successfully Sent");
+                      }).catch(err=>{
+                        console.log(err);
+                      });
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to venues
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        console.log("Successfully Sent");
+                      }).catch(err=>{
+                        console.log(err);
+                      });
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
               
@@ -171,36 +210,76 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to suppliers
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to venues
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        console.log("Successfully Sent");
+                      }).catch(err=>{
+                        console.log(err);
+                      });
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
               
@@ -251,36 +330,72 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<artist.length;i++){
             let obj={user:artist[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').get().then(doc=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to suppliers
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').get().then(doc=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to venues
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').get().then(doc=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
       
@@ -324,36 +439,76 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<artist.length;i++){
             let obj={user:artist[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists){
+                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to suppliers
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').get().then(doc=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to venues
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists){
+                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
       
@@ -397,41 +552,78 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<artist.length;i++){
             let obj={user:artist[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists) _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to suppliers
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to venues
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                console.log("Successfully Sent");
+              }).catch(err=>{
+                console.log(err);
+              });
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
       
           //keep track of sent requests
           let obj={user_data:allUsers,event_name:event_name,event_id:_id,date:(today.getFullYear()+"-"+today.getMonth()+"-"+today.getDate())};
+          
           _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(_id).set(obj).then(()=>{
             console.log("Successfully Added BookingStatus");
           }).catch(err=>{
@@ -458,7 +650,7 @@ export class UpdateEventsComponent implements OnInit {
 
     //if not deleted
     else if(!this.isRemovedImage && !this.isRemovedVideo){
-      alert("2")
+      // alert("2")
       if(this.videoFile && this.imageFile){
         storageRef.put(this.imageFile.item(0)).then(snapshot=>{
           storageRef.getDownloadURL().subscribe(url=>{
@@ -478,36 +670,74 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        console.log("Successfully Sent");
+                      }).catch(err=>{
+                        console.log(err);
+                      });
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to suppliers
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        console.log("Successfully Sent");
+                      }).catch(err=>{
+                        console.log(err);
+                      });
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to venues
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
               
@@ -565,36 +795,78 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to suppliers
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to venues
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
               
@@ -646,36 +918,78 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to suppliers
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+                      if(!doc.exists){
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
                   //send requests to venues
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
-                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-                    _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-                      console.log("Successfully Sent");
+                    let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+                    _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').get().then(doc=>{
+                      if(!doc.empty){
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
+                      else{
+                        let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                          console.log("Successfully Sent");
+                        }).catch(err=>{
+                          console.log(err);
+                        });
+                      }
                     }).catch(err=>{
                       console.log(err);
-                    });
+                    })
                   }
               
               
@@ -722,38 +1036,85 @@ export class UpdateEventsComponent implements OnInit {
       
           //send requests for artists
           for(var i=0;i<artist.length;i++){
+           
             let obj={user:artist[i],status:"Pending"};
+            let artist_email=artist[i].email;
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists){
+                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                console.log(artist_email)
+                _this.database.collection('register_user').doc(artist_email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to suppliers
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
+            let sup_email=supplier[i].email;
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists){
+                _this.database.collection('register_user').doc(sup_email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(sup_email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
           //send requests to venues
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
+            let ven_email=venue[i].email;
             allUsers.push(obj);
-            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending"};
-            _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
-              console.log("Successfully Sent");
+            let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
+            _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
+              if(!doc.exists){
+                _this.database.collection('register_user').doc(ven_email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
+              else{
+                let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
+                _this.database.collection('register_user').doc(ven_email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                  console.log("Successfully Sent");
+                }).catch(err=>{
+                  console.log(err);
+                });
+              }
             }).catch(err=>{
               console.log(err);
-            });
+            })
           }
       
       
@@ -791,20 +1152,20 @@ export class UpdateEventsComponent implements OnInit {
   //reset form
   reset(){
     this.form.reset();
-    let image=document.getElementById('image') as HTMLElement;
-    image.setAttribute('src','');
-    let video=document.getElementById('myVideo') as HTMLElement;
-    video.setAttribute('src','');
-    (<HTMLInputElement>document.getElementById('imgInput')).value="";
-    (<HTMLInputElement>document.getElementById('videoInp')).value="";
+    // let image=document.getElementById('image') as HTMLElement;
+    // image.setAttribute('src','');
+    // let video=document.getElementById('myVideo') as HTMLElement;
+    // video.setAttribute('src','');
+    // (<HTMLInputElement>document.getElementById('imgInput')).value="";
+    // (<HTMLInputElement>document.getElementById('videoInp')).value="";
     this.selected_venue=[];
     this.selected_artists=[];
     this.selected_suppliers=[];
     this.supplierList=[];
     this.artistList=[];
     this.venue_ownerList=[];
-    this.removeImage();
-    this.removeVideo();
+    // this.removeImage();
+    // this.removeVideo();
     this.loadEvent(this.eventId);
   }
 
@@ -833,16 +1194,19 @@ export class UpdateEventsComponent implements OnInit {
 
     //remove artist
     removeArtist(email:any){
+      alert("Please cancel the request you sent if you do not require this user");
       this.selected_artists=this.selected_artists.filter(x=>x.email!==email);
     }
   
     //remove supplier
     removeSupplier(email:string){
+      alert("Please cancel the request you sent if you do not require this user");
       this.selected_suppliers=this.selected_suppliers.filter(x=>x.email!==email);
     }
   
     //remove venue
     removeVenue(email:string){
+      alert("Please cancel the request you sent if you do not require this user");
       this.selected_venue=this.selected_venue.filter(x=>x.email!==email);
     }
 

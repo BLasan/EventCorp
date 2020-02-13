@@ -220,7 +220,9 @@ export class NavbarComponent implements OnInit {
       if(titlee.indexOf('view-all-products')>-1) return "All Products";
       if(titlee.indexOf('update-events')>-1) return "Edit Events";
       if(titlee.indexOf('view-all-events')>-1) return "View All Events";
+      if(titlee.indexOf('notifications')>-1) return "Notifications";
       if(titlee==='/payment-bill') return "Payments";
+      if(titlee==='/booked_events') return "Booked Events";
     }
 
     logout_User(event:any){  

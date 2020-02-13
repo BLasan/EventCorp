@@ -31,7 +31,7 @@ export const ROUTES: RouteInfo[] = [
 export const ROUTES1: RouteInfo[] = [
   { path: '/artist-home', title: 'Home',  icon: 'home', class: '' },
   { path: '/artist-calendar', title: 'Event Calendar',  icon: 'calendar_today', class: '' },
-  { path: '/artist-notifications', title: 'Notifications',  icon: 'notifications', class: '' },
+  // { path: '/artist-notifications', title: 'Notifications',  icon: 'notifications', class: '' },
   { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
@@ -42,7 +42,7 @@ export const ROUTES1: RouteInfo[] = [
 //organizer routings
 export const ROUTES2:RouteInfo[]=[
   { path: '/organizer-home', title: 'Home',  icon: 'home', class: '' },
-  { path:'/organizer-notifications',title:'Notifications',icon:'notifications',class:''},
+  // { path:'/organizer-notifications',title:'Notifications',icon:'notifications',class:''},
   { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
   { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
@@ -62,7 +62,7 @@ export const ROUTES3:RouteInfo[]=[
 //supplier routings
 export const ROUTES4:RouteInfo[]=[
   { path: '/supplier-home', title: 'Home',  icon: 'home', class: '' },
-  { path: '/supplier-notifications', title: 'Notifications',icon:'notifications',class:''},
+  // { path: '/supplier-notifications', title: 'Notifications',icon:'notifications',class:''},
   { path:'/supplier-settings',title:'Settings',icon:'settings',class:''},
   { path:'/supplier-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/supplier-profile',title:'Edit Profile',icon:'file_copy',class:''},

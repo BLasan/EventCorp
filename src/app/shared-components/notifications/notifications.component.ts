@@ -167,7 +167,7 @@ export class NotificationsComponent implements OnInit {
    }
 
 mark_view_booking_notification(sender_email:string,type:string){
- // alert(sender_email)
+//  alert(sender_email)
  let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
  let _count=parseInt(count)-1;
  console.log(_count);

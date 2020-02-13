@@ -63,7 +63,9 @@ export class RatingSystemComponent implements OnInit {
   isResponded:boolean=false;
   isLoadMore:boolean=false;
   productItems:any=[];
+  user_count:any=0;
   image_url:string="assets/img/faces/pro_img.png";
+  prevRate:any=0;
   comments_array:Array<{comment:string,date:any,user_name:string,id:string}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
 
@@ -112,8 +114,10 @@ export class RatingSystemComponent implements OnInit {
     if (doc.exists) {
         console.log("Document data:", doc.data());
         var user_role=doc.data().role;
+        _this.user_count=_this.user_count+1;
+        _this.currentRate=Math.ceil((_this.currentRate+_this.prevRate)/_this.user_count);
        // alert(_this.searched_user_email)
-         _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,role:user_role,image_url:doc.data().img_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
+         _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,user_count:_this.user_count,role:user_role,image_url:doc.data().image_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
          _this._snackBar.open("Successfully Rated","Done", {
             duration: 2000,
           });
@@ -243,6 +247,10 @@ export class RatingSystemComponent implements OnInit {
       docRef.get().then(async function(doc) {
           if (doc.data()) {
               _this.userRate=doc.data().rating;
+              _this.prevRate=doc.data().rating;
+              if(doc.data().user_count)
+              _this.user_count=doc.data().user_count;
+              else _this.user_count=0;
            } 
            
           else{

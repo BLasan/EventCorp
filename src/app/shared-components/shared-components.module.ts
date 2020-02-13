@@ -35,6 +35,8 @@ import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-p
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
 import { ViewUserEventsComponent } from './view-user-events/view-user-events.component';
+import { BookedEventsComponent } from './booked-events/booked-events.component';
+import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { ViewUserEventsComponent } from './view-user-events/view-user-events.com
     ViewAllProductsComponent,
     SearchItemsPipe,
     ViewAllEventsComponent,
+    BookedEventsComponent,
+    SearchBookedEventsPipe
   ],
   imports: [
     CommonModule,
@@ -83,6 +87,7 @@ import { ViewUserEventsComponent } from './view-user-events/view-user-events.com
     ViewAllProductsComponent,
     SearchItemsPipe,
     ViewAllEventsComponent,
+    BookedEventsComponent
   ]
 })
 export class SharedComponentsModule { }

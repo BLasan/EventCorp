@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     let password=(<HTMLInputElement>document.getElementById('password')).value;
     let remember_token=(<HTMLInputElement>document.getElementById('remember_user')).checked;
     this.checked=remember_token;
-
+    let password_ele=(<HTMLInputElement>document.getElementById('password'));
     var hash=CryptoJS.SHA256(password).toString();
 
     //set cookies
@@ -138,6 +138,7 @@ export class LoginComponent implements OnInit {
         else{
           _this.isTrue=false;
           _this.isLoading=false;
+          password_ele.value="";
         } 
       }
       })
