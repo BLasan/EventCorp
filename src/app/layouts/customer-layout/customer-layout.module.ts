@@ -30,6 +30,8 @@ import { HelpComponent } from 'app/shared-components/help/help.component';
 import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events/latest-events.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ShowArtistComponent} from 'app/Modules/Customer-Module/show-artist/show-artist.component';
+//import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
   @NgModule({
     imports: [
       CommonModule,
@@ -59,7 +61,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
      ContactUsComponent,
      FeedbackComponent,
      HelpComponent,
-     LatestEventsComponent
+     LatestEventsComponent,
+     ShowArtistComponent,
+     //ShowProvidersComponent,
     //  MatCarouselComponent,
     //  MatCarouselSlideComponent
     ],

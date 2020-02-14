@@ -37,6 +37,7 @@ import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
+import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -249,10 +250,11 @@ const routes: Routes =[
     path:'chat-app',
     component:OnlineChatComponent
   },
+  { path: 'show-providers' , component:ShowProvidersComponent},
   {
     path:'**',
     component:ErrorPageComponent
-  }
+  },
 
 ];
 

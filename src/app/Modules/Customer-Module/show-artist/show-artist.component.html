@@ -1,0 +1,30 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header card-header-warning" >
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h4 class="card-title">ARTISTS AVAILABLE</h4>
+          </div>
+          
+        </div>
+      </div>
+      <div class="card-content table-responsive table-full-width" [ngClass]="{'list-group':artist_array.length>15}">
+        <table class="table">
+          
+          <tbody>
+            <tr *ngFor="let artist of artist_array">
+              <td><a style="text-decoration: none;" href="{{artist.img_url}}" target="_blank"><img src="{{artist.img_url}}" style="height:50px;width:50px"></a></td>
+              <td>{{artist.user_name}}</td>
+              <td>{{artist.contact}}</td>
+              <td>{{artist.email}}</td>
+              <td>{{artist.address1}},{{artist.address2}},{{artist.city}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
