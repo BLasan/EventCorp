@@ -63,7 +63,9 @@ export class RatingSystemComponent implements OnInit {
   isResponded:boolean=false;
   isLoadMore:boolean=false;
   productItems:any=[];
+  user_count:any=0;
   image_url:string="assets/img/faces/pro_img.png";
+  prevRate:any=0;
   comments_array:Array<{comment:string,date:any,user_name:string,id:string}>=[];
   constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
 
@@ -74,6 +76,7 @@ export class RatingSystemComponent implements OnInit {
     this.viewer=localStorage.getItem('user_name');
     this.organizer_name=localStorage.getItem('nameId');
     this.user_role=localStorage.getItem('role');
+  //  alert(this.user_role);
 
     if(localStorage.getItem('status'))
     this.requestStatus=localStorage.getItem('status');
@@ -111,8 +114,10 @@ export class RatingSystemComponent implements OnInit {
     if (doc.exists) {
         console.log("Document data:", doc.data());
         var user_role=doc.data().role;
+        _this.user_count=_this.user_count+1;
+        _this.currentRate=Math.ceil((_this.currentRate+_this.prevRate)/_this.user_count);
        // alert(_this.searched_user_email)
-         _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,role:user_role,image_url:doc.data().img_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
+         _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,user_count:_this.user_count,role:user_role,image_url:doc.data().image_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
          _this._snackBar.open("Successfully Rated","Done", {
             duration: 2000,
           });
@@ -242,6 +247,10 @@ export class RatingSystemComponent implements OnInit {
       docRef.get().then(async function(doc) {
           if (doc.data()) {
               _this.userRate=doc.data().rating;
+              _this.prevRate=doc.data().rating;
+              if(doc.data().user_count)
+              _this.user_count=doc.data().user_count;
+              else _this.user_count=0;
            } 
            
           else{
@@ -456,6 +465,7 @@ export class RatingSystemComponent implements OnInit {
           // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
+         // alert(_this.search_user_role)
           if(_this.search_user_role==='artist') _this.load_artist_playlist();
           else if(_this.search_user_role!=='artist') _this.load_user_events();          // if(_this.search_user_role==='artist'){
           //   _this.database.firestore.collection('register_user').doc(_this.searched_user_email).collection('my_playlist').doc('playlist').get().then(docs=>{
@@ -467,7 +477,7 @@ export class RatingSystemComponent implements OnInit {
           //     }
           //   })
           // }
-          _this.image_url=doc.data().img_url;
+          _this.image_url=doc.data().image_url;
           _this.search_user_about=doc.data().bio;
           if(!_this.search_user_about) _this.search_user_about="Not Updated";
           _this.search_user_contact=doc.data().contact;
@@ -495,7 +505,15 @@ export class RatingSystemComponent implements OnInit {
   load_view_settings(){
     var _this=this;
     this.database.firestore.collection('visibility').doc(this.searched_user_email).get().then(doc=>{
-      if(!doc.data()) console.log("Empty Data");
+      if(!doc.data()){
+        _this.events_vis=true;
+        _this.about_vis=true;
+        _this.contact_vis=true;
+        _this.address_vis=true;
+        _this.play_list_vis=true;
+        _this.rating_vis=true;
+        console.log("Empty Data");
+      } 
       else{
         if(doc.data().events===false) _this.events_vis=false;
         if(doc.data().about===false) _this.about_vis=false;

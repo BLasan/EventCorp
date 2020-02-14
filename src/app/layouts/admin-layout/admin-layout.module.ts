@@ -26,6 +26,7 @@ import {
 } from '@angular/material';
 import { AdminNotificationsComponent } from 'app/Modules/Admin-Module/admin-notifications/admin-notifications.component';
 import { AddNewModeratorsComponent } from 'app/Modules/Admin-Module/add-new-moderators/add-new-moderators.component';
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -39,7 +40,8 @@ import { AddNewModeratorsComponent } from 'app/Modules/Admin-Module/add-new-mode
     MatTooltipModule,
     ReactiveFormsModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    SharedComponentsModule,
   ],
   declarations: [
     DashboardComponent,

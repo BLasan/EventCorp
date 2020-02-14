@@ -39,7 +39,7 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <a href="#" id="add_playlist" (click)="upload_files()">
+                  <a href="#" id="add_playlist" (click)="upload_files($event)">
                     <i class="material-icons" style="font-size:50px;">perm_media</i>
                   </a>
                   <input type="file" id="playlist_uploader" accept=".mp3,audio/*" (change)="audio_upload($event)" style="display: none;" multiple>

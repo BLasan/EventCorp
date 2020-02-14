@@ -22,10 +22,11 @@ export class SupplierEventsComponent implements OnInit {
 
     //load events to the calendar
     this.getData().subscribe(data=>{
-      if(data.length>1)
+      // if(data.length>1)
+      console.log(data);
       calendar(data);
-      else
-      calendar({});
+      // else
+      // calendar({});
     });
 
    // deactivate_searchBar();
@@ -86,8 +87,8 @@ export class SupplierEventsComponent implements OnInit {
           let data:any=doc;
           if(data.paid===true){
             var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
-            return obj;
           }
+          return obj;
         }))
       );
     }

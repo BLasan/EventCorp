@@ -12,7 +12,7 @@ import { MyChatsComponent } from '../../shared-components/my-chats/my-chats.comp
 import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settings/artist-settings.component';
 import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
 import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/edit-playlist.component';
-import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -26,5 +26,5 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'artist-settings' , component:ArtistSettingsComponent},
     { path:'ratings/:name' , component:RatingSystemComponent}, 
     { path:"Edit Playlist/:id",component:EditPlaylistComponent},
-    { path:'view-events/:uid' , component:ViewUserEventsComponent},
+    { path:"booked_events",component:BookedEventsComponent}
 ];

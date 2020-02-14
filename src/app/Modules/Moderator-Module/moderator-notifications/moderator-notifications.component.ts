@@ -5,6 +5,7 @@ import { Router, Params } from '@angular/router';
 import { disable_report_notification } from '../../../../scripts/disable_a_href.js';
 import { SendMailService } from 'app/services/sendEmail.service';
 import { MatSnackBar } from '@angular/material';
+import { AngularFireAuth } from '@angular/fire/auth';
 // import * as sendGrid from '@sendgrid/mail';
 @Component({
   selector: 'app-moderator-notifications',
@@ -27,7 +28,8 @@ export class ModeratorNotificationsComponent implements OnInit {
     private db: AngularFirestore,
     private router: Router,
     private sendMail:SendMailService,
-    private snackBar:MatSnackBar
+    private snackBar:MatSnackBar,
+    private auth:AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -154,6 +156,21 @@ export class ModeratorNotificationsComponent implements OnInit {
      // sendGrid.send(email_message);
     }).catch(err=>{
       console.log(err);
+    })
+  }
+
+
+  //delete the user
+  deleteUser(){
+    var _this=this;
+    this.db.collection('register_user').doc(this.user_mail).update({profile_status:"Deleted"}).then(()=>{
+      _this.auth.auth.currentUser.delete().then(()=>{
+        console.log("Successfully Deleted");
+      }).catch(err=>{
+        console.log(err);
+      })
+    }).catch(err=>{
+      console.log(err)
     })
   }
 

@@ -37,6 +37,8 @@ import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
 
 //var role=getRole();
@@ -59,9 +61,14 @@ const routes: Routes =[
     component:ResetPasswordComponent
   },
   {
-    path:'reset-password',
-    component:ResetPasswordFirebaseComponent
+    path:'reset-password/:link/:uid/:email',
+    component:ResetPasswordFirebaseComponent,
+    canActivate:[AuthGuardResetPasswordService],
   },
+  // {
+  //   path:'reset-password',
+  //   component:ResetPasswordFirebaseComponent
+  // },
   
   {
     path: '',
@@ -100,10 +107,12 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/customer-layout/customer-layout.module#CustomerLayoutModule'
   }]},
-  {
-    path:'settings',
-    component:SettingsComponent
-  },
+  // {
+  //   path:'settings',
+  //   component:SettingsComponent
+  // },
+
+
   // {
   //   path:'ratings/:token',
   //   component:RatingSystemComponent
@@ -130,13 +139,16 @@ const routes: Routes =[
     component:PaypalPaymentComponent,
     canActivate:[AuthGuardPaymentService],
   },
-  { path:'user-payments/:user_name/:user_email/:quantity/:amount/:_id',
+  { path:'user-payments/:user_name/:user_email/:quantity/:amount/:_id/:booking_id',
     component:PaymentUsersComponent,
     canActivate:[AuthGuardPaymentService],
   },
   { path:'view-location/:id',
     component:ViewLocationComponent,
     canActivate:[AuthGuardLocationService],
+  },
+  { path:'view-events/:uid' , 
+    component:ViewUserEventsComponent
   },
 
 

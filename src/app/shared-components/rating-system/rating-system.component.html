@@ -1,7 +1,7 @@
 
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" *ngIf="search_user_role!=='organizer'">
       <div class="col-md-4"></div>
       <div class="col-md-4"></div>
       <div class="col-md-4">
@@ -55,10 +55,10 @@
                   </p>
                 </div>
               </div>
-              <div class="row" *ngIf="!isLoadMore && about_vis">
+              <div class="row" *ngIf="!isLoadMore">
                 <a style="padding-left:180px;" (click)="load_more()" id="load_more" href="#">View More</a>
               </div>
-              <div class="row" *ngIf="isLoadMore">
+              <div class="row" *ngIf="isLoadMore && about_vis">
                 <div class="col-6" style="float: left">
                   <p><b>About</b></p>
                 </div>
@@ -283,9 +283,9 @@
               </mat-card>
           </div>
         </div>
-        <div class="row" *ngIf="user_role==='organizer' || user_role==='admin' || user_role==='moderator'">
+        <div class="row" *ngIf="user_role==='organizer' || user_role==='artist' || user_role==='admin' || user_role==='moderator'">
           <div class="col-md-12">
-            <div class="card" *ngIf="search_user_role==='organizer' && events_vis">
+            <div class="card" *ngIf="search_user_role==='organizer' && events_vis===true">
               <div class="card-header card-header-primary">
                 <h4 class="card-title"><b>MY EVENTS</b></h4>
                 <p class="card-category">Organized Events</p>

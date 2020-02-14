@@ -21,6 +21,7 @@ export class OrganizerProfileComponent implements OnInit {
   user_events:any=[];
   user_profile:any=[];
   image_file:any;
+  isUploading:boolean=false;
   constructor(private _updateData:SignupService,private _snackbar:MatSnackBar,private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage) { }
 
   ngOnInit() {
@@ -95,6 +96,7 @@ export class OrganizerProfileComponent implements OnInit {
   }
 
   loadUserProfile(){
+    this.user_profile=[];
     var _this=this;
     var docRef = this.database.firestore.collection('register_user').doc(localStorage.getItem("user_name"));
     docRef.get().then(function(doc) {
@@ -109,7 +111,7 @@ export class OrganizerProfileComponent implements OnInit {
               address:new FormControl(doc.data().address1+" "+doc.data().address2,Validators.required),
               city:new FormControl(doc.data().city,Validators.required),
               country:new FormControl('Sri Lanka',Validators.required),
-              email:new FormControl(doc.data().email,[Validators.email,Validators.required]),
+              email:new FormControl({value:doc.data().email,disabled:true},[Validators.email,Validators.required]),
               contact:new FormControl(doc.data().contact,[Validators.required]),
               about_me:new FormControl(doc.data().bio,[])
               // password:new FormControl('',[Validators.required,Validators.minLength(6)]),
@@ -125,6 +127,7 @@ export class OrganizerProfileComponent implements OnInit {
   }
 
   onSubmit(){
+    this.isUploading=true;
     let contact=this.form.get('contact').value;
     let name=this.form.get('user_name').value;
     let address=this.form.get('address').value;
@@ -141,19 +144,43 @@ export class OrganizerProfileComponent implements OnInit {
         storageRef.put(_this.image_file[0]).then(function(snapshot){
           storageRef.getDownloadURL().subscribe(url=>{
             var user_details={image_url:url,role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
-            _this.database.collection('register_user').doc(email).update(user_details); 
-            remove_uploader();
+            _this.database.collection('register_user').doc(email).update(user_details).then(()=>{
+              _this.isUploading=false;
+              remove_uploader();
+            }).catch(err=>{
+              console.log(err);
+              _this.isUploading=false;
+            })
             });
           });
       }
       else{
-        var user_details={role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
-        this.database.collection('register_user').doc(email).update(user_details);
+        var user_details={role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data,image_url:_this.user_profile[0].image_url};
+        this.database.collection('register_user').doc(email).update(user_details).then(()=>{
+          _this.isUploading=false;
+        }).catch(err=>{
+          console.log(err);
+          _this.isUploading=false;
+        })
       }
     }
     else
     alert('Please provide your valid email');
     this.form.reset();
+    //this.loadUserProfile();
+    this.user_profile=[];
+    this.user_profile.push(user_details);
+
+     //get form controls
+     _this.form=new FormGroup({
+      user_name:new FormControl(user_details.user_name,Validators.required),
+      address:new FormControl(user_details.address,Validators.required),
+      city:new FormControl(user_details.city,Validators.required),
+      country:new FormControl('Sri Lanka',Validators.required),
+      email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
+      contact:new FormControl(user_details.contact,[Validators.required]),
+      about_me:new FormControl(user_details.bio,[])
+    });
   }
 
   get_uploaded_image(event){
@@ -162,6 +189,7 @@ export class OrganizerProfileComponent implements OnInit {
   }
 
   reset_form(){
+    console.log("jdjdk");
     (<HTMLInputElement>document.getElementById('email')).value="";
     (<HTMLInputElement>document.getElementById('f_name')).value="";
     (<HTMLInputElement>document.getElementById('l_name')).value="";
@@ -170,7 +198,6 @@ export class OrganizerProfileComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('city')).value="";
     (<HTMLInputElement>document.getElementById('about_me')).value="";
     (<HTMLInputElement>document.getElementById('contact')).value="";
-    
   }
 
 

@@ -9,7 +9,6 @@ import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events
 import { ShowArtistComponent} from 'app/Modules/Customer-Module/show-artist/show-artist.component';
 //import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
 
-
 export const CustomerLayoutRoutes: Routes = [
     
     { path: 'home', component:CustomerHomeComponent },
@@ -21,4 +20,6 @@ export const CustomerLayoutRoutes: Routes = [
     { path: 'help' , component:HelpComponent},
     { path: 'show-artists' , component:ShowArtistComponent},
    // { path: 'show-providers' , component:ShowProvidersComponent},
+    // { path:'enter-email-reset-password',component:ResetPasswordComponent},
+    // { path:'password-update/:uid/email',component:ResetPasswordFirebaseComponent},
 ];

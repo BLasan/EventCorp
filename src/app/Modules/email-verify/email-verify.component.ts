@@ -16,6 +16,7 @@ export class EmailVerifyComponent implements OnInit {
   link:any;
   isValidated:boolean=false;
   success_message:any;
+  isLoaded:boolean=false;
   constructor(private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -26,24 +27,30 @@ export class EmailVerifyComponent implements OnInit {
     this.route.params.subscribe(params => {
     //  this.user_email=params.email;
      this.link=params.link;
-
+     console.log(this.link);
      //check if validated link
-     this.database.firestore.collection('register_user').where('verification_link','==',this.link).get().then(doc=>{
-      if(doc.empty) _this.isValidated=false;
+     this.database.firestore.collection('register_user').get().then(doc=>{
+      if(doc.empty){
+        _this.isValidated=false;
+        _this.isLoaded=true;
+      }
       else{
         doc.forEach(docs=>{
-          console.log(docs.id)
-          _this.user_email=docs.id;
-          if(docs.data().verification===false) _this.isValidated=false;
-          else _this.isValidated=true;
+          if(docs.data().uId==_this.link){
+            _this.user_email=docs.id;
+            _this.isLoaded=true;
+            if(docs.data().verification===false){
+              _this.isValidated=false;
+              _this.database.collection('register_user').doc(_this.user_email).update({verification:true}).then(()=>{
+                redirect_to_login();
+              }).catch(err=>{
+                console.log(err);
+              })
+            } 
+            else _this.isValidated=true;
+            //upload verfication status
+          }
         });
-
-        //upload verfication status
-        _this.database.collection('register_user').doc(_this.user_email).update({verification:true,verification_link:_this.link}).then(()=>{
-          redirect_to_login();
-        }).catch(err=>{
-          console.log(err);
-        })
       }
      })
    });

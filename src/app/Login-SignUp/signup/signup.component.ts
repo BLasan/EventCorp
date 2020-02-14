@@ -34,6 +34,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
     this.states=states;
+    this.loadEmails();
     this.form=new FormGroup({
       user_name:new FormControl('',[Validators.required]),
       user_email:new FormControl('',[Validators.required,Validators.email]),
@@ -92,7 +93,9 @@ export class SignupComponent implements OnInit {
   //signup
   signUp(){
     let user_email= (<HTMLInputElement>document.getElementById('user_email')).value;
-    if(this.user_emails.some(x=>x!==user_email)){
+    console.log(user_email+" "+this.user_emails.filter(x=>console.log(x)));
+    if(this.user_emails.filter(x=>x===user_email)){
+      this.success=true;
       let user_name= (<HTMLInputElement>document.getElementById('user_name')).value;
       let user_role= (<HTMLInputElement>document.getElementById('role_sel')).value;
       let user_address1= (<HTMLInputElement>document.getElementById('address1')).value;
@@ -104,7 +107,7 @@ export class SignupComponent implements OnInit {
       let user_password= (<HTMLInputElement>document.getElementById('user_password')).value;
       var hash= CryptoJS.SHA256(user_password).toString();
       let user_data={user_name:user_name,email:user_email,role:user_role,address1:user_address1,address2:user_address2,city:user_city,state_sel:user_state
-                     ,country_code:user_countryCode,contact:user_contact,password:hash,view_signup_notification:false,active_status:'logout',profile_status:'Active',verification:false,image_url:'assets/img/faces/pro_ing.png',uId:null,verification_link:null};    
+                     ,country_code:user_countryCode,contact:user_contact,password:hash,view_signup_notification:false,active_status:'logout',profile_status:'Active',verification:false,image_url:'assets/img/faces/pro_img.png',uId:null,verification_link:null,remember_me:false};    
       this.submit(user_data);  
     }
     else{
@@ -128,50 +131,85 @@ export class SignupComponent implements OnInit {
         
     var _this=this;
     this.firebaseAuth.auth.createUserWithEmailAndPassword(user_data.email,user_data.password).then(value=>{
-        console.log("Successfull "+value.credential.providerId);
-
+        console.log("Successfull "+value.user.providerId);
         //generating link
         var hash_link=CryptoJS.SHA256(value.user.uid).toString()+"?email"+CryptoJS.SHA256(user_data.email).toString()+"&&password"+CryptoJS.SHA256(user_data.password).toString();
-        let _link="http:localhost:4200/email-verify/"+hash_link;
+        let _link="http://localhost:4200/email-verify/"+hash_link;
         value.user.updateProfile({displayName:user_data.user_name});
         var json_obj={user_name:user_data.email,nameId:user_data.user_name,role:user_data.role};
         localStorage.setItem('signedUpEmail',user_data.email);
         _this.db.collection('register_user').doc(user_data.email).set(user_data).then(()=>{
             console.log("Successfully Signup");
-            value.user.sendEmailVerification().then(success=>{
-                console.log(success);
-                const email_message_to_reporter={
-                    to: user_data.email,
-                    from:'eventCorp@gmail.com',
-                    subject: "Inappropriate Behaviour Reported",
-                    text: _this.getMessage(_link),
-                    html: '<strong>'+_this.getMessage(_link)+'</strong>',
-                  }
 
-                //send mail to reporter
-                try{
-                    _this.sendMail.sendEmail(email_message_to_reporter).subscribe((data)=>{
-                        var _returnedData:any=data;
-                        if(_returnedData.success===true){
-                            console.log("Sent to the reporter");
-                            redirect_to_login();
-                        }
-                        else{
-                           console.log("Error sending mail");
-                           _this.isError=true;
-                           _this.success=true;
-                        }
-                        })
-                }catch(err){
-                    console.log(err);
-                    _this.isError=true;
-                    _this.success=true;
-                }
+            //updating visibility
+            if(user_data.role==='organizer')
+            _this.db.collection('visibility').doc(user_data.email).set({contact:true,address:true,about:true,rating:true,events:true}).then(()=>{
+              console.log("Success");
             }).catch(err=>{
-                console.log(err);
-                _this.isError=true;
-                _this.success=true;
+              console.log(err);
+            });
+
+            else if(user_data.role==='artist')
+            _this.db.collection('visibility').doc(user_data.email).set({contact:true,address:true,about:true,events:true,playlist:true}).then(()=>{
+              console.log("Success");
+            }).catch(err=>{
+              console.log(err);
             })
+
+            if(user_data.role==='supplier')
+            _this.db.collection('visibility').doc(user_data.email).set({contact:true,address:true,about:true,rating:true,events:true}).then(()=>{
+              console.log("Success");
+            }).catch(err=>{
+              console.log(err);
+            })
+
+            if(user_data.role==='venue_owner')
+            _this.db.collection('visibility').doc(user_data.email).set({contact:true,address:true,about:true,rating:true,events:true}).then(()=>{
+              console.log("Success");
+            }).catch(err=>{
+              console.log(err);
+            })
+
+            // value.user.sendEmailVerification().then(success=>{
+                // console.log(success);
+          _this.db.collection('register_user').doc(user_data.email).update({verification_link:hash_link,uId:CryptoJS.SHA256(value.user.uid).toString()}).then(()=>{
+            const email_message_to_reporter={
+              to: user_data.email,
+              from:'eventCorp@gmail.com',
+              subject: "Verify Your Email",
+              text: _this.getMessage(_link),
+              html: '<strong>'+_this.getMessage(_link)+'</strong>',
+            }
+
+          //send mail to reporter
+          try{
+              _this.sendMail.sendEmail(email_message_to_reporter).subscribe((data)=>{
+                var _returnedData:any=data;
+                if(_returnedData.success===true){
+                  console.log("Sent to the reporter");
+                  redirect_to_login();
+                }
+                else{
+                  console.log("Error sending mail");
+                   _this.isError=true;
+                   _this.success=true;
+                }
+            })
+          }catch(err){
+              console.log(err);
+              _this.isError=true;
+              _this.success=true;
+          }
+          }).catch(err=>{
+            console.log(err);
+            _this.isError=true;
+            _this.success=true;
+          })
+            // }).catch(err=>{
+            //     console.log(err);
+            //     _this.isError=true;
+            //     _this.success=true;
+            // })
         }).catch(err=>{
             console.log(err);
             _this.isError=true;
@@ -190,6 +228,7 @@ export class SignupComponent implements OnInit {
 
 //generate verification link
 getMessage(link:any){
+    let _href="<a href="+link+" style='Margin:0;border:0 solid #4f9c45;border-radius:9999px;color:#fefefe;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;line-height:1.3;margin:0;padding:8px 16px 8px 16px;text-align:left;text-decoration:none' target='_blank'  data-saferedirecturl="+link+">";
     let message="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html><head><meta charset='UTF-8'>"+
         "<meta content='width=device-width, initial-scale=1' name='viewport'>"+
         "<meta name='x-apple-disable-message-reformatting'>"+
@@ -234,7 +273,7 @@ getMessage(link:any){
                     "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
                       "<center style='min-width:532px;width:100%'>"+
                     "<table class='m_1283199651525359358button' style='Margin:0 0 16px 0;border-collapse:collapse;border-spacing:0;float:none;margin:0 0 16px 0;padding:0;text-align:center;vertical-align:top;width:auto'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td style='Margin:0;border-collapse:collapse!important;border-radius:9999px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'><table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td style='Margin:0;background:#4f9c45;border:none;border-collapse:collapse!important;border-radius:9999px;color:#fefefe;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>"+
-                      "<a href="+link+"style='Margin:0;border:0 solid #4f9c45;border-radius:9999px;color:#fefefe;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;line-height:1.3;margin:0;padding:8px 16px 8px 16px;text-align:left;text-decoration:none' target='_blank' data-saferedirecturl='https://www.google.com/url?q=https://www.overleaf.com/user/password/set?passwordResetToken%3Dc85f1f226d5acf5212e0069271279a5b7ff96c3a2d7c359c226fec5b8eaeca2a%26email%3Dbenuraab%2540gmail.com&amp;source=gmail&amp;ust=1579308518849000&amp;usg=AFQjCNEJRyD1OJWAP4vbAthF3iUsm5woaw'>"+
+                      _href+
                         "Verify Email"+
                       "</a>"+
                     "</td></tr></tbody></table></td></tr></tbody></table>"+
@@ -254,9 +293,6 @@ getMessage(link:any){
           "</tr></tbody></table>"+
           "<table align='center' style='background:#e4e8ee;border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>"+
           "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='10px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:10px;font-weight:normal;line-height:10px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
-          "<p style='Margin:0;Margin-bottom:10px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left'><small style='color:#5d6879;font-size:80%'>"+
-          "<a href='https://www.overleaf.com' style='Margin:0;color:#4f9c45;font-family:Helvetica,Arial,sans-serif;font-weight:normal;line-height:1.3;margin:0;padding:0;text-align:left;text-decoration:none' target='_blank' data-saferedirecturl='https://www.google.com/url?q=https://www.overleaf.com&amp;source=gmail&amp;ust=1579308518849000&amp;usg=AFQjCNF1J5tnbze5l7Q8c674a241X3viuA'>https://www.overleaf.com</a>"+
-          "/small></p>"+
           "</td></tr></tbody></table>"+
           "</td></tr></tbody></table>"+
           "</center>"+
