@@ -129,7 +129,7 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     CustomerNavbarModule,
     LoginSignupModule,
     PasswordResetModule,
-    SharedComponentsModule,
+    // SharedComponentsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,

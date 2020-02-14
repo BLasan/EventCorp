@@ -94,6 +94,8 @@ export class EditProductsComponent implements OnInit {
                 var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_this._id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:image_file.name};
                _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_this._id).update(item_details).then(()=>{
                  console.log('Updated to database');
+                 _this.form.reset();   //reset form
+                 _this.loadProduct(_this._id);
                  _this.snackBar.open("Successfully Updated!","OK", {
                   duration: 2000,
                 }); 
@@ -115,6 +117,8 @@ export class EditProductsComponent implements OnInit {
             console.log(item_details);
             _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_this._id).update(item_details).then(()=>{
               console.log('Added to database');
+              _this.form.reset();   //reset form
+              _this.loadProduct(_this._id);
             }).catch(err=>{
               console.log("HHHHH");
               console.log(err);
@@ -123,7 +127,6 @@ export class EditProductsComponent implements OnInit {
       }
       });
 
-    this.form.reset();        //reset form
     document.getElementById('file_name').innerHTML="";         //reset file name
 }
 

@@ -57,6 +57,8 @@ import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-p
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { EditProductsComponent } from 'app/Modules/Supplier-Module/edit-products/edit-products.component';
 import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
+import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
 
   @NgModule({
     imports: [
@@ -110,6 +112,8 @@ import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supp
       SupplierAddItemsComponent,
       EditProductsComponent,
       SupplierProductsTableComponent,
+      // BookedEventsComponent,
+      // SearchBookedEventsPipe
       // ViewAllProductsComponent,
       // SearchItemsPipe
      // MyChatsComponent,

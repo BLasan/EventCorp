@@ -81,7 +81,7 @@
                   <p mat-line style="margin-left:15px">
                    {{comments.comment}}
                   </p>
-                  <p style="float:right;color:red"><a href="" style="color:red" id="report_comment" (click)="reportComment(comments.id,comments.comment,comments.user_name,comments.date,comments.sender_mail)">REPORT</a></p>
+                  <p style="float:right;color:red"><a href="" style="color:red" id="report_comment" (click)="reportComment(comments.id,comments.comment,comments.user_name,comments.date,comments.sender_mail,$event)">REPORT</a></p>
                 </mat-list-item>
               </a>
               <mat-divider></mat-divider>

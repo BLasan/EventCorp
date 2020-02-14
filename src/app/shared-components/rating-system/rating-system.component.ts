@@ -205,11 +205,12 @@ export class RatingSystemComponent implements OnInit {
     let comment_id=this.organizer_name+"-"+this.searched_user_email+"@"+date;
     var hash= CryptoJS.SHA256(comment_id).toString();
     let obj={comment:this.myComment,date:date,user_name:this.organizer_name,id:hash};
+    this.comments_array=this.comments_array.filter(x=> x.user_name===localStorage.getItem('user_name'));
     this.comments_array.push(obj);
     console.log(this.comments_array.length);
     this.myComment="";
     this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({id:hash,comments:this.comments_array,sender_mail:localStorage.getItem('user_name')}).then(docs=>{
-     // _this.loadComments();
+      _this.loadComments();
       _this._snackBar.open("Successfully Posted","Done", {
         duration: 2000,
       });

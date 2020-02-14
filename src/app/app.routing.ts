@@ -125,6 +125,45 @@ const routes: Routes =[
       path: '',
       loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
   }]},
+
+  {
+    path: '',
+    component: LocationOwnerLayoutComponent,
+    canActivate:[AuthGuardVenueOwnerService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
+  }]},
+  {
+    path: '',
+    component: ModeratorLayoutComponent,
+    canActivate:[AuthGuardModeratorService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/moderator-layout/moderator-layout.module#ModeratorLayoutModule'
+  }]},
+  // {
+  //   path: '',
+  //   component: SupplierLayoutComponent,
+  //  children: [
+  //       {
+  //     path: '',
+  //     loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
+  // }]},
+
+ {
+    path: '',
+    component: AdminLayoutComponent,
+    canActivate:[AuthGuardAdminService],
+   children: [
+        {
+      path: '',
+      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+  }]},
+
+  
   {
     path:'login',
     component:LoginComponent
@@ -169,42 +208,6 @@ const routes: Routes =[
   //     loadChildren: './layouts/organizer-layout/organizer-layout.module#OrganizerLayoutModule'
   // }]},
 
-  {
-    path: '',
-    component: LocationOwnerLayoutComponent,
-    canActivate:[AuthGuardVenueOwnerService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
-  }]},
-  {
-    path: '',
-    component: ModeratorLayoutComponent,
-    canActivate:[AuthGuardModeratorService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/moderator-layout/moderator-layout.module#ModeratorLayoutModule'
-  }]},
-  // {
-  //   path: '',
-  //   component: SupplierLayoutComponent,
-  //  children: [
-  //       {
-  //     path: '',
-  //     loadChildren: './layouts/supplier-layout/supplier-layout.module#SupplierLayoutModule'
-  // }]},
-
- {
-    path: '',
-    component: AdminLayoutComponent,
-    canActivate:[AuthGuardAdminService],
-   children: [
-        {
-      path: '',
-      loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
-  }]},
   // {path: 'venueProfile' , component: VenueProfileComponent},
   {path: 'venueCalendar' , component: VenueCalendarComponent},
   // {

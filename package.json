@@ -47,6 +47,7 @@
     "@sendgrid/mail": "^6.4.0",
     "@theo4u/ng-alert": "^2.1.0",
     "@types/googlemaps": "^3.39.1",
+    "@types/jest": "^25.1.2",
     "acorn": "^6.4.0",
     "ajv": "6.4.0",
     "angular-bootstrap-md": "^7.5.4",

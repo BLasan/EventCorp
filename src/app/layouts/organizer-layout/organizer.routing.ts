@@ -14,6 +14,7 @@ import { PaymentUsersComponent } from 'app/Modules/Organizer-Module/payment-user
 import { UpdateEventsComponent } from 'app/Modules/Organizer-Module/update-events/update-events.component';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
 import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -29,6 +30,7 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'view-request-status',component:ViewRequestStatusComponent},
     { path:'update-events/:event_id',component:UpdateEventsComponent},
     { path:'view-all-events',component:ViewAllEventsComponent},
+    { path:'booked_events',component:BookedEventsComponent}
     // { path:'payment/:item_name/:quantity/:amount',component:PaypalPaymentComponent},
     // { path:'user-payments/:user_name/:quantity/:amount',component:PaymentUsersComponent}
 ];

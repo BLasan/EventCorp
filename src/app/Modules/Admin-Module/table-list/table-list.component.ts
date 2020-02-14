@@ -14,38 +14,54 @@ export class TableListComponent implements OnInit{
   data:any=[];
   user_profile:any=[];
   success_message:any;
+  isEmpty:boolean=false;
+  isLoading:boolean=true;
+  selection:any="All Users";
+  roles:any=[{value:'organizer',role:'Organizer'},{value:'artist',role:'Artist'},{value:'supplier',role:'Supplier'},{value:'venue_owner',role:'Venue-Owner'}];
   constructor(private _loadUsers:AdminService,private _deleteAccount:DeleteAccountService,private _snackBar:MatSnackBar,private _recoverAccount:DeleteAccountService,private database:AngularFirestore) {
     
    }
 
   ngOnInit() {
     this.getUsers();
+    document.getElementById('search_bar').style.display="none";
   }
 
 getUsers(){
   var _this=this;
+  this.user_profile=[];
   var docRef = this.database.firestore.collection('register_user');
   docRef.get()
   .then(snapshot => {
   if (snapshot.empty) {
     console.log('No matching documents.');
-    return;
   }  
 
   snapshot.forEach(doc => {
-    console.log(doc.id, '=>', doc.data());
+    console.log(doc.id, '=>', doc.data().role);
+    if(doc.data().role!=='moderator' && doc.data().role!=='admin')
     _this.user_profile.push(doc.data());
+    _this.isLoading=false;
   });
 
   })
-.catch(err => {
-  console.log('Error getting documents', err);
-});
-    // this._loadUsers.loadAllUsers().subscribe(data=>{
-    //     this.user_profile=data;
-    // })
+  .catch(err => {
+    console.log('Error getting documents', err);
+  });
 }
 
+
+//filter roles
+filterRoles(event:any){
+  var _this=this;
+  var val=event.value;
+  if(val!=="all")
+  this.user_profile=this.user_profile.filter(x=>x.role===val);
+  else
+  this.getUsers();
+}
+
+//remove the user
 remove_user(email:string){
   var delete_account=this.database.collection('register_user').doc(email).update({profile_status:'Deleted'});
   if(delete_account){
@@ -65,6 +81,8 @@ remove_user(email:string){
   // });
 }
 
+
+//recover account status
 recover_user(email:string){
   var recover_account=this.database.collection('register_user').doc(email).update({profile_status:'Active'});
   if(recover_account){
