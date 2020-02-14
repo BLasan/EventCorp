@@ -99,6 +99,7 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
 import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
+import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-dashboard.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -170,7 +171,8 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     PaypalPaymentComponent,
     PaymentUsersComponent,
     ViewLocationComponent,
-    ViewUserEventsComponent
+    ViewUserEventsComponent,
+    // VenueDashboardComponent
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,

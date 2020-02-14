@@ -40,6 +40,7 @@ import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver";
 import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
 // import { ViewUserEventsComponent } from "../../shared-components/view-user-events"
+import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-
     VenueAddComponent,
     // NotificationsComponent,
     VenueNotificationsComponent,
-    VenueSettingsComponent
+    VenueSettingsComponent,
+    VenueDashboardComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })

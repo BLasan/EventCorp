@@ -59,7 +59,7 @@ export const ROUTES3:RouteInfo[]=[
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
   { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
   { path: '/venue-settings', title: 'Settings' ,icon:'settings_applications',class:''},
-
+  { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
 ];
 
 

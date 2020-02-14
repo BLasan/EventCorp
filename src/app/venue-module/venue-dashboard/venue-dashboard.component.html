@@ -1,0 +1,61 @@
+<div class="main-content">
+  <div class="container-fluid">
+    
+    <div class="row">
+
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-title>Page Views</mat-card-title>
+          <mat-card-content>49</mat-card-content>
+        </mat-card>
+
+      </div>
+
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-title>Total Bookings</mat-card-title>
+          <mat-card-content>78</mat-card-content>
+        </mat-card>
+        
+      </div>
+
+      <div class="col-md-4">
+        <mat-card>
+          <mat-card-title>New Reservation Requests</mat-card-title>
+          <mat-card-content>11</mat-card-content>
+        </mat-card>
+        
+      </div>
+
+    </div>
+
+    <div class="reservations-header">
+      <mat-card>
+        <mat-card-title>Reservation Requests</mat-card-title>
+      </mat-card>
+    </div>
+
+    <div>
+      <div class="list-group users-list">
+        <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">  
+          <div class="row">
+            <div class="col-md-1 image-col">
+              <img class="image" src="./../../../assets/img/building.jpg">
+            </div>
+            <div class="col-md-5 text-col">
+              <h5 class="mb-1">{{item.payload.doc.data().v_name}}</h5>
+              <small>{{item.payload.doc.data().fee}}</small>
+            </div>
+            <div class="col col-md-6 actions-col">
+              <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>
+              <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+                Calendar</button>
+              <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
