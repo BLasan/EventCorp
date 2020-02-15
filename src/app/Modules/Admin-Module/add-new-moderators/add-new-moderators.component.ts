@@ -236,7 +236,7 @@ export class AddNewModeratorsComponent implements OnInit {
 
 //generate message
 getMessage(id){
-  let message="<html><head><title></title></head><body>"+"Your account has been created by"+localStorage.getItem("nameId")+"To Login to the system please use the following credentials"+"<br><hr>"+"<b>ID :</b>"+id+"<br>"+"Password :"+this.form.get('password').value+"<br><br>"+"<b> Best Regards</b> <br> EventCorp Team";
+  let message="<html><head><title></title></head><body>"+"Your account has been created by "+localStorage.getItem("nameId")+".To Login to the system please use the following credentials"+"<br><hr>"+"<b>ID :</b>"+id+"<br>"+"Password :"+this.form.get('password').value+"<br><br>"+"<b> Best Regards</b> <br> EventCorp Team";
   return message;
 }
 

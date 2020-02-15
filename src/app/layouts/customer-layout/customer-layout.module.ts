@@ -36,10 +36,14 @@ import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-provide
 import { SearchProviderPipe } from 'app/Modules/Customer-Module/searchProvider.pipe';
 import { ShowVenueComponent } from 'app/Modules/Customer-Module/show-venue/show-venue.component';
 import { SearchVenuePipe } from 'app/Modules/Customer-Module/searchVenue.pipe';
+import { AgmCoreModule } from '@agm/core';
 
   @NgModule({
     imports: [
       CommonModule,
+      AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyAJiTvdCB4__gqcZMTkmLaSZWic94KFCvI'
+      }),
       RouterModule.forChild(CustomerLayoutRoutes),
       FormsModule,
       NgbModule,

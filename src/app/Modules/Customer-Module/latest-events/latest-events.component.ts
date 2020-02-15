@@ -23,6 +23,16 @@ export class LatestEventsComponent implements OnInit {
   constructor(private _db:AngularFirestore) { }
 
   ngOnInit() {
+    document.getElementById('home_span').style.display="none";
+    document.getElementById('event_span').removeAttribute('style');
+    document.getElementById('contact_span').style.display="none";
+    document.getElementById('about_span').style.display="none";
+
+    document.getElementById('home_list').setAttribute('class','nav-item');
+    document.getElementById('event_list').setAttribute('class','nav-item active');
+    document.getElementById('contact_list').setAttribute('class','nav-item');
+    document.getElementById('about_list').setAttribute('class','nav-item');
+
     this.get_top_users();
     disable_event_images();
     var _this=this;
@@ -41,13 +51,14 @@ export class LatestEventsComponent implements OnInit {
               }
               else{
                 _this.isEmpty=false;
-                _this.isLoaded=true;
                 snapshots.forEach(events=>{
                   let date=events.data().date;
+                  console.log(new Date(date))
                   if(new Date()<=new Date(date))
                   _this.events_array.push(events.data());
                   else console.log("Not valid")
                 })
+                _this.isLoaded=true;
               }
             })
           }

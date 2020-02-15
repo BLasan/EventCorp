@@ -102,7 +102,7 @@
 
 
 
-<nav class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top">
+<!-- <nav class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top">
     <div class="container-fluid " style="height: 80px;" >
         <div class="navbar-wrapper " style="height: 80px;">
           <a class="navbar-brand" href="#" style="margin-top: 0;margin-bottom: 0; padding-top: 0;padding-bottom: 0;height: 80px;" ><img src="assets/img/logo2.png" alt=""></a>
@@ -136,10 +136,10 @@
           </div>
         </div>  
     </div>
-</nav>
+</nav> -->
 
 
-<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#" style="margin-top: 0;margin-bottom: 0; padding-top: 0;padding-bottom: 0;height: 80px;" ><img src="assets/img/logo2.png" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -147,17 +147,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><b>HOME</b><span class="sr-only">(current)</span></a>
+      <li class="nav-item active" id="home_list">
+        <a class="nav-link" href="#"><b>HOME</b><span class="sr-only" id="home_span">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/upcomming-events"><b>UPCOMMING EVENTS</b></a>
+      <li class="nav-item" id="event_list">
+        <a class="nav-link" href="/upcomming-events"><b>UPCOMMING EVENTS</b><span class="sr-only" style="display: none;" id="event_span">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a href="/about-us" class="nav-link link" id="about"><b>ABOUT US</b></a>
+      <li class="nav-item" id="about_list">
+        <a href="/about-us" class="nav-link link" id="about"><b>ABOUT US</b><span class="sr-only" style="display: none;" id="about_span">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a href="/contact-us" class="nav-link link" id="contact"><b>Contact</b></a>
+      <li class="nav-item" id="contact_list">
+        <a href="/contact-us" class="nav-link link" id="contact"><b>Contact</b><span class="sr-only" style="display: none;" id="contact_span">(current)</span></a>
       </li>
       <li class="nav-item">
         <a mat-raised-button color="primary" *ngIf="!isLoggedIn" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
@@ -168,7 +168,7 @@
       </li>
     </ul>
   </div>
-</nav> -->
+</nav>
 
 <a href="/home" id="_return" style="display: none;"></a> 
 

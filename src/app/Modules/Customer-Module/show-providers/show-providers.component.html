@@ -27,7 +27,7 @@
         <table class="table">
           <tbody>
             <tr *ngFor="let provider of provider_array | searchProvider:searchText">
-              <td><a style="text-decoration: none;" href="{{provider.img_url}}" target="_blank"><img src="{{provider.img_url}}" style="height:50px;width:50px"></a></td>
+              <td><a style="text-decoration: none;" href="{{provider.image_url}}" target="_blank"><img src="{{provider.image_url}}" style="height:50px;width:50px"></a></td>
               <td style="font-size: medium;"><b>{{provider.user_name}}</b></td>
               <td><i class="fa fa-phone"></i>{{provider.contact}}</td>
               <td><i class="fa fa-envelope"></i>{{provider.email}}</td>
