@@ -31,6 +31,11 @@ import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ShowArtistComponent} from 'app/Modules/Customer-Module/show-artist/show-artist.component';
+import { SearchArtistPipe } from 'app/Modules/Customer-Module/searchArtist.pipe';
+import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
+import { SearchProviderPipe } from 'app/Modules/Customer-Module/searchProvider.pipe';
+import { ShowVenueComponent } from 'app/Modules/Customer-Module/show-venue/show-venue.component';
+import { SearchVenuePipe } from 'app/Modules/Customer-Module/searchVenue.pipe';
 //import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
   @NgModule({
     imports: [
@@ -63,6 +68,11 @@ import {ShowArtistComponent} from 'app/Modules/Customer-Module/show-artist/show-
      HelpComponent,
      LatestEventsComponent,
      ShowArtistComponent,
+     SearchArtistPipe,
+     ShowProvidersComponent,
+     SearchProviderPipe,
+     ShowVenueComponent,
+     SearchVenuePipe,
      //ShowProvidersComponent,
     //  MatCarouselComponent,
     //  MatCarouselSlideComponent

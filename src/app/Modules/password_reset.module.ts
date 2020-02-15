@@ -6,6 +6,7 @@ import { NotifierModule } from 'angular-notifier';
 import { ResetPasswordFirebaseComponent } from './reset-password-firebase/reset-password-firebase.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AuthGuardResetPasswordService } from 'app/services/Authentication/authGuard_reset_password.service';
+
 @NgModule({
   declarations: [ResetPasswordComponent,ResetPasswordFirebaseComponent],
   imports: [

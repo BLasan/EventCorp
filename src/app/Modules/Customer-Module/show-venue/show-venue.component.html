@@ -4,7 +4,8 @@
       <div class="card-header card-header-warning" >
         <div class="row">
           <div class="col-md-6 col-sm-6">
-            <h4 class="card-title">ARTISTS AVAILABLE</h4>
+            <h4 class="card-title">HALLS AVAILABLE</h4>
+            <P>Choose the Location for your Event</P>
           </div> 
           <div class="col-md-6 col-sm-6">
             <div class="row">
@@ -22,18 +23,20 @@
         </div>
       </div>
       
-      <div class="card-content table-responsive table-full-width" [ngClass]="{'list-group':artist_array.length>15}">
+      <div class="card-content table-responsive table-full-width" [ngClass]="{'list-group':venue_array.length>15}">
         <table class="table">
           <tbody>
-            <tr *ngFor="let artist of artist_array | searchArtist:searchText">
-              <td><a style="text-decoration: none;" href="{{artist.img_url}}" target="_blank"><img src="{{artist.img_url}}" style="height:50px;width:50px"></a></td>
-              <td style="font-size: medium;"><b>{{artist.user_name}}</b></td>
-              <td><i class="fa fa-phone"></i>{{artist.contact}}</td>
-              <td><i class="fa fa-envelope"></i>{{artist.email}}</td>
-              <td><i class="fa fa-map-marker"></i>{{artist.address1}},{{artist.address2}},{{artist.city}}</td>
-              <td> <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" (click)="getPlaylist(artist.email)">Songs</button>
+            <tr *ngFor="let venue of venue_array | searchVenue:searchText ">
+              <!-- <td><a style="text-decoration: none;" href="{{artist.img_url}}" target="_blank"><img src="{{artist.img_url}}" style="height:50px;width:50px"></a></td> -->
+              <td><a style="text-decoration: none;" href="assets\img\storage\home\hall.jpg" target="_blank"><img src="assets\img\storage\home\hall.jpg" style="height:70px;width:70px;margin-left: 20px;"></a></td>
+              <td style="font-size: medium;"><b>{{venue.v_name}}</b></td>
+              <td><i class="fa fa-phone"></i>{{venue.tel_no}}</td>
+              <td><i class="fa fa-map-marker"></i>{{venue.venue_address}}</td>
+              <td><i class="fa fa-envelope"></i>{{v_email}}</td>
               
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <!-- <td> <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" (click)="getPlaylist(artist.email)">Songs</button> -->
+              
+              <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -56,7 +59,7 @@
                   </div>
                 </div>
               </div>
-              </div></td>
+              </div></td> -->
             </tr>
 
             
@@ -64,22 +67,6 @@
         </table>
       </div>
     </div>
-
-    <!-- <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-      
-        
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="list" *ngFor="let song of playlist">
-              <p>{{song.name}}</p>
-            </div>
-          </div>
-          
-        </div>
-        
-      </div>
-    </div> -->
 
   </div>
 </div>

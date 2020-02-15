@@ -62,26 +62,16 @@ import { VenueProfileResolver } from "./venue-profile/venue-profile.resolver";
 import { VenueHomeService } from './venue-module/venue-home/venue-home.service'
 import {enableProdMode} from '@angular/core';
 import { CookieService } from "angular2-cookie/services/cookies.service";
-// const config = {
-//   apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
-//   authDomain: "eventcorppro.firebaseapp.com",
-//   databaseURL: "https://eventcorppro.firebaseio.com",
-//   projectId: "eventcorppro",
-//   storageBucket: "eventcorppro.appspot.com",
-//   messagingSenderId: "886719532814",
-//   appId: "1:886719532814:web:9424058ace3d13af"
-// };
+const config = {
+  apiKey: "AIzaSyA95SG6_4tkcDHDySiuQfVt9cbm_kyUwhk",
+  authDomain: "eventcorppro.firebaseapp.com",
+  databaseURL: "https://eventcorppro.firebaseio.com",
+  projectId: "eventcorppro",
+  storageBucket: "eventcorppro.appspot.com",
+  messagingSenderId: "886719532814",
+  appId: "1:886719532814:web:9424058ace3d13af"
+};
 
-const config={
-    apiKey: "AIzaSyCTIdcY84n5a6HJgMAPInQxWKialEj1bNk",
-    authDomain: "eventcorpdeployed.firebaseapp.com",
-    databaseURL: "https://eventcorpdeployed.firebaseio.com",
-    projectId: "eventcorpdeployed",
-    storageBucket: "eventcorpdeployed.appspot.com",
-    messagingSenderId: "821531422676",
-    appId: "1:821531422676:web:5eef3779cb652386eb3041",
-    measurementId: "G-XQCHRW0GY4"
-  }
 
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
@@ -108,7 +98,7 @@ import { ViewLocationComponent } from './shared-components/view-location/view-lo
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
 import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
 
-import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+//import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -131,7 +121,7 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     CustomerNavbarModule,
     LoginSignupModule,
     PasswordResetModule,
-    SharedComponentsModule,
+    //SharedComponentsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -182,9 +172,9 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     PaypalPaymentComponent,
     PaymentUsersComponent,
     ViewLocationComponent,
-    ShowProvidersComponent,
     
-    ViewUserEventsComponent,
+    
+    //ViewUserEventsComponent,
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,

@@ -37,7 +37,7 @@ import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
-import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+//import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
 
@@ -147,9 +147,9 @@ const routes: Routes =[
     component:ViewLocationComponent,
     canActivate:[AuthGuardLocationService],
   },
-  { path:'view-events/:uid' , 
-    component:ViewUserEventsComponent
-  },
+  // { path:'view-events/:uid' , 
+  //   component:ViewUserEventsComponent
+  // },
 
 
   // {
@@ -253,19 +253,9 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-  
-  {
-    path:'page-not-found',
-    component:ErrorPageComponent
-  },
-  {
+    {
     path:'chat-app',
     component:OnlineChatComponent
-  },
-  { path: 'show-providers' , component:ShowProvidersComponent},
-  {
-    path:'**',
-    component:ErrorPageComponent
   },
 
 ];
