@@ -102,62 +102,44 @@
 
 
 
-  <!-- <nav class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top">
+<nav class="navbar navbar-expand-lg bg-dark navbar-absolute fixed-top">
     <div class="container-fluid " style="height: 80px;" >
         <div class="navbar-wrapper " style="height: 80px;">
-          <a class="navbar-brand " href="#" style="margin-top: 0;margin-bottom: 0; padding-top: 0;padding-bottom: 0;height: 80px;" >
-            <img src="assets/img/logo2.png" alt="">
-          </a>
+          <a class="navbar-brand" href="#" style="margin-top: 0;margin-bottom: 0; padding-top: 0;padding-bottom: 0;height: 80px;" ><img src="assets/img/logo2.png" alt=""></a>
         </div>
-        <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()" style="height: 30px;">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
         </button>
         <div class="container-fluid">
-      
-        <div class="row collapse navbar-collapse   justify-content-center" id="navigation">
-          <ul class="navbar-nav ">
-            
-              <li class="nav-item">
-                  <a href="/" class="nav-link link" id="home" style="font: 15px sans-serif; color: rgb(94, 133, 155);"><b>Home</b></a>
-              </li>
-              <li class="nav-item dropdown">
-                  <a  class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"style="font: 15px sans-serif; color: rgb(94, 133, 155);"><b>Categories</b></a>
-                  <ul class="dropdown-menu">
-                      <li><a href="#">Artists</a></li>
-                      <li><a href="#">Equipment Providers </a></li>
-                      <li><a href="#">Event Managers</a></li>
-                      <li><a href="#">Halls</a></li>
-                  </ul>
-                </li>
-                
-              <li class="nav-item">
-                  <a href="/latest-events" class="nav-link link" id="events" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>Latest Events</b></a>
+          <div class="row collapse navbar-collapse justify-content-center" id="navigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#"><b>HOME</b><span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                  <a href="/about-us" class="nav-link link" id="about" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>About</b></a>
+                <a class="nav-link" href="/upcomming-events"><b>UPCOMMING EVENTS</b></a>
               </li>
               <li class="nav-item">
-                  <a href="#" class="nav-link link" id="services" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>Services</b></a>
+                <a href="/about-us" class="nav-link link" id="about"><b>ABOUT US</b></a>
               </li>
               <li class="nav-item">
-                  <a href="/contact-us" class="nav-link link" id="contact" style="font: 15px sans-serif;color: rgb(94, 133, 155);"><b>Contact</b></a>
+                <a href="/contact-us" class="nav-link link" id="contact"><b>Contact</b></a>
+              </li>
+              <li class="nav-item">
+                <a mat-raised-button color="primary" *ngIf="!isLoggedIn" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
+              </li>
+              <li class="nav-item">
+                <a mat-raised-button color="warn" *ngIf="!isLoggedIn" id="signup" href="/signup" style="margin: 6px;"><b>Register</b></a>
+                <a mat-raised-button color="warn" *ngIf="isLoggedIn" (click)="signout()" id="signout" style="margin: 6px;"><b>Logout</b></a>
               </li>
             </ul>
-           <div class="justify-content-end" style="right: 10px; position: absolute;" >
-              <a mat-raised-button color="primary" *ngIf="!isLoggedIn" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
-              <a mat-raised-button color="warn" *ngIf="!isLoggedIn" id="signup" href="/signup" style="margin: 6px;"><b>Register</b></a>
-              <a mat-raised-button color="warn" *ngIf="isLoggedIn" (click)="signout()" id="signout" style="margin: 6px;"><b>Logout</b></a>
-           </div>   
-        </div>
-    </div>  
-  </div>
-</nav> -->
+          </div>
+        </div>  
+    </div>
+</nav>
 
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="#" style="margin-top: 0;margin-bottom: 0; padding-top: 0;padding-bottom: 0;height: 80px;" ><img src="assets/img/logo2.png" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -169,28 +151,14 @@
         <a class="nav-link" href="#"><b>HOME</b><span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#"><b>UPCOMMING EVENTS</b></a>
+        <a class="nav-link" href="/upcomming-events"><b>UPCOMMING EVENTS</b></a>
       </li>
       <li class="nav-item">
         <a href="/about-us" class="nav-link link" id="about"><b>ABOUT US</b></a>
       </li>
-      <!-- <li class="nav-item">
-        <a href="#" class="nav-link link" id="services"><b>Services</b></a>
-      </li> -->
       <li class="nav-item">
         <a href="/contact-us" class="nav-link link" id="contact"><b>Contact</b></a>
       </li>
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li> -->
       <li class="nav-item">
         <a mat-raised-button color="primary" *ngIf="!isLoggedIn" id="login" href="/login" style="margin: 6px;"><b>Login</b></a>
       </li>
@@ -199,12 +167,8 @@
         <a mat-raised-button color="warn" *ngIf="isLoggedIn" (click)="signout()" id="signout" style="margin: 6px;"><b>Logout</b></a>
       </li>
     </ul>
-    <!-- <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> -->
   </div>
-</nav>
+</nav> -->
 
 <a href="/home" id="_return" style="display: none;"></a> 
 

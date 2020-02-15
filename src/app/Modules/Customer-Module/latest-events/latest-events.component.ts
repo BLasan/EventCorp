@@ -19,6 +19,7 @@ export class LatestEventsComponent implements OnInit {
   top_suppliers:any=[];
   top_venue_owners:any=[];
   isDone:boolean=false;
+  isEmpty:boolean=true;
   constructor(private _db:AngularFirestore) { }
 
   ngOnInit() {
@@ -33,11 +34,17 @@ export class LatestEventsComponent implements OnInit {
           if(docs.data().role==='organizer'){
             console.log(docs.id)
             _this._db.firestore.collection('register_user').doc(docs.id).collection('MyEvents').get().then(snapshots=>{
-              if(snapshots.empty) console.log("Empty Events");
+              if(snapshots.empty) {
+                console.log("Empty Events");
+                _this.isEmpty=true;
+                _this.isLoaded=true;
+              }
               else{
+                _this.isEmpty=false;
+                _this.isLoaded=true;
                 snapshots.forEach(events=>{
                   let date=events.data().date;
-                  if(new Date()<new Date(date))
+                  if(new Date()<=new Date(date))
                   _this.events_array.push(events.data());
                   else console.log("Not valid")
                 })

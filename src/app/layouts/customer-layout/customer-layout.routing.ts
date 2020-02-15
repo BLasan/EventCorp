@@ -10,7 +10,7 @@ import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events
 export const CustomerLayoutRoutes: Routes = [
     
     { path: 'home', component:CustomerHomeComponent },
-    { path: 'latest-events', component:LatestEventsComponent },
+    { path: 'upcomming-events', component:LatestEventsComponent },
     { path: 'contact-us' , component:ContactUsComponent},
     { path: 'about-us' , component:AboutUsComponent},
     // { path: 'faq' , component:FaqComponent},
