@@ -73,8 +73,8 @@ const config = {
 };
 
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
-import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
+// import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+// import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
 import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
 import { HelpComponent } from './shared-components/help/help.component';
@@ -100,6 +100,7 @@ import { ViewUserEventsComponent } from './shared-components/view-user-events/vi
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-dashboard.component';
+import { VenueEditComponent } from './venue-module/venue-home/venue-edit/venue-edit.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -146,9 +147,10 @@ import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-da
     AngularFirestoreModule.enablePersistence(), // firestore-persistance mode
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    FullCalendarModule,
+    // FullCalendarModule,
     MatDialogModule,
     MatRadioModule,
+    MatExpansionModule
     // ViewUserEventsComponent
     
   ],
@@ -164,7 +166,7 @@ import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-da
     EmailVerifyComponent,
     // ResetPasswordFirebaseComponent,
     // ResetPasswordComponent,
-    VenueCalendarComponent,
+    // VenueCalendarComponent,
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
     ReportDialogComponent,
@@ -172,6 +174,7 @@ import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-da
     PaymentUsersComponent,
     ViewLocationComponent,
     ViewUserEventsComponent,
+    VenueEditComponent,
     // VenueDashboardComponent
     // FilterPipe,
    // MyChatsComponent

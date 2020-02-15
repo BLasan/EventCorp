@@ -25,7 +25,7 @@ import { AuthGuardSupplierService } from './services/Authentication/athGuard_sup
 import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
 import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
 import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
-import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+// import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
@@ -206,7 +206,7 @@ const routes: Routes =[
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
   // {path: 'venueProfile' , component: VenueProfileComponent},
-  {path: 'venueCalendar' , component: VenueCalendarComponent},
+  // {path: 'venueCalendar' , component: VenueCalendarComponent},
   // {
   //   path:'location_owner',
   //   component:LocationOwnerLayoutComponent

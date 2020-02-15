@@ -5,6 +5,32 @@
 .reservations-header{
     margin-top: 40px;
     .mat-card{
-        background-color: lightblue;
+        background-color: #566a93;
+    }
+}
+
+.requests{
+    margin-top: 20px;
+    background-color: green($color: #000000);
+}
+
+.desc{
+    text-align: right;
+}
+
+.mat-expansion-panel-header{
+    background-color: red($color: #000000);
+}
+
+.header{
+    background-color: lightgray;
+    .desc{
+        text-align: end;
+    }
+}
+
+mat-expansion-panel{
+    div{
+        margin-top: 10px;
     }
 }

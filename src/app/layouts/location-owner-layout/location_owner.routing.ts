@@ -9,6 +9,7 @@ import { VenueNotificationsComponent } from '../../venue-module/venue-notificati
 import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
 // import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
+import { VenueCalendarComponent } from 'app/venue-module/venue-calendar/venue-calendar.component';
 
 
 export const LocationOwnerLayoutRoutes: Routes = [
@@ -21,5 +22,7 @@ export const LocationOwnerLayoutRoutes: Routes = [
     // { path: 'view-events/:uid' , component:ViewUserEventsComponent},
     { path: 'venue-settings', component:VenueSettingsComponent},
     { path: 'venue-notifications', component:VenueNotificationsComponent},
-    { path: 'venue-dashboard', component:VenueDashboardComponent}
+    { path: 'venue-dashboard', component:VenueDashboardComponent},
+    { path: 'venueCalendar', component:VenueCalendarComponent}
+
 ];

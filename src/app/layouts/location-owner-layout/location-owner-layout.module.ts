@@ -26,7 +26,8 @@ import {
   MatDialogModule,
   MatCardModule,
   MatListModule,
-  MatChipsModule
+  MatChipsModule,
+  MatExpansionModule
   // MatTableModule
 } from "@angular/material";
 
@@ -41,6 +42,10 @@ import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver
 import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
 // import { ViewUserEventsComponent } from "../../shared-components/view-user-events"
 import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
+import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
+
 
 
 @NgModule({
@@ -66,7 +71,9 @@ import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venu
     MatGridListModule,
     MatIconModule,
     MatSliderModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    FullCalendarModule,
+    MatExpansionModule
   ],
   declarations: [
     VenueListComponent,
@@ -76,7 +83,8 @@ import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venu
     // NotificationsComponent,
     VenueNotificationsComponent,
     VenueSettingsComponent,
-    VenueDashboardComponent
+    VenueDashboardComponent,
+    VenueCalendarComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })

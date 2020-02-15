@@ -6,8 +6,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { LoginService } from 'app/services/login.services';
 
 
-
-
 @Component({
   selector: 'app-venue-reservation-form',
   templateUrl: './venue-reservation-form.component.html',
@@ -32,6 +30,7 @@ export class VenueReservationFormComponent implements OnInit {
     this.myForm = this.fb.group({
       
       title: ['',Validators.required],
+      v_name: ['',Validators.required],
       event_start: ['',Validators.required],
       event_end: ['',Validators.required],
       start_time: ['',Validators.required],
@@ -41,7 +40,10 @@ export class VenueReservationFormComponent implements OnInit {
       person_name: ['',Validators.required],
       address: ['',Validators.required],
       tel_no: ['',Validators.required],
-      assigned_officer: ['',Validators.required]
+      assigned_officer: ['',Validators.required],
+      // venue_owner: this.loginService.currentUser(),
+      // venue_name: "abc",
+      accepted: 0
 
     })
 
@@ -54,8 +56,15 @@ export class VenueReservationFormComponent implements OnInit {
 
     const formValue = this.myForm.value;
 
+    // try {
+    //   await this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('MyEvents').add(formValue); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
+    //   this.success = true;
+    // } catch(err) {
+    //   console.error(err)
+    // }
+
     try {
-      await this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('events').add(formValue); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
+      await this.afs.collection('events').add(formValue); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
       this.success = true;
     } catch(err) {
       console.error(err)

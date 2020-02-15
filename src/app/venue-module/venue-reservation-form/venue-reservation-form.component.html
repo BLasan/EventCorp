@@ -1,13 +1,17 @@
 <div class="main-content">
   <div class="container-fluid">
-
+    <div class="reservationForm">
     <form [formGroup]="myForm" [hidden]="success" (ngSubmit)="submitHandler()">
 
-      <h3>Venue Reservation Form</h3>
+      <h3 class="heading">Venue Reservation Form</h3>
         <hr><br><br>
     
         <mat-form-field>
           <input matInput placeholder="Event Name" formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Venue Name" formControlName="v_name">
         </mat-form-field>
   
         <mat-form-field>
@@ -57,7 +61,8 @@
     
         <button mat-button color="primary" type="submit" [disabled]="myForm.invalid">Submit Form</button>
     
-    </form>   
+    </form>
+  </div>   
 
     <div *ngIf="success" class="notification is-success">
         Registration Completed!
