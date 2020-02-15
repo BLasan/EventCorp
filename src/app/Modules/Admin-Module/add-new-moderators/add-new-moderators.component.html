@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content" style="background-color:#212121;">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6">
@@ -8,63 +8,63 @@
             <p class="card-category">Fill the moderator details</p>
           </div>
           <div class="card-body">
-            <form #form1 action="/create_moderator" method="POST" [formGroup]="form">
+            <form [formGroup]="form">
               <div class="row">
                 <div class="col-md-5">
                   <mat-form-field class="example-full-width">
                     <input matInput placeholder="EventCorp" disabled>
                   </mat-form-field>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-7">
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Username" name="user_name" formControlName="user_name" required>
-                    <mat-error *ngIf="hasError('user_name', 'required')">First name is required</mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-4">
-                  <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Email address" type="email" name="email" formControlName="email" required>
-                    <mat-error *ngIf="hasError('email', 'required')">First name is required</mat-error>
+                    <input matInput placeholder="Username" id="user_name" name="user_name" formControlName="user_name" required>
+                    <mat-error *ngIf="hasError('user_name', 'required')">User name is required</mat-error>
                   </mat-form-field>
                 </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Fist Name" type="text" name="f_name" formControlName="f_name" required>
+                      <input matInput placeholder="Fist Name" id="f_name" type="text" name="f_name" formControlName="f_name" required>
                       <mat-error *ngIf="hasError('f_name', 'required')">First name is required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Last Name" type="text" name="l_name" formControlName="l_name" required>
-                      <mat-error *ngIf="hasError('l_name', 'required')">First name is required</mat-error>
+                      <input matInput placeholder="Last Name" id="l_name" type="text" name="l_name" formControlName="l_name" required>
+                      <mat-error *ngIf="hasError('l_name', 'required')">Last name is required</mat-error>
                     </mat-form-field>
                   </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                       <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Country" type="text" name="country" formControlName="country" required>
-                        <mat-error *ngIf="hasError('country', 'required')">First name is required</mat-error>
+                        <input matInput placeholder="Country" id="country" type="text" name="country" formControlName="country" required>
+                        <mat-error *ngIf="hasError('country', 'required')">Country is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="example-full-width">
-                        <input matInput placeholder="Contact" type="number" name="contact" formControlName="contact" maxlength="10" required>
-                        <mat-error *ngIf="hasError('contact', 'required')">First name is required</mat-error>
+                        <input matInput placeholder="Contact" id="contact" type="number" name="contact" formControlName="contact" maxlength="10" required>
+                        <mat-error *ngIf="hasError('contact', 'required')">Contact Number is required</mat-error>
                       </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Password" type="password" name="password" formControlName="password" required>
-                      <mat-error *ngIf="hasError('password', 'required')">First name is required</mat-error>
+                      <input matInput placeholder="Password" id="password" type="password" name="password" formControlName="password" required>
+                      <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6 col-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Enter Email" id="email" type="email" name="email" formControlName="email" required>
+                      <mat-error *ngIf="hasError('email', 'required')">Email required</mat-error>
                     </mat-form-field>
                   </div>
                 </div>
-                <button mat-raised-button class="btn btn-danger pull-right"  (click)="form1.submit()">Create Moderator</button>
+                <button mat-raised-button class="btn btn-danger pull-right"  (click)="createModerator()">Create Moderator</button>
                 <div class="clearfix"></div>
             </form>
           </div>
@@ -77,25 +77,29 @@
             <p class="card-category">Assign moderator Previledges</p>
           </div>
           <div class="card-body">
-            <mat-list role="list">
+            <mat-list role="list" *ngFor="let priviledges of priviledges">
               <mat-list-item role="listitem">
                 <p>Delete Comments</p>
-                <button mat-raised-button style="margin-left:177px;margin-top:-15px;background-color:green;">Assign</button>
+                <button mat-raised-button style="margin-left:177px;margin-top:-15px;background-color:green;" (click)="addPriviledge('delete_comments')" *ngIf="priviledges.delete_comments===false">Assign</button>
+                <button mat-raised-button style="margin-left:177px;margin-top:-15px;background-color:red;" (click)="removePriviledge('delete_comments')" *ngIf="priviledges.delete_comments===true">Remove</button>
               </mat-list-item>
               <mat-divider></mat-divider>
               <mat-list-item role="listitem">
                 <p>Accept / Decline User Requests</p>
-                <button mat-raised-button style="margin-left:80px;background-color:green;">Assign</button>
+                <button mat-raised-button style="margin-left:80px;background-color:green;" (click)="addPriviledge('user_requests')" *ngIf="priviledges.user_requests===false">Assign</button>
+                <button mat-raised-button style="margin-left:80px;background-color:red;" (click)="removePriviledge('user_requests')" *ngIf="priviledges.user_requests===true">Remove</button>
               </mat-list-item>
               <mat-divider></mat-divider>
               <mat-list-item role="listitem">
                 <p>View User Details</p>
-                <button mat-raised-button style="margin-left:180px;background-color:green;">Assign</button>
+                <button mat-raised-button style="margin-left:180px;background-color:green;" (click)="addPriviledge('view_details')" *ngIf="priviledges.view_details===false">Assign</button>
+                <button mat-raised-button style="margin-left:180px;background-color:red;" (click)="removePriviledge('view_details')" *ngIf="priviledges.view_details===true">Remove</button>
               </mat-list-item>
               <mat-divider></mat-divider>
               <mat-list-item role="listitem">
                 <p>Edit Content</p>
-                <button mat-raised-button style="margin-left:217px;background-color:green;">Assign</button>
+                <button mat-raised-button style="margin-left:217px;background-color:green;" (click)="addPriviledge('edit_content')" *ngIf="priviledges.edit_content===false">Assign</button>
+                <button mat-raised-button style="margin-left:217px;background-color:red;" (click)="removePriviledge('edit_content')" *ngIf="priviledges.edit_content===true">Remove</button>
               </mat-list-item>
               <mat-divider></mat-divider>
             </mat-list>   

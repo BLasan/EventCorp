@@ -29,6 +29,7 @@ export class EditProductsComponent implements OnInit {
   constructor(private database:AngularFirestore,private route:ActivatedRoute,private storage:AngularFireStorage,private snackBar:MatSnackBar) { }
 
   ngOnInit() {
+    document.getElementById('search_bar').style.display="none";
     this.item_categories=item_types;
     this.route.params.subscribe(params => {
       this.loadProduct(params.id);
@@ -74,8 +75,10 @@ export class EditProductsComponent implements OnInit {
     let price=this.form.get('price').value;
     let quantity=this.form.get('quantity').value;
     // let code=this.form.get('code').value;
-    if(this.isUploaded)
-    var image_file=this.image_file[0];
+    if(this.isUploaded){
+      var image_file=this.image_file[0];
+      this.storage.storage.refFromURL(this.img_url_storage).delete();
+    }
     let description=this.form.get('description').value;
     let date=new Date();
 
@@ -94,6 +97,8 @@ export class EditProductsComponent implements OnInit {
                 var item_details={image_url:url,item_name:item_name,item_type:_this.category,price:price,quantity:quantity,code:_this._id,description:description,date:date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),file_name:image_file.name};
                _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_this._id).update(item_details).then(()=>{
                  console.log('Updated to database');
+                 _this.form.reset();   //reset form
+                 _this.loadProduct(_this._id);
                  _this.snackBar.open("Successfully Updated!","OK", {
                   duration: 2000,
                 }); 
@@ -105,7 +110,7 @@ export class EditProductsComponent implements OnInit {
                })
               })
             }).catch(err=>{
-              console.log("HjHHH");
+             // console.log("HjHHH");
               console.log(err);
             });
           }
@@ -115,6 +120,8 @@ export class EditProductsComponent implements OnInit {
             console.log(item_details);
             _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').doc(_this._id).update(item_details).then(()=>{
               console.log('Added to database');
+              _this.form.reset();   //reset form
+              _this.loadProduct(_this._id);
             }).catch(err=>{
               console.log("HHHHH");
               console.log(err);
@@ -123,8 +130,7 @@ export class EditProductsComponent implements OnInit {
       }
       });
 
-    this.form.reset();        //reset form
-    document.getElementById('file_name').innerHTML="";         //reset file name
+    //document.getElementById('file_name').innerHTML="";         //reset file name
 }
 
 
@@ -151,16 +157,18 @@ export class EditProductsComponent implements OnInit {
     this.isUploaded=true;
     this.image_file=event.target.files;
     console.log(this.image_file);
-    document.getElementById('file_name').innerHTML=this.image_file[0].name;  //update file name
+    this.imageUrl=this.image_file[0].name;
+    //document.getElementById('file_name').innerHTML=this.image_file[0].name;  //update file name
   }
 
   upload_image(event:any){
     event.preventDefault();
-    add_item_image();
+    document.getElementById('item_image').click();
+   // add_item_image();
   }
 
   remove_image(){
-    item_uploader_remove();
+    //item_uploader_remove();
     this.isUploaded=false;
   }
 

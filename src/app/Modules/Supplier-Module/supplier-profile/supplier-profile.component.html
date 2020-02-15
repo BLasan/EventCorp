@@ -9,11 +9,11 @@
                                 <button class="btn btn-primary" id="image_uploader" (click)="upload_image()">Add</button>
                                 <button class="btn btn-danger" id="remove" (click)="remove_image()">Remove</button>
                             </div>
-                            <a href="#" *ngIf="user_profile[0].img_url==null">
-                                <img src="./assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                            <a href="#" *ngIf="user_profile[0].image_url==null">
+                                <img src="assets/img/pro_img.png" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
                             </a>
-                            <a href="#" *ngIf="user_profile[0].img_url!=null">
-                                <img [src]="user_profile[0].img_url" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
+                            <a href="#" *ngIf="user_profile[0].image_url!=null">
+                                <img [src]="user_profile[0].image_url" id="profile_pic" class=" card-avatar img" style="height:200px;width:200px"/>
                             </a>
                         </div>
                     <!-- </div> -->
@@ -83,7 +83,8 @@
                                 <textarea matInput placeholder="About me" id="about_me" formControlName="about_me" name="about_me"></textarea>
                             </mat-form-field>
                             <input type="file" id="profile_img" name="profile_img" style="display:none" (change)="get_uploaded_image($event)" accept="image/*"> 
-                            <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="!form.valid">Update</button>
+                            <button mat-raised-button (click)="onSubmit()" color="primary" [disabled]="!form.valid" *ngIf="!isUploading">Update</button>
+                            <button mat-raised-button color="primary" disabled *ngIf="isUploading">Updating....</button>
                         </form>
                     </div>
                 </div>

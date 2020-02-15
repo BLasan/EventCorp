@@ -205,11 +205,12 @@ export class RatingSystemComponent implements OnInit {
     let comment_id=this.organizer_name+"-"+this.searched_user_email+"@"+date;
     var hash= CryptoJS.SHA256(comment_id).toString();
     let obj={comment:this.myComment,date:date,user_name:this.organizer_name,id:hash};
+    this.comments_array=this.comments_array.filter(x=> x.user_name===localStorage.getItem('user_name'));
     this.comments_array.push(obj);
     console.log(this.comments_array.length);
     this.myComment="";
     this.database.collection('register_user').doc(this.searched_user_email).collection('comments').doc(hash).set({id:hash,comments:this.comments_array,sender_mail:localStorage.getItem('user_name')}).then(docs=>{
-     // _this.loadComments();
+      _this.loadComments();
       _this._snackBar.open("Successfully Posted","Done", {
         duration: 2000,
       });
@@ -219,22 +220,6 @@ export class RatingSystemComponent implements OnInit {
         duration: 3000,
       });
     })
-  
-    // this._comment.add_comment(this.myComment,this.searched_user_email,this.organizer_name,timeStamp).subscribe(data=>{
-    //   this.success=data;
-    //   console.log(this.success)
-    //   if(this.success.success==true){
-    //     this.loadComments();
-    //     this._snackBar.open("Successfully Posted","Done", {
-    //       duration: 2000,
-    //     });
-    //   }
-    //   else{
-    //     this._snackBar.open("Unsuccessfull posting","Post again", {
-    //       duration: 3000,
-    //     });
-    //   }
-    // })
 
   }
 
@@ -259,25 +244,15 @@ export class RatingSystemComponent implements OnInit {
         console.log('Error getting documents', err);
       });
 
-  //     this.rating.load_ratings(this.searched_user_email).subscribe(data=>{
-  //       this.ratings=data;
-  //       console.log(this.ratings.success)
-  //       if(this.ratings.success==true){
-  //         this.rating_data=this.ratings.data;
-  //         // console.log(this.rating_data);
-  //         this.userRate=this.rating_data.rating;
-  //       }
-  //       else console.log('Empty ratings');
-        
-  //     })
-  // });
-
   });
 }
 
-   loadComments(){
+  //loading comments
+  loadComments(){
     var _this=this;
     this.comments_array=[];
+
+    //get comments from the database
     var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('comments');
     docRef.get().then(async function(doc) {
         if (!doc.empty) {
@@ -292,110 +267,43 @@ export class RatingSystemComponent implements OnInit {
               var obj={comment:comment,date:date,user_name:user_name,id:id};
               _this.comments_array.push(obj);
             }
-           
-          })
-          // _this.comments_array=doc.data().comments;
-          // console.log(_this.comments_array.length);
-          if(_this.comments_array.length>5) bind_scroll();
-        } 
-        else{
-           console.log('No Documents'); 
-        }
+        });
+
+        //bind vertical scroll
+        if(_this.comments_array.length>5) bind_scroll();
+      } 
+      else{
+        console.log('No Documents'); 
+      }
     }).catch(err => {
       console.log('Error getting documents', err);
     });
 
-    //  this._comment.load_comment(this.searched_user_email).subscribe(data=>{
-    //    this.user_comments=data;
-
-    //    if(this.user_comments.success==true){
-    //     this.comments_prev=this.user_comments.data;
-    //     console.log(this.user_comments);
-    //     if(this.comments_prev){
-    //      var temp_array=this.comments_prev;
-    //      if(temp_array.length>5){
-    //        bind_scroll();
-    //      }
-    //     }
-    //    }
-    //  })
-
    }
 
-   book_now(){
-    let _this=this;
-    let date=new Date();
-    let timeStamp=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+""+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-    this.isProcessing=true;
-    console.log(timeStamp);
-    let sender_name=localStorage.getItem('nameId');
-    let sender_email=localStorage.getItem('user_name');
-    let receiver_email=this.searched_user_email;
-    let booking_request={sender_name:sender_name,sender_email:sender_email,receiver_email:receiver_email,date:timeStamp,view:false,status:"Pending"};
-    this.database.collection('register_user').doc(receiver_email).collection('bookings').doc(localStorage.getItem('user_name')).set(booking_request).then(()=>{
-      _this.isProcessing=false;
-      _this.sent_bookings=true;
-      _this._snackBar.open("Successfully Sent","OK", {
-        duration: 3000,
-      });
-    }).catch(err=>{
-      console.log(err);
-      _this._snackBar.open("Request sending error","Book Again", {
-        duration: 5000,
-      });
-    });
-
-    // let cityRef = this.database.firestore.collection('register_user').doc(user_name);
-    // cityRef.get().then(doc => {
-    //     _this.isProcessing=false;
-    //     _this.sent_bookings=true;
-    //     if(doc.data()){
-    //     var docRef = _this.database.firestore.collection('register_user').doc(_this.searched_user_email);
-    //     docRef.get().then(async function(docs) {
-
-    //       var contact=doc.data().contact;
-    //       var user_name=doc.data().user_name;
-    //       var receiver_email=docs.data().email;
-    //       var receiver_role=docs.data().role;
-    //       var sender_data={receiver_email:receiver_email,receiver_id:_this.searched_user_email,receiver_name:docs.data().user_name,receiver_role:receiver_role,time:timeStamp,status:'Pending',view:false};
-    //       var receiver_data={user_name:user_name,user_email:user_name,time:timeStamp,status:'Pending',user_contact:contact,user_role:doc.data().role,view:false};
-    //       var sender_details=_this.database.collection('register_user').doc(user_name).collection('bookings').doc(receiver_email).set(sender_data);
-    //       var receiver_details=_this.database.collection('register_user').doc(receiver_email).collection('bookings').doc(user_name).set(receiver_data);
-    //       if(sender_details && receiver_details)
-    //       _this._snackBar.open("Successfully Sent","OK", {
-    //         duration: 3000,
-    //       });
-    //     }).catch(function(error) {
-    //       console.log("Error getting document:", error);
-    //     });
-    //     }
-    //     else if(!doc.data()) alert("Empty Data");
-
-    // }).catch(err => {
-    //   console.log('Error getting document', err);
-    //   _this._snackBar.open("Request sending error","Book Again", {
-    //     duration: 5000,
-    //   });
-    // });
-
-    // this.booking.book_user(this.searched_user_email,timeStamp,user_name).subscribe(data=>{
-    //   this.success_booking=data;
-    //   console.log(this.success_booking)
-    //   if(this.success_booking.success==true){
-    //     this.isProcessing=false;
-    //     this.sent_bookings=true;
-    //     this._snackBar.open("Successfully Sent","OK", {
-    //       duration: 3000,
-    //     });
-    //   }
-    //   else{
-    //     this._snackBar.open("Request sending error","Book Again", {
-    //       duration: 5000,
-    //     });
-    //   }
-    // });
-
-   }
+  //  book_now(){
+  //   let _this=this;
+  //   let date=new Date();
+  //   let timeStamp=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+""+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+  //   this.isProcessing=true;
+  //   console.log(timeStamp);
+  //   let sender_name=localStorage.getItem('nameId');
+  //   let sender_email=localStorage.getItem('user_name');
+  //   let receiver_email=this.searched_user_email;
+  //   let booking_request={sender_name:sender_name,sender_email:sender_email,receiver_email:receiver_email,date:timeStamp,view:false,status:"Pending"};
+  //   this.database.collection('register_user').doc(receiver_email).collection('bookings').doc(localStorage.getItem('user_name')).set(booking_request).then(()=>{
+  //     _this.isProcessing=false;
+  //     _this.sent_bookings=true;
+  //     _this._snackBar.open("Successfully Sent","OK", {
+  //       duration: 3000,
+  //     });
+  //   }).catch(err=>{
+  //     console.log(err);
+  //     _this._snackBar.open("Request sending error","Book Again", {
+  //       duration: 5000,
+  //     });
+  //   });
+  //  }
 
 
    getRequestDetails(){
@@ -436,25 +344,9 @@ export class RatingSystemComponent implements OnInit {
     console.log("Error getting document:", error);
     });
 
-    //  this.booking.get_booking_details(user_name,this.searched_user_email).subscribe(data=>{
-    //    this.booking_details=data;
-    //    console.log(this.booking_details+"=>DATA")
-    //    if(this.booking_details.success){
-    //      if(this.booking_details.data.status=="Pending")
-    //      this.sent_bookings=true;
-    //      else if(this.booking_details.data.status=="Rejected")
-    //      this.sent_bookings=false;
-    //      else if(this.booking_details.data.status=="Confirmed")
-    //      this.sent_bookings=false;
-    //      console.log(this.sent_bookings)
-    //    }
-    //    else{
-    //      this.sent_bookings=false;
-    //    }
-    //  })
-
    }
 
+   //get searched user data
    getSearchedUserData(){
      var _this=this;
      console.log(this.searched_user_email)
@@ -467,16 +359,9 @@ export class RatingSystemComponent implements OnInit {
           _this.search_user_role=doc.data().role;
          // alert(_this.search_user_role)
           if(_this.search_user_role==='artist') _this.load_artist_playlist();
-          else if(_this.search_user_role!=='artist') _this.load_user_events();          // if(_this.search_user_role==='artist'){
-          //   _this.database.firestore.collection('register_user').doc(_this.searched_user_email).collection('my_playlist').doc('playlist').get().then(docs=>{
-          //     if(!docs.exists) console.log("Empty Data")
-          //     else{
-          //       console.log(docs.data().playList_name);
-          //      _this.artist_playlist.push(docs.data().playlist)
-          //      console.log(_this.artist_playlist);
-          //     }
-          //   })
-          // }
+          else if(_this.search_user_role!=='artist') _this.load_user_events();   
+
+          //load data to an array
           _this.image_url=doc.data().image_url;
           _this.search_user_about=doc.data().bio;
           if(!_this.search_user_about) _this.search_user_about="Not Updated";
@@ -490,18 +375,15 @@ export class RatingSystemComponent implements OnInit {
     }).catch(function(error) {
       console.log("Error getting document:", error);
     });
-    // this.rating.loadSearchedUserData(this.searched_user_email).subscribe(data=>{
-    //   console.log("GEtting")
-    //   this.search_user_data=data;
-    //  console.log(this.search_user_data.status);
-    // })
   }
 
+  //view more
   load_more(){
     disable_load_more();
     this.isLoadMore=true;
   }
 
+  //get the visibility settings
   load_view_settings(){
     var _this=this;
     this.database.firestore.collection('visibility').doc(this.searched_user_email).get().then(doc=>{
@@ -525,6 +407,7 @@ export class RatingSystemComponent implements OnInit {
     });
   }
 
+  //loading user events
   load_user_events(){
     var _this=this;
     this.database.firestore.collection('register_user').doc(this.searched_user_email).collection('MyEvents').get().then(snapshot=>{

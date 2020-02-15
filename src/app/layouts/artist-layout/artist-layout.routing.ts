@@ -25,6 +25,6 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'my-chat-list',component:MyChatsComponent},
     { path:'artist-settings' , component:ArtistSettingsComponent},
     { path:'ratings/:name' , component:RatingSystemComponent}, 
-    { path:"Edit Playlist/:id",component:EditPlaylistComponent},
-    { path:"booked_events",component:BookedEventsComponent}
+    // { path:"Edit Playlist/:id",component:EditPlaylistComponent},
+    { path:'booked_events',component:BookedEventsComponent}
 ];

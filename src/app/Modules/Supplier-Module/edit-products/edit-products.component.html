@@ -42,7 +42,7 @@
                 <textarea matInput placeholder="Description" style="color:black" id="description" formControlName="description"></textarea>
                 <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
               </mat-form-field>
-                <input type="file" id="item_image" name="item_image" (change)="get_uploaded_image($event)" accept="image/*" *ngIf="isUploaded"> 
+                <input type="file" id="item_image" name="item_image" (change)="get_uploaded_image($event)" accept="image/*" style="display: none;"> 
                 <span *ngIf="isUploaded">&lowast;</span><mat-error *ngIf="hasError('item_image', 'required') && isUploaded">Image is required</mat-error>
               <button mat-raised-button style="margin-top:5px" (click)="onSubmit()" color="primary" [disabled]="!form.valid && !imageUrl">Update</button>
             </form>

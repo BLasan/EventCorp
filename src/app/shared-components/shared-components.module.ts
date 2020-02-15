@@ -91,7 +91,6 @@ import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
     SearchItemsPipe,
     ViewAllEventsComponent,
     BookedEventsComponent,
-    //SearchArtistPipe,
   ]
 })
 export class SharedComponentsModule { }

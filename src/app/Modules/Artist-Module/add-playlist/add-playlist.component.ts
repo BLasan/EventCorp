@@ -14,6 +14,7 @@ export class AddPlaylistComponent implements OnInit {
   audio_files:FileList;
   total_size:number=0;
   form:any;
+  isUploading:boolean=false;
   audio_url:Array<{url:string,name:string,size:any}>=[];
   refUrlArray:any=[];
   constructor(private database:AngularFirestore,private storage:AngularFireStorage) { }
@@ -39,51 +40,34 @@ export class AddPlaylistComponent implements OnInit {
 
   audio_upload(event){
     this.total_size=0;
-    var _this=this;
-    (<HTMLInputElement>document.getElementById('progress_bar')).removeAttribute('style');
     this.audio_files=event.target.files;
-    alert(this.audio_files.length);
-
-    //remove files from the storage
-    try{
-      for(var i=0;i<50;i++){
-        var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
-        this.storage.ref(audio_id).delete();
-      }
-    }catch(ex){
-      console.log(ex);
+    console.log(event.target.files[0].size);
+    (<HTMLInputElement>document.getElementById('progress_bar')).removeAttribute('style');
+    for(var i=0;i<this.audio_files.length;i++)
+    this.total_size+=event.target.files[i].size;
+  
+    //remove progress bar after uploading
+    if(i===this.audio_files.length){
+      (<HTMLInputElement>document.getElementById('remove_file')).removeAttribute('style');
+      (<HTMLInputElement>document.getElementById('progress_bar')).style.display="none";
     }
-
-    //upload files to storage bucket and calculate the size
-    for(var i=0;i<this.audio_files.length;i++){
-      var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
-      this.refUrlArray.push(audio_id);   //get reference urls to the array
-      var storageRef=this.storage.ref(audio_id);
-      storageRef.put(this.audio_files[i]).then(snapshot=>{
-        storageRef.getDownloadURL().subscribe(url=>{
-          var obj={url:url,name:snapshot.metadata.name,size:snapshot.metadata.size};
-          _this.audio_url.push(obj);
-          _this.total_size+=(snapshot.metadata.size/(1024*1024));
-          //reset the progress bar
-          if(i==_this.audio_files.length) 
-          document.getElementById("progress_bar").style.display = "none";
-          (<HTMLInputElement>document.getElementById('size')).innerHTML=(_this.total_size.toFixed(2)).toString()+"MB";
-          (<HTMLInputElement>document.getElementById('remove_file')).removeAttribute('style');
-        });
-      }).catch(err=>{
-        console.log(err);
-      });
-    }
+    
+    //calculate the size of the files
+    this.total_size=(this.total_size)/(1024*1024);   
+    (<HTMLInputElement>document.getElementById('size')).innerHTML=this.total_size.toFixed(2).toString()+"MB";
   }
+
 
   remove(){
     disable_remove_files();
     (<HTMLInputElement>document.getElementById('remove_file')).style.display="none";
     (<HTMLInputElement>document.getElementById('playlist_uploader')).value="";
     (<HTMLInputElement>document.getElementById('size')).innerHTML="Size: 0MB";
+    this.audio_url=[];
   }
 
   onSubmit(){
+   this.isUploading=true;
    var _this=this;
    let name=(<HTMLInputElement>document.getElementById('playlist_name')).value;
    let description=(<HTMLInputElement>document.getElementById('description')).value;
@@ -92,25 +76,32 @@ export class AddPlaylistComponent implements OnInit {
   
   //remove files from the storage
   try{
-    for(var i=0;i<this.refUrlArray.length;i++){
-      this.storage.ref(this.refUrlArray[i]).delete();
+    for(var i=0;i<50;i++){
+      var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
+      this.storage.ref(audio_id).delete();
     }
   }catch(ex){
     console.log(ex);
   }
-  
+
   //upload files 
   for(var i=0;i<this.audio_files.length;i++){
     var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
     var storageRef=this.storage.ref(audio_id);
-    storageRef.put(this.audio_files[i]).then(snapshot=>{
-      storageRef.getDownloadURL().subscribe(url=>{
+    var storageRef1=this.storage.ref(audio_id);
+    storageRef.put(this.audio_files.item(i)).then(snapshot=>{
+      alert("Storage Up"+i);
+      storageRef1.getDownloadURL().subscribe(url=>{
+        alert("storageURL"+i);  
         var obj={url:url,name:snapshot.metadata.name,size:snapshot.metadata.size};
         _this.audio_url.push(obj);
-        _this.total_size+=(snapshot.metadata.size/(1024*1024));
+        console.log(url);
         let data={playList_name:name,description:description,playlist:_this.audio_url,date:date};
+  
+        //update to database
         _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').doc('playlist').set(data).then(()=>{
           console.log("Success");
+          _this.isUploading=false;
         }).catch(err=>{
           console.log(err);
         });
@@ -118,8 +109,8 @@ export class AddPlaylistComponent implements OnInit {
     }).catch(err=>{
       console.log(err);
     });
+
   }
-  
    //reset form
    this.reset_form();
 

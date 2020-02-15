@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(private login_service:LoginService,private _db:AngularFirestore,private auth:AngularFireAuth,private cookie:CookieService) { }
 
   ngOnInit() {
-   let user_name_val;
+   let user_name_val; 
     //check the remember me checked?
     if(this.cookie.get('user_name')){
       user_name_val=this.cookie.get('user_name');
@@ -77,7 +77,42 @@ export class LoginComponent implements OnInit {
     //   console.log(err);
     //   _this.isTrue=false;
     // });
-    
+
+
+    //if the user is a moderator or admin
+    if(email.indexOf('@')<=-1){
+      this._db.firestore.collection('register_user').get().then(docs=>{
+        if(docs.empty){
+          _this.isTrue=false;
+          _this.isLoading=false;
+        }
+        else{
+          docs.forEach(doc=>{
+            if(doc.data().id===email){
+              _this.isLoading=false;
+
+              _this._db.collection('register_user').doc(email).update({active_status:"login"}).then(()=>{
+                _this.isTrue=true;
+                localStorage.setItem('loggedIn','true');
+                localStorage.setItem('nameId',doc.data().user_name);
+                localStorage.setItem('user_name',email);
+                localStorage.setItem('role',doc.data().role);
+                localStorage.setItem('authToken',email);
+              }).catch(err=>{
+                _this.isTrue=false;
+                console.log(err);
+              })
+            }
+            else{
+              _this.isTrue=false;
+              _this.isLoading=false;
+              password_ele.value="";
+            }
+          })
+        }
+      })
+    }
+    else{
     //get user credentials
     this._db.firestore.collection("register_user").doc(email)
     .get().then(function(doc) {
@@ -113,27 +148,6 @@ export class LoginComponent implements OnInit {
               _this.isTrue=false;
             })
           })
-
-          // _this._db.firestore.collection("register_user").doc(email).update({active_status:"login"}).then(()=>{
-          //   _this.isLoading=false;
-          //   localStorage.setItem('loggedIn','true');
-          //   localStorage.setItem('nameId',doc.data().user_name);
-          //   localStorage.setItem('user_name',email);
-          //   localStorage.setItem('role',doc.data().role);
-          //   _this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
-          //   user.user.getIdToken().then(user=>{
-          //     localStorage.setItem('authToken',user.toString());
-          //     redirect_to(doc.data().role);
-          //   });
-          //   })
-          // }).catch(err=>{
-  
-          //   //if no user occurs
-          //   _this.isLoading=false;
-          //   _this.isTrue=false;
-          //   console.log(err);
-          // })
-          //  _this.login_service.logIn(doc.data().role,doc.data().email," ",doc.data().user_name,hash);
         }
         else{
           _this.isTrue=false;
@@ -141,31 +155,8 @@ export class LoginComponent implements OnInit {
           password_ele.value="";
         } 
       }
-      })
- 
-
-
-    // this.login_service.checkCredentials(email,password).subscribe((data)=>{
-    //   console.log('Hello')
-    //   this.validation=data;
-    //   console.log(this.validation.isTrue);
-    //   if(this.validation.isTrue && this.validation.verification){
-    //     this.isTrue=true;
-    //     this.login_service.logIn(this.validation.role,email,this.validation.token,this.validation.user_name);
-    //     if(this.checked){
-    //       this.login_service.activateRememberUser(email);
-    //     }
-    //     else this.login_service.destroyRememberUser();
-    //     redirect_to(this.validation.role);
-    //   }
-    //   else{
-    //     this.isTrue=false;
-    //     this.isInValid=true
-    //   }
-     
-
-    // });
-
+      });
+    }
   }
 
 }

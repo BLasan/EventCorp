@@ -171,7 +171,7 @@ export class SignupComponent implements OnInit {
             })
 
             // value.user.sendEmailVerification().then(success=>{
-                // console.log(success);
+            // console.log(success);
           _this.db.collection('register_user').doc(user_data.email).update({verification_link:hash_link,uId:CryptoJS.SHA256(value.user.uid).toString()}).then(()=>{
             const email_message_to_reporter={
               to: user_data.email,
@@ -226,7 +226,7 @@ export class SignupComponent implements OnInit {
 }
 
 
-//generate verification link
+//send message
 getMessage(link:any){
     let _href="<a href="+link+" style='Margin:0;border:0 solid #4f9c45;border-radius:9999px;color:#fefefe;display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:bold;line-height:1.3;margin:0;padding:8px 16px 8px 16px;text-align:left;text-decoration:none' target='_blank'  data-saferedirecturl="+link+">";
     let message="<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'><html><head><meta charset='UTF-8'>"+
