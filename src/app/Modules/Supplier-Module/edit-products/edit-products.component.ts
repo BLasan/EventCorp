@@ -74,8 +74,10 @@ export class EditProductsComponent implements OnInit {
     let price=this.form.get('price').value;
     let quantity=this.form.get('quantity').value;
     // let code=this.form.get('code').value;
-    if(this.isUploaded)
-    var image_file=this.image_file[0];
+    if(this.isUploaded){
+      var image_file=this.image_file[0];
+      this.storage.storage.refFromURL(this.img_url_storage).delete();
+    }
     let description=this.form.get('description').value;
     let date=new Date();
 
@@ -154,12 +156,14 @@ export class EditProductsComponent implements OnInit {
     this.isUploaded=true;
     this.image_file=event.target.files;
     console.log(this.image_file);
-    document.getElementById('file_name').innerHTML=this.image_file[0].name;  //update file name
+    this.imageUrl=this.image_file[0].name;
+    //document.getElementById('file_name').innerHTML=this.image_file[0].name;  //update file name
   }
 
   upload_image(event:any){
     event.preventDefault();
-    add_item_image();
+    document.getElementById('item_image').click();
+   // add_item_image();
   }
 
   remove_image(){
