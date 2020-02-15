@@ -17,7 +17,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     files: [
-      // { pattern: 'styles.scss', watched: true,  included: true, served: true },
+      //  { pattern: 'scripts/*.js', watched: true,  included: true, served: true },
     ],
     preprocessors: {
       'styles.scss': ['scss'],

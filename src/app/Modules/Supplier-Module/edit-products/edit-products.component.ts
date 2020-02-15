@@ -29,6 +29,7 @@ export class EditProductsComponent implements OnInit {
   constructor(private database:AngularFirestore,private route:ActivatedRoute,private storage:AngularFireStorage,private snackBar:MatSnackBar) { }
 
   ngOnInit() {
+    document.getElementById('search_bar').style.display="none";
     this.item_categories=item_types;
     this.route.params.subscribe(params => {
       this.loadProduct(params.id);
@@ -109,7 +110,7 @@ export class EditProductsComponent implements OnInit {
                })
               })
             }).catch(err=>{
-              console.log("HjHHH");
+             // console.log("HjHHH");
               console.log(err);
             });
           }
@@ -129,7 +130,7 @@ export class EditProductsComponent implements OnInit {
       }
       });
 
-    document.getElementById('file_name').innerHTML="";         //reset file name
+    //document.getElementById('file_name').innerHTML="";         //reset file name
 }
 
 
@@ -167,7 +168,7 @@ export class EditProductsComponent implements OnInit {
   }
 
   remove_image(){
-    item_uploader_remove();
+    //item_uploader_remove();
     this.isUploaded=false;
   }
 
