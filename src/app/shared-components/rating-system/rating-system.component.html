@@ -1,11 +1,11 @@
 
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" *ngIf="search_user_role!=='organizer'">
       <div class="col-md-4"></div>
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <a href="#" id="calendarModalLink" style="color:white;padding-left:150px;" data-toggle="modal" data-target="#calendarModal"><b>View Calendar</b></a>
+        <a href="view-events/{{searched_user_email}}" style="color:white;padding-left:150px;"><b>View Calendar</b></a>
       </div>
     </div>
     <div class="row" style="margin-top:20px">
@@ -55,10 +55,10 @@
                   </p>
                 </div>
               </div>
-              <div class="row" *ngIf="!isLoadMore && about_vis">
+              <div class="row" *ngIf="!isLoadMore">
                 <a style="padding-left:180px;" (click)="load_more()" id="load_more" href="#">View More</a>
               </div>
-              <div class="row" *ngIf="isLoadMore">
+              <div class="row" *ngIf="isLoadMore && about_vis">
                 <div class="col-6" style="float: left">
                   <p><b>About</b></p>
                 </div>
@@ -283,9 +283,9 @@
               </mat-card>
           </div>
         </div>
-        <div class="row" *ngIf="user_role==='organizer' || user_role==='admin' || user_role==='moderator'">
+        <div class="row" *ngIf="user_role==='organizer' || user_role==='artist' || user_role==='admin' || user_role==='moderator'">
           <div class="col-md-12">
-            <div class="card" *ngIf="search_user_role==='organizer' && events_vis">
+            <div class="card" *ngIf="search_user_role==='organizer' && events_vis===true">
               <div class="card-header card-header-primary">
                 <h4 class="card-title"><b>MY EVENTS</b></h4>
                 <p class="card-category">Organized Events</p>
@@ -403,22 +403,22 @@
 <!-- Modal -->
 <div class="modal fade" id="calendarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content" style="background-color: transparent;">
         <!-- <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div> -->
-        <div id="calendar"></div>
-        <!-- <div class="modal-body">
+        <!-- <div id="calendar"></div> -->
+        <div class="modal-body">
           <div id="calendar"></div>
-        </div> -->
-        <!-- <div class="modal-footer">
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 

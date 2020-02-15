@@ -16,6 +16,7 @@ export class PaymentUsersComponent implements OnInit {
   form:any;
   item_email:string;
   _id:any;
+  booking_id:any;
   constructor(private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class PaymentUsersComponent implements OnInit {
       this.quantity=params.quantity;
       this.item_email=params.user_email;
       this.amount=params.amount;
+      this.booking_id=params.booking_id;
       this._id=params._id;
       this.form=new FormGroup({
         first_name:new FormControl('',[Validators.required]),
@@ -54,14 +56,19 @@ export class PaymentUsersComponent implements OnInit {
     let today=new Date();
     let booking_id=this._id;
     var btn=document.getElementById('checkout_user');
+    let count_id=document.getElementById('notification_count_id');
+    let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
+    let _count=parseInt(count)-1;
     let obj={name:first_name+" "+last_name,payer_email:email,address:address,phone:phone,city:city,receiver_name:receiver_name,receiver_email:receiver_email,amount:amount,date:today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),time:today.getHours()+":"+today.getMinutes()+":"+today.getSeconds(),status:"Paid"};
     let _id=CryptoJS.SHA256("Bill"+"@"+new Date()+receiver_email+email).toString();
     this.database.collection('user_billing').doc(_id).set(obj).then(()=>{
       console.log("Added");
-      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(booking_id).update({view:true}).then(()=>{
+      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(this.booking_id).update({view:true}).then(()=>{
          _this.database.firestore.collection('register_user').doc(_this.item_email).collection('bookings').doc(_this._id).update({paid:true}).then(()=>{
           //redirect to the url
+          count_id.innerHTML=_count.toString();     //update count
           btn.click();
+
          }).catch(err=>{
            console.log(err)
          })

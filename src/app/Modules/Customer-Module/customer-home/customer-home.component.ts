@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 @Component({
@@ -6,9 +6,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: './customer-home.component.html',
   styleUrls: ['./customer-home.component.scss']
 })
-export class CustomerHomeComponent implements OnInit {
+export class CustomerHomeComponent implements OnInit,AfterViewInit {
 
-  constructor(private _db:AngularFirestore,private auth:AngularFireAuth) { }
+  constructor(private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
     // console.log(localStorage.getItem('loggedIn'))
@@ -24,6 +24,10 @@ export class CustomerHomeComponent implements OnInit {
     //   if(localStorage.getItem('searched_user_email')) localStorage.removeItem('searched_user_email');
     //   console.log(this.auth.auth.isSignInWithEmailLink);
     // }
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
   }
 
 }

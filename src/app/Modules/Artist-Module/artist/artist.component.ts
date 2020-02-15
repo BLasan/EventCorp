@@ -23,7 +23,7 @@ export class ArtistComponent implements OnInit {
   username:string;
   image_file:FileList;
   isEmptyUserEvents:boolean=false;
-
+  user_email:string;
   constructor(private _organizer_services:ProfileService,private database:AngularFirestore,private storage:AngularFireStorage) { 
    
   }
@@ -31,6 +31,7 @@ export class ArtistComponent implements OnInit {
 
   ngOnInit() {
    // deactivate_searchBar();
+    this.user_email=localStorage.getItem('user_name');
     this.loadUserProfile();
     this.loadUserEvents();
     this.username=localStorage.getItem('nameId');
@@ -110,8 +111,7 @@ export class ArtistComponent implements OnInit {
 
   loadUserEvents(){
     var _this=this;
-    let user_name=localStorage.getItem("user_name");
-    var docRef = this.database.firestore.collection('register_user').doc(user_name).collection('MyEvents');
+    var docRef = this.database.firestore.collection('register_user').doc(this.user_email).collection('MyEvents');
     docRef.get().then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -148,7 +148,9 @@ export class ArtistComponent implements OnInit {
     //   console.log(this.user_profile.data.email+"=>PROFILE")
     // })
   }
-  
+
+
+
 
   }
   

@@ -60,7 +60,6 @@ import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
     MatIconModule,
     MatSliderModule,
     MatCarouselModule,
-
   ],
   declarations: [
    ModeratorDashboardComponent,
@@ -68,10 +67,11 @@ import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
    ModeratorSettingsComponent,
    ReportWarningsComponent,
    ModeratorQueriesComponent,
-   QueryReplyDialogComponent,
-   FilterPipe
+  //  QueryReplyDialogComponent,
+   FilterPipe,
+  //  BookedEventsComponent
   ],
   providers: [ModeratorService],
-  entryComponents: [QueryReplyDialogComponent]
+  // entryComponents: [QueryReplyDialogComponent]
 })
 export class ModeratorLayoutModule {}

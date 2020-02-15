@@ -25,14 +25,15 @@
     <div class="row">
       <div class="col-md-4"></div>
       <div class="col-md-4">
-          <div class="card" style="background-color:orange;">
+          <div class="card" >
             <div class="card-header card-header-danger">
               <h4 class="card-title">SignUp</h4>
-              <p class="card-category">Enter your details</p>
+              <p class="card-category">Register for the EventCorp</p>
             </div>
             <div class="card-body">
               <form [formGroup]="form">
-                <h5 *ngIf="success==false" style="background-color:red">Error signup</h5>
+                <h5 *ngIf="success==false && isError==false" style="background-color:red">User Already Exists!</h5>
+                <h5 *ngIf="success==true && isError==true" style="background-color:red">Error Signup!</h5>
                 <mat-form-field>
                   <input matInput placeholder="User Name" formControlName="user_name" name="user_name" id="user_name" required>
                   <mat-error *ngIf="hasError('user_name', 'required')">User Name is required</mat-error>

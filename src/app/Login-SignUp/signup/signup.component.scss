@@ -160,4 +160,18 @@
 // button.social-signin.google {
 //   background: #DD4B39;
 // }
-
+@import url('https://fonts.googleapis.com/css?family=Numans');
+.main-content{
+    background-image:url('assets/img/storage/home/18.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    //background-color: black;
+}
+.card{
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    
+}

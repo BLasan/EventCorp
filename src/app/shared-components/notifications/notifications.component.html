@@ -35,38 +35,45 @@
                 </div> -->
                 <div class="row" *ngIf="isBookingView && user_role!='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.data.paid===false">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.sender_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.event_id,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>You have received new booking request from {{booking_data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="openModal(booking_data.sender_email,booking_data.sender_name,booking_data.event_name,booking_data.event_id,booking_data.date)"> view request details</a></b></span>
+                            <span><b>You have received new booking request from {{booking_data.data.sender_name}}.To view details click<a href="#" data-toggle="modal" data-target="#exampleModal" (click)="openModal(booking_data.data.sender_email,booking_data.data.sender_name,booking_data.data.event_name,booking_data.data.event_id,booking_data.data.date)"> view request details</a></b></span>
+                        </div> 
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.data.paid===true">
+                            <i class="material-icons" data-notify="icon">add_alert</i>
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.event_id,'cancel')">
+                                <i class="material-icons">close</i>
+                            </button>
+                            <span><b>{{booking_data.data.sender_name}} has paid the amount for the event {{booking_data.data.event_name}}.</b></span>
                         </div> 
                     </div>
                 </div>
                 <div class="row" *ngIf="isBookingView && user_role==='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.status!=='Rejected'">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data.data && booking_data.data.status!=='Rejected'">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.data.event_id,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
                             <span>
                                 <b>Your request to {{booking_data.data.user_name}} has been {{booking_data.data.status}}.To do payments click the following button
                                     <!-- <a href="https://sandbox.payhere.lk/pay/ob5d67668">PayPal</a> -->
                                 </b>
-                                <form #form action="/user-payments/{{booking_data.data.user_name}}/{{booking_data.data.user_email}}/0/1000/{{booking_data._id}}" target="_blank" method="GET">
+                                <form #form action="/user-payments/{{booking_data.data.user_name}}/{{booking_data.data.user_email}}/0/1000/{{booking_data.data.event_id}}/{{booking_data._id}}" target="_blank" method="GET">
                                     <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png" style="width:150px" value="Buy Now" (click)="form.submit()">
                                 </form>
                             </span>
                         </div> 
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.status==='Rejected'">
+                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.data.status==='Rejected'">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.user_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data._id,'cancel')">
                                 <i class="material-icons">close</i>
                             </button>
                             <span>
-                                <b>Your request to {{booking_data.user_name}} has been {{booking_data.status}}.Please contact the user.
+                                <b>Your request to {{booking_data.data.user_name}} has been {{booking_data.data.status}}.Please contact the user to get more details. The user has been removed from your event. Please edit the event to add again the user.
                                     <!-- <a href="https://sandbox.payhere.lk/pay/ob5d67668">PayPal</a> -->
                                 </b>
                             </span>

@@ -36,8 +36,6 @@ export class PaymentBillComponent implements OnInit {
         })
       }
     });
-
-    this.generatePdf();
   }
 
 

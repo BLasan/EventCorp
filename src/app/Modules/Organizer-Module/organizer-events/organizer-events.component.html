@@ -70,10 +70,10 @@
                 </div>
                 <div class="row" style="margin-top:5px">
                   <div class="col-3">
-                    <a mat-fab style="background-color:aqua" href="#" id="event_image_uploader" name="image_uploader"><img src="assets/img/images.png" style="margin-top:-5px" title="upload_images" alt="upload-images"></a><input type="file" id="imgInput" name="imgInput" style="display:none" accept="image/*">   
+                    <a mat-fab style="background-color: darkgoldenrod;" href="#" id="event_image_uploader" name="image_uploader"><img src="assets/img/images.png" style="margin-top:-5px" title="upload_images" alt="upload-images"></a><input type="file" id="imgInput" name="imgInput" style="display:none" accept="image/*">   
                   </div>
                   <div class="col-3">
-                    <a mat-fab style="background-color:aqua" href="#" id="video_uploader" name="video_uploader"><img src="assets/img/video.png" style="margin-top:-5px" title="upload_video" alt="upload-video"></a><input type="file" id="videoInp" name="videoInp" style="display: none" accept="video/*">
+                    <a mat-fab style="background-color:darkgoldenrod" href="#" id="video_uploader" name="video_uploader"><img src="assets/img/video.png" style="margin-top:-5px" title="upload_video" alt="upload-video"></a><input type="file" id="videoInp" name="videoInp" style="display: none" accept="video/*">
                   </div>
                   <div class="col-3"></div>
                   <div class="col-3"></div>
@@ -129,7 +129,7 @@
                   <a id="artist_select" href="" (click)="loadArtist()" title="Select Artists">Select Artists</a>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                  <a id="organizer_select" href="" (click)="loadSuppliers()" title="Select Organizers">Select Organizers</a>
+                  <a id="organizer_select" href="" (click)="loadSuppliers()" title="Select Organizers">Select Suppliers</a>
                 </div>
                 <div class="col-md-4 col-sm-4">
                   <a id="venue_select" href="" (click)="loadVenues()" title="Select Venue">Select Venue</a>
@@ -204,8 +204,8 @@
       <div class="col-md-4 col-sm-12" *ngFor="let artists of artistList">
         <div class="card">
           <div class="card-header">
-            <h4 class="card-title"><b><a href="ratings/{{artists.user_name}}" title="View More" id="view_user" (click)="addUserEmail(artists.email)">{{artists.user_name}}</a></b></h4>
-            <img [src]="artists.img_url" width="100%">
+            <h4 class="card-title"><b><a href="ratings/{{artists.user_name}}"  target="_blank" title="View More" (click)="addUserEmail(artists.email)">{{artists.user_name}}</a></b></h4>
+            <img [src]="artists.image_url" width="100%">
           </div>
           <div class="card-body">
             <div class="row">
@@ -253,8 +253,8 @@
     <div class="col-md-4 col-sm-12" *ngFor="let suppliers of supplierList">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title"><b>{{suppliers.user_name}}</b></h4>
-          <img [src]="suppliers.img_url" width="100%">
+          <h4 class="card-title"><b><a href="ratings/{{suppliers.user_name}}"  target="_blank" title="View More" (click)="addUserEmail(suppliers.email)">{{suppliers.user_name}}</a></b></h4>
+          <img [src]="suppliers.image_url" width="100%">
         </div>
         <div class="card-body">
           <div class="row">
@@ -302,8 +302,8 @@
   <div class="col-md-4 col-sm-12" *ngFor="let venues of venue_ownerList">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title"><b>{{venues.user_name}}</b></h4>
-        <img [src]="venues.img_url" width="100%">
+        <h4 class="card-title"><b><a href="ratings/{{venues.user_name}}"  target="_blank" title="View More" (click)="addUserEmail(venues.email)">{{venues.user_name}}</a></b></h4>
+        <img [src]="venues.image_url" width="100%">
       </div>
       <div class="card-body">
         <div class="row">

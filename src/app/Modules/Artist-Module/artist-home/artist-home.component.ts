@@ -21,10 +21,12 @@ export class ArtistHomeComponent implements OnInit {
   my_playlist:any=[];
   playlist_title:string;
   user_comments:any=[];
+  user_name:string;
   constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
+    this.user_name=localStorage.getItem('user_name')
     activate_searchBar();
     this.get_top_users();
     this.load_comments();
@@ -117,7 +119,8 @@ export class ArtistHomeComponent implements OnInit {
 
   load_playlist(){
     var _this=this;
-    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').doc('playlist').get().then(snapshot=>{
+    this.user_name=localStorage.getItem('user_name')
+    this.database.firestore.collection('register_user').doc(this.user_name).collection('my_playlist').doc('playlist').get().then(snapshot=>{
       if(!snapshot.exists) console.log("Empty Data");
       else{
        _this.my_playlist.push(snapshot.data());
@@ -126,8 +129,9 @@ export class ArtistHomeComponent implements OnInit {
     })
   }
 
-  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string,event){
     var _this=this;
+    event.preventDefault();
     this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
       console.log("Success");
       _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {

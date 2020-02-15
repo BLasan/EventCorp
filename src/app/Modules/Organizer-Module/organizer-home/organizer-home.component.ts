@@ -6,6 +6,7 @@ import {NavbarComponent} from 'app/components/navbar/navbar.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_modal_open,disable_report_comments} from '../../.././../scripts/disable_a_href.js';
 import { MatSnackBar } from '@angular/material';
+import { AngularFireStorage } from '@angular/fire/storage';
 @Component({
   selector: 'app-organizer-home',
   templateUrl: './organizer-home.component.html',
@@ -27,7 +28,7 @@ export class OrganizerHomeComponent implements OnInit {
   suppliers_participated:string="";
   venue:string="";
   id:any;
-  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private storage:AngularFireStorage) { }
 
   ngOnInit() {
     // loadCalendar();
@@ -106,7 +107,7 @@ export class OrganizerHomeComponent implements OnInit {
   //report comments
   reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
     var _this=this;
-    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail}).then(()=>{
+    this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail,view:false}).then(()=>{
       console.log("Success");
       _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
        duration: 3000,
@@ -211,9 +212,60 @@ export class OrganizerHomeComponent implements OnInit {
   //delete event
   deleteEvent(id:any){
     var _this=this;
+    let close_modal=document.getElementById('close_modal');
     this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
       console.log("Successfully Deleted");
-      _this.events=_this.events.filter(x=>x.event_id!==id);
+
+      //delete the requests
+      _this.database.firestore.collection('register_user').get().then(doc=>{
+        if(!doc.empty){
+          doc.forEach(docs=>{
+            console.log(docs.id);
+
+            if(docs.data().role!=='organizer'){
+              _this.database.collection('register_user').doc(docs.id).collection('bookings').doc(id).delete().then(()=>{
+              console.log("Successfully Deleted");
+              let image_id="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverPic";
+              let videoId="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverVideo";
+              _this.storage.ref(image_id).delete();
+              _this.storage.ref(videoId).delete();
+              close_modal.click();
+            }).catch(err=>{
+              console.log(err);
+            })
+            }
+          })
+        }
+      }).catch(err=>{
+        console.log(err);
+      });
+
+
+      //delete bookings of organizer
+      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').get().then(doc=>{
+        if(!doc.empty){
+          doc.forEach(docs=>{
+            if(docs.data().event_id===id){
+              console.log(docs.id)
+              _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(docs.id).delete().then(()=>{
+                console.log("Successfully Deleted");
+              }).catch(err=>{
+                console.log(err);
+              })
+            }
+          })
+        }
+      })
+
+      //delete booking status
+      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(id).delete().then(()=>{
+        console.log("Successfully Deleted");
+      }).catch(err=>{
+        console.log(err);
+      });
+
+      _this.events=_this.events.filter(x=>x.event_id!==id);     //filter undeleted events
+
     }).catch(err=>{
       console.log(err);
     })

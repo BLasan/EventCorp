@@ -4,22 +4,41 @@ exports.calendar=function(data){
     //   start: '2020-01-15T13:00:00',
     //   constraint: 'businessHours'
     // }]
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,listMonth'
-      },
-      defaultDate: new Date(),
-      navLinks: true, // can click day/week names to navigate views
-      businessHours: true, // display business hours
-      editable: true,
-      events:data
-    });
-
-    calendar.render();
+    console.log(data.length);
+    // if(data.length>0){
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,listMonth'
+        },
+        defaultDate: new Date(),
+        navLinks: true, // can click day/week names to navigate views
+        businessHours: true, // display business hours
+        editable: true,
+        events:data
+      });
+      calendar.render();
+    // }
+    // else{
+    //   var calendarEl = document.getElementById('calendar');
+    //   var calendar = new FullCalendar.Calendar(calendarEl, {
+    //     plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+    //     header: {
+    //       left: 'prev,next today',
+    //       center: 'title',
+    //       right: 'dayGridMonth,listMonth'
+    //     },
+    //     defaultDate: new Date(),
+    //     navLinks: true, // can click day/week names to navigate views
+    //     businessHours: true, // display business hours
+    //     editable: true,
+    //     events:[]
+    //   });
+    //   calendar.render();
+    // }
   }
 
 

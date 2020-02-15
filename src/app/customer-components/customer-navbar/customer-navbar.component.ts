@@ -56,6 +56,14 @@ export class CustomerNavbarComponent implements OnInit {
       this.db.collection('register_user').doc(localStorage.getItem('user_name')).update({active_status:"logout"}).then(()=>{
         console.log(_this.auth.auth.currentUser);
         _this.auth.auth.signOut();
+        localStorage.removeItem('user_name');
+        localStorage.removeItem('role');
+        localStorage.removeItem('token');
+        localStorage.removeItem('nameId');
+        localStorage.removeItem('loggedIn');
+        localStorage.removeItem('searched_user_email');
+        localStorage.removeItem('status');
+        localStorage.removeItem('isBookingReq');
         _ret.click();
         _this.isLoggedIn=false;
       }).catch(err=>{

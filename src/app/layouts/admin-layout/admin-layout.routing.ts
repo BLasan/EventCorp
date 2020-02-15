@@ -9,6 +9,7 @@ import { IconsComponent } from '../../Modules/Admin-Module/icons/icons.component
 import { AdminNotificationsComponent } from '../../Modules/Admin-Module/admin-notifications/admin-notifications.component';
 import { UpgradeComponent } from '../../Modules/Admin-Module/upgrade/upgrade.component';
 import { AddNewModeratorsComponent } from 'app/Modules/Admin-Module/add-new-moderators/add-new-moderators.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 
 export const AdminLayoutRoutes: Routes = [
    
@@ -21,4 +22,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'maps',           component: MapsComponent },
     { path: 'admin-notifications',  component: AdminNotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
+    // { path:'booked_events',component:BookedEventsComponent}
+    // { path:'view-events' , component:ViewUserEventsComponent},
 ];

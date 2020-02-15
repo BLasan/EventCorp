@@ -4,7 +4,7 @@ import { ModeratorNotificationsComponent } from 'app/Modules/Moderator-Module/mo
 import { ReportWarningsComponent } from 'app/Modules/Moderator-Module/report-warnings/report-warnings.component';
 import { ModeratorSettingsComponent } from 'app/Modules/Moderator-Module/moderator-settings/moderator-settings.component';
 import { ModeratorQueriesComponent } from 'app/Modules/Moderator-Module/moderator-queries/moderator-queries.component';
-
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 
 export const ModeratorLayoutRoutes: Routes = [
     
@@ -12,5 +12,7 @@ export const ModeratorLayoutRoutes: Routes = [
     { path: 'moderator-notifications' , component:ModeratorNotificationsComponent},
     { path: 'report-warnings' , component:ReportWarningsComponent},
     { path: 'moderator-settings' , component:ModeratorSettingsComponent},
-    { path: 'moderator-queries' , component:ModeratorQueriesComponent}
+    { path: 'moderator-queries' , component:ModeratorQueriesComponent},
+    // { path:"booked_events",component:BookedEventsComponent}
+    // { path: 'view-events/:uid' , component:ViewUserEventsComponent},
 ];

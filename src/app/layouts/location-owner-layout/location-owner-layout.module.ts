@@ -31,10 +31,8 @@ import { VenueListComponent } from "../../venue-module/venue-home/venue-list/ven
 import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
 import { VenueReservationFormComponent } from "../../venue-module/venue-reservation-form/venue-reservation-form.component";
 import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
-import { SharedComponentsModule } from "app/shared-components/shared-components.module";
-import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
-import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking-info/view-booking-info.component";
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
+import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
 
 
 @NgModule({
@@ -59,7 +57,8 @@ import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver
     MatDatepickerModule,
     MatGridListModule,
     MatIconModule,
-    MatSliderModule
+    MatSliderModule,
+    SharedComponentsModule
   ],
   declarations: [
     VenueListComponent,

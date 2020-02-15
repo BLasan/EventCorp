@@ -28,13 +28,13 @@
               </mat-form-field>
               <div class="row" style="margin-top:5px">
                 <div class="col-md-4 col-sm-4">
-                  <a id="artist_select" href="" (click)="loadArtist()" title="Select Artists">Select Artists</a>
+                  <a id="artist_select" href="" (click)="loadArtist($event)" title="Select Artists">Select Artists</a>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                  <a id="organizer_select" href="" (click)="loadSuppliers()" title="Select Organizers">Select Organizers</a>
+                  <a id="organizer_select" href="" (click)="loadSuppliers($event)" title="Select Organizers">Select Suppliers</a>
                 </div>
                 <div class="col-md-4 col-sm-4">
-                  <a id="venue_select" href="" (click)="loadVenues()" title="Select Venue">Select Venue</a>
+                  <a id="venue_select" href="" (click)="loadVenues($event)" title="Select Venue">Select Venue</a>
                 </div>
               </div>
               <div class="row" style="margin-top:20px">
@@ -102,7 +102,7 @@
         <div class="card">
           <div class="card-header">
             <h4 class="card-title"><b><a href="ratings/{{artists.user_name}}" title="View More" id="view_user" (click)="addUserEmail(artists.email)">{{artists.user_name}}</a></b></h4>
-            <img [src]="artists.img_url" width="100%">
+            <img [src]="artists.image_url" width="100%">
           </div>
           <div class="card-body">
             <div class="row">
@@ -151,7 +151,7 @@
       <div class="card">
         <div class="card-header">
           <h4 class="card-title"><b>{{suppliers.user_name}}</b></h4>
-          <img [src]="suppliers.img_url" width="100%">
+          <img [src]="suppliers.image_url" width="100%">
         </div>
         <div class="card-body">
           <div class="row">
@@ -200,7 +200,7 @@
     <div class="card">
       <div class="card-header">
         <h4 class="card-title"><b>{{venues.user_name}}</b></h4>
-        <img [src]="venues.img_url" width="100%">
+        <img [src]="venues.image_url" width="100%">
       </div>
       <div class="card-body">
         <div class="row">

@@ -1,82 +1,170 @@
-.login-title{
-    width: auto;
-    height: 50px;
-    display: block;
-    background-color: blue;
-    text-align: justify;
-    text-justify: auto
+// .login-title{
+//     width: auto;
+//     height: 50px;
+//     display: block;
+//     background-color: blue;
+//     text-align: justify;
+//     text-justify: auto
+// }
+
+// 	/* Coded with love by Mutiullah Samim */
+//     html {
+//         margin: 0;
+//         padding: 0;
+//         height: 100%;
+//         background: #60a3bc !important;
+//     }
+//     .user_card {
+//         height: 430px;
+//         width: 350px;
+//         margin-top:120px;
+//         margin-bottom:10px;
+//         background:orange;
+//         position: relative;
+//         display: flex;
+//         justify-content: center;
+//         flex-direction: column;
+//         padding: 10px;
+//         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+//         -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+//         -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+//         border-radius: 5px;
+
+//     }
+//     .brand_logo_container {
+//         position: absolute;
+//         height: 170px;
+//         width: 170px;
+//         top: -75px;
+//         border-radius: 50%;
+//         background: #60a3bc;
+//         padding: 10px;
+//         text-align: center;
+//     }
+//     .brand_logo {
+//         height: 150px;
+//         width: 150px;
+//         border-radius: 50%;
+//         border: 2px solid white;
+//     }
+//     .form_container {
+//         margin-top: 100px;
+//     }
+//     .login_btn {
+//         width: 100%;
+//         background: #c0392b !important;
+//         color: white !important;
+//     }
+//     .login_btn:focus {
+//         box-shadow: none !important;
+//         outline: 0px !important;
+//     }
+//     .login_container {
+//         padding: 0 2rem;
+//     }
+//     .input-group-text {
+//         background: #c0392b !important;
+//         color: white !important;
+//         border: 0 !important;
+//         border-radius: 0.25rem 0 0 0.25rem !important;
+//     }
+//     .input_user,
+//     .input_pass:focus {
+//         box-shadow: none !important;
+//         outline: 0px !important;
+//     }
+//     .input_fail:focus {
+//         box-shadow:none !important;
+//         outline: 0px !important;
+//     }
+//     .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+//         background-color: #c0392b !important;
+//     }
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.main-content{
+background-image:url('assets/img/storage/home/12.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+margin: 0;
+padding: 0;
+}
+.container{
+    height: 100%;
+    align-content: center;
+    padding-bottom: 30px;;
 }
 
-	/* Coded with love by Mutiullah Samim */
-    html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        background: #60a3bc !important;
-    }
-    .user_card {
-        height: 430px;
-        width: 350px;
-        margin-top:120px;
-        margin-bottom:10px;
-        background:orange;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding: 10px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        border-radius: 5px;
+.user_card{
+//height: 370px;
+margin-top: 100px;
+margin-bottom: 150px;
+width: 400px;
+background-color: rgba(0,0,0,0.6) !important;
+padding-top: 20px;
+//padding-bottom: 40px;
+}
 
-    }
-    .brand_logo_container {
-        position: absolute;
-        height: 170px;
-        width: 170px;
-        top: -75px;
-        border-radius: 50%;
-        background: #60a3bc;
-        padding: 10px;
-        text-align: center;
-    }
-    .brand_logo {
-        height: 150px;
-        width: 150px;
-        border-radius: 50%;
-        border: 2px solid white;
-    }
-    .form_container {
-        margin-top: 100px;
-    }
-    .login_btn {
-        width: 100%;
-        background: #c0392b !important;
-        color: white !important;
-    }
-    .login_btn:focus {
-        box-shadow: none !important;
-        outline: 0px !important;
-    }
-    .login_container {
-        padding: 0 2rem;
-    }
-    .input-group-text {
-        background: #c0392b !important;
-        color: white !important;
-        border: 0 !important;
-        border-radius: 0.25rem 0 0 0.25rem !important;
-    }
-    .input_user,
-    .input_pass:focus {
-        box-shadow: none !important;
-        outline: 0px !important;
-    }
-    .input_fail:focus {
-        box-shadow:none !important;
-        outline: 0px !important;
-    }
-    .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
-        background-color: #c0392b !important;
-    }
+.card-header h3{
+    color: white;
+}
+
+.input-group-prepend span{
+        width: 50px;
+        background-color: #FFC312;
+        color: black;
+        border:0 !important;
+}
+
+input:focus{
+            outline: 0 0 0 0  !important;
+            box-shadow: 0 0 0 0 !important;
+            
+}
+
+ .login_btn{
+            color: black;
+            background-color: #FFC312;
+            width: 100px;
+            margin-bottom: 20px;
+ }
+            
+.login_btn:hover{
+            color: black;
+            background-color: white;
+}
+            
+.login_btn:focus {
+            box-shadow: none !important;
+            outline: 0px !important;
+}
+
+.input_user,
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.input_fail:focus {
+    box-shadow:none !important;
+    outline: 0px !important;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: red !important;
+    font-family: 'Numans', sans-serif;
+}
+    
+.form-check-input
+{
+    width: 20px;
+    height: 20px;
+    margin-left: 15px;
+    margin-right: 5px;
+    color: white;
+}
+.form-check-lable{
+    color: white;
+}
+
+    
