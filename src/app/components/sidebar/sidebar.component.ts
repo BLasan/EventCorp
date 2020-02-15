@@ -61,6 +61,8 @@ export const ROUTES3:RouteInfo[]=[
   { path: '/venue-settings', title: 'Settings' ,icon:'settings_applications',class:''},
   { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
   { path: '/venueCalendar', title: 'Calendar' ,icon:'settings_applications',class:''},
+  { path: '/venue-edit', title: 'Edit Profile' ,icon:'settings_applications',class:''},
+
 ];
 
 

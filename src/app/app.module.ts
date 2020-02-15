@@ -100,7 +100,6 @@ import { ViewUserEventsComponent } from './shared-components/view-user-events/vi
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-dashboard.component';
-import { VenueEditComponent } from './venue-module/venue-home/venue-edit/venue-edit.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -174,7 +173,7 @@ import { VenueEditComponent } from './venue-module/venue-home/venue-edit/venue-e
     PaymentUsersComponent,
     ViewLocationComponent,
     ViewUserEventsComponent,
-    VenueEditComponent,
+    // VenueEditComponent,
     // VenueDashboardComponent
     // FilterPipe,
    // MyChatsComponent

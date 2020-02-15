@@ -44,6 +44,7 @@ import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-
 import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
 import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { VenueEditComponent } from '../../venue-module/venue-home/venue-edit/venue-edit.component';
 
 
 
@@ -84,7 +85,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     VenueNotificationsComponent,
     VenueSettingsComponent,
     VenueDashboardComponent,
-    VenueCalendarComponent
+    VenueCalendarComponent,
+    VenueEditComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })
