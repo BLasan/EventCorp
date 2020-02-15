@@ -19,19 +19,20 @@ export class ShowVenueComponent implements OnInit {
     this.loadAll();
   }
 
+//get all vaneus 
   loadAll(){
     var _this=this;
     
-
+//get all venue owners
     this.db.firestore.collection('register_user').get().then(docs=>{
       if(docs.empty) console.log("Empty Data");
       else{
         docs.forEach(doc=>{
-          if(doc.data().role==="venue_owner"){
+          if(doc.data().role==="venue_owner"){                      
             _this.venue_owner.push(doc.data());
             _this.email=doc.data().email;
 
-            
+//get all halls using venue owner's email           
             this.db.firestore.collection(('register_user')).doc(_this.email).collection("venue").doc("hall").get().then(docs=>{
               if (!docs.exists) console.log("Empty Data"); 
               else{
@@ -47,17 +48,5 @@ export class ShowVenueComponent implements OnInit {
     })
     
   }
-
-  // getVenues(venue_array:any){
-  //   var _this=this;
-  //   this.db.firestore.collection(('register_user')).doc(_this.email).collection("venue").doc("hall").get().then(docs=>{
-  //     if (!docs.exists) console.log("Empty Data"); 
-  //     else{
-  //       _this.venue_array=docs.data();
-  //     }
-      
-  //   })
-
-  // }
 
 }

@@ -16,10 +16,12 @@ export class ShowArtistComponent implements OnInit {
   isLoaded:boolean=false;
   isProcessing:boolean=false;
   searchText:string;
+
   ngOnInit() {
     this.loadAll();
   }
 
+//select all artist available
   loadAll(){
     var _this=this;
     this.db.firestore.collection('register_user').get().then(docs=>{
@@ -35,6 +37,7 @@ export class ShowArtistComponent implements OnInit {
     
   }
 
+  //get artist's playlist(available songs) using his/her email
   getPlaylist(email:any){
     this.isLoaded=true;
     this.isProcessing=true;

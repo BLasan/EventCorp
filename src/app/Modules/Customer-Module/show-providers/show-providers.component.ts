@@ -20,6 +20,7 @@ export class ShowProvidersComponent implements OnInit {
     this.loadAll();
   }
 
+//load all equiepment suppliesr available
   loadAll(){
     var _this=this;
     this.db.firestore.collection('register_user').get().then(docs=>{

@@ -36,7 +36,7 @@ import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-provide
 import { SearchProviderPipe } from 'app/Modules/Customer-Module/searchProvider.pipe';
 import { ShowVenueComponent } from 'app/Modules/Customer-Module/show-venue/show-venue.component';
 import { SearchVenuePipe } from 'app/Modules/Customer-Module/searchVenue.pipe';
-//import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
+
   @NgModule({
     imports: [
       CommonModule,
