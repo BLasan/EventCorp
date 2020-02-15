@@ -35,6 +35,7 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/artist-profile', title: 'Edit Profile',  icon: 'file_copy', class: '' },
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
+  { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
   // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
@@ -46,7 +47,8 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-settings',title:'Settings',icon:'settings',class:''},
   { path:'/organizer-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
-  { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''}
+  { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''},
+  { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
 
 
@@ -56,6 +58,7 @@ export const ROUTES3:RouteInfo[]=[
   { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
   { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
+  { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
 
 
@@ -67,7 +70,8 @@ export const ROUTES4:RouteInfo[]=[
   { path:'/supplier-events',title:'Events',icon:'calendar_today',class:''},
   { path:'/supplier-profile',title:'Edit Profile',icon:'file_copy',class:''},
   { path:'/supplier-add-items',title:'Add Product Catalog',icon:'add',class:''},
-  { path:'/supplier-products',title:'Manage Products',icon:'shopping_cart',class:''}
+  { path:'/supplier-products',title:'Manage Products',icon:'shopping_cart',class:''},
+  { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
 
 //moderator routings

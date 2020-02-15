@@ -37,6 +37,7 @@ import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-ev
 import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 import { BookedEventsComponent } from './booked-events/booked-events.component';
 import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
+import { UserLocationComponent } from './user-location/user-location.component';
 //import { SearchArtistPipe } from 'app/Modules/Customer-Module/searchArtist.pipe';
 
 
@@ -53,6 +54,7 @@ import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
     ViewAllEventsComponent,
     BookedEventsComponent,
     SearchBookedEventsPipe,
+    UserLocationComponent,
     //SearchArtistPipe,
     //ViewUserEventsComponent
   ],
