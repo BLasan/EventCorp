@@ -81,7 +81,7 @@ export class AddNewModeratorsComponent implements OnInit {
     let hashed_password= CryptoJS.SHA256(this.form.get('password').value).toString();
 
     let key=this.generateKey(email);
-    let obj={screen_name:screen_name,user_name:user_name,contact:contact,password:hashed_password,email:email,id:key.toString(),role:'moderator'};
+    let obj={screen_name:screen_name,user_name:user_name,contact:contact,password:hashed_password,email:email,id:key.toString(),role:'moderator',active_status:"logout"};
 
     //add moderator
 

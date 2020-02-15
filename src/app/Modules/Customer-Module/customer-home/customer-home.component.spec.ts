@@ -15,7 +15,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgTemplateOutlet } from '@angular/common';
-
+import { By } from "@angular/platform-browser";
 describe('CustomerHomeComponent', () => {
   let component: CustomerHomeComponent;
   let fixture: ComponentFixture<CustomerHomeComponent>;
