@@ -92,7 +92,7 @@ export class AddPlaylistComponent implements OnInit {
     storageRef.put(this.audio_files.item(i)).then(snapshot=>{
       alert("Storage Up"+i);
       storageRef1.getDownloadURL().subscribe(url=>{
-        alert("storageURL"+i);
+        alert("storageURL"+i);  
         var obj={url:url,name:snapshot.metadata.name,size:snapshot.metadata.size};
         _this.audio_url.push(obj);
         console.log(url);

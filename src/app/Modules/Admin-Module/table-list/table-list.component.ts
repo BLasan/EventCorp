@@ -16,6 +16,7 @@ export class TableListComponent implements OnInit{
   success_message:any;
   isEmpty:boolean=false;
   isLoading:boolean=true;
+  testVal:boolean=false;
   selection:any="All Users";
   roles:any=[{value:'organizer',role:'Organizer'},{value:'artist',role:'Artist'},{value:'supplier',role:'Supplier'},{value:'venue_owner',role:'Venue-Owner'}];
   constructor(private _loadUsers:AdminService,private _deleteAccount:DeleteAccountService,private _snackBar:MatSnackBar,private _recoverAccount:DeleteAccountService,private database:AngularFirestore) {
@@ -24,7 +25,7 @@ export class TableListComponent implements OnInit{
 
   ngOnInit() {
     this.getUsers();
-    document.getElementById('search_bar').style.display="none";
+    //document.getElementById('search_bar').style.display="none";
   }
 
 getUsers(){
@@ -59,6 +60,7 @@ filterRoles(event:any){
   this.user_profile=this.user_profile.filter(x=>x.role===val);
   else
   this.getUsers();
+  this.testVal=true;
 }
 
 //remove the user
