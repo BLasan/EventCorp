@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Report } from '../venue-home/report'
+import { LoginService } from 'app/services/login.services';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class VenueHomeService {
 
   private venuesCollection: AngularFirestoreCollection<any>;
   venues: Observable<any[]>;
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private db: AngularFirestore,
+    private loginService: LoginService) {
 
     // this.venuesCollection = afs.collection<any>('Venues');
     // this.venues = this.db.collectionGroup('venue').snapshotChanges().pipe(map(
@@ -56,6 +59,17 @@ export class VenueHomeService {
     return this.db.collection('reports').add({
       content: report.reportOption
     });
+  }
+
+  updateUser(userKey, value){
+    // value.nameToSearch = value.name.toLowerCase();
+    return this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').set(value);
+    // return this.db.collection('Venues').doc(userKey).set(value);
+  }
+
+  getVenueDocId(searchValue){
+    return this.db.collection('Venues',ref => ref.where('nameToSearch', '>=', searchValue))
+      .snapshotChanges()
   }
 
 

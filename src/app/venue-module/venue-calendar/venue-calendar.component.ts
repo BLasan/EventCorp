@@ -12,7 +12,7 @@ import { tap, map } from 'rxjs/operators';
   templateUrl: './venue-calendar.component.html',
   styleUrls: ['./venue-calendar.component.scss']
 })
-export class VenueCalendarComponent implements OnInit,OnChanges {
+export class VenueCalendarComponent implements OnInit {
 
   calendarEvents:any[]=[];
   calendarPlugins=[dayGridPlugin];
@@ -24,14 +24,20 @@ export class VenueCalendarComponent implements OnInit,OnChanges {
     private db:AngularFirestore,
     private loginService:LoginService) { }
 
-    ngOnChanges(){
-      // this.getData().subscribe(data=> this.calendarEvents=data);
+    // ngOnChanges(){
+    //   // this.getData().subscribe(data=> this.calendarEvents=data);
 
-      this.getData1();
-    }
+    //   this.getData1();
+    // }
 
   ngOnInit() {
-    this.getData().subscribe(data=> this.calendarEvents=data);
+    this.db.collection('register_user').doc(this.loginService.currentUser())
+    .get().subscribe(result => {
+      this.venue_name = result.data().v_name;
+      console.log("result - ",this.venue_name);
+      this.getData().subscribe(data=> this.calendarEvents=data);
+    })
+    // this.getData().subscribe(data=> this.calendarEvents=data);
     // this.getData1();
 
 
@@ -50,18 +56,18 @@ export class VenueCalendarComponent implements OnInit,OnChanges {
 
   }
 
-  getData1(){
-    this.db.collection('register_user').doc(this.loginService.currentUser())
-    .get().subscribe(result => {
-      this.venue_name = result.data().v_name;
-      // this.venue_name = result.payload.doc.data().v_name;
-      console.log("result - ",this.venue_name);
-      return this.venue_name;
-    })
-  }
+  // getData1(){
+  //   this.db.collection('register_user').doc(this.loginService.currentUser())
+  //   .get().subscribe(result => {
+  //     this.venue_name = result.data().v_name;
+  //     // this.venue_name = result.payload.doc.data().v_name;
+  //     console.log("result - ",this.venue_name);
+  //     return this.venue_name;
+  //   })
+  // }
 getData():Observable<any[]>{
   
-  return this.db.collection('events',ref => ref.where('accepted','==',1).where('venue_name','==','nelum pokuna')).valueChanges().pipe(
+  return this.db.collection('events',ref => ref.where('accepted','==',1).where('venue_name','==',this.venue_name)).valueChanges().pipe(
     tap(events=> console.log("filtered - ",events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
     map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
       let data:any=event;
