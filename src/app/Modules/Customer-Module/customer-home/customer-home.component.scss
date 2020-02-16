@@ -43,3 +43,62 @@
        margin-top: 1rem;
        text-align: center;
    }
+
+//    .head-text h1 {
+//     font: bold 60px "Conv_AvenirLTStd-Black", sans-serif;
+//     color: #fff;
+//     margin: 0 0 30px;
+//     padding: 0;
+// }
+// head-text h1 label {
+//     font: bold 60px "Conv_AvenirLTStd-Black", sans-serif;
+//     color: #fff !important;
+// }
+// .head-text span {
+//     border-right: .05em solid;
+//     animation: caret 1s steps(1) infinite;
+// }
+// .head-text h1 label {
+//     font: bold 60px "Conv_AvenirLTStd-Black", sans-serif;
+//     color: #fff !important;
+// }
+// label {
+//     cursor: default;
+//}
+
+.rect{
+    //height:80px;
+    padding: 0 0 8px;
+    width:100%;
+    background-color: rgba(39, 39, 116, 0.452);;
+    opacity: 5;
+  }
+  
+ h2{
+    margin: 0 auto;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 25em;
+    animation: type 4s steps(60, end) infinite; 
+    font: 40px "Conv_AvenirLTStd-Black", sans-serif;
+    font-weight: 600;
+   }
+     
+   h2:nth-child(2){
+       animation: type2 8s steps(60, end);
+   }
+
+   @keyframes type{ 
+    from { width: 0; } 
+} 
+@keyframes type2{
+    0%{width: 0;}
+    50%{width: 0;}
+    100%{ width: 100; } 
+} 
+  
+ 
+  
+
+  

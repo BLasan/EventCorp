@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {activate_searchBar} from '../../../../scripts/search_bar_activate';
 import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
@@ -6,12 +6,13 @@ import {NavbarComponent} from 'app/components/navbar/navbar.component';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_modal_open,disable_report_comments} from '../../.././../scripts/disable_a_href.js';
 import { MatSnackBar } from '@angular/material';
+import { AngularFireStorage } from '@angular/fire/storage';
 @Component({
   selector: 'app-organizer-home',
   templateUrl: './organizer-home.component.html',
   styleUrls: ['./organizer-home.component.scss']
 })
-export class OrganizerHomeComponent implements OnInit {
+export class OrganizerHomeComponent implements OnInit,AfterViewInit {
 
   currentRate:any=0;
   rating_data:any;
@@ -27,7 +28,14 @@ export class OrganizerHomeComponent implements OnInit {
   suppliers_participated:string="";
   venue:string="";
   id:any;
-  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
+  isLoaded:boolean=false;
+  isEmpty:boolean=false;
+  events_array:any=[];
+  filtered_events:any=[{}];
+  artists:string="";
+  suppliers:string="";
+  venue_owners:string="";
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private storage:AngularFireStorage,private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
     // loadCalendar();
@@ -38,6 +46,43 @@ export class OrganizerHomeComponent implements OnInit {
     this.load_comments();
   }
 
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+
+    //get latest events
+    getEvents(){
+      var _this=this;
+      this.database.firestore.collection('register_user').get().then(snapshot=>{
+        this.isLoaded=true;
+        if(snapshot.empty) console.log('Empty Data');
+        else{
+          snapshot.forEach(docs=>{
+            if(docs.data().role==='organizer'){
+              console.log(docs.id)
+              _this.database.firestore.collection('register_user').doc(docs.id).collection('MyEvents').get().then(snapshots=>{
+                if(snapshots.empty) {
+                  console.log("Empty Events");
+                  _this.isEmpty=true;
+                  _this.isLoaded=true;
+                }
+                else{
+                  _this.isEmpty=false;
+                  snapshots.forEach(events=>{
+                    let date=events.data().date;
+                    console.log(new Date(date))
+                    if(new Date()<=new Date(date))
+                    _this.events_array.push(events.data());
+                    else console.log("Not valid")
+                  })
+                  _this.isLoaded=true;
+                }
+              })
+            }
+          })
+        }
+      });
+    }
 
   //get top users
   get_top_users(){
@@ -211,9 +256,60 @@ export class OrganizerHomeComponent implements OnInit {
   //delete event
   deleteEvent(id:any){
     var _this=this;
+    let close_modal=document.getElementById('close_modal');
     this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
       console.log("Successfully Deleted");
-      _this.events=_this.events.filter(x=>x.event_id!==id);
+
+      //delete the requests
+      _this.database.firestore.collection('register_user').get().then(doc=>{
+        if(!doc.empty){
+          doc.forEach(docs=>{
+            console.log(docs.id);
+
+            if(docs.data().role!=='organizer'){
+              _this.database.collection('register_user').doc(docs.id).collection('bookings').doc(id).delete().then(()=>{
+              console.log("Successfully Deleted");
+              let image_id="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverPic";
+              let videoId="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverVideo";
+              _this.storage.ref(image_id).delete();
+              _this.storage.ref(videoId).delete();
+              close_modal.click();
+            }).catch(err=>{
+              console.log(err);
+            })
+            }
+          })
+        }
+      }).catch(err=>{
+        console.log(err);
+      });
+
+
+      //delete bookings of organizer
+      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').get().then(doc=>{
+        if(!doc.empty){
+          doc.forEach(docs=>{
+            if(docs.data().event_id===id){
+              console.log(docs.id)
+              _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(docs.id).delete().then(()=>{
+                console.log("Successfully Deleted");
+              }).catch(err=>{
+                console.log(err);
+              })
+            }
+          })
+        }
+      })
+
+      //delete booking status
+      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(id).delete().then(()=>{
+        console.log("Successfully Deleted");
+      }).catch(err=>{
+        console.log(err);
+      });
+
+      _this.events=_this.events.filter(x=>x.event_id!==id);     //filter undeleted events
+
     }).catch(err=>{
       console.log(err);
     })

@@ -118,6 +118,8 @@ export class AdminNotificationsComponent implements OnInit {
           _this.reports.push(doc.data());
         })
       }
+    }).catch(err=>{
+      console.log(err);
     })
 
   }

@@ -382,14 +382,27 @@ export class SettingsComponent implements OnInit {
     let password=this.form.controls['new_password'].value;
     var hash= CryptoJS.SHA256(password).toString();
     console.log(password);
-    this.database.collection('register_user').doc(localStorage.getItem('user_name')).update({password:hash});
-    console.log("AUTH->"+this.auth.auth.currentUser);
-    this.auth.auth.currentUser.updatePassword(hash).then(()=>{
-      _this.reset_form();
-      _this.signout.logOut();
-      _this.router.navigateByUrl('/login')
-    }).catch(err=>{
-      console.log(err);
+
+    //update the active status
+    this.auth.auth.onAuthStateChanged((user)=>{
+      if(user){
+        user.updatePassword(hash).then(()=>{
+          this.database.collection('register_user').doc(localStorage.getItem('user_name')).update({password:hash,active_status:'logout'}).then(()=>{
+            _this.reset_form();
+            _this.signout.logOut();
+            _this.router.navigateByUrl('/login');
+
+          }).catch(ex=>{
+            console.log(ex);
+          });
+
+        }).catch(err=>{
+          console.log(err);
+          if(confirm("You need to login again in order to proceed the action....")){
+            _this.router.navigateByUrl('/login');
+          }
+        });
+      }
     })
   }
 

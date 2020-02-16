@@ -22,11 +22,11 @@ export class ArtistCalendarComponent implements OnInit {
 
     //fetch data
     this.getData().subscribe(data=>{
-      if(data.length>1){
+      if(data.length>=1){
         console.log(data)
         calendar(data);
       }
-      else
+      else if(data.length===0)
       calendar({});
     });
 
@@ -53,6 +53,7 @@ export class ArtistCalendarComponent implements OnInit {
         let data:any=event;
         if(data.paid===true){
           var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
+          console.log(obj)
           return obj;
         }
       }))

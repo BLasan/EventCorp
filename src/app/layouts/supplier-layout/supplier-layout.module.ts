@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,6 +57,10 @@ import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-p
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { EditProductsComponent } from 'app/Modules/Supplier-Module/edit-products/edit-products.component';
 import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
+import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
+import { UserLocationComponent } from 'app/shared-components/user-location/user-location.component';
+import { MapsComponent } from 'app/Modules/Supplier-Module/maps/maps.component';
 
   @NgModule({
     imports: [
@@ -110,11 +114,14 @@ import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supp
       SupplierAddItemsComponent,
       EditProductsComponent,
       SupplierProductsTableComponent,
+      MapsComponent
+      // BookedEventsComponent,
+      // SearchBookedEventsPipe
       // ViewAllProductsComponent,
       // SearchItemsPipe
      // MyChatsComponent,
       // CalendarComponent
     ],
-   
+    // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
   })
 export class SupplierLayoutModule { }

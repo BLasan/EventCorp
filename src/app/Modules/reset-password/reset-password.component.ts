@@ -54,8 +54,10 @@ export class ResetPasswordComponent implements OnInit {
       if(!docs.exists) _this.validUser=false;
       else{
         _this.validUser=true;
-        var hash_link=CryptoJS.SHA256(docs.data().uId).toString()+"/"+email;
-        let _link="http://localhost:4200/reset-password/"+hash_link;
+
+        var uid_email_link=CryptoJS.SHA256(docs.data().uId).toString()+"/"+email;
+        var hashed_link=CryptoJS.SHA256(docs.data().uId+new Date()).toString();
+        let _link="http://localhost:4200/reset-password/"+hashed_link+"/"+uid_email_link;
         const email_message={
           to:   email,
           from:'eventCorp@gmail.com',
@@ -65,7 +67,7 @@ export class ResetPasswordComponent implements OnInit {
         }
         _this.sendMail.sendEmail(email_message).subscribe((data)=>{
           var _returnedData:any=data;
-          console.log(_returnedData)
+          console.log(_returnedData);
           if(_returnedData.success===true){
             _this.db.collection('passwordLinks').doc(CryptoJS.SHA256(_link).toString()).set({verify:false}).then(()=>{
               console.log("Sent the email");
@@ -140,7 +142,7 @@ export class ResetPasswordComponent implements OnInit {
                     "</center>"+
           "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+
           "<p class='m_1283199651525359358avoid-auto-linking' style='Margin:0;Margin-bottom:10px;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:normal;line-height:1.3;margin:0;margin-bottom:10px;padding:0;text-align:left'>"+
-            "</p><p>If you ignore this message, you will not be eligible to enter to the EventCorp.</p>"+
+            "</p><p>If you donot want to change your password please ignore this message.</p>"+
           "<p>If you didn't request a password resetting, let us know.</p>"+
           "<p></p>"+
           "<table style='border-collapse:collapse;border-spacing:0;padding:0;text-align:left;vertical-align:top;width:100%'><tbody><tr style='padding:0;text-align:left;vertical-align:top'><td height='20px' style='Margin:0;border-collapse:collapse!important;color:#5d6879;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;line-height:20px;margin:0;padding:0;text-align:left;vertical-align:top;word-wrap:break-word'>&nbsp;</td></tr></tbody></table>"+

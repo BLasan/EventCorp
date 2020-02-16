@@ -66,6 +66,9 @@ import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-ev
 import { SearchBillsPipe } from 'app/Modules/Organizer-Module/searchBills.pipe';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-events/events-add/events-add.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
+import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
   @NgModule({
     imports: [
       CommonModule,
@@ -109,6 +112,7 @@ import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-event
       NgxMatSelectSearchModule,
       SharedComponentsModule,
       FullCalendarModule,
+      MatCarouselModule
     ],
     declarations: [
       OrganizerHomeComponent,
@@ -121,7 +125,9 @@ import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-event
       PaymentBillComponent,
       ViewRequestStatusComponent,
       UpdateEventsComponent,
-      SearchBillsPipe
+      SearchBillsPipe,
+      // BookedEventsComponent,
+      // SearchBookedEventsPipe
       // PaypalPaymentComponent,
       // PaymentUsersComponent
       // RatingSystemComponent

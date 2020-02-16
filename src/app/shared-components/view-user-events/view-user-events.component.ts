@@ -19,7 +19,13 @@ export class ViewUserEventsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.getData(params.uid).subscribe(data=>{
         let event_data=data;
-        calendar(event_data)
+        console.log(data)
+
+        //insert data to the calendar
+        if(event_data)
+        calendar(event_data);
+        else
+        calendar({});
         // console.log(event_data[0])
         // console.log(event_data===undefined)
         // if(event_data!==undefined){
@@ -33,17 +39,17 @@ export class ViewUserEventsComponent implements OnInit {
   }
 
     //load calendar data
-    getData(uid:any):Observable<any[]>{  
-      return this.database.collection('register_user').doc(uid).collection('bookings').valueChanges().pipe(
-        tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
-        map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
-          let data:any=event;
-          if(data.paid===true){
-            var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
-          }
-          return obj;
-        }))
-      );
+    getData(uid:any):Observable<any[]>{ 
+      alert(uid) 
+      return this.database.collection('register_user').doc(uid).collection('bookings').get().pipe(map(events=>{
+        let data:any=events;
+        let obj:any;
+        if(events)
+        obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"}
+        else 
+        obj={title:"",start:"",constraint:""}
+        return obj;
+      }))
     }
 
 }

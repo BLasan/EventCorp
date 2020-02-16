@@ -55,6 +55,7 @@ import { ArtistSettingsComponent } from 'app/Modules/Artist-Module/artist-settin
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
 import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/edit-playlist.component';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
 
   @NgModule({
     imports: [
@@ -98,6 +99,7 @@ import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/e
       MatListModule,
       NgxMatSelectSearchModule,
       SharedComponentsModule,
+      MatCarouselModule,
     ],
     declarations: [
      ArtistComponent,
@@ -110,6 +112,8 @@ import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/e
      ViewBookingInfoComponent,
      AddPlaylistComponent,
      EditPlaylistComponent,
+    //  BookedEventsComponent,
+    //  SearchBookedEventsPipe
     ],
    
   })

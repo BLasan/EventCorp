@@ -30,9 +30,20 @@ import { HelpComponent } from 'app/shared-components/help/help.component';
 import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events/latest-events.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {ShowArtistComponent} from 'app/Modules/Customer-Module/show-artist/show-artist.component';
+import { SearchArtistPipe } from 'app/Modules/Customer-Module/searchArtist.pipe';
+import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
+import { SearchProviderPipe } from 'app/Modules/Customer-Module/searchProvider.pipe';
+import { ShowVenueComponent } from 'app/Modules/Customer-Module/show-venue/show-venue.component';
+import { SearchVenuePipe } from 'app/Modules/Customer-Module/searchVenue.pipe';
+import { AgmCoreModule } from '@agm/core';
+
   @NgModule({
     imports: [
       CommonModule,
+      AgmCoreModule.forRoot({
+        apiKey: 'AIzaSyAJiTvdCB4__gqcZMTkmLaSZWic94KFCvI'
+      }),
       RouterModule.forChild(CustomerLayoutRoutes),
       FormsModule,
       NgbModule,
@@ -60,6 +71,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
      FeedbackComponent,
      HelpComponent,
      LatestEventsComponent,
+     ShowArtistComponent,
+     SearchArtistPipe,
+     ShowProvidersComponent,
+     SearchProviderPipe,
+     ShowVenueComponent,
+     SearchVenuePipe,
+     //ShowProvidersComponent,
     //  MatCarouselComponent,
     //  MatCarouselSlideComponent
     ],

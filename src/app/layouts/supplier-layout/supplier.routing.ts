@@ -10,6 +10,9 @@ import { SupplierAddItemsComponent } from 'app/Modules/Supplier-Module/supplier-
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { EditProductsComponent } from 'app/Modules/Supplier-Module/edit-products/edit-products.component';
 import { SupplierProductsTableComponent } from 'app/Modules/Supplier-Module/supplier-products-table/supplier-products-table.component';
+import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
+import { UserLocationComponent } from 'app/shared-components/user-location/user-location.component';
+import { MapsComponent } from 'app/Modules/Supplier-Module/maps/maps.component';
 
 export const SupplierLayoutRoutes: Routes = [
     {path:'supplier-home',component:SupplierHomeComponent},
@@ -22,5 +25,7 @@ export const SupplierLayoutRoutes: Routes = [
     {path:'supplier-add-items',component:SupplierAddItemsComponent},
     {path:'edit-product/:id',component:EditProductsComponent},
     {path:'supplier-products',component:SupplierProductsTableComponent},
+    {path:"supplier-booked_events",component:BookedEventsComponent},
+    {path: 'supplier-maps' , component:MapsComponent}
     // {path:'view-events/:uid' , component:ViewUserEventsComponent},
 ];

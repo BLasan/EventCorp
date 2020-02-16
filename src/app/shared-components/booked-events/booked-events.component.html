@@ -1,0 +1,71 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card" *ngIf="isLoaded && events_array.length>0">
+      <div class="card-header card-header-warning" >
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h4 class="card-title">Booked Events</h4>
+            <p class="card-category">All Booked Events Details</p>
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <p style="padding-top:20px;color:white;padding-left:30px">Search Events :</p>
+              </div>
+              <div class="col-md-8 col-sm-8">
+                <div class="form-group" style="padding-top:5px">
+                  <input type="text" placeholder="Search By Event Name" class="form-control" [(ngModel)]="searchBookedEvents" [ngModelOptions]="{standalone: true}"/>
+              </div>    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-content table-responsive table-full-width">
+        <table class="table">
+          <thead class="text-danger">
+            <th>Event Name</th>
+            <th>Organizer</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Venue</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let events of events_array| searchBookedEvents:searchBookedEvents">
+              <td>{{events.event_name}}</td>
+              <td>{{events.sender_name}}</td>
+              <td>{{events.date}}</td>
+              <td>{{events.time}}</td>
+              <td>{{events.venue[0]}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <h1 align="center" class="blink" style="color: red;" *ngIf="isLoaded && events_array.length==0"><b>No Events</b></h1>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalTitle" aria-hidden="true" *ngIf="isModalOpen">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: transparent;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalTitle" style="color:white">Billing Details</h5>
+        <button type="button" class="close" style="color:red" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="color: white;">Name : {{filtered_data[0].data.receiver_name}}</p>
+        <p style="color: white;">Email : {{filtered_data[0].data.receiver_email}}</p>
+        <p style="color: white;">Date : {{filtered_data[0].data.date}}</p>
+        <p style="color: white;">Time : {{filtered_data[0].data.time}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="downloadBill()">Download Bill</button>
+      </div>
+    </div>
+  </div>
+</div>

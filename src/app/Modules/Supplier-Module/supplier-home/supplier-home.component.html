@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 col-12">
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <!-- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="assets\img\storage\home\singer.jpg" style="height:500px;" class="d-block w-100" alt="...">
@@ -22,10 +22,31 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
-        </div> 
+        </div>  -->
+        <mat-carousel
+        timings="250ms ease-in"
+        [autoplay]="true"
+        interval="5000"
+        color="accent"
+        maxWidth="auto"
+        proportion="40"
+        slides="5"
+        [loop]="true"
+        [hideArrows]="true"
+        [hideIndicators]="false"
+        [useKeyboard]="true"
+        [useMouseWheel]="false"
+        orientation="ltr"
+        >
+        <mat-carousel-slide #matCarouselSlide overlayColor="#00000040" [hideOverlay]="true" *ngFor="let events of events_array">
+          <a id="event_image" href="" data-toggle="modal" data-target="#exampleModal" title="Click Here To View More" (click)="loadEvents(events.event_id,$event)">
+            <img src="{{events.image_path}}" alt="Events" width="100%" style="vertical-align:middle;padding-left:0;padding-right:0;">
+          </a>
+        </mat-carousel-slide>
+      </mat-carousel>
       </div>
     </div>
-    <div class="row" style="margin-top:15px" *ngIf="load_items==='loaded'">
+    <div class="row" style="margin-top:8px" *ngIf="load_items==='loaded'">
       <div class="rect">
         <h2 style="color:black;padding-top:5px"><b><a title="View All" href="/supplier-products" style="text-decoration: none;color:black">OUR ITEMS</a></b></h2>
       </div>

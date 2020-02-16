@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     onLoaded:boolean=true;
     user_role:string;
+    booked_events_href:string="";
     private sidebarVisible: boolean;
     constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private _db:AngularFirestore,private auth:AngularFireAuth) {
       this.location = location;
@@ -52,6 +53,8 @@ export class NavbarComponent implements OnInit {
 
     //previous_mode();
     this.user_role=localStorage.getItem('role');
+    this.booked_events_href="/"+this.user_role+"-booked_events";
+
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
         this.route_link="/artist-notifications";
@@ -102,7 +105,7 @@ export class NavbarComponent implements OnInit {
     }  
     snapshot.forEach(doc => {
     //   console.log(doc.id, '=>', doc.data());
-      if(doc.data().role!=localStorage.getItem('role'))
+      if(doc.data().role!=localStorage.getItem('role') && doc.data().role!=='admin' && doc.data().role!=='moderator')
       _this.user_details.push(doc.data());
     });
     }).catch(err => {
@@ -220,7 +223,9 @@ export class NavbarComponent implements OnInit {
       if(titlee.indexOf('view-all-products')>-1) return "All Products";
       if(titlee.indexOf('update-events')>-1) return "Edit Events";
       if(titlee.indexOf('view-all-events')>-1) return "View All Events";
+      if(titlee.indexOf('notifications')>-1) return "Notifications";
       if(titlee==='/payment-bill') return "Payments";
+      if(titlee.indexOf('/booked_events')) return "Booked Events";
     }
 
     logout_User(event:any){  
@@ -282,19 +287,21 @@ export class NavbarComponent implements OnInit {
                 console.log(element.type)
                 if(element.type=='added' && element.doc.data().view===false){
                     _this.notification_count+=1;
+                    elements.innerHTML=_this.notification_count.toString();
                  }
      
-                else if(element.type=='modified'){
-                    if(element.doc.data().view)
-                    _this.notification_count-=1;
-                    else
-                    _this.notification_count+=1;
-
-                    console.log(_this.notification_count)
-                }
+                // else if(element.type=='modified'){
+                //     if(element.doc.data().view)
+                //     _this.notification_count-=1;
+                //     else
+                //     _this.notification_count+=1;
+                //     elements.innerHTML=_this.notification_count.toString();
+                //     console.log(_this.notification_count)
+                // }
      
                 else if(element.type=='removed'){
-                    
+                    _this.notification_count-=1;
+                    elements.innerHTML=_this.notification_count.toString();
                 }
             });
         });
@@ -309,13 +316,14 @@ export class NavbarComponent implements OnInit {
                     elements.innerHTML=_this.notification_count.toString();
                  }
      
-                else if(element.type=='modified'){
-                    if(element.doc.data().view)
-                    _this.notification_count-=1;
-                    else
-                    _this.notification_count+=1;
-                    elements.innerHTML=_this.notification_count.toString();
-                }
+                // else if(element.type=='modified'){
+                //     alert(_this.notification_count)
+                //     if(!element.doc.data().view){
+                //         _this.notification_count+=1;
+                       
+                //         elements.innerHTML=_this.notification_count.toString();
+                //     }
+                // }
      
                 else if(element.type=='removed'){
                    
@@ -334,9 +342,7 @@ export class NavbarComponent implements OnInit {
                  }
      
                 else if(element.type=='modified'){
-                    if(element.doc.data().view)
-                    _this.notification_count-=1;
-                    else
+                    if(!element.doc.data().view)
                     _this.notification_count+=1;
                     elements.innerHTML=_this.notification_count.toString();
                 }

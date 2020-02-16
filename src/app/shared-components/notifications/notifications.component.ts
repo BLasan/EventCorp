@@ -94,7 +94,7 @@ export class NotificationsComponent implements OnInit {
       var obj={_id:doc.id,data:doc.data()};
     // _this.notification_details.push(doc.data());
     _this.booking_data.push(obj);
-    _this.notification_count+=1;
+    // _this.notification_count+=1;
     }
   });
   })
@@ -129,7 +129,7 @@ export class NotificationsComponent implements OnInit {
       console.log(doc.id, '=>', doc.data());
       if(doc.data().view==false)
       _this.message_data.push(doc.data());
-      _this.notification_count+=1;
+      // _this.notification_count+=1;
     });
     })
   .catch(err => {
@@ -146,7 +146,7 @@ export class NotificationsComponent implements OnInit {
       console.log(doc.id, '=>', doc.data());
       if(doc.data().view==false)
       _this.chat_messages.push(doc.data());
-      _this.notification_count+=1;
+      // _this.notification_count+=1;
     });
     })
   .catch(err => {
@@ -167,52 +167,78 @@ export class NotificationsComponent implements OnInit {
    }
 
 mark_view_booking_notification(sender_email:string,type:string){
- // alert(sender_email)
-  if(this.isBookingView){
-    console.log(sender_email)
-    console.log(this.booking_data);
-    if(localStorage.getItem('role')==='organizer'){
-      this.filtered_details=this.booking_data.filter(x=>x.user_email!==sender_email);
-      this.req_from=this.filtered_details[0].user_email;
-      this.req_name=this.filtered_details[0].user_name;
-      this.req_time=this.filtered_details[0].date;
+//  alert(sender_email)
+ let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
+ let _count=parseInt(count)-1;
+ console.log(_count);
+ let _id=document.getElementById('notification_count_id');
+
+  if(type==='req'){
+    if(this.isBookingView){
+      alert(sender_email)
+      console.log(this.booking_data);
+      if(localStorage.getItem('role')==='organizer'){
+        this.filtered_details=this.booking_data.filter(x=>x.user_email!==sender_email);
+        this.req_from=this.filtered_details[0].user_email;
+        this.req_name=this.filtered_details[0].user_name;
+        this.req_time=this.filtered_details[0].date;
+      }
+      else{
+        this.filtered_details=this.booking_data.filter(x=>x.sender_email!==sender_email);
+        this.req_from=this.filtered_details[0].sender_email;
+        this.req_name=this.filtered_details[0].sender_name;
+        this.req_time=this.filtered_details[0].date;
+      }
+      // this.req_contact=this.filtered_details[0].user_contact;
     }
-    else{
-      this.filtered_details=this.booking_data.filter(x=>x.sender_email!==sender_email);
+  
+    if(!this.isBookingView){
+      console.log(this.message_data);
+      this.filtered_details=this.message_data.filter(x=>x.sender_email!==sender_email);
       this.req_from=this.filtered_details[0].sender_email;
       this.req_name=this.filtered_details[0].sender_name;
-      this.req_time=this.filtered_details[0].date;
+      this.req_time=this.filtered_details[0].date; 
     }
-    // this.req_contact=this.filtered_details[0].user_contact;
-  }
-
-  if(!this.isBookingView){
-    console.log(this.message_data);
-    this.filtered_details=this.message_data.filter(x=>x.sender_email!==sender_email);
-    this.req_from=this.filtered_details[0].sender_email;
-    this.req_name=this.filtered_details[0].sender_name;
-    this.req_time=this.filtered_details[0].date; 
-
   }
 
   let user_name=localStorage.getItem('user_name');
+  var _this=this;
  // this.notification_count-=1;
   console.log(sender_email)
   if(this.isBookingView) this.notification_type="booking";
   else this.notification_type="notifications";
-  if(this.notification_type==="booking" && type==='cancel')
-  var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true});
-  else
-  var mark_notifications=this.database.collection('register_user').doc(user_name).collection('notification-messages').doc(sender_email).update({view:true});
-  if(mark_notifications){
-    this.notification_count-=1;
-    update_count(this.notification_count);
-    this.getRequestDetails();
-  }
 
-  else{
-    console.log("Not Updated")
+  //filter non viewed bookings
+  if(this.notification_type==="booking" && type==='cancel'){
+    var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true}).then(()=>{
+      _this.booking_data=_this.booking_data.filter(x=> x.data.view===false);
+      if(_count>0)
+      _id.innerHTML=_count.toString();
+      else if(_count===0) _id.setAttribute('style','display:none');
+    }).catch(ex=>{
+      console.log(ex);
+    })
   }
+  
+  else
+  var mark_notifications=this.database.collection('register_user').doc(user_name).collection('notification-messages').doc(sender_email).update({view:true}).then(()=>{
+    _this.message_data=_this.message_data.filter(x=> x.view===false);
+    if(_count>0)
+    _id.innerHTML=_count.toString();
+    else if(_count===0) _id.setAttribute('style','display:none');
+  }).catch(err=>{
+    console.log(err);
+  })
+
+  // if(mark_notifications){
+  //   this.notification_count-=1;
+  //   update_count(this.notification_count);
+  //   this.getRequestDetails();
+  // }
+
+  // else{
+  //   console.log("Not Updated")
+  // }
 
 
   // this._notification.mark_viewed_notifications(sender_email,user_name,this.notification_type).subscribe(data=>{
@@ -235,8 +261,20 @@ mark_view_booking_notification(sender_email:string,type:string){
 
 
 mark_chat_notifications(id:string){
-  alert(id)
-  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('chats').doc(id).update({view:true});
+  alert(id);
+  let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
+  let _count=parseInt(count)-1;
+  console.log(_count);
+  let _id=document.getElementById('notification_count_id');
+  // update_notification_count(_count);   //update notification count
+
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('chats').doc(id).update({view:true}).then(()=>{
+    //update count
+    if(_count>0) _id.innerHTML=_count.toString();   
+    else if(_count===0) _id.setAttribute('style','display:none');
+  }).catch(err=>{
+    console.log(err);
+  })
   localStorage.setItem('searched_user_email',id);
 }
 
@@ -288,7 +326,10 @@ decline(id:any){
   let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
   let _count=parseInt(count)-1;
   console.log(_count);
-  update_notification_count(_count);   //update notification count
+
+  //update count
+  if(_count>0) document.getElementById('notification_count_id').innerHTML=_count.toString(); 
+  else if(_count===0) document.getElementById('notification_count_id').setAttribute('style','display:none');
 
   //update view of the notification
   this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(id).update({view:true,status:"Rejected"});  
@@ -347,7 +388,7 @@ decline(id:any){
   });
 
   //remove notification
-  this.booking_data=this.booking_data.filter(x=>x.sender_email!==this.req_from);
+  this.booking_data=this.booking_data.filter(x=>x.data.sender_email!==this.req_from);
 }
 
 
@@ -362,8 +403,9 @@ accept(id:any){
   let _count=parseInt(count)-1;
   console.log(_count);
 
-  //update count
-  update_notification_count(_count);
+  // update count
+  if(_count>0) document.getElementById('notification_count_id').innerHTML=_count.toString();   
+  else if(_count===0) document.getElementById('notification_count_id').setAttribute('style','display:none');
   let temArray:any=[];
 
   //update the view of the event
@@ -396,7 +438,7 @@ accept(id:any){
   });
 
    //remove notification
-   this.booking_data=this.booking_data.filter(x=>x.sender_email!==this.req_from);
+   this.booking_data=this.booking_data.filter(x=>x.data.sender_email!==this.req_from);
 }
 
 // joinChat(roomId:string){
