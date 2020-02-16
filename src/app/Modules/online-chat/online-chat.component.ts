@@ -30,6 +30,8 @@ export class OnlineChatComponent implements OnInit {
   showChat:boolean=false;
   messageArray:Array<{user:String,message:String,date:any}>=[];
   senderArray:Array<{user:String,message:String}>=[];
+  searched_user_image:any;
+  sender_image:any;
   constructor(private _snackbar:MatSnackBar,private database:AngularFirestore) {
     
    }
@@ -59,18 +61,23 @@ export class OnlineChatComponent implements OnInit {
 
     // this.get_searched_user_status();
 
+    this.getImages();
     this.realtime_listen();      //realtime listen
+  }
 
-    // if(localStorage.getItem('role')==="organizer")
-    // this.room=generate_chat_id(localStorage.getItem('user_name'),new Date(),this.searched_user);
-    // else
-    // this.room=generate_chat_id(this.searched_user,new Date(),localStorage.getItem('user_name'));
 
-    // this.chat_service.newUserJoined().subscribe(data=>{
-    //   console.log(data+"========>Data")
-    //   this.messageArray.push(data);
-    // });
-    // this.get_searched_user_status();
+  //get user images
+  getImages(){
+    var _this=this;
+    let sender=localStorage.getItem('user_name');
+    this.database.firestore.collection('register_user').get().then(docs=>{
+      if(!docs.empty){
+        docs.forEach(doc=>{
+          if(doc.id===_this.searched_user) _this.searched_user_image=doc.data().image_url;
+          else if(doc.id===sender) _this.sender_image=doc.data().image_url;
+        })
+      }
+    })
   }
 
 
@@ -78,8 +85,7 @@ export class OnlineChatComponent implements OnInit {
   sendMessage(){
     var _this=this;
     let date=new Date();
-    let time_date=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getTime();
-   
+    let time_date=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
     this.messageArray.push({user:_this.user,message:_this.message,date:time_date});
 
     //update the message to database
