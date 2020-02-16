@@ -33,22 +33,7 @@ export class LoginService {
     }
 
     logOut(){
-        let success:any;
-        var _this=this;
-        // this.http.post(`${this._url}/logout_user`,[localStorage.getItem('user_name')]).subscribe(data=>{
-        //     success=data;
-        //     //alert('LOGGED OUTR')
-        //     if(success.success==true){
-        //         localStorage.removeItem('user_name');
-        //         localStorage.removeItem('role');
-        //         localStorage.removeItem('token');
-        //         localStorage.removeItem('nameId');
-        //     }
-        //     else alert('Error logging-out');
-        // })
         var user=localStorage.getItem("user_name");
-        
-        // localStorage.removeItem('user_name');
         localStorage.removeItem('role');
         localStorage.removeItem('token');
         localStorage.removeItem('nameId');

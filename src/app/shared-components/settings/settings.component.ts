@@ -57,20 +57,46 @@ export class SettingsComponent implements OnInit {
 
   //delete account
   deleteAccount(){
-    let user=localStorage.getItem('user_name');
-    var delete_account=this.database.collection('register_user').doc(user).update({profile_status:'Deleted'});
-    if(delete_account){
-      alert("Deletion Success");
-      this._logout.logOut();
+    var _this=this;
+    if(confirm('Are You Sure?')){
+      let user=localStorage.getItem('user_name');
+      var delete_account=this.database.collection('register_user').doc(user).update({profile_status:'Deleted'});
+      if(delete_account){
+        alert("Deletion Success");
+        _this.logout_User();
+      }
+      else alert("Deletion Error");
     }
-    else alert("Deletion Error");
-    // this._accountDel.delete_account(user).subscribe(data=>{
-    //   this.del_status=data;
-    //   console.log(this.del_status.success);
-    //   this._logout.logOut();
-    // })
+    else{
+      alert("Deletion Cancelled!");
+    }
     
   }
+
+  logout_User(){  
+    var _this=this;
+    var user=localStorage.getItem('user_name');
+    console.log(user);
+    var _auth=this.auth.auth;
+    var _home=document.getElementById('logout_route');
+ 
+    this.database.firestore.collection('register_user').doc(user).update({active_status:'logout'}).then(()=>{
+        _auth.signOut();
+        _home.click();
+    }).catch(err=>{
+        console.log(err);
+    });
+
+    //remove localstorage items
+    localStorage.removeItem('user_name');
+    localStorage.removeItem('role');
+    localStorage.removeItem('token');
+    localStorage.removeItem('nameId');
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('searched_user_email');
+    localStorage.removeItem('status');
+    localStorage.removeItem('isBookingReq');
+}
 
   onNoClick(): void {
     this.dialogRef.close();
