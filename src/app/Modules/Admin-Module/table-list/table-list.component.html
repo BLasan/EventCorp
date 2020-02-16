@@ -2,7 +2,7 @@
 <div class="main-content" style="background-color:#212121;">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12" *ngIf="user_profile.length>0 && isLoading===false">
+      <div class="col-md-12" *ngIf="isLoading===false && filtered_users.length>0 ">
         <div class="card"  style="background-color:#878d8d">
           <div class="card-header card-header-danger">
             <div class="row">
@@ -40,7 +40,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user_profile of user_profile;let i = index">
+                <tr *ngFor="let user_profile of filtered_users;let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td>{{user_profile.user_name}}</td>
                 <td>{{user_profile.city}}</td>
@@ -55,7 +55,7 @@
           </div>
         </div>
       </div>
-      <div class=" col-md-12 alert alert-danger alert-with-icon" *ngIf="user_profile.length==0 && isLoading===false">
+      <div class=" col-md-12 alert alert-danger alert-with-icon" *ngIf="isLoading===false && filtered_users.length===0">
         <i class="material-icons" data-notify="icon">error_outline</i>
           <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">  <i class="material-icons">close</i></button>
           <span data-notify="message">

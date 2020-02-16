@@ -43,6 +43,7 @@ import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers
 import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
 import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
+import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -54,10 +55,14 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   },
-
   {
     path:'email-verify/:link',
     component:EmailVerifyComponent
+  },
+  {
+    path:'view-bill/:name/:email/:city/:date/:time/:amount/:id/:user_name',
+    component:ViewBillComponent,
+    canActivate:[AuthGuardViewUserEventsService]
   },
   {
     path:'enter-email-reset-password',

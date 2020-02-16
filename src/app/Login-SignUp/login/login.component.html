@@ -132,7 +132,8 @@
                     </div>
                     <div class="card-body">
                           <form #form1 [formGroup]="form">
-                              <h6 *ngIf="!isTrue"><div class="alert alert-danger" role="alert" style="text-align: center">Credentials Not Matched!</div></h6>
+                              <h6 *ngIf="!isLoading && !isTrue && isRegistered"><div class="alert alert-danger" role="alert" style="text-align: center">Credentials Not Matched!</div></h6>
+                              <h6 *ngIf="!isLoading && !isTrue && !isRegistered"><div class="alert alert-danger" role="alert" style="text-align: center">User Not Exists.Please Register!</div></h6>
                               <!-- <h6 *ngIf="session_timeout"><div class="alert alert-warning" role="alert" style="text-align: center">Session Expired!</div></h6> -->
                               <div class="input-group form-group">
                                   <div class="input-group-prepend">

@@ -18,8 +18,9 @@ export class TableListComponent implements OnInit{
   isLoading:boolean=true;
   testVal:boolean=false;
   selection:any="All Users";
+  filtered_users:any;
   roles:any=[{value:'organizer',role:'Organizer'},{value:'artist',role:'Artist'},{value:'supplier',role:'Supplier'},{value:'venue_owner',role:'Venue-Owner'}];
-  constructor(private _loadUsers:AdminService,private _deleteAccount:DeleteAccountService,private _snackBar:MatSnackBar,private _recoverAccount:DeleteAccountService,private database:AngularFirestore) {
+  constructor(private _snackBar:MatSnackBar,private database:AngularFirestore) {
     
    }
 
@@ -28,9 +29,10 @@ export class TableListComponent implements OnInit{
     //document.getElementById('search_bar').style.display="none";
   }
 
-getUsers(){
+ getUsers(){
   var _this=this;
   this.user_profile=[];
+  this.isLoading=true;
   var docRef = this.database.firestore.collection('register_user');
   docRef.get()
   .then(snapshot => {
@@ -42,6 +44,7 @@ getUsers(){
     console.log(doc.id, '=>', doc.data().role);
     if(doc.data().role!=='moderator' && doc.data().role!=='admin')
     _this.user_profile.push(doc.data());
+    _this.filtered_users=_this.user_profile;
     _this.isLoading=false;
   });
 
@@ -55,9 +58,10 @@ getUsers(){
 //filter roles
 filterRoles(event:any){
   var _this=this;
+  this.filtered_users=[];
   var val=event.value;
   if(val!=="all")
-  this.user_profile=this.user_profile.filter(x=>x.role===val);
+  this.filtered_users=this.user_profile.filter(x=>x.role===val);
   else
   this.getUsers();
   this.testVal=true;

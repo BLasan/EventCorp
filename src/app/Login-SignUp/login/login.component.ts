@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   validation:any;
   checked:any;
   form: any;
+  isRegistered:boolean=false;
   isTrue:boolean=true;
   constructor(private login_service:LoginService,private _db:AngularFirestore,private auth:AngularFireAuth,private cookie:CookieService) { }
 
@@ -48,6 +49,9 @@ export class LoginComponent implements OnInit {
   login_validate(){
     this.isLoading=true;
     var _this=this;
+    this.isInValid=false;
+    this.isTrue=false;
+    this.isRegistered=false;
     let email=(<HTMLInputElement>document.getElementById('user_name')).value;
     let password=(<HTMLInputElement>document.getElementById('password')).value;
     let remember_token=(<HTMLInputElement>document.getElementById('remember_user')).checked;
@@ -85,12 +89,14 @@ export class LoginComponent implements OnInit {
         if(docs.empty){
           _this.isTrue=false;
           _this.isLoading=false;
+          _this.isRegistered=false;
+          password_ele.value="";
         }
         else{
+          _this.isRegistered=true;
           docs.forEach(doc=>{
             if(doc.data().id===email){
               _this.isLoading=false;
-
               _this._db.collection('register_user').doc(email).update({active_status:"login"}).then(()=>{
                 _this.isTrue=true;
                 localStorage.setItem('loggedIn','true');
@@ -113,16 +119,21 @@ export class LoginComponent implements OnInit {
       })
     }
     else{
+
     //get user credentials
     this._db.firestore.collection("register_user").doc(email)
     .get().then(function(doc) {
       if(!doc.exists){
         _this.isTrue=false;
         _this.isLoading=false;
+        _this.isRegistered=false;
+        password_ele.value="";
       }
       else{
+        _this.isRegistered=true;
         if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
           _this.isTrue=true;
+        
           if(_this.checked) _this.login_service.activateRememberUser(email);
           else _this.login_service.destroyRememberUser();
 

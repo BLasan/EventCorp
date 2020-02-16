@@ -32,8 +32,8 @@
             </div>
             <div class="card-body">
               <form [formGroup]="form">
-                <h5 *ngIf="success==false && isError==false" style="background-color:red">User Already Exists!</h5>
-                <h5 *ngIf="success==true && isError==true" style="background-color:red">Error Signup!</h5>
+                <h5 *ngIf="success==false && isError==false" style="background-color:red"><div class="alert alert-danger" role="alert" style="text-align: center">User Already Exists!</div></h5>
+                <h5 *ngIf="success==true && isError==true" style="background-color:red"><div class="alert alert-danger" role="alert" style="text-align: center">Error Signup!</div></h5>
                 <mat-form-field>
                   <input matInput placeholder="User Name" formControlName="user_name" name="user_name" id="user_name" required>
                   <mat-error *ngIf="hasError('user_name', 'required')">User Name is required</mat-error>

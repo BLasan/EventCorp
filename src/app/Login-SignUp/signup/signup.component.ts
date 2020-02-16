@@ -92,6 +92,7 @@ export class SignupComponent implements OnInit {
   
   //signup
   signUp(){
+    this.isError=false;
     let user_email= (<HTMLInputElement>document.getElementById('user_email')).value;
     console.log(user_email+" "+this.user_emails.filter(x=>console.log(x)));
     if(this.user_emails.filter(x=>x===user_email)){
