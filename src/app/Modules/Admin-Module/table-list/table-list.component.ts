@@ -69,12 +69,18 @@ filterRoles(event:any){
 
 //remove the user
 remove_user(email:string){
-  var delete_account=this.database.collection('register_user').doc(email).update({profile_status:'Deleted'});
-  if(delete_account){
-    this._snackBar.open("Successfully Deleted","Done", {
-      duration: 2000,
-    });
-    this.getUsers();
+  if(confirm("Are You Sure?")){
+    var delete_account=this.database.collection('register_user').doc(email).update({profile_status:'Deleted'});
+    if(delete_account){
+      this._snackBar.open("Successfully Deleted","Done", {
+        duration: 2000,
+      });
+      this.getUsers();
+    }
+  }
+ 
+  else{
+    alert("Deletion Cancelled!");
   }
   // this._deleteAccount.delete_account(email).subscribe(data=>{
   //   this.success_message=data;
