@@ -155,7 +155,11 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
       tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
       map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
         let data:any=event;
-        let obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"}
+        let obj:any;
+        if(data)
+        obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"};
+        else 
+        obj={};
         return obj;
       }))
     );

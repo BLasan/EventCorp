@@ -19,6 +19,7 @@ export class ViewLocationComponent implements OnInit{
   ngOnInit() {
     this.route.params.subscribe(params => {
       var id=params.uid;
+      console.log(id)
       this.getUserAddress(id);
    });
   }
@@ -28,6 +29,7 @@ export class ViewLocationComponent implements OnInit{
     var _this=this;
     this.db.firestore.collection('register_user').doc(id).get().then(doc=>{
       let address=doc.data().city;
+      console.log(address)
       _this.initMap(address);
     }).catch(err=>{
       console.log(err);
@@ -36,6 +38,7 @@ export class ViewLocationComponent implements OnInit{
 
 //init Map
 initMap(address:string){
+console.log(address)
   var geocoder = new google.maps.Geocoder;
   var myLatlng = new google.maps.LatLng(this.lat,this.long);
   var mapOptions = {
@@ -129,14 +132,16 @@ initMap(address:string){
       }]
 
   };
+  console.log(document.getElementById("map"))
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
   geocoder.geocode( { 'address': address}, function(results, status) {
     if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location,
-          title:"My Location"
+          title:"Location"
       });
       marker.setMap(map);
     } else {

@@ -30,16 +30,16 @@ export class ViewUserEventsComponent implements OnInit {
 
     //load calendar data
     getData(uid:any):Observable<any[]>{ 
-      alert(uid) 
-      return this.database.collection('register_user').doc(uid).collection('bookings').get().pipe(map(events=>{
-        let data:any=events;
+      //alert(uid) 
+      return this.database.collection('register_user').doc(uid).collection('bookings').valueChanges().pipe(map(events=>events.map(event => {
+        let data:any=event;
         let obj:any;
-        if(events)
+        if(data.paid==true)
         obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"}
         else 
-        obj={title:"",start:"",constraint:""}
+        obj={}
         return obj;
-      }))
+      })));
     }
 
 }

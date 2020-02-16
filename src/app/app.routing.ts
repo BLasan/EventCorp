@@ -41,6 +41,8 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
 import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -71,7 +73,11 @@ const routes: Routes =[
     component:ViewLocationComponent,
     canActivate:[AuthGuardViewLocationService],
   },
-
+  {
+    path:'view-user-events/:uid',
+    component:ViewUserEventsComponent,
+    canActivate:[AuthGuardViewUserEventsService],
+  },
   // {
   //   path:'reset-password',
   //   component:ResetPasswordFirebaseComponent
