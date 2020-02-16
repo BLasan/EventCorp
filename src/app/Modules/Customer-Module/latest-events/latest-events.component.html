@@ -174,24 +174,33 @@
             <div class="col-md-4">
               <p><b style="color:white">Artists :</b></p>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" *ngIf="artists!==''">
               <p>{{artists}}</p>
+            </div>
+            <div class="col-md-8" *ngIf="artists===''">
+              <p style="color:red">No Artists Participated</p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
               <p><b style="color:white">Suppliers :</b></p>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" *ngIf="suppliers!==''">
               <p>{{suppliers}}</p>
+            </div>
+            <div class="col-md-8" *ngIf="suppliers===''">
+              <p style="color:red">No Suppliers</p>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4">
               <p><b style="color:white">Venue :</b></p> 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" *ngIf="venue_owners!==''">
               <p>{{venue_owners}}</p>
+            </div>
+            <div class="col-md-8" *ngIf="venue_owners===''">
+              <p style="color:red">No Venues</p>
             </div>
           </div>      
         </div>

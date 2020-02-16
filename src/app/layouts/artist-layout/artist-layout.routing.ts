@@ -23,10 +23,10 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'artist-home' ,component:ArtistHomeComponent},
     { path:'add-playlist' ,component:AddPlaylistComponent},
     { path:'view_booking_info' ,component:ViewBookingInfoComponent},
-    { path:'my-chat-list',component:MyChatsComponent},
+    // { path:'my-chat-list',component:MyChatsComponent},
     { path:'artist-settings' , component:ArtistSettingsComponent},
     { path:'ratings/:name' , component:RatingSystemComponent}, 
     // { path:"Edit Playlist/:id",component:EditPlaylistComponent},
-    { path:'booked_events',component:BookedEventsComponent},
-    { path: 'maps' , component:UserLocationComponent}
+    { path:'artist-booked_events',component:BookedEventsComponent},
+    { path:'artist-maps' , component:UserLocationComponent}
 ];

@@ -93,6 +93,7 @@ import { UserLocationComponent } from './user-location/user-location.component';
     SearchItemsPipe,
     ViewAllEventsComponent,
     BookedEventsComponent,
+    UserLocationComponent,
   ]
 })
 export class SharedComponentsModule { }

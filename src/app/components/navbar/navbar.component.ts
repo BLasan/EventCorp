@@ -35,6 +35,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     onLoaded:boolean=true;
     user_role:string;
+    booked_events_href:string="";
     private sidebarVisible: boolean;
     constructor(location: Location,private element: ElementRef, private router: Router , private _search_user:SearchUserService,private _loginService:LoginService,private _notification_service:NotificationService,private _admin_notification_count:AdminService,private _db:AngularFirestore,private auth:AngularFireAuth) {
       this.location = location;
@@ -52,6 +53,8 @@ export class NavbarComponent implements OnInit {
 
     //previous_mode();
     this.user_role=localStorage.getItem('role');
+    this.booked_events_href="/"+this.user_role+"-booked_events";
+
     if(localStorage.getItem('role')=='artist' && localStorage.getItem('loggedIn')){
         this.listTitles=ROUTES1.filter(listTitle=>listTitle);
         this.route_link="/artist-notifications";
@@ -102,7 +105,7 @@ export class NavbarComponent implements OnInit {
     }  
     snapshot.forEach(doc => {
     //   console.log(doc.id, '=>', doc.data());
-      if(doc.data().role!=localStorage.getItem('role'))
+      if(doc.data().role!=localStorage.getItem('role') && doc.data().role!=='admin' && doc.data().role!=='moderator')
       _this.user_details.push(doc.data());
     });
     }).catch(err => {
@@ -222,7 +225,7 @@ export class NavbarComponent implements OnInit {
       if(titlee.indexOf('view-all-events')>-1) return "View All Events";
       if(titlee.indexOf('notifications')>-1) return "Notifications";
       if(titlee==='/payment-bill') return "Payments";
-      if(titlee==='/booked_events') return "Booked Events";
+      if(titlee.indexOf('/booked_events')) return "Booked Events";
     }
 
     logout_User(event:any){  

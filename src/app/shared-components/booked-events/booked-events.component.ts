@@ -13,6 +13,7 @@ export class BookedEventsComponent implements OnInit {
   searchBookedEvents:string;
   filtered_data:any=[];
   isModalOpen:boolean=false;
+  isLoaded:boolean=false;
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
@@ -24,6 +25,7 @@ export class BookedEventsComponent implements OnInit {
   getEvents(){
     var _this=this;
     this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').get().then(snapshot=>{
+      
       if(snapshot.empty) _this.isEmpty=true;
       else{
         snapshot.forEach(docs=>{
@@ -33,6 +35,8 @@ export class BookedEventsComponent implements OnInit {
           }
         })
       }
+      _this.isLoaded=true;
+      console.log(_this.events_array.length)
     })
   }
 

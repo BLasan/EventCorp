@@ -110,16 +110,31 @@ export class SupplierProfileComponent implements OnInit {
     let city=this.form.get('city').value;
     let bio_data=this.form.get('about_me').value;
     let date=new Date().getTime().toString();
-    let image_id="organizer-image/"+date;
+    let image_id="supplier-image/"+date;
     let storageRef=this.storage.ref(image_id);
     let _this=this;
     if(localStorage.getItem('user_name')==email){
       if(this.image_file){
         storageRef.put(_this.image_file[0]).then(function(snapshot){
           storageRef.getDownloadURL().subscribe(url=>{
-            var user_details={image_url:url,role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+             user_details={image_url:url,role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
             _this.database.collection('register_user').doc(email).update(user_details).then(()=>{
               _this.isUploading=false;
+              _this.form.reset();
+              //this.loadUserProfile();
+              _this.user_profile=[];
+              _this.user_profile.push(user_details);
+          
+               //get form controls
+               _this.form=new FormGroup({
+                user_name:new FormControl(user_details.user_name,Validators.required),
+                address:new FormControl(user_details.address,Validators.required),
+                city:new FormControl(user_details.city,Validators.required),
+                country:new FormControl('Sri Lanka',Validators.required),
+                email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
+                contact:new FormControl(user_details.contact,[Validators.required]),
+                about_me:new FormControl(user_details.bio,[])
+              });
               remove_uploader();
             }).catch(err=>{
               console.log(err);
@@ -132,12 +147,27 @@ export class SupplierProfileComponent implements OnInit {
         
         //if image removed or not
         if(!this.isRemoved)
-        user_details={role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data,image_url:_this.user_profile[0].image_url};
+        user_details={role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data,image_url:_this.user_profile[0].image_url};
         else if(this.isRemoved)
-        user_details={role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data,image_url:"assets/img/pro_img.png"};
+        user_details={role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data,image_url:"assets/img/pro_img.png"};
 
         this.database.collection('register_user').doc(email).update(user_details).then(()=>{
           _this.isUploading=false;
+          _this.form.reset();
+          //this.loadUserProfile();
+          _this.user_profile=[];
+          _this.user_profile.push(user_details);
+      
+           //get form controls
+           _this.form=new FormGroup({
+            user_name:new FormControl(user_details.user_name,Validators.required),
+            address:new FormControl(user_details.address,Validators.required),
+            city:new FormControl(user_details.city,Validators.required),
+            country:new FormControl('Sri Lanka',Validators.required),
+            email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
+            contact:new FormControl(user_details.contact,[Validators.required]),
+            about_me:new FormControl(user_details.bio,[])
+          });
         }).catch(err=>{
           console.log(err);
           _this.isUploading=false;
@@ -146,21 +176,6 @@ export class SupplierProfileComponent implements OnInit {
     }
     else
     alert('Please provide your valid email');
-    this.form.reset();
-    //this.loadUserProfile();
-    this.user_profile=[];
-    this.user_profile.push(user_details);
-
-     //get form controls
-     _this.form=new FormGroup({
-      user_name:new FormControl(user_details.user_name,Validators.required),
-      address:new FormControl(user_details.address,Validators.required),
-      city:new FormControl(user_details.city,Validators.required),
-      country:new FormControl('Sri Lanka',Validators.required),
-      email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
-      contact:new FormControl(user_details.contact,[Validators.required]),
-      about_me:new FormControl(user_details.bio,[])
-    });
   }
 
   get_uploaded_image(event){

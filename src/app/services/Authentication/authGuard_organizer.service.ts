@@ -24,6 +24,8 @@ export class AuthGuardOrganizerService implements CanActivate {
     return true;
     else if(path.indexOf("/payment")>-1)
     return true;
+    else if(path.indexOf("view-events")>-1)
+    return true;
     else {
       this.router.navigate(['/page-not-found']);
       return false;

@@ -297,9 +297,24 @@ export class OrganizerProfileComponent implements OnInit {
       if(this.image_file){
         storageRef.put(_this.image_file[0]).then(function(snapshot){
           storageRef.getDownloadURL().subscribe(url=>{
-            var user_details={image_url:url,role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+             user_details={image_url:url,role:"organizer",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
             _this.database.collection('register_user').doc(email).update(user_details).then(()=>{
               _this.isUploading=false;
+              _this.form.reset();
+              //this.loadUserProfile();
+              _this.user_profile=[];
+              _this.user_profile.push(user_details);
+          
+               //get form controls
+               _this.form=new FormGroup({
+                user_name:new FormControl(user_details.user_name,Validators.required),
+                address:new FormControl(user_details.address,Validators.required),
+                city:new FormControl(user_details.city,Validators.required),
+                country:new FormControl('Sri Lanka',Validators.required),
+                email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
+                contact:new FormControl(user_details.contact,[Validators.required]),
+                about_me:new FormControl(user_details.bio,[])
+              });
               remove_uploader();
             }).catch(err=>{
               console.log(err);
@@ -318,6 +333,21 @@ export class OrganizerProfileComponent implements OnInit {
 
         this.database.collection('register_user').doc(email).update(user_details).then(()=>{
           _this.isUploading=false;
+          _this.form.reset();
+          //this.loadUserProfile();
+          _this.user_profile=[];
+          _this.user_profile.push(user_details);
+      
+           //get form controls
+           _this.form=new FormGroup({
+            user_name:new FormControl(user_details.user_name,Validators.required),
+            address:new FormControl(user_details.address,Validators.required),
+            city:new FormControl(user_details.city,Validators.required),
+            country:new FormControl('Sri Lanka',Validators.required),
+            email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
+            contact:new FormControl(user_details.contact,[Validators.required]),
+            about_me:new FormControl(user_details.bio,[])
+          });
         }).catch(err=>{
           console.log(err);
           _this.isUploading=false;
@@ -326,21 +356,6 @@ export class OrganizerProfileComponent implements OnInit {
     }
     else
     alert('Please provide your valid email');
-    this.form.reset();
-    //this.loadUserProfile();
-    this.user_profile=[];
-    this.user_profile.push(user_details);
-
-     //get form controls
-     _this.form=new FormGroup({
-      user_name:new FormControl(user_details.user_name,Validators.required),
-      address:new FormControl(user_details.address,Validators.required),
-      city:new FormControl(user_details.city,Validators.required),
-      country:new FormControl('Sri Lanka',Validators.required),
-      email:new FormControl({value:user_details.email,disabled:true},[Validators.email,Validators.required]),
-      contact:new FormControl(user_details.contact,[Validators.required]),
-      about_me:new FormControl(user_details.bio,[])
-    });
   }
 
   get_uploaded_image(event){

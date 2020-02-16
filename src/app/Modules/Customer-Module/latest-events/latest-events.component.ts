@@ -111,17 +111,19 @@ export class LatestEventsComponent implements OnInit {
     this.artists="";
     this.suppliers="";
     this.venue_owners="";
+    this.filtered_events=[];
     this.filtered_events=this.events_array.filter(x=> x.event_id==id);
+
     for(var i=0;i<this.filtered_events[0].artists.length;i++){
-      this.artists+=this.filtered_events[0].artists[i]+" / ";
+      this.artists+=this.filtered_events[0].artists[i].name+" / ";
     }
 
     for(var i=0;i<this.filtered_events[0].suppliers.length;i++){
-      this.suppliers+=this.filtered_events[0].suppliers[i]+" / ";
+      this.suppliers+=this.filtered_events[0].suppliers[i].name+" / ";
     }
 
     for(var i=0;i<this.filtered_events[0].venue_owners.length;i++){
-      this.venue_owners+=this.filtered_events[0].venue_owners[i]+" / ";
+      this.venue_owners+=this.filtered_events[0].venue_owners[i].name+" / ";
     }    
   }
 

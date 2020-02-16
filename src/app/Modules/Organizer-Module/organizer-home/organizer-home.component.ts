@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {activate_searchBar} from '../../../../scripts/search_bar_activate';
 import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
@@ -12,7 +12,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
   templateUrl: './organizer-home.component.html',
   styleUrls: ['./organizer-home.component.scss']
 })
-export class OrganizerHomeComponent implements OnInit {
+export class OrganizerHomeComponent implements OnInit,AfterViewInit {
 
   currentRate:any=0;
   rating_data:any;
@@ -28,7 +28,14 @@ export class OrganizerHomeComponent implements OnInit {
   suppliers_participated:string="";
   venue:string="";
   id:any;
-  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private storage:AngularFireStorage) { }
+  isLoaded:boolean=false;
+  isEmpty:boolean=false;
+  events_array:any=[];
+  filtered_events:any=[{}];
+  artists:string="";
+  suppliers:string="";
+  venue_owners:string="";
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private storage:AngularFireStorage,private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
     // loadCalendar();
@@ -39,6 +46,43 @@ export class OrganizerHomeComponent implements OnInit {
     this.load_comments();
   }
 
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+
+    //get latest events
+    getEvents(){
+      var _this=this;
+      this.database.firestore.collection('register_user').get().then(snapshot=>{
+        this.isLoaded=true;
+        if(snapshot.empty) console.log('Empty Data');
+        else{
+          snapshot.forEach(docs=>{
+            if(docs.data().role==='organizer'){
+              console.log(docs.id)
+              _this.database.firestore.collection('register_user').doc(docs.id).collection('MyEvents').get().then(snapshots=>{
+                if(snapshots.empty) {
+                  console.log("Empty Events");
+                  _this.isEmpty=true;
+                  _this.isLoaded=true;
+                }
+                else{
+                  _this.isEmpty=false;
+                  snapshots.forEach(events=>{
+                    let date=events.data().date;
+                    console.log(new Date(date))
+                    if(new Date()<=new Date(date))
+                    _this.events_array.push(events.data());
+                    else console.log("Not valid")
+                  })
+                  _this.isLoaded=true;
+                }
+              })
+            }
+          })
+        }
+      });
+    }
 
   //get top users
   get_top_users(){

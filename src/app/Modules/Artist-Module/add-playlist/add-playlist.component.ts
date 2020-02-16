@@ -78,21 +78,25 @@ export class AddPlaylistComponent implements OnInit {
   try{
     for(var i=0;i<50;i++){
       var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
-      this.storage.ref(audio_id).delete();
     }
   }catch(ex){
     console.log(ex);
   }
+  var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/";
+  this.storage.ref(audio_id).delete().forEach(()=>{
 
+  }).catch(err=>{
+    console.log(err)
+  })
   //upload files 
   for(var i=0;i<this.audio_files.length;i++){
     var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
     var storageRef=this.storage.ref(audio_id);
     var storageRef1=this.storage.ref(audio_id);
     storageRef.put(this.audio_files.item(i)).then(snapshot=>{
-      alert("Storage Up"+i);
+      //alert("Storage Up"+i);
       storageRef1.getDownloadURL().subscribe(url=>{
-        alert("storageURL"+i);  
+        //alert("storageURL"+i);  
         var obj={url:url,name:snapshot.metadata.name,size:snapshot.metadata.size};
         _this.audio_url.push(obj);
         console.log(url);

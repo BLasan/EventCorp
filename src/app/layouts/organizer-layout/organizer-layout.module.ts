@@ -67,6 +67,7 @@ import { SearchBillsPipe } from 'app/Modules/Organizer-Module/searchBills.pipe';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
+import { MatCarouselModule } from '@ngmodule/material-carousel';
   @NgModule({
     imports: [
       CommonModule,
@@ -110,6 +111,7 @@ import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents
       NgxMatSelectSearchModule,
       SharedComponentsModule,
       FullCalendarModule,
+      MatCarouselModule
     ],
     declarations: [
       OrganizerHomeComponent,

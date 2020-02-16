@@ -256,10 +256,10 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-    {
-    path:'chat-app',
-    component:OnlineChatComponent
-  },
+  //   {
+  //   path:'chat-app',
+  //   component:OnlineChatComponent
+  // },
 
 ];
 

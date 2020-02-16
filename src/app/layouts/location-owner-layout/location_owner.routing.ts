@@ -16,7 +16,7 @@ export const LocationOwnerLayoutRoutes: Routes = [
     { path: 'venue-reservation-form', component:VenueReservationFormComponent},
     { path: 'venueAdd', component:VenueAddComponent},
     { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
-    { path:"booked_events",component:BookedEventsComponent},
-    { path: 'maps' , component:UserLocationComponent}
+    { path:"venue_owner-booked_events",component:BookedEventsComponent},
+    { path: 'venue-owner-maps' , component:UserLocationComponent}
     // { path: 'view-events/:uid' , component:ViewUserEventsComponent},
 ];

@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,AfterViewInit } from '@angular/core';
 import {loadCalendar} from '../../../../scripts/artist/artist-home'
 import {activate_searchBar} from '../../../../scripts/search_bar_activate'
 import { RateUserService } from 'app/services/rate-user.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material';
+import { _MatChipListMixinBase } from '@angular/material';
 @Component({
   selector: 'app-artist-home',
   templateUrl: './artist-home.component.html',
   styleUrls: ['./artist-home.component.scss']
 })
-export class ArtistHomeComponent implements OnInit {
+export class ArtistHomeComponent implements OnInit,AfterViewInit {
   currentRate:any=0;
   rating_data:any;
   top_organizers=[];
@@ -22,15 +23,85 @@ export class ArtistHomeComponent implements OnInit {
   playlist_title:string;
   user_comments:any=[];
   user_name:string;
-  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar) { }
+  isLoaded:boolean=false;
+  isEmpty:boolean=false;
+  events_array:any=[];
+  filtered_events:any=[{}];
+  artists:string="";
+  suppliers:string="";
+  venue_owners:string="";
+  constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
     // loadCalendar();
     this.user_name=localStorage.getItem('user_name')
     activate_searchBar();
+    this.getEvents();
     this.get_top_users();
     this.load_comments();
     this.load_playlist();
+  }
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+
+
+  //get latest events
+  getEvents(){
+    var _this=this;
+    this.database.firestore.collection('register_user').get().then(snapshot=>{
+      this.isLoaded=true;
+      if(snapshot.empty) console.log('Empty Data');
+      else{
+        snapshot.forEach(docs=>{
+          if(docs.data().role==='organizer'){
+            console.log(docs.id)
+            _this.database.firestore.collection('register_user').doc(docs.id).collection('MyEvents').get().then(snapshots=>{
+              if(snapshots.empty) {
+                console.log("Empty Events");
+                _this.isEmpty=true;
+                _this.isLoaded=true;
+              }
+              else{
+                _this.isEmpty=false;
+                snapshots.forEach(events=>{
+                  let date=events.data().date;
+                  console.log(new Date(date))
+                  if(new Date()<=new Date(date))
+                  _this.events_array.push(events.data());
+                  else console.log("Not valid")
+                })
+                _this.isLoaded=true;
+              }
+            })
+          }
+        })
+      }
+    });
+  }
+
+
+  //load event details
+  loadEvents(id:any,event){
+    event.preventDefault();
+    this.artists="";
+    this.suppliers="";
+    this.venue_owners="";
+    this.filtered_events=[];
+    this.filtered_events=this.events_array.filter(x=> x.event_id==id);
+
+    for(var i=0;i<this.filtered_events[0].artists.length;i++){
+      this.artists+=this.filtered_events[0].artists[i].name+" / ";
+    }
+
+    for(var i=0;i<this.filtered_events[0].suppliers.length;i++){
+      this.suppliers+=this.filtered_events[0].suppliers[i].name+" / ";
+    }
+
+    for(var i=0;i<this.filtered_events[0].venue_owners.length;i++){
+      this.venue_owners+=this.filtered_events[0].venue_owners[i].name+" / ";
+    }    
   }
 
   get_top_users(){

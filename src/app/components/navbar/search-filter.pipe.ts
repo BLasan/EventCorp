@@ -11,7 +11,6 @@ export class SearchFilterPipe implements PipeTransform{
         searchText = searchText.toLowerCase();
         document.getElementById('search_dropdown').removeAttribute('style');
         return users.filter(user=>{
-           
             return user.user_name.toLowerCase().includes(searchText);
         })
     }
