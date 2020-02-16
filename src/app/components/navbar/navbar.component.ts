@@ -49,6 +49,7 @@ export class NavbarComponent implements OnInit {
     if(this.count===0) this.elements.style.display="none";
     console.log(this.elements)
     this.getNotificationCount();
+    this.getChatMessages();
     //get notification count
     // if(localStorage.getItem('role')!='admin')
     // this.getNotificationCount();
@@ -378,47 +379,6 @@ export class NavbarComponent implements OnInit {
                 }
             });
         });
-
-
-    //     var docRef = this._db.firestore.collection('register_user').doc(user).collection('notification-messages').where("view","==",false);
-    //     docRef.get()
-    //     .then(snapshot1 => {
-    //         var docRefs = _this._db.firestore.collection('register_user').doc(user).collection('bookings').where("view","==",false);
-    //         docRefs.get()
-    //         .then(snapshot2 => {
-    //               if(snapshot1.empty && snapshot2.empty) _this.notification_count=0;
-    //               else if(snapshot2.empty){
-    //                   snapshot1.forEach(docs=>{
-    //                       _this.notification_count+=1;
-    //                       console.log(_this.notification_count)
-    //                   })
-    //               }
-    //               else if(snapshot1.empty){
-    //                   snapshot2.forEach(docs=>{
-    //                       _this.notification_count+=1;
-    //                   })
-    //               }
-    //               else if(!snapshot2.empty && !snapshot1.empty){
-    //                   snapshot1.forEach(docs=>{
-    //                       _this.notification_count+=1;
-    //                   })
-    //                   snapshot2.forEach(docs=>{
-    //                       _this.notification_count+=1;
-    //                   })
-    //               }
-    //         })
-    //       .catch(err => {
-    //         console.log('Error getting documents', err);
-    //       });
-    //     })
-    //   .catch(err => {
-    //     console.log('Error getting documents', err);
-    //   });
-        // this._notification_service.getNotificationCount(user).subscribe(size=>{
-        //     console.log(size);
-        //     this.notification_count=size                                                                                                                                        
-        //     this.count=this.notification_count.size;
-        // });
     }
 
     getAdminNotificationCount(){
@@ -426,7 +386,38 @@ export class NavbarComponent implements OnInit {
             this.data=data;
             this.count=this.data.length;
         })
-    }                                                                                                                                       
+    } 
+    
+    
+    getChatMessages(){
+        var _this=this;
+        this._db.firestore.collection("chats")
+        .onSnapshot(function(snapshot) {
+            let changes=snapshot.docChanges();
+            console.log(changes);
+            changes.forEach(element => {
+                if(element.type=='added'){
+                    let user=element.doc.data().sender;
+                    let message="You have new message from "+user;
+                    alert(message);
+                 }
+     
+                // else if(element.type=='modified'){
+                //     if(!element.doc.data().view)
+                //     _this.notification_count+=1;
+                //     if(_this.notification_count==0) _this.elements.style.display="none";
+                //     else{
+                //         _this.elements.removeAttribute('style');
+                //         _this.elements.innerHTML=_this.notification_count.toString();
+                //     }
+                // }
+     
+                else if(element.type=='removed'){
+                   
+                }
+            });
+        });
+    }
 
     
     show(){

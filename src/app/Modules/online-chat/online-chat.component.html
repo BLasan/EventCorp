@@ -23,7 +23,7 @@
                   <img [src]="searched_user_image" alt="Avatar" style="width:100%;">
                   <!-- <p style="text-align: justify;"><b>{{message.user}}</b></p> -->
                   <p style="text-align: justify;">{{message.message}}</p>
-                  <span class="time-right">{{message.date}}</span>
+                  <span class="time-right">{{message.date | date: "h:mm a"}}</span>
                 </div>
                 
                 <div class="container darker" *ngIf="message.user!=user">
