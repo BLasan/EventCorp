@@ -37,7 +37,7 @@ export class OnlineChatComponent implements OnInit {
   ngOnInit() {
     // this.user=this.user_auth;
     this.user=this.organizer;
-    alert(this.user);
+   // alert(this.user);
 
     //create chat id according to the users
     if(localStorage.getItem('role')==='organizer'){

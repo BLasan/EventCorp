@@ -22,6 +22,7 @@ export class UserLocationComponent implements OnInit {
   constructor(private db:AngularFirestore) { }
 
   ngOnInit() {
+    document.getElementById('search_bar').style.display="none";
     this.user_name=localStorage.getItem('nameId');
     this.user_role=localStorage.getItem('role');
     this.getUserAddress();

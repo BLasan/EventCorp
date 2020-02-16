@@ -212,8 +212,10 @@ mark_view_booking_notification(sender_email:string,type:string){
   if(this.notification_type==="booking" && type==='cancel'){
     var mark_notifications=this.database.collection('register_user').doc(user_name).collection('bookings').doc(sender_email).update({view:true}).then(()=>{
       _this.booking_data=_this.booking_data.filter(x=> x.data.view===false);
-      if(_count>0)
-      _id.innerHTML=_count.toString();
+      if(_count>0){
+        
+        _id.innerHTML=_count.toString();
+      }
       else if(_count===0) _id.setAttribute('style','display:none');
     }).catch(ex=>{
       console.log(ex);

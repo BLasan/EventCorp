@@ -22,18 +22,8 @@ export class ViewUserEventsComponent implements OnInit {
         console.log(data)
 
         //insert data to the calendar
-        if(event_data)
         calendar(event_data);
-        else
-        calendar({});
-        // console.log(event_data[0])
-        // console.log(event_data===undefined)
-        // if(event_data!==undefined){
-        //   console.log(data)
-        //   calendar(data);
-        // }
-        // else
-        // calendar({});
+      
       });
    });
   }

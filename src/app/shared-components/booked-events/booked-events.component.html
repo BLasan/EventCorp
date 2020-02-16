@@ -36,7 +36,8 @@
               <td>{{events.sender_name}}</td>
               <td>{{events.date}}</td>
               <td>{{events.time}}</td>
-              <td>{{events.venue[0]}}</td>
+              <td *ngIf="isLoaded && events.venue[0]">{{events.venue[0].Name}}</td>
+              <td *ngIf="isLoaded && !events.venue[0]">.....</td>
             </tr>
           </tbody>
         </table>

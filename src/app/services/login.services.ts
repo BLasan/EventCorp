@@ -47,18 +47,17 @@ export class LoginService {
         //     else alert('Error logging-out');
         // })
         var user=localStorage.getItem("user_name");
-        alert(user)
+        
         // localStorage.removeItem('user_name');
-        alert(this.auth.auth.currentUser.uid)
         localStorage.removeItem('role');
         localStorage.removeItem('token');
         localStorage.removeItem('nameId');
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('searched_user_email');
         this.auth.auth.signOut().then(suc=>{
-            alert(suc)
+           
         }).catch(err=>{
-            alert(err);
+           // alert(err);
         })
         navigate_to_home();
     }

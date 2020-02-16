@@ -22,12 +22,7 @@ export class ArtistCalendarComponent implements OnInit {
 
     //fetch data
     this.getData().subscribe(data=>{
-      if(data.length>=1){
-        console.log(data)
-        calendar(data);
-      }
-      else if(data.length===0)
-      calendar({});
+      calendar(data);
     });
 
    // deactivate_searchBar()
@@ -51,11 +46,12 @@ export class ArtistCalendarComponent implements OnInit {
       tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
       map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
         let data:any=event;
-        if(data.paid===true){
-          var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
-          console.log(obj)
+        let obj:any;
+          if(data.paid===true){
+            obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
+          }
+          else obj={}
           return obj;
-        }
       }))
     );
   }
