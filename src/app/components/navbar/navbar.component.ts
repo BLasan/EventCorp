@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
     if(this.count===0) this.elements.style.display="none";
     console.log(this.elements)
     this.getNotificationCount();
-    this.getChatMessages();
+    //this.getChatMessages();
     //get notification count
     // if(localStorage.getItem('role')!='admin')
     // this.getNotificationCount();
