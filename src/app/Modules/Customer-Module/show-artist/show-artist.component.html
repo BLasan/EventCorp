@@ -26,7 +26,7 @@
         <table class="table">
           <tbody>
             <tr *ngFor="let artist of artist_array | searchArtist:searchText">
-              <td><a style="text-decoration: none;" href="{{artist.img_url}}" target="_blank"><img src="{{artist.img_url}}" style="height:50px;width:50px"></a></td>
+              <td><a style="text-decoration: none;" href="{{artist.image_url}}" target="_blank"><img src="{{artist.image_url}}" style="height:50px;width:50px"></a></td>
               <td style="font-size: medium;"><b>{{artist.user_name}}</b></td>
               <td><i class="fa fa-phone"></i>{{artist.contact}}</td>
               <td><i class="fa fa-envelope"></i>{{artist.email}}</td>
