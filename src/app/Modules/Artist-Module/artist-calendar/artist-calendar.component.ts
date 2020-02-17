@@ -76,7 +76,7 @@ export class ArtistCalendarComponent implements OnInit {
     id=CryptoJS.SHA256(id).toString();
     console.log("ID->"+id);
     var _this=this;
-    const data={id:id,event_name:event_name,date:date,time:time,venue_owners:venue,organzier:organizer,user_name:this.artist_email};
+    const data={id:id,event_name:event_name,date:date,time:time,venue_owners:venue,organizer:organizer,user_name:this.artist_email};
     this.database.collection('register_user').doc(this.artist_email).collection('MyEvents').doc(id).set(data).then(function(docs) {
        _this.reset_form();
     })

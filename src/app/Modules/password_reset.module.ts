@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { AuthGuardResetPasswordService } from 'app/services/Authentication/authGuard_reset_password.service';
 import { MapsComponent } from './Supplier-Module/maps/maps.component';
 import { ViewBillComponent } from './Organizer-Module/view-bill/view-bill.component';
+import { ViewPastEventsComponent } from './Artist-Module/view-past-events/view-past-events.component';
 
 @NgModule({
   declarations: [ResetPasswordComponent,ResetPasswordFirebaseComponent],

@@ -14,6 +14,7 @@ import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add
 import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/edit-playlist.component';
 import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 import { UserLocationComponent } from 'app/shared-components/user-location/user-location.component';
+import { ViewPastEventsComponent } from 'app/Modules/Artist-Module/view-past-events/view-past-events.component';
 
 export const ArtistLayoutRoutes: Routes = [
    
@@ -28,5 +29,6 @@ export const ArtistLayoutRoutes: Routes = [
     { path:'ratings/:name' , component:RatingSystemComponent}, 
     // { path:"Edit Playlist/:id",component:EditPlaylistComponent},
     { path:'artist-booked_events',component:BookedEventsComponent},
-    { path:'artist-maps' , component:UserLocationComponent}
+    { path:'artist-maps' , component:UserLocationComponent},
+    { path: 'artist-view-past-events' , component:ViewPastEventsComponent}
 ];

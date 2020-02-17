@@ -56,6 +56,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { AddPlaylistComponent } from 'app/Modules/Artist-Module/add-playlist/add-playlist.component';
 import { EditPlaylistComponent } from 'app/Modules/Artist-Module/edit-playlist/edit-playlist.component';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { ViewPastEventsComponent } from 'app/Modules/Artist-Module/view-past-events/view-past-events.component';
 
   @NgModule({
     imports: [
@@ -112,6 +113,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
      ViewBookingInfoComponent,
      AddPlaylistComponent,
      EditPlaylistComponent,
+     ViewPastEventsComponent
     //  BookedEventsComponent,
     //  SearchBookedEventsPipe
     ],
