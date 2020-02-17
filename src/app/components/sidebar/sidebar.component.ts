@@ -51,6 +51,7 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''},
   { path: '/organizer-maps', title: 'Maps',  icon:'location_on', class: '' },
   { path:'/venueList' , title: 'Venue Browser' ,icon:'home',class:''},
+  { path:'/add-events',title:'Add an event',icon:'add',class:''}
 ];
 
 
