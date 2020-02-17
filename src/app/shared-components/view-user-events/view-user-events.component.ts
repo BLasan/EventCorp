@@ -22,34 +22,24 @@ export class ViewUserEventsComponent implements OnInit {
         console.log(data)
 
         //insert data to the calendar
-        if(event_data)
         calendar(event_data);
-        else
-        calendar({});
-        // console.log(event_data[0])
-        // console.log(event_data===undefined)
-        // if(event_data!==undefined){
-        //   console.log(data)
-        //   calendar(data);
-        // }
-        // else
-        // calendar({});
+      
       });
    });
   }
 
     //load calendar data
     getData(uid:any):Observable<any[]>{ 
-      alert(uid) 
-      return this.database.collection('register_user').doc(uid).collection('bookings').get().pipe(map(events=>{
-        let data:any=events;
+      //alert(uid) 
+      return this.database.collection('register_user').doc(uid).collection('bookings').valueChanges().pipe(map(events=>events.map(event => {
+        let data:any=event;
         let obj:any;
-        if(events)
+        if(data.paid==true)
         obj={title:data.event_name,start:new Date(data.date),constraint:"Musical Show"}
         else 
-        obj={title:"",start:"",constraint:""}
+        obj={}
         return obj;
-      }))
+      })));
     }
 
 }

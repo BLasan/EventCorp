@@ -69,6 +69,7 @@ import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-event
 import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
 import { VenueListComponent } from '../../venue-module/venue-home/venue-list/venue-list.component';
 import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';

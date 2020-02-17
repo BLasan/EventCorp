@@ -1,0 +1,47 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="card" *ngIf="isLoaded && events_array.length>0">
+      <div class="card-header card-header-warning" >
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h4 class="card-title">Past Events</h4>
+            <p class="card-category">Past Events Details</p>
+          </div>
+          <!-- <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-4 col-sm-4">
+                <p style="padding-top:20px;color:white;padding-left:30px">Search Events :</p>
+              </div>
+              <div class="col-md-8 col-sm-8">
+                <div class="form-group" style="padding-top:5px">
+                  <input type="text" placeholder="Search By Event Name" class="form-control" [(ngModel)]="searchBookedEvents" [ngModelOptions]="{standalone: true}"/>
+              </div>    
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="card-content table-responsive table-full-width">
+        <table class="table">
+          <thead class="text-danger">
+            <th>Event Name</th>
+            <th>Organizer</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Venue</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let events of events_array">
+              <td>{{events.event_name}}</td>
+              <td>{{events.organizer}}</td>
+              <td>{{events.date}}</td>
+              <td>{{events.time}}</td>
+              <td>{{events.venue_owners}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <h1 align="center" class="blink" style="color: red;" *ngIf="isLoaded && events_array.length==0"><b>No Events</b></h1>
+  </div>
+</div>

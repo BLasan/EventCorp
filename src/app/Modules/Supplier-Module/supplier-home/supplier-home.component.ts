@@ -3,6 +3,7 @@ import {activate_searchBar} from '../../../../scripts/search_bar_activate';
 import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { disable_view_products } from '../../../../scripts/disable_a_href.js';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-supplier-home',
   templateUrl: './supplier-home.component.html',
@@ -29,20 +30,67 @@ export class SupplierHomeComponent implements OnInit,AfterViewInit{
   artists:string="";
   suppliers:string="";
   venue_owners:string="";
-  constructor(private database:AngularFirestore,private cdr:ChangeDetectorRef) { }
+  user_comments:any=[];
+  constructor(private database:AngularFirestore,private cdr:ChangeDetectorRef,private _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     // loadCalendar();
     activate_searchBar();
+    this.getEvents();
     this.get_top_users();
     this.get_product_items();
   }
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
+    this.load_comments();
   }
 
-    //get latest events
+    //load comments
+  load_comments(){
+      var _this=this;
+      var docRef = this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('comments');
+      docRef.get().then(async function(doc) {
+          if (!doc.empty) {
+            doc.forEach(docs=>{
+              console.log(docs.id);
+              var length=docs.data().comments.length;
+              for(var i=0;i<length;i++){
+                var comment=docs.data().comments[i].comment;
+                var date=docs.data().comments[i].date;
+                var user_name=docs.data().comments[i].user_name;
+                var id=docs.id;
+                var sender_email=docs.data().sender_mail;
+                var obj={comment:comment,date:date,user_name:user_name,id:id,sender_mail:sender_email};
+                _this.user_comments.push(obj);
+              }
+             
+            })
+          } 
+          else{
+             console.log('No Documents'); 
+          }
+      }).catch(err => {
+        console.log('Error getting documents', err);
+      });
+  }
+
+
+  //report comments
+  reportComment(id:any,comment:string,user_name:string,date:string,sender_mail:string){
+      var _this=this;
+      this.database.collection('reports').doc(id).set({id:id,comment:comment,user_name:user_name,date:date,reported_by:localStorage.getItem('user_name'),user_email:sender_mail,view:false}).then(()=>{
+        console.log("Success");
+        _this._snackBar.open("Successfully Reported. Actions will be taken within few minutes","OK", {
+         duration: 3000,
+       });
+      }).catch(err=>{
+        console.log(err);
+      })
+  
+    }
+
+  //get latest events
   getEvents(){
       var _this=this;
       this.database.firestore.collection('register_user').get().then(snapshot=>{
@@ -157,8 +205,11 @@ export class SupplierHomeComponent implements OnInit,AfterViewInit{
     })
   }
 
-  bookProduct(){
-    //disable_view_products();
+  //add searched user email
+  addUserEmail(email:string){
+    alert(email)
+    localStorage.setItem('searched_user_email',email);
   }
+
 
 }

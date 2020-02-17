@@ -287,9 +287,128 @@
                 </div>
             </div> -->
         </div>
+        <div class="row" style="padding-top:30px">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title">User Comments</h4>
+              </div>   
+              <div class="card-body" *ngIf="user_comments.length>0">
+                <mat-list [ngClass]="{'list-group':user_comments>4}">
+                  <a href="ratings/{{comments.user_name}}" (click)="addUserEmail(comments.sender_mail)" *ngFor="let comments of user_comments">
+                  <mat-list-item>
+                    <mat-icon mat-list-icon>
+                      <img src="assets/img/faces/marc.jpg" alt="img" style="height:50px;width:50px;margin-top:-20px" class="avatar" > 
+                    </mat-icon>
+                    <p mat-line style="margin-left:15px" ><b>{{comments.user_name}}</b> on  <b style="color:green">{{comments.date}}</b></p>
+                    <p mat-line style="margin-left:15px">
+                      {{comments.comment}}
+                    </p>
+                    <p style="float:right;color:red"><a href="" style="color:red" id="report_comment" (click)="reportComment(comments.id,comments.comment,comments.user_name,comments.date,comments.sender_mail)">REPORT</a></p>
+                  </mat-list-item>
+                  </a>
+                  <mat-divider></mat-divider>
+                </mat-list>         
+              </div>
+              <div class="card-body" *ngIf="user_comments.length==0">
+                <h3 style="color:red" align="center" class="blink"><b>NO COMMENTS FOUND</b></h3>     
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
   
   
-  
-  
+
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: transparent;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{filtered_events[0].event_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <p>Date : {{filtered_events[0].date}}</p>
+            <p>Time Started : {{filtered_events[0].time}}</p>
+            <p>Artists Participated : {{artists}}</p>
+            <p>Venue : {{venue_owners}}</p>
+            <p>Suppliers : {{suppliers}}</p>
+      </div>
+      <div class="modal-footer">
+          <a mat-raised-button class="btn btn-success" href="update-events/{{id}}"><b>EDIT DETAILS</b></a>
+          <button mat-raised-button class="btn btn-danger" (click)="deleteEvent(id)"><b>DELETE</b></button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color: transparent;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color:greenyellow"><b>{{filtered_events[0].event_name}}</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-4">
+            <p><b style="color:white">Date :</b></p>
+          </div>
+          <div class="col-md-8">
+            <p>{{filtered_events[0].date}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p><b style="color:white">Time :</b></p>
+          </div>
+          <div class="col-md-8">
+            <p>{{filtered_events[0].time}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p><b style="color:white">Artists :</b></p>
+          </div>
+          <div class="col-md-8" *ngIf="artists!==''">
+            <p>{{artists}}</p>
+          </div>
+          <div class="col-md-8" *ngIf="artists===''">
+            <p style="color:red">No Artists Participated</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p><b style="color:white">Suppliers :</b></p>
+          </div>
+          <div class="col-md-8" *ngIf="suppliers!==''">
+            <p>{{suppliers}}</p>
+          </div>
+          <div class="col-md-8" *ngIf="suppliers===''">
+            <p style="color:red">No Suppliers</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <p><b style="color:white">Venue :</b></p> 
+          </div>
+          <div class="col-md-8" *ngIf="venue_owners!==''">
+            <p>{{venue_owners}}</p>
+          </div>
+          <div class="col-md-8" *ngIf="venue_owners===''">
+            <p style="color:red">No Venues</p>
+          </div>
+        </div>      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Exit</button>
+      </div>
+    </div>
+  </div>
+</div>

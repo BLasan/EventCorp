@@ -40,6 +40,10 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
 //import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
+import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
+import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
 import { VenueListComponent } from "./venue-module/venue-home/venue-list/venue-list.component";
 import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueProfileResolver } from './venue-profile/venue-profile.resolver';
@@ -55,10 +59,14 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   },
-
   {
     path:'email-verify/:link',
     component:EmailVerifyComponent
+  },
+  {
+    path:'view-bill/:name/:email/:city/:date/:time/:amount/:id/:user_name',
+    component:ViewBillComponent,
+    canActivate:[AuthGuardViewUserEventsService]
   },
   {
     path:'enter-email-reset-password',
@@ -68,6 +76,16 @@ const routes: Routes =[
     path:'reset-password/:link/:uid/:email',
     component:ResetPasswordFirebaseComponent,
     canActivate:[AuthGuardResetPasswordService],
+  },
+  {
+    path:'view-location/:uid',
+    component:ViewLocationComponent,
+    canActivate:[AuthGuardViewLocationService],
+  },
+  {
+    path:'view-user-events/:uid',
+    component:ViewUserEventsComponent,
+    canActivate:[AuthGuardViewUserEventsService],
   },
   // {
   //   path:'reset-password',

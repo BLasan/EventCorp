@@ -45,16 +45,18 @@ export class ViewAllProductsComponent implements OnInit {
   filterProduct(event:any){
     var _this=this;
     var val=event.value;
+    console.log(val);
     if(val==='CH') this.selection="Chair";
     else if(val==='LT') this.selection="Lights";
     else if(val==='TB') this.selection="Table";
     else if(val==='MC') this.selection="Musical Items";
     else this.selection="All";
     this.productArray=[];
-    this.db.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('our_items').get().then(doc=>{
+    this.db.firestore.collection('register_user').doc(localStorage.getItem('searched_user_email')).collection('our_items').get().then(doc=>{
       if(doc.empty) _this.isEmpty=true;
       else{
         doc.forEach(docs=>{
+          _this.isEmpty=false;
           if(docs.data().item_type===val)
          _this.productArray.push(docs.data());
          else if(val==="all") _this.productArray.push(docs.data())

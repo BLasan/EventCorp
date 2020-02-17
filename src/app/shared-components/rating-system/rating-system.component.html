@@ -3,9 +3,14 @@
   <div class="container-fluid">
     <div class="row" *ngIf="search_user_role!=='organizer'">
       <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
       <div class="col-md-4">
-        <a href="view-events/{{searched_user_email}}" style="color:white;padding-left:150px;"><b>View Calendar</b></a>
+        <!-- <div class="col-md-4" *ngIf="user_role==='organizer'">
+          <a href="view-location/{{searched_user_email}}" style="color:white;padding-left:150px;"><b>View Location</b></a>
+        </div> -->
+      </div>
+      <div class="col-md-4" *ngIf="user_role==='organizer'">
+        <a href='view-location/{{searched_user_email}}' title="view-location"><i class="material-icons" style="color:red">location_on</i><b style="color: white;">Location</b></a>
+        <a href="view-user-events/{{searched_user_email}}" style="color:white;padding-left:90px;" title="view-calendar"><b>View Calendar</b></a>
       </div>
     </div>
     <div class="row" style="margin-top:20px">

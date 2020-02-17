@@ -36,6 +36,7 @@ export const ROUTES1: RouteInfo[] = [
   { path: '/artist-settings', title: 'Settings',  icon: 'settings', class: '' },
   { path: '/add-playlist' , title: 'Add Playlist' , icon: 'add' , class: ''},
   { path: '/artist-maps', title: 'Maps',  icon:'location_on', class: '' },
+  { path: '/artist-view-past-events' , title: 'Past Events' ,icon:'unarchive' , class: ''}
   // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 

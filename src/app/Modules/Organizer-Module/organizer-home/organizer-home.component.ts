@@ -48,6 +48,7 @@ export class OrganizerHomeComponent implements OnInit,AfterViewInit {
 
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
+    this.getEvents();
   }
 
     //get latest events
@@ -207,34 +208,75 @@ export class OrganizerHomeComponent implements OnInit,AfterViewInit {
     });
    }
 
+  //load event details
+  loadEvents(id:any,event){
+    event.preventDefault();
+    this.artists="";
+    this.suppliers="";
+    this.venue_owners="";
+    this.filtered_events=[];
+    this.filtered_events=this.events_array.filter(x=> x.event_id==id);
+
+    for(var i=0;i<this.filtered_events[0].artists.length;i++){
+      this.artists+=this.filtered_events[0].artists[i].name+" / ";
+    }
+
+    for(var i=0;i<this.filtered_events[0].suppliers.length;i++){
+      this.suppliers+=this.filtered_events[0].suppliers[i].name+" / ";
+    }
+
+    for(var i=0;i<this.filtered_events[0].venue_owners.length;i++){
+      this.venue_owners+=this.filtered_events[0].venue_owners[i].name+" / ";
+    }    
+}
+
+
   //load modal data
   load_modal(event_id:any){
     disable_modal_open();
     console.log(event_id);
-    this.modal_details=[];
+    // this.modal_details=[];
     this.id=event_id;
-    this.modal_details=this.events.filter(x=>x.event_id===event_id);
-    console.log(this.modal_details)
-    for(var artists of this.modal_details){
-      for(var artist_names of artists.artists){
-        console.log(artist_names.name)
-        this.artists_participated+=artist_names.name+" / ";
-      }
+    this.artists="";
+    this.suppliers="";
+    this.venue_owners="";
+    this.filtered_events=[];
+    this.filtered_events=this.events_array.filter(x=> x.event_id==event_id);
+
+    for(var i=0;i<this.filtered_events[0].artists.length;i++){
+      this.artists+=this.filtered_events[0].artists[i].name+" / ";
     }
 
-    for(var suppliers of this.modal_details){
-      for(var supplier_names of suppliers.suppliers){
-        console.log(supplier_names.name)
-        this.suppliers_participated+=supplier_names.name+" / ";
-      }
+    for(var i=0;i<this.filtered_events[0].suppliers.length;i++){
+      this.suppliers+=this.filtered_events[0].suppliers[i].name+" / ";
     }
 
-    for(var venue of this.modal_details){
-      for(var venue_names of venue.venue_owners){
-        console.log(venue_names.name)
-        this.venue+=venue_names.name+" / ";
-      }
-    }
+    for(var i=0;i<this.filtered_events[0].venue_owners.length;i++){
+      this.venue_owners+=this.filtered_events[0].venue_owners[i].name+" / ";
+    }  
+
+    // this.modal_details=this.events_array.filter(x=>x.event_id===event_id);
+    // console.log(this.modal_details)
+    // for(var artists of this.modal_details){
+    //   for(var artist_names of artists.artists){
+    //     console.log(artist_names.name)
+    //     this.artists_participated+=artist_names.name+" / ";
+    //   }
+    // }
+
+    // for(var suppliers of this.modal_details){
+    //   for(var supplier_names of suppliers.suppliers){
+    //     console.log(supplier_names.name)
+    //     this.suppliers_participated+=supplier_names.name+" / ";
+    //   }
+    // }
+
+    // for(var venue of this.modal_details){
+    //   for(var venue_names of venue.venue_owners){
+    //     console.log(venue_names.name)
+    //     this.venue+=venue_names.name+" / ";
+    //   }
+    // }
 
   }
 

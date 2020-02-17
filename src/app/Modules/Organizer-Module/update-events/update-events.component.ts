@@ -90,10 +90,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=artist[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -101,7 +102,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -116,16 +117,17 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=supplier[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
-                      if(!doc.exists) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                         console.log("Successfully Sent");
                       }).catch(err=>{
                         console.log(err);
                       });
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -140,16 +142,17 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=venue[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
-                      if(!doc.exists) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                         console.log("Successfully Sent");
                       }).catch(err=>{
                         console.log(err);
                       });
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -210,10 +213,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=artist[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -221,7 +225,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -236,10 +240,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=supplier[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -247,7 +252,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -262,16 +267,17 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=venue[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
-                      if(!doc.exists) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                         console.log("Successfully Sent");
                       }).catch(err=>{
                         console.log(err);
                       });
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -330,16 +336,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<artist.length;i++){
             let obj={user:artist[i],status:"Pending"};
             allUsers.push(obj);
+            let email=artist[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').get().then(doc=>{
-              if(!doc.empty) _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -354,16 +361,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
             allUsers.push(obj);
+            let email=supplier[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').get().then(doc=>{
-              if(!doc.empty) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -378,16 +386,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
             allUsers.push(obj);
+            let email=venue[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').get().then(doc=>{
-              if(!doc.empty) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -439,10 +448,11 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<artist.length;i++){
             let obj={user:artist[i],status:"Pending"};
             allUsers.push(obj);
+            let email=artist[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
               if(!doc.exists){
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -450,7 +460,7 @@ export class UpdateEventsComponent implements OnInit {
               }
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -465,16 +475,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
             allUsers.push(obj);
+            let email=supplier[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').get().then(doc=>{
-              if(!doc.empty) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.empty) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -489,10 +500,11 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
             allUsers.push(obj);
+            let email=venue[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
               if(!doc.exists){
-                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -500,7 +512,7 @@ export class UpdateEventsComponent implements OnInit {
               }
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -552,16 +564,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<artist.length;i++){
             let obj={user:artist[i],status:"Pending"};
             allUsers.push(obj);
+            let email=artist[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
-              if(!doc.exists) _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -576,16 +589,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<supplier.length;i++){
             let obj={user:supplier[i],status:"Pending"};
             allUsers.push(obj);
+            let email=supplier[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
-              if(!doc.exists) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -600,16 +614,17 @@ export class UpdateEventsComponent implements OnInit {
           for(var i=0;i<venue.length;i++){
             let obj={user:venue[i],status:"Pending"};
             allUsers.push(obj);
+            let email=venue[i].email;
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
-              if(!doc.exists) _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+              if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                 console.log("Successfully Sent");
               }).catch(err=>{
                 console.log(err);
               });
               else{
                 let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);
@@ -670,16 +685,17 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=artist[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
-                      if(!doc.exists) _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                         console.log("Successfully Sent");
                       }).catch(err=>{
                         console.log(err);
                       });
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -694,16 +710,17 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=supplier[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
-                      if(!doc.exists) _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                      if(!doc.exists) _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                         console.log("Successfully Sent");
                       }).catch(err=>{
                         console.log(err);
                       });
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -718,10 +735,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=venue[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -729,7 +747,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -794,19 +812,21 @@ export class UpdateEventsComponent implements OnInit {
                   //send requests for artists
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
+                    let email=artist[i].email;
                     allUsers.push(obj);
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
                         });
                       }
                       else{
+                        alert(email)
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -821,10 +841,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=supplier[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -832,7 +853,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -847,10 +868,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=venue[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -858,7 +880,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -918,10 +940,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<artist.length;i++){
                     let obj={user:artist[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=artist[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -929,7 +952,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -944,10 +967,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<supplier.length;i++){
                     let obj={user:supplier[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=supplier[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:supplier[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).get().then(doc=>{
                       if(!doc.exists){
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -955,7 +979,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(supplier[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -970,10 +994,11 @@ export class UpdateEventsComponent implements OnInit {
                   for(var i=0;i<venue.length;i++){
                     let obj={user:venue[i],status:"Pending"};
                     allUsers.push(obj);
+                    let email=venue[i].email;
                     let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:venue[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
                     _this.database.firestore.collection('register_user').doc(venue[i].email).collection('bookings').get().then(doc=>{
                       if(!doc.empty){
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -981,7 +1006,7 @@ export class UpdateEventsComponent implements OnInit {
                       }
                       else{
                         let booking_request={event_name:event_name,date:date_string,time:time,venue:venue};
-                        _this.database.collection('register_user').doc(venue[i].email).collection('bookings').doc(_id).update(booking_request).then(()=>{
+                        _this.database.collection('register_user').doc(email).collection('bookings').doc(_id).update(booking_request).then(()=>{
                           console.log("Successfully Sent");
                         }).catch(err=>{
                           console.log(err);
@@ -1043,7 +1068,7 @@ export class UpdateEventsComponent implements OnInit {
             let booking_request={event_name:event_name,event_id:_id,sender_name:localStorage.getItem('nameId'),sender_email:localStorage.getItem('user_name'),receiver_email:artist[i].email,date:date_string,view:false,status:"Pending",time:time,venue:venue};
             _this.database.firestore.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).get().then(doc=>{
               if(!doc.exists){
-                _this.database.collection('register_user').doc(artist[i].email).collection('bookings').doc(_id).set(booking_request).then(()=>{
+                _this.database.collection('register_user').doc(artist_email).collection('bookings').doc(_id).set(booking_request).then(()=>{
                   console.log("Successfully Sent");
                 }).catch(err=>{
                   console.log(err);

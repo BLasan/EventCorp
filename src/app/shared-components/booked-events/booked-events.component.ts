@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   templateUrl: './booked-events.component.html',
   styleUrls: ['./booked-events.component.scss']
 })
-export class BookedEventsComponent implements OnInit {
+export class BookedEventsComponent implements OnInit,AfterViewInit {
 
   isEmpty:boolean=false;
   events_array:any=[];
@@ -18,8 +18,12 @@ export class BookedEventsComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('search_bar').setAttribute('style','display:none');
+  }
+
+  ngAfterViewInit(){
     this.getEvents();
   }
+
 
   //get booked-events
   getEvents(){

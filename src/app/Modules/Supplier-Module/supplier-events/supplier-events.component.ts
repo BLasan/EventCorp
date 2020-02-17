@@ -85,9 +85,11 @@ export class SupplierEventsComponent implements OnInit {
         tap(doc=> console.log(doc)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
         map(doc => doc.map(doc => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
           let data:any=doc;
+          let obj:any;
           if(data.paid===true){
-            var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
+            obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
           }
+          else obj={}
           return obj;
         }))
       );
