@@ -115,7 +115,7 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
 import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-dashboard.component';
 import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
-import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+// import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
 import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';

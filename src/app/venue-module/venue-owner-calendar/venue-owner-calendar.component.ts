@@ -31,7 +31,7 @@ export class VenueOwnerCalendarComponent implements OnInit {
 
   getData(): Observable<any[]> {
 
-    return this.db.collection('events', ref => ref.where('accepted', '==', 1).where('v_name', '==', 'nelum pokuna')).valueChanges().pipe(
+    return this.db.collection('events', ref => ref.where('accepted', '==', 1).where('v_name', '==', 'St. Joesphs College Sports Complex')).valueChanges().pipe(
       tap(events => console.log("filtered - ", events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
       map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
         let data: any = event;

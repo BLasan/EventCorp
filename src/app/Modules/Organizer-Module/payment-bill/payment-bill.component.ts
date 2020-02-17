@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
-import htmlToPdfmake from 'html-to-pdfmake';
-import * as jspdf from 'jspdf';  
-import html2canvas from 'html2canvas'; 
+
 import * as PDF from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 declare var pdfMake: any;
