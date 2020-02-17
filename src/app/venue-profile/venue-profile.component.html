@@ -147,9 +147,58 @@
               </td>
             </tr>
             <tr>
-              <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button>
+              <td colspan="2"><button type="button" name="terms_conditions" class="btn btn-primary"
+                  data-toggle="modal" data-target="#terms_conditions_modal">Terms and Conditions</button>
+                <div class="modal fade" id="terms_conditions_modal" tabindex="-1" role="dialog"
+                  aria-labelledby="exampleModalLabel" aria-hidden="true" style="background:transparent">
+                  <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Terms and Conditions</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <h3>Scope of Our Services and Bookings</h3>
+                        <p>
+                          Tagvenue provides an online Platform that introduces Users who wish to learn about Venues and make Bookings with the Venues that have created Profiles and published their Rooms on our Platform for the purposes of making them available for Bookings (referred to as “Services”). Tagvenue may provide Services either online, by email, by telephone or through any other means.
+                        </p>
+                        <p>
+                          Users make Bookings directly with Venues. Tagvenue acts only as an intermediary to help advertise Venues, to refer Users to Venues and to increase your traffic. Any contract, arrangement or agreement is between you and a User. Tagvenue is not a party to nor liable under any contract, arrangement or agreement entered into between Venue and User, nor is Tagvenue a contracting agent or insurer.
+                        </p>
+                        <p>
+                          Through our Platform, a User can view details and learn about Venues and Rooms and send you Booking Enquiries which you agree to receive.
+                        </p>
+                        <h3>Service Fees</h3>
+                        <p>
+                          In consideration for the use of our Platform to advertise your Venue and for all Bookings where payment is due to you from a User as a result of a Booking Enquiry, we will only charge you a flat non-refundable 10% commission (referred as “Commission” below).
+                        </p>
+                        <p>
+                          Tagvenue does not charge you subscription or listing fees.
+                        </p>                    
+                        <!-- <h3>Ground Floor</h3>
+                      <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_groundfloor.jpg"
+                        class="img-fluid" alt="Responsive image">
+                      <h3>First Balcony</h3>
+                      <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_firstBalcony.jpg"
+                        class="img-fluid" alt="Responsive image">
+                      <h3>Second Balcony</h3>
+                      <img src="../../assets/img/venues/nelum_pokuna/seating_plan/nelum_secondBalcony.jpg"
+                        class="img-fluid" alt="Responsive image"> -->
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
+            <!-- <tr>
+              <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button>
+              </td>
+            </tr> -->
             <!-- <tr>
               <td colspan="2"><button type="button" name="terms_conditions" class="btn btn-primary">Terms and
                   Conditions</button></td>
@@ -191,6 +240,8 @@
             <textarea matInput></textarea>
           </mat-form-field>
           
+          <button mat-raised-button type="submit" class="commentButton">Comment</button>
+
         </mat-card-content>
       </mat-card>
       

@@ -55,17 +55,18 @@ export const ROUTES2:RouteInfo[]=[
 
 //venue_owner routings
 export const ROUTES3:RouteInfo[]=[
-  { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
+  { path: '/venue-dashboard', title: 'Dashboard' ,icon:'home',class:''},
   // { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
   { path: '/venueOwnerProfile',title: 'Profile' ,icon:'file_copy',class:'' },
-  { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
+  { path: '/venue-reservation-form', title: 'Make a Reservation' ,icon:'post_add',class:''},
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
   // { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
-  { path: '/venue-settings', title: 'Settings' ,icon:'settings_applications',class:''},
   // { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
-  { path: '/venueCalendar', title: 'Event Calendar' ,icon:'settings_applications',class:''},
+  { path: '/venueCalendar', title: 'Event Calendar' ,icon:'calendar_today',class:''},
   { path: '/venue-edit', title: 'Edit Profile' ,icon:'settings_applications',class:''},
-  { path: '/allrequests', title: 'All Reservations' ,icon:'settings_applications',class:''},
+  { path: '/allrequests', title: 'All Reservations' ,icon:'list',class:''},
+  { path: '/venue-settings', title: 'Settings' ,icon:'settings',class:''},
+
 
   // { path: '/venue-owner-maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
