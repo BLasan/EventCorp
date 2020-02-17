@@ -42,11 +42,12 @@ import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking
 import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
 // import { ViewUserEventsComponent } from "../../shared-components/view-user-events"
 import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
-import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
+// import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { VenueEditComponent } from '../../venue-module/venue-home/venue-edit/venue-edit.component';
 import { VenueOwnerProfileComponent } from '../../venue-module/venue-owner-profile/venue-owner-profile.component';
 import { AllRequestsComponent } from '../../venue-module/all-requests/all-requests.component';
+import { VenueOwnerCalendarComponent } from 'app/venue-module/venue-owner-calendar/venue-owner-calendar.component';
 
 
 
@@ -86,10 +87,11 @@ import { AllRequestsComponent } from '../../venue-module/all-requests/all-reques
     VenueNotificationsComponent,
     VenueSettingsComponent,
     VenueDashboardComponent,
-    VenueCalendarComponent,
+    // VenueCalendarComponent,
     VenueEditComponent,
     VenueOwnerProfileComponent,
-    AllRequestsComponent
+    AllRequestsComponent,
+    VenueOwnerCalendarComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })

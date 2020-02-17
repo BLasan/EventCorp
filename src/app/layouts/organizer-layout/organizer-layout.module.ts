@@ -72,7 +72,8 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
 import { VenueListComponent } from '../../venue-module/venue-home/venue-list/venue-list.component';
 import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';
-
+import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
+// import { FullCalendarModule } from '@fullcalendar/angular';
 
   @NgModule({
     imports: [
@@ -132,7 +133,8 @@ import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';
       UpdateEventsComponent,
       SearchBillsPipe,
       VenueListComponent,
-      VenueProfileComponent
+      VenueProfileComponent,
+      VenueCalendarComponent
       // BookedEventsComponent,
       // SearchBookedEventsPipe
       // PaypalPaymentComponent,

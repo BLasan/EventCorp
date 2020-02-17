@@ -62,7 +62,7 @@ export const ROUTES3:RouteInfo[]=[
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
   // { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
   // { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
-  { path: '/venueCalendar', title: 'Event Calendar' ,icon:'calendar_today',class:''},
+  { path: '/venueOwnerCalendar', title: 'Event Calendar' ,icon:'calendar_today',class:''},
   { path: '/venue-edit', title: 'Edit Profile' ,icon:'settings_applications',class:''},
   { path: '/allrequests', title: 'All Reservations' ,icon:'list',class:''},
   { path: '/venue-settings', title: 'Settings' ,icon:'settings',class:''},

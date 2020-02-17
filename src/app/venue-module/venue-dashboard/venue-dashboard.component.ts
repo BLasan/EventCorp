@@ -39,7 +39,7 @@ export class VenueDashboardComponent implements OnInit {
   }
 
   totalBookings(){
-    this.db.collection('events',ref => ref.where('accepted','==',1)).snapshotChanges()
+    this.db.collection('events',ref => ref.where('accepted','==',1).where('v_name','==','nelum pokuna')).snapshotChanges()
     .subscribe(result => {
       // this.items = result;
       this.total_Bookings = result.length;

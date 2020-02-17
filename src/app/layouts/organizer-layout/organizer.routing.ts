@@ -20,6 +20,7 @@ import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-event
 import { VenueListComponent } from 'app/venue-module/venue-home/venue-list/venue-list.component';
 import { VenueProfileComponent } from 'app/venue-profile/venue-profile.component';
 import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';
+import { VenueCalendarComponent } from 'app/venue-module/venue-calendar/venue-calendar.component';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -42,6 +43,7 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'add-events' , component:EventsAddComponent},
     { path:'venueList' , component:VenueListComponent},
     { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
+    { path: 'venueCalendar', component:VenueCalendarComponent},
 
 
 ];
