@@ -22,7 +22,7 @@ $colors:(
 
 body{
     @extend .bg-mattBlackDark;
-    @extend .text-mattGray;
+    @extend .text-mattBlackDark;
 }
 
 .nav-link{
@@ -86,7 +86,7 @@ $colors:(
 
 body{
     @extend .bg-mattBlackDark;
-    @extend .text-mattGray;
+    @extend .text-mattBlackDark;
 }
 
 .nav-link{
@@ -107,7 +107,7 @@ body{
 
     .text{
         font-size: 15px;
-        @extend .text-mattGray;
+        @extend .text-mattBlackDark;
     }
 
 

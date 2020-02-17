@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="container-fluid">    
-    
+    <div class="formz">
     <form [formGroup]="myForm1" [hidden]="success" (ngSubmit)="submitHandler1()">
 
       <h3>Venue Registration Form</h3>
@@ -55,6 +55,6 @@
     <div *ngIf="success" class="notification is-success">
         Registration Completed!
     </div>
-
+  </div>
   </div>
 </div>

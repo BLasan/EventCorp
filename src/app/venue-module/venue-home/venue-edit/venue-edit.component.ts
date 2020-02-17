@@ -93,6 +93,11 @@ export class VenueEditComponent implements OnInit {
     // })
   }
 
+  // upload_image(){
+  //   this.isRemoved=true;
+  //   image_uploader();
+  // }
+
   findVenueID(vname) {
     this.db.collection("Venues").get().subscribe(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {

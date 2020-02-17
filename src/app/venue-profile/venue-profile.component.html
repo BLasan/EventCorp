@@ -34,12 +34,32 @@
           <div class="row">
             <mat-card>
               <div class="row">
-              <div class="col">Seating Capacity </div>
+              <div class="col-6">Seating Capacity </div>
               <div class="col">{{ item?.seating_capacity }}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Fee (Rs.) </div>
+              <div class="col"> {{ item?.fee }}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Air Conditioned? </div>
+              <div class="col">{{ item?.ac }}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Car Park </div>
+              <div class="col">{{ item?.car_parking }}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Telephone Number </div>
+              <div class="col">0{{ item?.tel_no }}</div>
+            </div>
+            <div class="row">
+              <div class="col-6">Address </div>
+              <div class="col">{{ item?.venue_address }}</div>
             </div>
             </mat-card>
           </div>
-          <div class="row">
+          <!-- <div class="row">
               <mat-card style="margin-top:20px">
                 <div class="row">
                 <div class="col">Fee </div>
@@ -54,7 +74,7 @@
                   <div class="col">{{ item?.car_parking }}</div>
                 </div>
                 </mat-card>
-              </div>
+              </div> -->
           <!-- <table class="table table-light text-center tab-under-caro">
             <tbody>
               <tr>
@@ -90,10 +110,10 @@
         <mat-card class="right-main-card">
         <table class="table table-light text-center">
           <tbody>
-            <tr>
+            <!-- <tr>
               <td colspan="2"><a routerLink="/venueCalendar"><button type="button" name="event_calendar"
                     class="btn btn-primary">Event Calendar</button></a></td>
-            </tr>
+            </tr> -->
             <tr>
               <td colspan="2"><button type="button" name="seating_plan" class="btn btn-primary" data-toggle="modal"
                   data-target="#seating_plan_modal">Seating Plan</button>
@@ -126,18 +146,18 @@
                 </div>
               </td>
             </tr>
-            <!-- <tr>
+            <tr>
               <td colspan="2"><button type="button" name="more_details" class="btn btn-primary">More Details</button>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td colspan="2"><button type="button" name="terms_conditions" class="btn btn-primary">Terms and
                   Conditions</button></td>
             </tr> -->
-            <tr>
+            <!-- <tr>
               <td colspan="2"><a routerLink="/venue-reservation-form"><button type="button"
                     name="venue_reservation_form" class="btn btn-primary">Add Reservation</button></a></td>
-            </tr>
+            </tr> -->
           </tbody>
         </table>
       </mat-card>
@@ -148,17 +168,32 @@
         </mat-card-header>
         <mat-card *ngFor="let comment of comments; trackBy: trackHero; let i = index" class="example-card">
           <mat-card-header class="header-inner">
-            <mat-card-title>{{comment?.user_name}}  {{i}}</mat-card-title>
+            <mat-card-title>{{comment?.user_name}}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <p>
               {{comment?.comment}}
-              <span><button mat-button class="report-button" color="primary" (click)="openReportCommentsDialog(i)">Report</button></span>
+              <!-- <span><button mat-button class="report-button" color="primary" (click)="openReportCommentsDialog(i)">Report</button></span> -->
             </p>
             
           </mat-card-content>
         </mat-card>
       </mat-card>
+
+      <mat-card class="addComment">
+        <mat-card-header class="header-inner">
+          <mat-card-title>Add Comment</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+          
+        </mat-card-content>
+      </mat-card>
+      
       </div>
     </div>
     

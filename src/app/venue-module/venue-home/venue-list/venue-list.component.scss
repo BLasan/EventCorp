@@ -40,11 +40,12 @@ mat-card {
 img{
   width: 100px;
   height: 100px;
+  border-radius: 10px;
 }
 
 .text-col{
   margin-top: 20px;
-  padding-left: 50px;
+  padding-left: 20px;
 }
 
 .actions-col{
@@ -67,13 +68,22 @@ img{
 }
 
 .filter-title{
+  color: black;
   margin-left: 20px;
   margin-bottom: 20px ;
   padding: 5px;
   padding-left: 20px;
   padding-right: 20px;
   background-color: whitesmoke - 10;
+  height: 40px;
+  padding-top: 10px;
+  // border-radius: 5px;
 
+}
+
+.slider{
+  background-color: white;
+  height: 40px;
 }
 
 // .slider{
@@ -83,3 +93,7 @@ img{
 //   height: 35px;
 
 // }
+
+.tile{
+  margin-top: 10px;
+}

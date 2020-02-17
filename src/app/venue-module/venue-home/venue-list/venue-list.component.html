@@ -37,13 +37,14 @@
 
       <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
 
-        <div class="row">
+        <div class="row tile">
           <div class="col-md-1 image-col">
-            <img class="image" src="./../../../assets/img/building.jpg">
+            <img class="image" src="{{ item.payload.doc.data().photo1 }}">
           </div>
           <div class="col-md-5 text-col">
             <h5 class="mb-1">{{item.payload.doc.data().v_name}}</h5>
-            <small>{{item.payload.doc.data().fee}}</small>
+            <small>Fee - Rs. {{item.payload.doc.data().fee}}</small>
+            <small style="margin-left: 30px;">Seating Capacity - {{item.payload.doc.data().seating_capacity}}</small>
           </div>
           <div class="col col-md-6 actions-col">
             <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>

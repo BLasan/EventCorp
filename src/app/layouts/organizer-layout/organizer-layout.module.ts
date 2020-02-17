@@ -69,6 +69,11 @@ import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-event
 import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
+import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
+import { VenueListComponent } from '../../venue-module/venue-home/venue-list/venue-list.component';
+import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';
+
+
   @NgModule({
     imports: [
       CommonModule,
@@ -126,12 +131,16 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
       ViewRequestStatusComponent,
       UpdateEventsComponent,
       SearchBillsPipe,
+      VenueListComponent,
+      VenueProfileComponent
       // BookedEventsComponent,
       // SearchBookedEventsPipe
       // PaypalPaymentComponent,
       // PaymentUsersComponent
       // RatingSystemComponent
     ],
+
+    providers: [VenueProfileResolver],
    
   })
 export class OrganizerLayoutModule { }

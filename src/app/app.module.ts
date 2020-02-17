@@ -113,10 +113,16 @@ import { AgmCoreModule } from '@agm/core';
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-dashboard.component';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
-// import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
+import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
+import { VenueProfileComponent } from "./venue-profile/venue-profile.component";
+import { VenueOwnerProfileComponent } from './venue-module/venue-owner-profile/venue-owner-profile.component';
+import { AllRequestsComponent } from './venue-module/all-requests/all-requests.component';
+
+
 // import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
 //enableProdMode()
 @NgModule({
@@ -161,7 +167,8 @@ import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-da
     // FullCalendarModule,
     MatDialogModule,
     MatRadioModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSliderModule,
     // ViewUserEventsComponent
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAJiTvdCB4__gqcZMTkmLaSZWic94KFCvI'
@@ -189,6 +196,10 @@ import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-da
     PaymentUsersComponent,
     ViewLocationComponent,
     ViewUserEventsComponent,
+    VenueOwnerProfileComponent,
+    AllRequestsComponent,
+    // VenueListComponent,
+    // VenueProfileComponent
     // VenueEditComponent,
     // VenueDashboardComponent
     // FilterPipe,

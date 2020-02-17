@@ -17,6 +17,9 @@ import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/
 import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 import { UserLocationComponent } from 'app/shared-components/user-location/user-location.component';
 import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-events/events-add/events-add.component';
+import { VenueListComponent } from 'app/venue-module/venue-home/venue-list/venue-list.component';
+import { VenueProfileComponent } from 'app/venue-profile/venue-profile.component';
+import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';
 
 
 export const OrganizerLayoutRoutes: Routes = [
@@ -33,8 +36,12 @@ export const OrganizerLayoutRoutes: Routes = [
     { path:'update-events/:event_id',component:UpdateEventsComponent},
     { path:'view-all-events',component:ViewAllEventsComponent},
     { path:'supplier-booked_events',component:BookedEventsComponent},
-    { path: 'organizer-maps' , component:UserLocationComponent}
+    { path: 'organizer-maps' , component:UserLocationComponent},
     // { path:'payment/:item_name/:quantity/:amount',component:PaypalPaymentComponent},
     // { path:'user-payments/:user_name/:quantity/:amount',component:PaymentUsersComponent}
-    { path:'add-events' , component:EventsAddComponent}
+    { path:'add-events' , component:EventsAddComponent},
+    { path:'venueList' , component:VenueListComponent},
+    { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
+
+
 ];

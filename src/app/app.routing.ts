@@ -40,6 +40,10 @@ import { AuthGuardLocationService } from './services/Authentication/authGuardLoc
 //import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
 import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
+import { VenueListComponent } from "./venue-module/venue-home/venue-list/venue-list.component";
+import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+import { VenueProfileResolver } from './venue-profile/venue-profile.resolver';
+
 
 //var role=getRole();
 // if(role=='artist'){
@@ -186,6 +190,17 @@ const routes: Routes =[
     component:ViewLocationComponent,
     canActivate:[AuthGuardLocationService],
   },
+  // {
+  //   path:'venueList',
+  //   component:VenueListComponent
+  // },
+  // {
+  //   path:'venueProfile',
+  //   component:VenueProfileComponent
+  // },
+  // { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
+
+
   // { path:'view-events/:uid' , 
   //   component:ViewUserEventsComponent
   // },

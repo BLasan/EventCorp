@@ -31,8 +31,8 @@ import {
   // MatTableModule
 } from "@angular/material";
 
-import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
-import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
+// import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
+// import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
 import { VenueReservationFormComponent } from "../../venue-module/venue-reservation-form/venue-reservation-form.component";
 import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
@@ -77,8 +77,8 @@ import { VenueEditComponent } from '../../venue-module/venue-home/venue-edit/ven
     MatExpansionModule
   ],
   declarations: [
-    VenueListComponent,
-    VenueProfileComponent,
+    // VenueListComponent,
+    // VenueProfileComponent,
     VenueReservationFormComponent,
     VenueAddComponent,
     // NotificationsComponent,

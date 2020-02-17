@@ -49,22 +49,23 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
   { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''},
   { path: '/organizer-maps', title: 'Maps',  icon:'location_on', class: '' },
+  { path:'/venueList' , title: 'Venue Browser' ,icon:'home',class:''},
 ];
 
 
 //venue_owner routings
 export const ROUTES3:RouteInfo[]=[
-  { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
+  { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
+  // { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
   // { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
   { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
   // { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
   { path: '/venue-settings', title: 'Settings' ,icon:'settings_applications',class:''},
-  { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
-  { path: '/venueCalendar', title: 'Calendar' ,icon:'settings_applications',class:''},
+  // { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
+  { path: '/venueCalendar', title: 'Event Calendar' ,icon:'settings_applications',class:''},
   { path: '/venue-edit', title: 'Edit Profile' ,icon:'settings_applications',class:''},
-
-  { path: '/venue-owner-maps', title: 'Maps',  icon:'location_on', class: '' },
+  // { path: '/venue-owner-maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
 
 
