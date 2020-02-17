@@ -57,7 +57,7 @@ export const ROUTES2:RouteInfo[]=[
 export const ROUTES3:RouteInfo[]=[
   { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
   // { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
-  // { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
+  { path: '/venueOwnerProfile',title: 'Profile' ,icon:'file_copy',class:'' },
   { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
   // { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
@@ -65,6 +65,8 @@ export const ROUTES3:RouteInfo[]=[
   // { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
   { path: '/venueCalendar', title: 'Event Calendar' ,icon:'settings_applications',class:''},
   { path: '/venue-edit', title: 'Edit Profile' ,icon:'settings_applications',class:''},
+  { path: '/allrequests', title: 'All Reservations' ,icon:'settings_applications',class:''},
+
   // { path: '/venue-owner-maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
 

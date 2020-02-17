@@ -119,8 +119,7 @@ import { ViewUserEventsComponent } from './shared-components/view-user-events/vi
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
 import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
 import { VenueProfileComponent } from "./venue-profile/venue-profile.component";
-import { VenueOwnerProfileComponent } from './venue-module/venue-owner-profile/venue-owner-profile.component';
-import { AllRequestsComponent } from './venue-module/all-requests/all-requests.component';
+
 
 
 // import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
@@ -196,8 +195,8 @@ import { AllRequestsComponent } from './venue-module/all-requests/all-requests.c
     PaymentUsersComponent,
     ViewLocationComponent,
     ViewUserEventsComponent,
-    VenueOwnerProfileComponent,
-    AllRequestsComponent,
+    // VenueOwnerProfileComponent,
+    // AllRequestsComponent,
     // VenueListComponent,
     // VenueProfileComponent
     // VenueEditComponent,

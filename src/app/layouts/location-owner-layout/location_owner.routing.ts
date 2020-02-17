@@ -13,6 +13,8 @@ import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-
 import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
 import { VenueCalendarComponent } from 'app/venue-module/venue-calendar/venue-calendar.component';
 import { VenueEditComponent } from 'app/venue-module/venue-home/venue-edit/venue-edit.component';
+import { VenueOwnerProfileComponent } from '../../venue-module/venue-owner-profile/venue-owner-profile.component';
+import { AllRequestsComponent } from '../../venue-module/all-requests/all-requests.component';
 
 
 export const LocationOwnerLayoutRoutes: Routes = [
@@ -29,6 +31,10 @@ export const LocationOwnerLayoutRoutes: Routes = [
     { path: 'venue-notifications', component:VenueNotificationsComponent},
     { path: 'venue-dashboard', component:VenueDashboardComponent},
     { path: 'venueCalendar', component:VenueCalendarComponent},
-    { path: 'venue-edit', component:VenueEditComponent}
+    { path: 'venue-edit', component:VenueEditComponent},
+    { path: 'venueOwnerProfile', component:VenueOwnerProfileComponent},
+    { path: 'allrequests', component:AllRequestsComponent}
+
+
 
 ];

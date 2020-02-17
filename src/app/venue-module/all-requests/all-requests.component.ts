@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { LoginService } from 'app/services/login.services';
 
 @Component({
   selector: 'app-all-requests',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllRequestsComponent implements OnInit {
 
-  constructor() { }
+  items: Array<any>;
+  itemCount: any;
+  total_Bookings: any;
+  start: any;
+  end: any;
+
+  constructor(
+    private db: AngularFirestore,
+    private loginService: LoginService
+  ) { }
 
   ngOnInit() {
+    this.getRequests();
+  }
+
+  getRequests() {
+    this.db.collection('events', ref => ref.where('accepted', '==', 1)).snapshotChanges()
+      .subscribe(result => {
+        this.items = result;
+        this.itemCount = result.length;
+      })
   }
 
 }
