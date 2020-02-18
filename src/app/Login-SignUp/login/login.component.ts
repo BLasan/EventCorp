@@ -96,14 +96,15 @@ export class LoginComponent implements OnInit {
           _this.isRegistered=true;
           docs.forEach(doc=>{
             if(doc.data().id===email){
-              _this.isLoading=false;
               _this._db.collection('register_user').doc(doc.id).update({active_status:"login"}).then(()=>{
                 _this.isTrue=true;
+                _this.isLoading=false;
                 localStorage.setItem('loggedIn','true');
                 localStorage.setItem('nameId',doc.data().user_name);
                 localStorage.setItem('user_name',email);
                 localStorage.setItem('role',doc.data().role);
                 localStorage.setItem('authToken',email);
+                redirect_to(doc.data().role);
               }).catch(err=>{
                 _this.isTrue=false;
                 console.log(err);
