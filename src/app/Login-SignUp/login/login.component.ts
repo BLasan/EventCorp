@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
           docs.forEach(doc=>{
             if(doc.data().id===email){
               _this.isLoading=false;
-              _this._db.collection('register_user').doc(doc.data().id).update({active_status:"login"}).then(()=>{
+              _this._db.collection('register_user').doc(doc.id).update({active_status:"login"}).then(()=>{
                 _this.isTrue=true;
                 localStorage.setItem('loggedIn','true');
                 localStorage.setItem('nameId',doc.data().user_name);
