@@ -33,50 +33,81 @@ export class ModeratorNotificationsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    disable_report_notification();
+    // disable_report_notification();
     this.getData();
   }
 
 
   //get reports
+  // getData(){
+  //   var _this=this;
+  //   // this.moderatorService.getReports()
+  //   // .subscribe(result => {
+  //   //   this.items = result;
+  //   //   this.resultLength = result.length;
+  //   //   console.log("\nresultLengeth - "+this.resultLength);
+  //   // })
+
+  //   this.db.firestore.collection('reports').get().then(docs=>{
+  //     if(docs.empty) console.log("Empty Data");
+  //     else{
+  //       docs.forEach(doc=>{
+  //         if(doc.data().view===false)
+  //         _this.reports.push(doc.data());
+  //       })
+  //     }
+  //   })
+
+  // }
+
   getData(){
-    var _this=this;
-    // this.moderatorService.getReports()
-    // .subscribe(result => {
-    //   this.items = result;
-    //   this.resultLength = result.length;
-    //   console.log("\nresultLengeth - "+this.resultLength);
-    // })
-
-    this.db.firestore.collection('reports').get().then(docs=>{
-      if(docs.empty) console.log("Empty Data");
-      else{
-        docs.forEach(doc=>{
-          if(doc.data().view===false)
-          _this.reports.push(doc.data());
-        })
-      }
+    this.db.collection('reports').valueChanges()
+    .subscribe(result => {
+      this.reports = result;
+      console.log("ggggggggggg - ",this.reports);
+      // this.age_filtered_items = result;
+      // this.name_filtered_items = result;
     })
-
   }
+
+  deleteReport(userKey){
+    console.log("deleted report id - ", userKey);
+    this.db.collection('reports').doc(userKey).delete();    
+  }
+
+  deleteComment(email,commentID){
+    console.log("reported by email - ", email);
+    console.log("comment id - ", commentID);
+    this.db.collection('register_user').doc(email).collection('comments').doc(commentID).delete();
+    this.deleteReport(commentID);
+  }
+
+  deleteUser(){
+    
+  } 
+
+  // deleteUser(userKey){
+  //   console.log
+  //   return this.db.collection('reports').doc(userKey).delete();
+  // }
 
 
   //filter the user comments when selected
-  filterComment(id:any){
-    var _this=this;
-    this._id=id;
-    this.db.firestore.collection('reports').doc(id).get().then(doc=>{
-      if(!doc.exists) console.log("Empty");
-      else{
-        _this.comment=doc.data().comment;
-        _this.date=doc.data().date;
-        _this.user_name=doc.data().user_name;
-        _this.user_mail=doc.data().user_email;
-        _this.reported_by=doc.data().reported_by;
-      } 
-    });
-  console.log(this.user_mail);
-  }
+  // filterComment(id:any){
+  //   var _this=this;
+  //   this._id=id;
+  //   this.db.firestore.collection('reports').doc(id).get().then(doc=>{
+  //     if(!doc.exists) console.log("Empty");
+  //     else{
+  //       _this.comment=doc.data().comment;
+  //       _this.date=doc.data().date;
+  //       _this.user_name=doc.data().user_name;
+  //       _this.user_mail=doc.data().user_email;
+  //       _this.reported_by=doc.data().reported_by;
+  //     } 
+  //   });
+  // console.log(this.user_mail);
+  // }
 
 
   //send warning message
@@ -142,7 +173,7 @@ export class ModeratorNotificationsComponent implements OnInit {
   }
 
 
-  //delete comment
+  // delete comment
   delete(){
     var _this=this;
     this.db.collection('register_user').doc(this.reported_by).collection('comments').doc(this._id).delete().then(()=>{
@@ -161,18 +192,18 @@ export class ModeratorNotificationsComponent implements OnInit {
 
 
   //delete the user
-  deleteUser(){
-    var _this=this;
-    this.db.collection('register_user').doc(this.user_mail).update({profile_status:"Deleted"}).then(()=>{
-      _this.auth.auth.currentUser.delete().then(()=>{
-        console.log("Successfully Deleted");
-      }).catch(err=>{
-        console.log(err);
-      })
-    }).catch(err=>{
-      console.log(err)
-    })
-  }
+  // deleteUser(){
+  //   var _this=this;
+  //   this.db.collection('register_user').doc(this.user_mail).update({profile_status:"Deleted"}).then(()=>{
+  //     _this.auth.auth.currentUser.delete().then(()=>{
+  //       console.log("Successfully Deleted");
+  //     }).catch(err=>{
+  //       console.log(err);
+  //     })
+  //   }).catch(err=>{
+  //     console.log(err)
+  //   })
+  // }
 
 
 }

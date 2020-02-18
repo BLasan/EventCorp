@@ -21,6 +21,7 @@ import {
   MatCardModule,
   MatListModule,
   MatChipsModule,
+  MatExpansionModule
   // MatTableModule
 } from "@angular/material";
 
@@ -60,6 +61,7 @@ import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
     MatIconModule,
     MatSliderModule,
     MatCarouselModule,
+    MatExpansionModule
   ],
   declarations: [
    ModeratorDashboardComponent,
