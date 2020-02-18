@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
-import htmlToPdfmake from 'html-to-pdfmake';
-import * as jspdf from 'jspdf';  
-import html2canvas from 'html2canvas'; 
-import * as PDF from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-declare var pdfMake: any;
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-payment-bill',
@@ -25,7 +18,7 @@ export class PaymentBillComponent implements OnInit {
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
-    PDF.vfs = pdfFonts.pdfMake.vfs;
+   // PDF.vfs = pdfFonts.pdfMake.vfs;
     deactivate_searchBar();
     this.getBills();   //get bills
   }
