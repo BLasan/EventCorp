@@ -1,10 +1,11 @@
 <div class="main-content">
   <div class="container-fluid">
 
+    <!-- heading -->
     <h3>Users List</h3>
 
+    <!-- filtering users -->
     <div class="row" style="background-color: white; height: 60px; border-radius: 5px; margin-top: 20px;">
-
       <div class="col-md-4">
         <form>
           <mat-form-field>
@@ -29,11 +30,10 @@
           </mat-form-field>
         </form>
       </div>
-
     </div>
 
+    <!-- headings of each row item -->
     <div class="row">
-
       <div class="row tile-headers" style="font-weight: bold;">
         <div class="col-1" style="text-align: center;">
           ID
@@ -44,22 +44,22 @@
         <div class="col-2">
           City
         </div>
-        <div class="col-4">
+        <div class="col-3">
           Email
         </div>
-        <div class="col-3">
+        <div class="col-1">
           Status
+        </div>
+        <div class="col-3" style="text-align: center;">
+          Actions
         </div>
       </div>
 
+      <!-- loading users -->
       <div class="list-group users-list">
-
         <div *ngFor="let user_profile of user_profile;let i = index"
           class="list-group-item list-group-item-action flex-column align-items-start">
-
-
           <div class="row tile">
-
             <div class="col-md-1" style="text-align: center;">
               {{i+1}}
             </div>
@@ -69,111 +69,28 @@
             <div class="col-md-2">
               {{user_profile.city}}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               {{user_profile.email}}
             </div>
 
-            <div class="col-md-3" *ngIf="user_profile.profile_status=='Active'"><b
+            <div class="col-md-1" *ngIf="user_profile.profile_status=='Active'"><b
                 style="color:green">{{user_profile.profile_status}}</b></div>
-            <div class="col-md-3" *ngIf="user_profile.profile_status=='Deleted'"><b
+            <div class="col-md-1" *ngIf="user_profile.profile_status=='Deleted'"><b
                 style="color:red">{{user_profile.profile_status}}</b></div>
+
+            <!-- buttons -->
+            <div class="col-md-3">
+              <button type="button" class="btn btn-success" style="margin-left: 50px;"
+                (click)="activateUser(user_profile.email)">Activate</button>
+              <button type="button" class="btn btn-danger" style="margin-left: 20px;"
+                (click)="deactivateUser(user_profile.email)">Deactivate</button>
+            </div>
 
           </div>
         </div>
       </div>
 
     </div>
-
-    <!-- <div class="col-md-4">
-      <form>
-        <mat-form-field>
-          <mat-select (selectionChange)="filterUser($event)" id="selection" [(ngModel)]="selection" [ngModelOptions]="{standalone: true}" placeholder="{{selection}}">
-            <mat-option value="artist">
-              Artist
-            </mat-option>
-            <mat-option value="organizer">
-              Organizer  
-            </mat-option>
-            <mat-option value="venue_owner">
-              Venue Owner
-            </mat-option>
-            <mat-option value="supplier">
-              Supplier
-            </mat-option>
-            <mat-option value="all">
-              All
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </form> 
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-12" *ngIf="user_profile.length>0 && isLoaded">
-        <div class="card"  style="background-color:white">
-          <div class="card-header card-header-danger">
-            <h4 class="card-title ">User List</h4>
-            <p class="card-category"> All users of EventCorp</p>
-          </div>
-          <div class="card-body" style="background-color:white">
-            <div class="row">
-              <div class="col-md-4"></div>
-              <div class="col-md-4"></div>
-              <div class="col-md-4">
-                <form>
-                  <mat-form-field>
-                    <mat-select (selectionChange)="filterUser($event)" id="selection" [(ngModel)]="selection" [ngModelOptions]="{standalone: true}" placeholder="{{selection}}">
-                      <mat-option value="artist">
-                        Artist
-                      </mat-option>
-                      <mat-option value="organizer">
-                        Organizer  
-                      </mat-option>
-                      <mat-option value="venue_owner">
-                        Venue Owner
-                      </mat-option>
-                      <mat-option value="supplier">
-                        Supplier
-                      </mat-option>
-                      <mat-option value="all">
-                        All
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </form> 
-              </div>
-            </div>
-            <table class="table table-dark">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">City</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let user_profile of user_profile;let i = index">
-                  <th scope="row">{{i+1}}</th>
-                  <td>{{user_profile.user_name}}</td>
-                  <td>{{user_profile.city}}</td>
-                  <td>{{user_profile.email}}</td>
-                  <td *ngIf="user_profile.profile_status=='Active'"><b style="color:green">{{user_profile.profile_status}}</b></td>
-                  <td *ngIf="user_profile.profile_status=='Deleted'"><b style="color:red">{{user_profile.profile_status}}</b></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class=" col-md-12 alert alert-danger alert-with-icon" *ngIf="user_profile.length==0 && isLoaded">
-        <i class="material-icons" data-notify="icon">error_outline</i>
-        <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">  <i class="material-icons">close</i></button>
-        <span data-notify="message">
-          <b><h3 align="center">No User Found in EventCorp</h3></b></span>
-      </div>
-    </div> -->
 
   </div>
 </div>

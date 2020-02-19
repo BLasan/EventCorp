@@ -1,38 +1,6 @@
-// .top-button-row{
-//     position: relative;
-//     right: 20px;
-//     .mat-raised-button{
-//         margin-left: 10px;
-        
-//     }
-//     // margin-bottom: 20px;
-// }
-
-// .list-group.users-list{
-//     position: relative;
-//     top: 20px;
-//     // margin-top: 20px;
-// }
-
-// tr:hover{
-//     background-color: #878d8d;
-// }
-
-
-/* Structure */
-// table {
-//     width: 100%;
-//   }
-  
-//   .mat-form-field {
-//     font-size: 14px;
-//     width: 100%;
-//   }
-
 .users-list{
     width: 1500px;
     border-radius: 20px;
-    // background-color: rgb(22, 20, 22);
 }
 mat-card {
     width: 100%;
@@ -45,9 +13,7 @@ mat-card {
   }
   
   .mat-raised-button {
-    // width: 100px;
     margin-right: 10px;
-    // right: auto;
   }
   
   .card-buttons {
@@ -55,12 +21,10 @@ mat-card {
   }
   
   .b2{
-    // width: 1000px;
     background-color: #7B1FA2;
   }
   
   .b3{
-    // width: 1000px;
     background-color: #D32F2F;
   }
   
@@ -82,7 +46,6 @@ mat-card {
   
   .action {
     margin-top: 30px;
-    // margin-right: 20px;
     padding-right:20px;
   }
   
@@ -104,22 +67,13 @@ mat-card {
     background-color: whitesmoke - 10;
     height: 40px;
     padding-top: 10px;
-    // border-radius: 5px;
   
   }
   
   .slider{
     background-color: white;
     height: 40px;
-  }
-  
-  // .slider{
-    
-  //   padding-bottom: -10px;
-  //   background-color: #C5CAE9;
-  //   height: 35px;
-  
-  // }
+  } 
   
   .tile{
     margin-top: 10px;
