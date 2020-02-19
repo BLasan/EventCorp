@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="formz">
+    <div class="formz" *ngIf='!success'>
       <form class="edit-form" [formGroup]="myForm1" [hidden]="success" (ngSubmit)="onSubmit(myForm1.value)">
 
         <h3>Edit Profile</h3>

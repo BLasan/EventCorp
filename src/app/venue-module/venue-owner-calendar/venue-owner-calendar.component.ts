@@ -18,6 +18,10 @@ export class VenueOwnerCalendarComponent implements OnInit {
   public venue_name: any;
   count: any = 1;
   i: any;
+  our_venue: any;
+  outputResult: any;
+  items: Array<any>;
+  itemCount: any;
 
   constructor(
     private svc: VenueCalendarService,
@@ -26,25 +30,34 @@ export class VenueOwnerCalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getData().subscribe(data => this.calendarEvents = data);
+    this.getData();
   }
 
-  getData(): Observable<any[]> {
+  getData() {
 
-    return this.db.collection('events', ref => ref.where('accepted', '==', 1).where('v_name', '==', 'St. Joesphs College Sports Complex')).valueChanges().pipe(
-      tap(events => console.log("filtered - ", events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
-      map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
-        let data: any = event;
-        data.start = data.event_start.toDate();
-        data.end = data.event_end.toDate();
-        data.end++;
-        // data.end++;
-        return data;
-        // let obj={title:data.event_name,start:new Date(data.date)}
-        // return obj;
+    this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
+      .subscribe(output => {
+        this.outputResult = output.payload.data();
+        this.our_venue = this.outputResult.nameToSearch;
+        console.log("ddddddddddddddddddd", this.our_venue);
 
-      }))
-    );
+        this.db.collection('events', ref => ref.where('accepted', '==', 1).where('nameToSearch', '==', this.our_venue)).valueChanges().pipe(
+          tap(events => console.log("filtered - ", events)),
+          map(events => events.map(event => {
+            console.log("last ddddddddddddddddddd", this.our_venue);
+            let data: any = event;
+            data.start = data.event_start.toDate();
+            data.end = data.event_end.toDate();
+            data.end++;
+            // data.end++;
+            return data;
+          }))
+        ).subscribe(data => {
+          this.calendarEvents = data;
+        })
+
+      })
+
   }
 
 }

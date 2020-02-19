@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { tap, first } from 'rxjs/operators';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoginService } from 'app/services/login.services';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { LoginService } from 'app/services/login.services';
 })
 export class VenueReservationFormComponent implements OnInit {
 
-  myForm : FormGroup;
+  myForm: FormGroup;
 
   loading = false;
   success = false;
@@ -28,19 +29,19 @@ export class VenueReservationFormComponent implements OnInit {
   ngOnInit() {
 
     this.myForm = this.fb.group({
-      
-      title: ['',Validators.required],
-      v_name: ['',Validators.required],
-      event_start: ['',Validators.required],
-      event_end: ['',Validators.required],
-      start_time: ['',Validators.required],
-      end_time: ['',Validators.required],
-      hall: ['',Validators.required],
-      seats_number: ['',Validators.required],
-      person_name: ['',Validators.required],
-      address: ['',Validators.required],
-      tel_no: ['',Validators.required],
-      assigned_officer: ['',Validators.required],
+
+      title: ['', Validators.required],
+      v_name: ['', Validators.required],
+      event_start: ['', Validators.required],
+      event_end: ['', Validators.required],
+      start_time: ['', Validators.required],
+      end_time: ['', Validators.required],
+      hall: ['', Validators.required],
+      seats_number: ['', Validators.required],
+      person_name: ['', Validators.required],
+      address: ['', Validators.required],
+      tel_no: ['', Validators.required],
+      assigned_officer: ['', Validators.required],
       // venue_owner: this.loginService.currentUser(),
       // venue_name: "abc",
       accepted: 0
@@ -64,9 +65,24 @@ export class VenueReservationFormComponent implements OnInit {
     // }
 
     try {
-      await this.afs.collection('events').add(formValue); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
+      await this.afs.collection('events').add({
+        title: formValue.title,
+        v_name: formValue.v_name,
+        event_start: formValue.event_start,
+        event_end: formValue.event_end,
+        start_time: formValue.start_time,
+        end_time: formValue.end_time,
+        hall: formValue.hall,
+        seats_number: formValue.seats_number,
+        person_name: formValue.person_name,
+        address: formValue.address,
+        tel_no: formValue.tel_no,
+        assigned_officer: formValue.assigned_officer,
+        nameToSearch: formValue.v_name.toLowerCase(),
+        accepted: 0
+      }); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
       this.success = true;
-    } catch(err) {
+    } catch (err) {
       console.error(err)
     }
 
@@ -79,7 +95,7 @@ export class VenueReservationFormComponent implements OnInit {
         this.myForm.patchValue(data)
       })
     )
-    .subscribe()
+      .subscribe()
   }
 
 }

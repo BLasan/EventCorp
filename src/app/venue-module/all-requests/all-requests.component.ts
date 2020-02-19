@@ -14,6 +14,8 @@ export class AllRequestsComponent implements OnInit {
   total_Bookings: any;
   start: any;
   end: any;
+  our_venue: any;
+  outputResult: any;
 
   constructor(
     private db: AngularFirestore,
@@ -24,12 +26,21 @@ export class AllRequestsComponent implements OnInit {
     this.getRequests();
   }
 
+  //getting requests
   getRequests() {
-    this.db.collection('events', ref => ref.where('accepted', '==', 1).where('v_name','==','St. Joesphs College Sports Complex')).snapshotChanges()
-      .subscribe(result => {
-        this.items = result;
-        this.itemCount = result.length;
+
+    this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
+      .subscribe(output => {
+        this.outputResult = output.payload.data();
+        this.our_venue = this.outputResult.nameToSearch;
+        
+        this.db.collection('events', ref => ref.where('accepted', '==', 1).where('nameToSearch', '==', this.our_venue)).snapshotChanges()
+          .subscribe(result => {
+            this.items = result;
+            this.itemCount = result.length;
+          })
       })
+
   }
 
 }

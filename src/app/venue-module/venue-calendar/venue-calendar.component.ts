@@ -24,12 +24,6 @@ export class VenueCalendarComponent implements OnInit {
     private db:AngularFirestore,
     private loginService:LoginService) { }
 
-    // ngOnChanges(){
-    //   // this.getData().subscribe(data=> this.calendarEvents=data);
-
-    //   this.getData1();
-    // }
-
   ngOnInit() {
     this.db.collection('register_user').doc(this.loginService.currentUser())
     .get().subscribe(result => {
@@ -37,22 +31,6 @@ export class VenueCalendarComponent implements OnInit {
       console.log("result - ",this.venue_name);
       this.getData().subscribe(data=> this.calendarEvents=data);
     })
-    // this.getData().subscribe(data=> this.calendarEvents=data);
-    // this.getData1();
-
-
-    // for(this.i = 0; this.i < 2; this.i++){
-    //   if(this.count == 1){
-    //     this.getData1();
-    //     this.count++;
-    //   }
-    //   else if(this.count == 2){
-    //     this.getData().subscribe(data=> this.calendarEvents=data);
-    //   }
-    // }
-    
-    // this.getData1();
-    // this.getData1();
 
   }
 

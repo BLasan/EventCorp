@@ -120,6 +120,7 @@ export class VenueEditComponent implements OnInit {
       // surname: [this.item.surname, Validators.required],
       // age: [this.item.age, Validators.required]
       v_name: [this.item.v_name, Validators.required],
+      nameToSearch: [this.item.v_name.toLowerCase(), Validators.required],
       venue_address: [this.item.venue_address, Validators.required],
       tel_no: [this.item.tel_no, Validators.required],
       ac: [this.item.ac, Validators.required],

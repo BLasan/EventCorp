@@ -1,69 +1,55 @@
 <div class="main-content">
-  <div class="container-fluid">   
+  <div class="container-fluid">
 
+    <!-- heading -->
     <div class="reservations-header">
       <mat-card>
         <mat-card-title>Reservation Requests</mat-card-title>
       </mat-card>
     </div>
 
+    <!-- loading requests -->
     <div class="requests">
       <div class="list-group users-list">
-        <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">  
+        <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="row">
-            <!-- <div class="col-md-1 image-col">
-              <img class="image" src="./../../../assets/img/building.jpg">
-            </div> -->
-            <div class="col">
-            <mat-accordion>
-              <mat-expansion-panel>
-                <mat-expansion-panel-header class="header">
-                  <mat-panel-title>
-                    {{ item.payload.doc.data().title }}
-                  </mat-panel-title>
-                  <mat-panel-description class="desc">
-                    <b>Requested Hall - </b>{{ item.payload.doc.data().hall }}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
 
-                <div>
-                  <b>From - </b>{{ item.payload.doc.data().event_start.toDate() }}
-                </div>
-                <div>
-                  <b>To - </b> {{ item.payload.doc.data().event_end.toDate() }}
-                </div>
-                <div>
-                  <b>Start Time -</b> {{ item.payload.doc.data().start_time }}
-                </div>
-                <div>
-                  <b>End Time  -</b> {{ item.payload.doc.data().end_time }}
-                </div>
-                <!-- <div>
-                  Seats - {{ item.payload.doc.data().end_time }}
-                </div> -->
-                <div>
-                  <b>Telephone Number - </b>{{ item.payload.doc.data().tel_no }}
-                </div>
-                <div>
-                  <b>Address - </b>{{ item.payload.doc.data().address }}
-                </div>
-                <!-- <mat-form-field>
-                  <mat-label>First name</mat-label>
-                  <input matInput>
-                </mat-form-field>
-            
-                <mat-form-field>
-                  <mat-label>Age</mat-label>
-                  <input matInput type="number" min="1">
-                </mat-form-field> -->
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-            <!-- <div class="col-md-5 text-col">
-              <h5 class="mb-1">{{item.payload.doc.data().title}}</h5>
-              <small>{{item.payload.doc.data().hall}}</small>
-            </div> -->
-            
+            <div class="col">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header class="header">
+                    <mat-panel-title>
+                      {{ item.payload.doc.data().title }}
+                    </mat-panel-title>
+                    <mat-panel-description class="desc">
+                      <b>Requested Hall - </b>{{ item.payload.doc.data().hall }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <div>
+                    <b>From - </b>{{ item.payload.doc.data().event_start.toDate() }}
+                  </div>
+                  <div>
+                    <b>To - </b> {{ item.payload.doc.data().event_end.toDate() }}
+                  </div>
+                  <div>
+                    <b>Start Time -</b> {{ item.payload.doc.data().start_time }}
+                  </div>
+                  <div>
+                    <b>End Time -</b> {{ item.payload.doc.data().end_time }}
+                  </div>
+
+                  <div>
+                    <b>Telephone Number - </b>{{ item.payload.doc.data().tel_no }}
+                  </div>
+                  <div>
+                    <b>Address - </b>{{ item.payload.doc.data().address }}
+                  </div>
+
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+
           </div>
         </div>
       </div>

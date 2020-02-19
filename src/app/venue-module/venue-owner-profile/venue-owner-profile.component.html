@@ -219,11 +219,11 @@
           </mat-card-header>
           <mat-card *ngFor="let comment of comments; trackBy: trackHero; let i = index" class="example-card">
             <mat-card-header class="header-inner">
-              <mat-card-title>{{comment?.user_name}}</mat-card-title>
+              <mat-card-title>{{comment?.comments[0].user_name}}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <p>
-                {{comment?.comment}}
+                {{comment.comments[0].comment}}
                 <!-- <span><button mat-button class="report-button" color="primary" (click)="openReportCommentsDialog(i)">Report</button></span> -->
               </p>
 

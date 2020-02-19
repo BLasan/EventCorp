@@ -14,10 +14,12 @@ export class VenueDashboardComponent implements OnInit {
   total_Bookings: any;
   start: any;
   end: any;
+  our_venue: any;
+  outputResult: any;
 
 
   constructor(
-    private db:AngularFirestore,
+    private db: AngularFirestore,
     private loginService: LoginService
   ) { }
 
@@ -26,36 +28,63 @@ export class VenueDashboardComponent implements OnInit {
     this.totalBookings();
   }
 
-  getRequests(){
+  getRequests() {
 
-//     var citiesRef = this.db.collection("cities");
+    this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
+      .subscribe(output => {
+        this.outputResult = output.payload.data();
+        this.our_venue = this.outputResult.nameToSearch;
+        // console.log("ddddddddddddddddddd", this.our_venue);
+        
+        this.db.collection('events', ref => ref.where('accepted', '==', 0).where('nameToSearch', '==', this.our_venue)).snapshotChanges()
+          .subscribe(result => {
+            // console.log("dsdgsdgsgsgsgsg - ", this.our_venue);
+            this.items = result;
+            this.itemCount = result.length;
+          })
+      })
 
-// var query = citiesRef.where("capital", "==", true);
-    this.db.collection('events',ref => ref.where('accepted','==',0)).snapshotChanges()
-    .subscribe(result => {
-      this.items = result;
-      this.itemCount = result.length;
-    })
+    // this.db.collection('events',ref => ref.where('accepted','==',0).where('nameToSearch','==',this.our_venue)).snapshotChanges()
+    // .subscribe(result => {
+    //   console.log("dsdgsdgsgsgsgsg - ",this.our_venue);
+    //   this.items = result;
+    //   this.itemCount = result.length;
+    // })
+
   }
 
-  totalBookings(){
-    this.db.collection('events',ref => ref.where('accepted','==',1).where('v_name','==','St. Joesphs College Sports Complex')).snapshotChanges()
-    .subscribe(result => {
-      // this.items = result;
-      this.total_Bookings = result.length;
-    })
+  totalBookings() {
+
+    this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
+      .subscribe(output => {
+        this.outputResult = output.payload.data();
+        this.our_venue = this.outputResult.nameToSearch;
+        console.log("bookings  ddddddddddddddddddd", this.our_venue);
+        
+        this.db.collection('events', ref => ref.where('accepted', '==', 1).where('nameToSearch', '==', this.our_venue)).snapshotChanges()
+          .subscribe(result => {
+            console.log("bookings LAST dsdgsdgsgsgsgsg - ", this.our_venue);
+            this.total_Bookings = result.length;
+          })
+      })
+
+    // this.db.collection('events', ref => ref.where('accepted', '==', 1).where('v_name', '==', 'St. Joesphs College Sports Complex')).snapshotChanges()
+    //   .subscribe(result => {
+    //     // this.items = result;
+    //     this.total_Bookings = result.length;
+    //   })
   }
 
-  acceptRequest(itemid){
+  acceptRequest(itemid) {
     this.db.collection('events').doc(itemid).update({
-      accepted:1,
+      accepted: 1,
     });
     console.log(itemid);
   }
 
-  declineRequest(itemid){
+  declineRequest(itemid) {
     this.db.collection('events').doc(itemid).update({
-      accepted:2,
+      accepted: 2,
     });
     console.log(itemid);
   }
