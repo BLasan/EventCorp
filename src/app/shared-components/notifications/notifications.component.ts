@@ -1,13 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from 'app/services/notification.service';
-import {update_count} from 'scripts/update_notification_count';
-import {disable_room_id} from '../../../scripts/disable_a_href';
-import { ChatService } from 'app/services/chat.service';
-import {generate_chat_id} from '../../../scripts/generate_id';
-import { filter } from 'rxjs/operators';
 import CryptoJS from 'crypto-js';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { update_notification_count } from '../../../scripts/notification_count_update';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 // import { pay} from 'scripts/payhere.js';
 declare var $: any;
@@ -42,6 +36,7 @@ export class NotificationsComponent implements OnInit {
   req_id:any="";
   eventName:string="";
   form:any;
+  user_message:string;
   constructor(private _notification:NotificationService,private database:AngularFirestore) { }
   showNotification(from, align){
       const type = ['','info','success','warning','danger'];
@@ -241,7 +236,7 @@ mark_view_booking_notification(sender_email:string,type:string){
 
 
 mark_chat_notifications(id:string){
-  alert(id);
+  //alert(id);
   let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
   let _count=parseInt(count)-1;
   console.log(_count);
@@ -256,6 +251,23 @@ mark_chat_notifications(id:string){
     console.log(err);
   })
   localStorage.setItem('searched_user_email',id);
+}
+
+
+//mark user notifications
+mark_view_notification(id){
+  var _this=this;
+  let count=document.getElementById('notification_count_id').innerHTML.toString();   //get current notification count
+  let _count=parseInt(count)-1;
+  let _id=document.getElementById('notification_count_id');
+  this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('notification-messages').doc(id).update({view:true}).then(()=>{
+    console.log("Success");
+    if(_count>0) _id.innerHTML=_count.toString();   
+    else if(_count===0) _id.setAttribute('style','display:none');
+    _this.message_data=_this.message_data.filter(x=>x.id!==id);
+  }).catch(err=>{
+    console.log(err);
+  })
 }
 
 //set modal data
@@ -290,9 +302,6 @@ addUserEmail(email,status){
   localStorage.setItem('status',status);
 }
 
-pay(){
-  // pay();
-}
 
 
 //decline request
@@ -434,6 +443,19 @@ accept(id:any){
      //this.booking_data=this.booking_data.filter(x=>x.data.sender_email!==this.req_from);
   }
 
+}
+
+
+//load message modal
+loadMessageModal(id,event){
+  event.preventDefault();
+  var _this=this;
+  this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('notification-messages').doc(id).get().then(doc=>{
+    _this.user_message=doc.data().message;
+  }).catch(err=>{
+    alert("Error Loading!");
+    console.log(err)
+  })
 }
 
 

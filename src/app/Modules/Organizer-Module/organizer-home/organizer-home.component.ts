@@ -1,6 +1,5 @@
 import { Component, OnInit,ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {activate_searchBar} from '../../../../scripts/search_bar_activate';
-import {loadCalendar} from '../../../../scripts/artist/artist-home';
 import { RateUserService } from 'app/services/rate-user.service';
 import {NavbarComponent} from 'app/components/navbar/navbar.component';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -35,6 +34,7 @@ export class OrganizerHomeComponent implements OnInit,AfterViewInit {
   artists:string="";
   suppliers:string="";
   venue_owners:string="";
+  comment:string;
   constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private storage:AngularFireStorage,private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -242,7 +242,7 @@ export class OrganizerHomeComponent implements OnInit,AfterViewInit {
     this.venue_owners="";
     this.filtered_events=[];
     this.filtered_events=this.events_array.filter(x=> x.event_id==event_id);
-
+    console.log(this.filtered_events[0].artists[0].name)
     for(var i=0;i<this.filtered_events[0].artists.length;i++){
       this.artists+=this.filtered_events[0].artists[i].name+" / ";
     }
@@ -299,61 +299,80 @@ export class OrganizerHomeComponent implements OnInit,AfterViewInit {
   deleteEvent(id:any){
     var _this=this;
     let close_modal=document.getElementById('close_modal');
-    this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
-      console.log("Successfully Deleted");
-
-      //delete the requests
-      _this.database.firestore.collection('register_user').get().then(doc=>{
-        if(!doc.empty){
-          doc.forEach(docs=>{
-            console.log(docs.id);
-
-            if(docs.data().role!=='organizer'){
-              _this.database.collection('register_user').doc(docs.id).collection('bookings').doc(id).delete().then(()=>{
-              console.log("Successfully Deleted");
-              let image_id="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverPic";
-              let videoId="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverVideo";
-              _this.storage.ref(image_id).delete();
-              _this.storage.ref(videoId).delete();
-              close_modal.click();
-            }).catch(err=>{
-              console.log(err);
-            })
+    let picref="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverPic";
+    let videoref="Events/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverVideo";
+    this.storage.storage.ref(picref).delete().then(()=>{
+      _this.storage.storage.ref(videoref).delete().then(()=>{
+        _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('MyEvents').doc(id).delete().then(()=>{
+          console.log("Successfully Deleted");
+    
+          //delete the requests
+          _this.database.firestore.collection('register_user').get().then(doc=>{
+            if(!doc.empty){
+              doc.forEach(docs=>{
+                console.log(docs.id);
+    
+                if(docs.data().role!=='organizer'){
+                  _this.database.collection('register_user').doc(docs.id).collection('bookings').doc(id).delete().then(()=>{
+                  console.log("Successfully Deleted");
+                  // let image_id="Event/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverPic";
+                  // let videoId="Event/"+localStorage.getItem('user_name')+"/"+id+"/"+"coverVideo";
+                  // _this.storage.ref(image_id).delete();
+                  // _this.storage.ref(videoId).delete();
+                  close_modal.click();
+                }).catch(err=>{
+                  console.log(err);
+                })
+                }
+              })
             }
-          })
-        }
-      }).catch(err=>{
-        console.log(err);
-      });
-
-
-      //delete bookings of organizer
-      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').get().then(doc=>{
-        if(!doc.empty){
-          doc.forEach(docs=>{
-            if(docs.data().event_id===id){
-              console.log(docs.id)
-              _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(docs.id).delete().then(()=>{
-                console.log("Successfully Deleted");
-              }).catch(err=>{
-                console.log(err);
+          }).catch(err=>{
+            console.log(err);
+          });
+    
+    
+          //delete bookings of organizer
+          _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').get().then(doc=>{
+            if(!doc.empty){
+              doc.forEach(docs=>{
+                if(docs.data().event_id===id){
+                  console.log(docs.id)
+                  _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(docs.id).delete().then(()=>{
+                    console.log("Successfully Deleted");
+                  }).catch(err=>{
+                    console.log(err);
+                  })
+                }
               })
             }
           })
-        }
-      })
-
-      //delete booking status
-      _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(id).delete().then(()=>{
-        console.log("Successfully Deleted");
+    
+          //delete booking status
+          _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('BookingStatus').doc(id).delete().then(()=>{
+            console.log("Successfully Deleted");
+          }).catch(err=>{
+            console.log(err);
+          });
+    
+          _this.events=_this.events.filter(x=>x.event_id!==id);     //filter undeleted events
+    
+        }).catch(err=>{
+          console.log(err);
+        })
       }).catch(err=>{
         console.log(err);
-      });
-
-      _this.events=_this.events.filter(x=>x.event_id!==id);     //filter undeleted events
+      })
 
     }).catch(err=>{
       console.log(err);
-    })
+    });
+  }
+
+  //load Modal
+  loadModal(id){
+    let comments_filtered=this.user_comments.filter(x=>x.id===id);
+    console.log(comments_filtered[0].comment)
+    this.comment=comments_filtered[0].comment;
+    //console.log(this.user_comments.comment);
   }
 }

@@ -1,10 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
 import {open_chat,close_chat} from '../../../scripts/online_chat';
-import { ChatService } from 'app/services/chat.service';
 import { MatSnackBar } from '@angular/material';
-import {generate_chat_id} from '../../../scripts/generate_id';
-import { database } from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
 import CryptoJS from 'crypto-js';
 @Component({
@@ -38,8 +34,8 @@ export class OnlineChatComponent implements OnInit {
 
   ngOnInit() {
     // this.user=this.user_auth;
-    this.user=this.organizer;
-   // alert(this.user);
+    this.user=localStorage.getItem('user_name');
+    //alert(this.user);
 
     //create chat id according to the users
     if(localStorage.getItem('role')==='organizer'){
@@ -61,7 +57,7 @@ export class OnlineChatComponent implements OnInit {
 
     // this.get_searched_user_status();
 
-    this.getImages();
+    this.getImages();            //get user images
     this.realtime_listen();      //realtime listen
   }
 
@@ -86,7 +82,7 @@ export class OnlineChatComponent implements OnInit {
     var _this=this;
     let date=new Date();
     let time_date=date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
-    this.messageArray.push({user:_this.user,message:_this.message,date:time_date});
+    this.messageArray.push({user:localStorage.getItem('user_name'),message:_this.message,date:time_date});
 
     //update the message to database
     this.database.collection('chats').doc(this.hashed_id).set({sender:localStorage.getItem('user_name'),message:this.messageArray}).then(()=>{
@@ -116,6 +112,7 @@ export class OnlineChatComponent implements OnInit {
         if(docs.doc.id===_this.hashed_id){
           if(docs.type==="added"){
             _this.messageArray=docs.doc.data().message;
+            console.log(_this.messageArray[0].user===_this.user)
             console.log(_this.messageArray)
           }
           else if(docs.type==="modified"){

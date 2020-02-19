@@ -12,22 +12,22 @@
     <button class="open-button" (click)="openChat()" *ngIf="showChat && active_status==='logout'"><b><img src="assets/img/user_offline.png">LIVE CHAT</b></button>
       <div class="form-popup" id="chat" style="display: none">
           <div class="form-container message_send">
-            <mat-list role="list" [ngClass]="{'list-group':messageArray.length>5}">
+            <mat-list role="list" [ngClass]="{'list-group':messageArray.length>4}">
               <mat-list-item>
                 <p mat-line *ngIf="active_status==='login'"> <b>{{searched_user_name}}</b> <span style="padding-left:20px;color:green">online</span></p>
                 <p mat-line *ngIf="active_status==='logout'"><b>{{searched_user_name}}</b> <span style="padding-left:20px;color:red">offline</span></p>
               </mat-list-item>
               <mat-divider></mat-divider>
               <div *ngFor="let message of messageArray">
-                <div class="container" *ngIf="message.user==user">
-                  <img [src]="searched_user_image" alt="Avatar" style="width:100%;">
+                <div class="container" *ngIf="message.user===user">
+                  <img [src]="sender_image" alt="Avatar" style="width:100%;">
                   <!-- <p style="text-align: justify;"><b>{{message.user}}</b></p> -->
                   <p style="text-align: justify;">{{message.message}}</p>
                   <span class="time-right">{{message.date | date: "h:mm a"}}</span>
                 </div>
                 
-                <div class="container darker" *ngIf="message.user!=user">
-                  <img [src]="sender_image" alt="Avatar" class="right" style="width:100%;">
+                <div class="container darker" *ngIf="message.user!==user">
+                  <img [src]="searched_user_image" alt="Avatar" class="right" style="width:100%;">
                   <!-- <p style="text-align: justify;"><b>{{message.user}}</b></p> -->
                   <p style="text-align: justify;">{{message.message}}</p>
                   <span class="time-left">{{message.date}}</span>

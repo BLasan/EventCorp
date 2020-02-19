@@ -118,6 +118,8 @@ export class OrganizerProfileComponent implements OnInit {
     let storageRef=this.storage.ref(image_id);
     let _this=this;
     if(localStorage.getItem('user_name')==email){
+
+      //if image uploaded
       if(this.image_file){
         storageRef.put(_this.image_file[0]).then(function(snapshot){
           storageRef.getDownloadURL().subscribe(url=>{
@@ -188,7 +190,7 @@ export class OrganizerProfileComponent implements OnInit {
   }
 
   reset_form(){
-    console.log("jdjdk");
+    //console.log("jdjdk");
     (<HTMLInputElement>document.getElementById('email')).value="";
     (<HTMLInputElement>document.getElementById('f_name')).value="";
     (<HTMLInputElement>document.getElementById('l_name')).value="";

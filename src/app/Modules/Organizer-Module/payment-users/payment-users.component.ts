@@ -56,9 +56,6 @@ export class PaymentUsersComponent implements OnInit {
     let today=new Date();
     let booking_id=this._id;
     var btn=document.getElementById('checkout_user');
-    let count_id;
-    let count;
-    let _count;
 
     //error handelling
     // try{

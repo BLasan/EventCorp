@@ -30,6 +30,7 @@ export class ArtistHomeComponent implements OnInit,AfterViewInit {
   artists:string="";
   suppliers:string="";
   venue_owners:string="";
+  comment:string;
   constructor(private _ratings:RateUserService,private database:AngularFirestore,private _snackBar:MatSnackBar,private cdr:ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -213,5 +214,13 @@ export class ArtistHomeComponent implements OnInit,AfterViewInit {
     })
 
   }
+
+    //load Modal
+    loadModal(id){
+      let comments_filtered=this.user_comments.filter(x=>x.id===id);
+      console.log(comments_filtered[0].comment)
+      this.comment=comments_filtered[0].comment;
+      //console.log(this.user_comments.comment);
+    }
 
 }
