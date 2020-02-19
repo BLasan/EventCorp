@@ -90,6 +90,7 @@ export const ROUTES4:RouteInfo[]=[
 export const ROUTES5:RouteInfo[]=[
   { path: '/moderator-dashboard', title: 'Home',  icon: 'home', class: '' },
   { path: '/moderator-notifications', title: 'Report Notifications',icon:'notifications',class:''},
+  { path:'/moderator-comments',title:'User Comments',icon:'settings',class:''},
   { path:'/moderator-settings',title:'Settings',icon:'settings',class:''},
   // { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
   // { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}

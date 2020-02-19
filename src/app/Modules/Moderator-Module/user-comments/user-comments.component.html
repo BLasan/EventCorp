@@ -1,0 +1,71 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <h3>User Comments</h3>
+    <div class="row">
+
+
+      <div class="requests">
+        <div class="list-group users-list">
+
+          <div *ngFor="let comment of comments"
+            class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="row">
+              <div class="col-md-9">
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header class="header">
+                      <mat-panel-title>
+                        {{ comment.comments[0].comment}}
+                      </mat-panel-title>
+                      <mat-panel-description class="desc">
+                        <!-- <b>Date - </b> {{ report.date }} -->
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div>
+                      <b>Commented User's Name - </b>{{ comment.comments[0].user_name }}
+                    </div>
+                    <div>
+                      <b>Commented User's Email - </b> {{ comment.sender_mail }}
+                    </div>
+                    <div>
+                      <b>Date -</b> {{ comment.comments[0].date }}
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
+              <div class="col-md-3 actions-col">
+                <!-- <button type="button" class="btn btn-primary" (click)="sendWarning()">Send Warning</button> -->
+                <button style="margin-left: 10px;" type="button" class="btn btn-danger"
+                  (click)="deleteUser(comment.sender_mail,comment.id)">Delete User</button>
+                <!-- <button type="button" class="btn btn-success" (click)="deleteReport(report.id)">Delete Report</button> -->
+                <button type="button" class="btn btn-primary"
+                  style="background-color: rgb(110, 115, 192); border-color: blue;"
+                  (click)="deleteComment(comment.sender_mail,comment.id)">Delete Comment</button>
+
+
+                <!-- <button class="btn btn-outline-primary action" (click)="acceptRequest(item.payload.doc.id)" type="button">Accept</button>
+          <button class="btn btn-outline-danger action" (click)="declineRequest(item.payload.doc.id)" type="button">Decline</button> -->
+                <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
+              Calendar</button>
+            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+              </div>
+
+            </div>
+
+            <!-- <div class="row tile">            
+            <div class="col-md-5 text-col">
+              <h5 class="mb-1">{{report.reported_by}}</h5>
+              <small>Fee - Rs. {{report.date}}</small>
+            </div>
+            
+          </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

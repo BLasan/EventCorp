@@ -70,20 +70,23 @@ export class ModeratorNotificationsComponent implements OnInit {
     })
   }
 
-  deleteReport(userKey){
-    console.log("deleted report id - ", userKey);
-    this.db.collection('reports').doc(userKey).delete();    
+  deleteReport(commentId){
+    console.log("deleted report id - ", commentId);
+    this.db.collection('reports').doc(commentId).delete();    
   }
 
-  deleteComment(email,commentID){
-    console.log("reported by email - ", email);
+  deleteComment(reportedByEmail,commentID){
+    console.log("reported by email - ", reportedByEmail);
     console.log("comment id - ", commentID);
-    this.db.collection('register_user').doc(email).collection('comments').doc(commentID).delete();
+    this.db.collection('register_user').doc(reportedByEmail).collection('comments').doc(commentID).delete();
+    this.db.collection('comments').doc(commentID).delete();
     this.deleteReport(commentID);
   }
 
-  deleteUser(){
-    
+  deleteUser(commentedId,reportedByEmail,commentID){
+    console.log("going to deactive this guy - ", commentedId);
+    this.db.collection('register_user').doc(commentedId).update({profile_status:'Deleted'});
+    this.deleteComment(reportedByEmail,commentID);
   } 
 
   // deleteUser(userKey){
