@@ -12,8 +12,8 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
     
     .row mat-card{
-        width: 745px;
-        text-align: center;
+        width: 660px;
+        // text-align: center;
         margin-top: 30px;
         margin-left: 15px;
         border-radius: 20px;
@@ -21,6 +21,13 @@
         border-style: solid;
         border-width: 1px;
         border-color: #BDBDBD;
+        .row{
+          margin-left: 15px;
+          margin-top: 10px;
+          .col-6{
+            font-weight: bold;
+          }
+        }
     }
 
     .carousel .carousel-inner .carousel-item img{
@@ -89,6 +96,26 @@ h1{
 
 button{
     width: 250px;
+}
+
+.addComment{
+  margin-top: 20px;
+  margin-left: 50px;
+  mat-card-header {
+    padding-top: 10px;
+    background-color: #e0e1df;
+  }
+  .example-full-width{
+    margin-top: 20px;
+  }
+  border-radius: 20px;
+}
+
+.commentButton{
+  margin-left: 500px;
+  width: 110px;
+  background-color: #b6ceea;
+  border-radius: 10px;
 }
 
 

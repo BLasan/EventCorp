@@ -29,6 +29,38 @@ export class SupplierProfileComponent implements OnInit {
     this.username=localStorage.getItem('nameId');
   }
 
+  // onSubmit(){
+  //   let contact=this.form.get('contact').value;
+  //   let name=this.form.get('user_name').value;
+  //   let address=this.form.get('address').value;
+  //   let country=this.form.get('country').value;
+  //   let email=this.form.get('email').value;
+  //   let city=this.form.get('city').value;
+  //   let bio_data=this.form.get('about_me').value;
+  //   let date=new Date().getTime().toString();
+  //   let image_id="supplier-image/"+localStorage.getItem('user_name')+"/"+date;
+  //   let storageRef=this.storage.ref(image_id);
+  //   let _this=this;
+  //   if(localStorage.getItem('user_name')==email){
+  //     if(this.image_file){
+  //       storageRef.put(_this.image_file[0]).then(function(snapshot){
+  //         storageRef.getDownloadURL().subscribe(url=>{
+  //           var user_details={img_url:url,role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+  //           _this.database.collection('register_user').doc(email).update(user_details); 
+  //           remove_uploader();
+  //           });
+  //         });
+  //     }
+  //     else{
+  //       var user_details={role:"supplier",country:country,address:address,email:email,user_name:name,contact:contact,city:city,bio:bio_data};
+  //       this.database.collection('register_user').doc(email).update(user_details);
+  //     }
+  //   }
+  //   else
+  //   alert('Please provide your valid email');
+  //   this.form.reset();
+  // }
+
   public hasError = (controlName: string, errorName: string) =>{
     return this.form.controls[controlName].hasError(errorName);
   }

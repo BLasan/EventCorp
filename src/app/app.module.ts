@@ -84,8 +84,8 @@ const config={
 }
 
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
-import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
-import { FullCalendarModule } from '@fullcalendar/angular';
+// import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+// import { FullCalendarModule } from '@fullcalendar/angular';
 import { environment } from '../environments/environment';
 import { AddPlaylistComponent } from './Modules/Artist-Module/add-playlist/add-playlist.component';
 import { HelpComponent } from './shared-components/help/help.component';
@@ -99,6 +99,7 @@ import { AuthGuardModeratorService } from './services/Authentication/authGuard_m
 import { LatestEventsComponent } from './Modules/Customer-Module/latest-events/latest-events.component';
 import { ReportDialogComponent } from './Modules/report-dialog/report-dialog.component';
 import { FilterPipe } from './Modules/Moderator-Module/filter.pipe';
+import { EventsAddComponent } from './Modules/Organizer-Module/organizer-events/events-add/events-add.component';
 import { ViewAllProductsComponent } from './Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from './Modules/Supplier-Module/searchItems.pipe';
 import { ViewRequestStatusComponent } from './Modules/Organizer-Module/view-request-status/view-request-status.component';
@@ -111,14 +112,21 @@ import { AgmCoreModule } from '@agm/core';
 //import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
-import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
+import { VenueDashboardComponent } from './venue-module/venue-dashboard/venue-dashboard.component';
 import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
+// import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
 import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
-// import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
+import { VenueListComponent } from './venue-module/venue-home/venue-list/venue-list.component';
+import { VenueProfileComponent } from "./venue-profile/venue-profile.component";
+// import { VenueOwnerCalendarComponent } from './venue-module/venue-owner-calendar/venue-owner-calendar.component';
+
+
+
 // import { VenueHomeComponent } from './venue-module/venue-home/venue-home.component';
 //enableProdMode()
 @NgModule({
@@ -160,9 +168,12 @@ import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bil
     AngularFirestoreModule.enablePersistence(), // firestore-persistance mode
     AngularFireAuthModule, // auth
     AngularFireStorageModule, // storage
-    FullCalendarModule,
+    // FullCalendarModule,
     MatDialogModule,
     MatRadioModule,
+    MatExpansionModule,
+    MatSliderModule,
+    // ViewUserEventsComponent
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAJiTvdCB4__gqcZMTkmLaSZWic94KFCvI'
     })
@@ -181,13 +192,21 @@ import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bil
     EmailVerifyComponent,
     // ResetPasswordFirebaseComponent,
     // ResetPasswordComponent,
-    VenueCalendarComponent,
+    // VenueCalendarComponent,
     LocationOwnerLayoutComponent,
     ModeratorLayoutComponent,
     ReportDialogComponent,
     PaypalPaymentComponent,
     PaymentUsersComponent,
     ViewLocationComponent,
+    ViewUserEventsComponent,
+    // VenueOwnerCalendarComponent,
+    // VenueOwnerProfileComponent,
+    // AllRequestsComponent,
+    // VenueListComponent,
+    // VenueProfileComponent
+    // VenueEditComponent,
+    // VenueDashboardComponent
     ViewUserEventsComponent,
     ViewBillComponent   
     //ViewUserEventsComponent,

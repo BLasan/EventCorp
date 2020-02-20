@@ -50,16 +50,27 @@ export const ROUTES2:RouteInfo[]=[
   { path:'/organizer-profile',title:'Edit Profile',icon:'file_copy',class:''},
   { path:'/view-request-status',title:'View Requests',icon:'watch_later',class:''},
   { path: '/organizer-maps', title: 'Maps',  icon:'location_on', class: '' },
+  { path:'/venueList' , title: 'Venue Browser' ,icon:'home',class:''},
+  { path:'/add-events',title:'Add an event',icon:'add',class:''}
 ];
 
 
 //venue_owner routings
 export const ROUTES3:RouteInfo[]=[
-  { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
-  { path: '/venueProfile',title: 'Profile' ,icon:'file_copy',class:'' },
-  { path: '/venue-reservation-form', title: 'Reservation' ,icon:'calendar_today',class:''},
+  { path: '/venue-dashboard', title: 'Dashboard' ,icon:'home',class:''},
+  // { path:'/venueList' , title: 'Home' ,icon:'home',class:''},
+  { path: '/venueOwnerProfile',title: 'Profile' ,icon:'file_copy',class:'' },
+  { path: '/venue-reservation-form', title: 'Make a Reservation' ,icon:'post_add',class:''},
   { path: '/venueAdd', title: 'Add Venue' ,icon:'add',class:''},
-  { path: '/venue-owner-maps', title: 'Maps',  icon:'location_on', class: '' },
+  // { path: '/venue-notifications', title: 'Notifications' ,icon:'notifications_active',class:''},
+  // { path: '/venue-dashboard', title: 'Dashboard' ,icon:'settings_applications',class:''},
+  { path: '/venueOwnerCalendar', title: 'Event Calendar' ,icon:'calendar_today',class:''},
+  { path: '/venue-edit', title: 'Edit Profile' ,icon:'settings_applications',class:''},
+  { path: '/allrequests', title: 'All Reservations' ,icon:'list',class:''},
+  { path: '/venue-settings', title: 'Settings' ,icon:'settings',class:''},
+
+
+  // { path: '/venue-owner-maps', title: 'Maps',  icon:'location_on', class: '' },
 ];
 
 
@@ -78,7 +89,8 @@ export const ROUTES4:RouteInfo[]=[
 //moderator routings
 export const ROUTES5:RouteInfo[]=[
   { path: '/moderator-dashboard', title: 'Home',  icon: 'home', class: '' },
-  { path: '/moderator-notifications', title: 'Notifications',icon:'notifications',class:''},
+  { path: '/moderator-notifications', title: 'Report Notifications',icon:'notifications',class:''},
+  { path:'/moderator-comments',title:'User Comments',icon:'settings',class:''},
   { path:'/moderator-settings',title:'Settings',icon:'settings',class:''},
   // { path:'/moderator-queries',title:'Queries',icon:'settings',class:''},
   // { path:'/report-warnings',title:'Product Catalog',icon:'add',class:''}

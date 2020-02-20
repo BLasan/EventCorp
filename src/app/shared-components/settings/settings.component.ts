@@ -21,6 +21,7 @@ export class SettingsComponent implements OnInit {
   user_email:string;
   user_role:string;
   del_status:any;
+  show:boolean=true;
   events_vis:boolean=true;
   rating_vis:boolean=true;
   about_vis:boolean=true;
@@ -34,6 +35,10 @@ export class SettingsComponent implements OnInit {
     deactivate_searchBar();
     this.user_email=localStorage.getItem('user_name');
     this.user_role=localStorage.getItem('role');
+    if(this.user_role == "venue_owner"){
+      this.show = false;
+      console.log("Show is set to false");
+    }
     this.load_view_settings();
     this.form=new FormGroup({
       new_password:new FormControl('',[Validators.required,Validators.minLength(6)]),

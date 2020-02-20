@@ -219,6 +219,19 @@ export class RatingSystemComponent implements OnInit {
       });
     })
 
+    this.database.collection('comments').doc(hash).set({id:hash,comments:this.comments_array,sender_mail:localStorage.getItem('user_name')}).then(docs=>{
+      _this.loadComments();
+      console.log("Successfully added the comment to Comments collection");
+      _this._snackBar.open("Successfully Posted","Done", {
+        duration: 2000,
+      });
+    }).catch(err=>{
+      console.log(err);
+      _this._snackBar.open("Unsuccessfull posting","Post again", {
+        duration: 3000,
+      });
+    })
+
   }
 
   loadUserRatings(){

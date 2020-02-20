@@ -21,8 +21,6 @@ export class VenueAddComponent implements OnInit {
   loading = false;
   success = false;
 
-  // name = new FormControl('');
-
   constructor(
     private fb: FormBuilder,
     private afs: AngularFirestore,
@@ -30,6 +28,7 @@ export class VenueAddComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //creating the form
     this.myForm1 = this.fb.group({
       v_name: ["", Validators.required],
       venue_address: ["", Validators.required],
@@ -38,23 +37,22 @@ export class VenueAddComponent implements OnInit {
       car_parking: ["", Validators.required],
       fee: ["", Validators.required],
       seating_capacity: ["", Validators.required]
-      // nameToLowerCase: ['',Validators.required]
     });
 
-    this.preloadData(); //storing data in the database is working even WITHOUT this function
+    // this.preloadData(); //storing data in the database is working even WITHOUT this function
   }
 
+  //form submit function
   async submitHandler1() {
+    
     this.loading = true;
-
     const formValue = this.myForm1.value;
 
     try {
       this.createDocumentAtUser(formValue);
       this.createDocumentAtVenues(formValue);
       this.success = true;
-      // await this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').set(formValue);
-      // this.success = true;
+      
     } catch (err) {
       console.error(err);
     }
@@ -62,6 +60,7 @@ export class VenueAddComponent implements OnInit {
     this.loading = false;
   }
 
+  //submitting data to venues collection
   createDocumentAtVenues(value) {
     return this.afs.collection("Venues").add({
       v_name: value.v_name,
@@ -72,10 +71,10 @@ export class VenueAddComponent implements OnInit {
       car_parking: value.car_parking,
       fee: parseInt(value.fee, 10),
       seating_capacity: parseInt(value.seating_capacity, 10)
-      // avatar: avatar
     });
   }
 
+  //submitting data to register_user collection
   createDocumentAtUser(value) {
     return this.afs
       .collection("register_user")
@@ -91,20 +90,19 @@ export class VenueAddComponent implements OnInit {
         car_parking: value.car_parking,
         fee: parseInt(value.fee, 10),
         seating_capacity: parseInt(value.seating_capacity, 10)
-        // avatar: avatar
       });
   }
 
-  preloadData() {
-    //storing data in the database is working even WITHOUT this function
-    this.afs
-      .doc("Venues/Kjn0JWBKdOnUlBwuE93S")
-      .valueChanges()
-      .pipe(
-        tap(data => {
-          this.myForm1.patchValue(data);
-        })
-      )
-      .subscribe();
-  }
+  // preloadData() {
+  //   //storing data in the database is working even WITHOUT this function
+  //   this.afs
+  //     .doc("Venues/Kjn0JWBKdOnUlBwuE93S")
+  //     .valueChanges()
+  //     .pipe(
+  //       tap(data => {
+  //         this.myForm1.patchValue(data);
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 }

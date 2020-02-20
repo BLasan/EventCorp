@@ -1,13 +1,19 @@
 <div class="main-content">
   <div class="container-fluid">
 
+    <!-- form -->
+    <div class="reservationForm">
     <form [formGroup]="myForm" [hidden]="success" (ngSubmit)="submitHandler()">
 
-      <h3>Venue Reservation Form</h3>
+      <h3 class="heading">Venue Reservation Form</h3>
         <hr><br><br>
     
         <mat-form-field>
           <input matInput placeholder="Event Name" formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Venue Name" formControlName="v_name">
         </mat-form-field>
   
         <mat-form-field>
@@ -34,9 +40,23 @@
           <input matInput placeholder="Hall" formControlName="hall">
         </mat-form-field>
   
-        <mat-form-field>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Number of Balcony Seats" formControlName="seats_number_balcony">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            
+            <mat-form-field>
+              <input matInput placeholder="Number of ODC Seats" formControlName="seats_number_odc">
+            </mat-form-field>
+
+          </div>
+        </div>
+        <!-- <mat-form-field>
           <input matInput placeholder="Number of Seats" formControlName="seats_number">
-        </mat-form-field>
+        </mat-form-field> -->
   
         <mat-form-field>
           <input matInput placeholder="Name of the responsible person" formControlName="person_name">
@@ -49,16 +69,27 @@
         <mat-form-field>
           <input matInput placeholder="Telephone Number" formControlName="tel_no">
         </mat-form-field>
-  
-        <mat-form-field>
-          <input matInput placeholder="Assigned officer" formControlName="assigned_officer">
-        </mat-form-field>
-    
-    
-        <button mat-button color="primary" type="submit" [disabled]="myForm.invalid">Submit Form</button>
-    
-    </form>   
 
+        <mat-form-field>
+          <mat-label>Assigned Officer</mat-label>
+          <mat-select formControlName="assigned_officer">
+            <mat-option *ngFor="let officer of officers" [value]="officer.value">
+              {{officer.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <!-- <mat-form-field>
+          <input matInput placeholder="Assigned officer" formControlName="assigned_officer">
+        </mat-form-field> -->
+    
+    <!-- submit button -->
+        <button mat-raised-button class="submitButton" color="primary" type="submit" [disabled]="myForm.invalid">Submit Form</button>
+    
+    </form>
+  </div>   
+
+  <!-- success message -->
     <div *ngIf="success" class="notification is-success">
         Registration Completed!
     </div>

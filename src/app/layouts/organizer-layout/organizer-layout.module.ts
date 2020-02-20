@@ -3,8 +3,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlatpickrModule } from 'angularx-flatpickr';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+// import { CalendarModule, DateAdapter } from 'angular-calendar';
+// import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import {
@@ -56,6 +56,8 @@ import { RatingSystemComponent } from 'app/shared-components/rating-system/ratin
 import { OnlineChatComponent } from 'app/Modules/online-chat/online-chat.component';
 import { OnlineChatModule } from 'app/Modules/online-chat/online-chat.module';
 import { PaymentBillComponent } from 'app/Modules/Organizer-Module/payment-bill/payment-bill.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { EventsAddComponent } from 'app/Modules/Organizer-Module/organizer-events/events-add/events-add.component';
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewRequestStatusComponent } from 'app/Modules/Organizer-Module/view-request-status/view-request-status.component';
@@ -64,11 +66,16 @@ import { PaymentUsersComponent } from 'app/Modules/Organizer-Module/payment-user
 import { UpdateEventsComponent } from 'app/Modules/Organizer-Module/update-events/update-events.component';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
 import { SearchBillsPipe } from 'app/Modules/Organizer-Module/searchBills.pipe';
-import { FullCalendarModule } from '@fullcalendar/angular';
 import { BookedEventsComponent } from 'app/shared-components/booked-events/booked-events.component';
 import { SearchBookedEventsPipe } from 'app/shared-components/searchBookedEvents.pipe';
 import { MatCarouselModule } from '@ngmodule/material-carousel';
 import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
+import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
+import { VenueListComponent } from '../../venue-module/venue-home/venue-list/venue-list.component';
+import { VenueProfileResolver } from 'app/venue-profile/venue-profile.resolver';
+import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
+// import { FullCalendarModule } from '@fullcalendar/angular';
+
   @NgModule({
     imports: [
       CommonModule,
@@ -121,17 +128,23 @@ import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/
       OrganizerProfileComponent,
       OrganizerEventsComponent,
       FilterUsersPipe,
+      EventsAddComponent,
       PaymentBillComponent,
+      EventsAddComponent,
       ViewRequestStatusComponent,
       UpdateEventsComponent,
       SearchBillsPipe,
-      // ViewUserEventsComponent
+      VenueListComponent,
+      VenueProfileComponent,
+      VenueCalendarComponent
       // BookedEventsComponent,
       // SearchBookedEventsPipe
       // PaypalPaymentComponent,
       // PaymentUsersComponent
       // RatingSystemComponent
     ],
+
+    providers: [VenueProfileResolver],
    
   })
 export class OrganizerLayoutModule { }

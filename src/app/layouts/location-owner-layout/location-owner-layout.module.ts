@@ -7,7 +7,10 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSliderModule} from '@angular/material/slider';
-import { VenueHomeService } from '../../venue-module/venue-home/venue-home.service'
+import { VenueHomeService } from '../../venue-module/venue-home/venue-home.service';
+// import { SharedComponentsModule } from '../../shared-components/shared-components.module';
+import { VenueNotificationsComponent } from '../../venue-module/venue-notifications/venue-notifications.component';
+
 
 
 import {
@@ -23,16 +26,29 @@ import {
   MatDialogModule,
   MatCardModule,
   MatListModule,
-  MatChipsModule
+  MatChipsModule,
+  MatExpansionModule
   // MatTableModule
 } from "@angular/material";
 
-import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
-import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
+// import { VenueListComponent } from "../../venue-module/venue-home/venue-list/venue-list.component";
+// import { VenueProfileComponent } from "../../venue-profile/venue-profile.component";
 import { VenueReservationFormComponent } from "../../venue-module/venue-reservation-form/venue-reservation-form.component";
 import { VenueAddComponent } from "../../venue-module/venue-home/venue-add/venue-add.component";
 import { VenueProfileResolver } from "../../venue-profile/venue-profile.resolver"
 import { SharedComponentsModule } from 'app/shared-components/shared-components.module';
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
+import { ViewBookingInfoComponent } from "app/Modules/Artist-Module/view-booking-info/view-booking-info.component";
+import { VenueSettingsComponent } from "../../venue-module/venue-settings/venue-settings.component";
+// import { ViewUserEventsComponent } from "../../shared-components/view-user-events"
+import { VenueDashboardComponent } from "../../venue-module/venue-dashboard/venue-dashboard.component";
+// import { VenueCalendarComponent } from '../../venue-module/venue-calendar/venue-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { VenueEditComponent } from '../../venue-module/venue-home/venue-edit/venue-edit.component';
+import { VenueOwnerProfileComponent } from '../../venue-module/venue-owner-profile/venue-owner-profile.component';
+import { AllRequestsComponent } from '../../venue-module/all-requests/all-requests.component';
+import { VenueOwnerCalendarComponent } from 'app/venue-module/venue-owner-calendar/venue-owner-calendar.component';
+
 
 
 @NgModule({
@@ -58,13 +74,24 @@ import { SharedComponentsModule } from 'app/shared-components/shared-components.
     MatGridListModule,
     MatIconModule,
     MatSliderModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    FullCalendarModule,
+    MatExpansionModule
   ],
   declarations: [
-    VenueListComponent,
-    VenueProfileComponent,
+    // VenueListComponent,
+    // VenueProfileComponent,
     VenueReservationFormComponent,
-    VenueAddComponent
+    VenueAddComponent,
+    // NotificationsComponent,
+    VenueNotificationsComponent,
+    VenueSettingsComponent,
+    VenueDashboardComponent,
+    // VenueCalendarComponent,
+    VenueEditComponent,
+    VenueOwnerProfileComponent,
+    AllRequestsComponent,
+    VenueOwnerCalendarComponent
   ],
   providers: [VenueHomeService,VenueProfileResolver]
 })
