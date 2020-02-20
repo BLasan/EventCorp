@@ -48,6 +48,8 @@ export class ResetPasswordComponent implements OnInit {
     let login=document.getElementById('loginBtn')
     let email=this.form.get('username').value;
     console.log(email);
+
+    //get users
     this.db.firestore.collection('register_user').doc(email).get().then(docs=>{
       _this.isSuccess=true;
       console.log(docs.data().password);
@@ -65,22 +67,29 @@ export class ResetPasswordComponent implements OnInit {
           text: _this.getMessage(_link),
           html: '<strong>'+_this.getMessage(_link)+'</strong>',
         }
-        _this.sendMail.sendEmail(email_message).subscribe((data)=>{
-          var _returnedData:any=data;
-          console.log(_returnedData);
-          if(_returnedData.success===true){
-            _this.db.collection('passwordLinks').doc(CryptoJS.SHA256(_link).toString()).set({verify:false}).then(()=>{
-              console.log("Sent the email");
-              login.click();
-            }).catch(err=>{
-              console.log(err);
-            })
-          }
-          else{
-            _this.isSuccess=false;
-            console.log("Error sending mail");
-          }
-      })
+
+        //send emails
+        try{
+          _this.sendMail.sendEmail(email_message).subscribe((data)=>{
+            var _returnedData:any=data;
+            console.log(_returnedData);
+            if(_returnedData.success===true){
+              _this.db.collection('passwordLinks').doc(CryptoJS.SHA256(_link).toString()).set({verify:false}).then(()=>{
+                console.log("Sent the email");
+                login.click();
+              }).catch(err=>{
+                console.log(err);
+              })
+            }
+            else{
+              _this.isSuccess=false;
+              console.log("Error sending mail");
+            }
+        })
+        }catch(err){
+          console.log(err);
+          alert("Error sending!");
+        }
       }
     }).catch(err=>{
       _this.isSuccess=false;

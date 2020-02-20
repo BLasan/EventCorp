@@ -3,7 +3,7 @@
     <!-- <div class="col-md-4"></div> -->
     <div class="row" style="padding-left:20px;padding-right:20px">
       <div class="col-md-6">
-        <div class="card" style="background-color:#303337">
+        <div class="card">
           <div class="card-header card-header-danger" style="color:white">
             <h4 class="card-title">Item Details</h4>
             <p class="card-category">Enter item details</p>
@@ -13,13 +13,13 @@
               <div class="row">
                 <div class="col-6">
                   <mat-form-field>
-                    <input matInput placeholder="Item Name" id="item_name" style="color:white" formControlName="item_name">
+                    <input matInput placeholder="Item Name" id="item_name" formControlName="item_name">
                     <mat-error *ngIf="hasError('item_name', 'required')">Item name is required</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-6">
                   <mat-form-field>
-                    <input matInput type="number" id="price" style="color:white" placeholder="Price" formControlName="price">
+                    <input matInput type="number" id="price" placeholder="Price" formControlName="price">
                     <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
                   </mat-form-field>
                 </div>
@@ -27,7 +27,7 @@
               <div class="row">
                 <div class="col-6">
                   <mat-form-field>
-                    <input matInput type="number" id="quantity" style="color:white" placeholder="Quantity" formControlName="quantity">
+                    <input matInput type="number" id="quantity" placeholder="Quantity" formControlName="quantity">
                     <mat-error *ngIf="hasError('quantity', 'required')">Quantity is required</mat-error>
                   </mat-form-field>
                 </div>
@@ -40,7 +40,7 @@
                 </div>
               </div>
               <mat-form-field>
-                <textarea matInput placeholder="Description" style="color: white"   id="description" formControlName="description"></textarea>
+                <textarea matInput placeholder="Description" id="description" formControlName="description"></textarea>
                 <mat-error *ngIf="hasError('description', 'required')">Description is required</mat-error>
               </mat-form-field>
                 <input type="file" id="item_image" name="item_image" style="display:none" (change)="get_uploaded_image($event)" formControlName="item_image" accept="image/*"> 

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import {deactivate_searchBar} from '../../../../scripts/search_bar_activate';
-import * as PDF from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-payment-bill',
@@ -16,10 +14,11 @@ export class PaymentBillComponent implements OnInit {
   searchBill:string;
   filtered_data:any=[];
   isModalOpen:boolean=false;
+  bill_id:any;
   constructor(private database:AngularFirestore) { }
 
   ngOnInit() {
-    PDF.vfs = pdfFonts.pdfMake.vfs;
+   // PDF.vfs = pdfFonts.pdfMake.vfs;
     deactivate_searchBar();
     this.getBills();   //get bills
   }
@@ -38,16 +37,10 @@ export class PaymentBillComponent implements OnInit {
     });
   }
 
-
-  generatePdf(){
-    const documentDefinition = { content: 'This is an sample PDF printed with pdfMake' };
-    PDF.createPdf(documentDefinition).download();
-   }
-
-
   //load modal
   openModal(id:any){
-    console.log(id)
+    console.log(id);
+    this.bill_id=id;
     this.isModalOpen=true;
     this.filtered_data=this.bill_array.filter(x=>x._id===id);
   }
@@ -56,11 +49,6 @@ export class PaymentBillComponent implements OnInit {
   //close modal
   close(){
     this.isModalOpen=false;
-  }
-
-  //download bill
-  downloadBill(){
-    this.generatePdf();
   }
 
 }

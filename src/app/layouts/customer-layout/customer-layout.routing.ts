@@ -6,6 +6,9 @@ import { FaqComponent } from '../../Modules/Customer-Module/faq/faq.component';
 import { FeedbackComponent } from '../../Modules/Customer-Module/feedback/feedback.component';
 import { HelpComponent } from 'app/shared-components/help/help.component';
 import { LatestEventsComponent } from 'app/Modules/Customer-Module/latest-events/latest-events.component';
+import { ShowArtistComponent} from 'app/Modules/Customer-Module/show-artist/show-artist.component';
+import { ShowProvidersComponent } from 'app/Modules/Customer-Module/show-providers/show-providers.component';
+import { ShowVenueComponent } from 'app/Modules/Customer-Module/show-venue/show-venue.component';
 
 export const CustomerLayoutRoutes: Routes = [
     
@@ -16,6 +19,9 @@ export const CustomerLayoutRoutes: Routes = [
     // { path: 'faq' , component:FaqComponent},
     // { path: 'feedback' , component:FeedbackComponent},
     { path: 'help' , component:HelpComponent},
+    { path: 'show-artists' , component:ShowArtistComponent},
+    { path: 'show-providers' , component:ShowProvidersComponent},
+    { path: 'show-venue' , component:ShowVenueComponent}
     // { path:'enter-email-reset-password',component:ResetPasswordComponent},
     // { path:'password-update/:uid/email',component:ResetPasswordFirebaseComponent},
 ];

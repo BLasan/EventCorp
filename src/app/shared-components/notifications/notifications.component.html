@@ -8,31 +8,7 @@
                 <h3 class="card-title" *ngIf="isBookingView">Booking Requests</h3>
             </div>
             <div class="card-body" *ngIf="(isBookingView && booking_data.length>0) || (!isBookingView && (message_data.length>0 || chat_messages.length>0))">
-                <!-- <div class="row" *ngIf="isBookingView && user_role=='organizer'">
-                    <div class="col-md-12" *ngFor="let booking_data of booking_data">
-                        <div class="alert alert-success alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Confirmed' && booking_data.view==false">
-                            <i class="material-icons" data-notify="icon">done_outline</i>
-                                <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.receiver_email)">
-                                    <i class="material-icons">close</i>
-                                </button>
-                            <span><b> Success - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} has been accepted. Please visit this link for the payment</span>
-                        </div>  
-                        <div class="alert alert-danger alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Rejected' && booking_data.view==false">
-                            <i class="material-icons" data-notify="icon">report_problem</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.receiver_email)">
-                                <i class="material-icons">close</i>
-                            </button>
-                            <span><b> Success - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} has been rejected</span>
-                        </div>   
-                        <div class="alert alert-warning alert-with-icon" data-notify="container" *ngIf="booking_data.status=='Pending' && booking_data.view==false">
-                            <i class="material-icons" data-notify="icon">info</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(booking_data.receiver_email)">
-                                <i class="material-icons">close</i>
-                            </button>
-                            <span><b> Pending  - </b>Your request to {{booking_data.receiver_name}} on {{booking_data.time}} is not accepted yet.</span> 
-                        </div>
-                    </div>
-                </div> -->
+  
                 <div class="row" *ngIf="isBookingView && user_role!='organizer'">
                     <div class="col-md-12" *ngFor="let booking_data of booking_data">
                         <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="booking_data && booking_data.data.paid===false">
@@ -59,10 +35,10 @@
                                 <i class="material-icons">close</i>
                             </button>
                             <span>
-                                <b>Your request to {{booking_data.data.user_name}} has been {{booking_data.data.status}}.To do payments click the following button
+                                <b>Your request to {{booking_data.data.user_name}} has been {{booking_data.data.status}}. User price : {{booking_data.data.price}}.To do payments click the following button
                                     <!-- <a href="https://sandbox.payhere.lk/pay/ob5d67668">PayPal</a> -->
                                 </b>
-                                <form #form action="/user-payments/{{booking_data.data.user_name}}/{{booking_data.data.user_email}}/0/1000/{{booking_data.data.event_id}}/{{booking_data._id}}" target="_blank" method="GET">
+                                <form #form action="/user-payments/{{booking_data.data.user_name}}/{{booking_data.data.user_email}}/0/{{booking_data.data.price}}/{{booking_data.data.event_id}}/{{booking_data._id}}" target="_blank" method="GET">
                                     <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png" style="width:150px" value="Buy Now" (click)="form.submit()">
                                 </form>
                             </span>
@@ -82,12 +58,12 @@
                 </div>
                 <div class="row" *ngIf="!isBookingView">
                     <div class="col-md-12" *ngFor="let message_data of message_data">
-                        <div class="alert alert-info alert-with-icon" data-notify="container" *ngIf="message_data.length>0">
+                        <div class="alert alert-info alert-with-icon" data-notify="container">
                             <i class="material-icons" data-notify="icon">add_alert</i>
-                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_booking_notification(message_data.sender_email,'cancel')">
+                            <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="mark_view_notification(message_data.id)">
                                 <i class="material-icons">close</i>
                             </button>
-                            <span><b>You have received new message from {{message_data.sender_name}} on {{message_data.date}}.Click <a href="/my-chat-list" (click)="mark_view_booking_notification(message_data.sender_email,'req')">{{message_data.roomId}}</a> to join the chat.</b></span>
+                            <span><b>You have received new message from {{message_data.sender_name}} on {{message_data.date.seconds*1000 | date }}.<a href="#" (click)="loadMessageModal(message_data.id,$event)" data-toggle="modal" data-target="#messageModal">Click here to view the message</a></b></span>
                         </div> 
                     </div>
                 </div>
@@ -126,6 +102,18 @@
                         <p><b>Organizer Name : {{req_name}}</b></p>
                         <p><b>Date : {{req_time}}</b></p>
                         <p><b>Event Name : {{eventName}}</b></p>
+                        <form [formGroup]="form">
+                            <div class="row">
+                                <div class="col-md-4 col-4"></div>
+                                <div class="col-md col-4">
+                                    <mat-form-field>
+                                        <mat-label style="color:white">Price</mat-label>
+                                        <input matInput required type="number" placeholder="Enter the Price" id="price" style="color:white" formControlName="price" name="price">
+                                        <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </form>
                         <!-- <p><b>Contact : {{req_contact}}</b></p> -->
                         <p align="center"><a href="ratings/{{req_name}}" target="_blank"  (click)="addUserEmail(req_from,req_status)">View Organizer Details</a></p>
                     </div>
@@ -136,6 +124,27 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+
+<!-- Modal 2-->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Message</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="text-align: justify;">{{user_message}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
 </div>
 

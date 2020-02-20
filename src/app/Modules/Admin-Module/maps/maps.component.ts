@@ -8,6 +8,7 @@ lng: number;
 label?: string;
 draggable?: boolean;
 }
+
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
@@ -20,8 +21,7 @@ export class MapsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
-
+    document.getElementById('search_bar').style.display="none";
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
           
@@ -125,7 +125,7 @@ export class MapsComponent implements OnInit {
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
     var marker = new google.maps.Marker({
         position: myLatlng,
-        title: "Hello World!"
+        title: "EventCorp-Admin!"
     });
 
     // To add the marker to the map, call setMap();

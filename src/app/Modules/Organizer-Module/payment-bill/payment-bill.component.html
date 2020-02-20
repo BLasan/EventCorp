@@ -63,7 +63,7 @@
         <p style="color: white;">Time : {{filtered_data[0].data.time}}</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="downloadBill()">Download Bill</button>
+        <a target="_blank" href="view-bill/{{filtered_data[0].data.receiver_name}}/{{filtered_data[0].data.receiver_email}}/{{filtered_data[0].data.city}}/{{filtered_data[0].data.date}}/{{filtered_data[0].data.time}}/{{filtered_data[0].data.amount}}/{{bill_id}}/{{filtered_data[0].data.name}}" class="btn btn-success">View Bill</a>
       </div>
     </div>
   </div>

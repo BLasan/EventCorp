@@ -23,6 +23,16 @@ export class LatestEventsComponent implements OnInit {
   constructor(private _db:AngularFirestore) { }
 
   ngOnInit() {
+    document.getElementById('home_span').style.display="none";
+    document.getElementById('event_span').removeAttribute('style');
+    document.getElementById('contact_span').style.display="none";
+    document.getElementById('about_span').style.display="none";
+
+    document.getElementById('home_list').setAttribute('class','nav-item');
+    document.getElementById('event_list').setAttribute('class','nav-item active');
+    document.getElementById('contact_list').setAttribute('class','nav-item');
+    document.getElementById('about_list').setAttribute('class','nav-item');
+
     this.get_top_users();
     disable_event_images();
     var _this=this;
@@ -41,13 +51,14 @@ export class LatestEventsComponent implements OnInit {
               }
               else{
                 _this.isEmpty=false;
-                _this.isLoaded=true;
                 snapshots.forEach(events=>{
                   let date=events.data().date;
+                  console.log(new Date(date))
                   if(new Date()<=new Date(date))
                   _this.events_array.push(events.data());
                   else console.log("Not valid")
                 })
+                _this.isLoaded=true;
               }
             })
           }
@@ -100,17 +111,19 @@ export class LatestEventsComponent implements OnInit {
     this.artists="";
     this.suppliers="";
     this.venue_owners="";
+    this.filtered_events=[];
     this.filtered_events=this.events_array.filter(x=> x.event_id==id);
+
     for(var i=0;i<this.filtered_events[0].artists.length;i++){
-      this.artists+=this.filtered_events[0].artists[i]+" / ";
+      this.artists+=this.filtered_events[0].artists[i].name+" / ";
     }
 
     for(var i=0;i<this.filtered_events[0].suppliers.length;i++){
-      this.suppliers+=this.filtered_events[0].suppliers[i]+" / ";
+      this.suppliers+=this.filtered_events[0].suppliers[i].name+" / ";
     }
 
     for(var i=0;i<this.filtered_events[0].venue_owners.length;i++){
-      this.venue_owners+=this.filtered_events[0].venue_owners[i]+" / ";
+      this.venue_owners+=this.filtered_events[0].venue_owners[i].name+" / ";
     }    
   }
 

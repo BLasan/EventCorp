@@ -58,7 +58,7 @@ export class CustomerNavbarComponent implements OnInit {
         _this.auth.auth.signOut();
         localStorage.removeItem('user_name');
         localStorage.removeItem('role');
-        localStorage.removeItem('token');
+        localStorage.removeItem('authToken');
         localStorage.removeItem('nameId');
         localStorage.removeItem('loggedIn');
         localStorage.removeItem('searched_user_email');

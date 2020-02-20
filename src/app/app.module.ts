@@ -73,15 +73,15 @@ import { CookieService } from "angular2-cookie/services/cookies.service";
 // };
 
 const config={
-    apiKey: "AIzaSyCTIdcY84n5a6HJgMAPInQxWKialEj1bNk",
-    authDomain: "eventcorpdeployed.firebaseapp.com",
-    databaseURL: "https://eventcorpdeployed.firebaseio.com",
-    projectId: "eventcorpdeployed",
-    storageBucket: "eventcorpdeployed.appspot.com",
-    messagingSenderId: "821531422676",
-    appId: "1:821531422676:web:5eef3779cb652386eb3041",
-    measurementId: "G-XQCHRW0GY4"
-  }
+  apiKey: "AIzaSyCTIdcY84n5a6HJgMAPInQxWKialEj1bNk",
+  authDomain: "eventcorpdeployed.firebaseapp.com",
+  databaseURL: "https://eventcorpdeployed.firebaseio.com",
+  projectId: "eventcorpdeployed",
+  storageBucket: "eventcorpdeployed.appspot.com",
+  messagingSenderId: "821531422676",
+  appId: "1:821531422676:web:5eef3779cb652386eb3041",
+  measurementId: "G-XQCHRW0GY4"
+}
 
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
@@ -106,9 +106,15 @@ import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
-import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
+import { AgmCoreModule } from '@agm/core';
+//import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { PasswordResetModule } from './Modules/password_reset.module';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
+import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
+import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 // import { MatNativeDateModule } from '@angular/material';
 // import { VenueAddComponent } from './venue-module/venue-home/venue-add/venue-add.component';
@@ -129,7 +135,6 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     CustomerNavbarModule,
     LoginSignupModule,
     PasswordResetModule,
-    // SharedComponentsModule,
     MatButtonModule,
     MatRippleModule,
     MatFormFieldModule,
@@ -158,7 +163,10 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     FullCalendarModule,
     MatDialogModule,
     MatRadioModule,
-    // ViewUserEventsComponent
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAJiTvdCB4__gqcZMTkmLaSZWic94KFCvI'
+    })
+    //ViewUserEventsComponent,
     
   ],
   declarations: [
@@ -180,7 +188,9 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
     PaypalPaymentComponent,
     PaymentUsersComponent,
     ViewLocationComponent,
-    ViewUserEventsComponent
+    ViewUserEventsComponent,
+    ViewBillComponent   
+    //ViewUserEventsComponent,
     // FilterPipe,
    // MyChatsComponent
     // CustomerLayoutComponent,
@@ -189,7 +199,7 @@ import { AuthGuardResetPasswordService } from './services/Authentication/authGua
 
   ],
 
-  providers: [AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService,CookieService],
+  providers: [AuthGuardViewUserEventsService,AuthGuardViewLocationService,AuthGuardAdminService,AuthGuardArtistService,AuthGuardOrganizerService,AuthGuardSupplierService,AuthGuardVenueOwnerService,ChatService,AuthGuardCustomerService,VenueHomeService,VenueProfileResolver,AuthGuardModeratorService,AuthGuardPaymentService,AuthGuardLocationService,CookieService],
   bootstrap: [AppComponent],
   entryComponents: [ReportDialogComponent]
 })

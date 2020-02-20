@@ -2,7 +2,7 @@
 <div class="main-content" style="background-color:#212121;">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12" *ngIf="user_profile.length>0 && isLoading===false">
+      <div class="col-md-12" *ngIf="isLoading===false && filtered_users.length>0 ">
         <div class="card"  style="background-color:#878d8d">
           <div class="card-header card-header-danger">
             <div class="row">
@@ -40,7 +40,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user_profile of user_profile;let i = index">
+                <tr *ngFor="let user_profile of filtered_users;let i = index">
                 <th scope="row">{{i+1}}</th>
                 <td>{{user_profile.user_name}}</td>
                 <td>{{user_profile.city}}</td>
@@ -49,17 +49,55 @@
                 <td *ngIf="user_profile.profile_status=='Deleted'"><b style="color:red">{{user_profile.profile_status}}</b></td>
                 <td *ngIf="user_profile.profile_status=='Active'"><button mat-raised-button color="warn" (click)="remove_user(user_profile.email)">Remove</button></td>
                 <td *ngIf="user_profile.profile_status=='Deleted'"><button mat-raised-button style="background-color:green;" (click)="recover_user(user_profile.email)">Activate</button></td>
+                <td *ngIf="user_profile.profile_status=='Active'"><button mat-raised-button color="primary" type="button" data-toggle="modal" data-target="#exampleModal" (click)="openModal(user_profile.email)">Send Message</button></td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <div class=" col-md-12 alert alert-danger alert-with-icon" *ngIf="user_profile.length==0 && isLoading===false">
+      <div class=" col-md-12 alert alert-danger alert-with-icon" *ngIf="isLoading===false && filtered_users.length===0">
         <i class="material-icons" data-notify="icon">error_outline</i>
           <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">  <i class="material-icons">close</i></button>
           <span data-notify="message">
             <b><h3 align="center">No User Found in EventCorp</h3></b></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" *ngIf="isModalOpen">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_btn">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <mat-form-field>
+            <input matInput placeholder="User Email" type="email" formControlName="user_email" name="user_email" id="user_email" required>
+            <mat-error *ngIf="hasError('user_email', 'required')">Email is required</mat-error>
+          </mat-form-field>  
+          <mat-form-field>  
+            <textarea matInput type="text" placeholder="Message" id="message" formControlName="message"></textarea>
+            <!-- <span class="form-control-feedback">
+              <i class="material-icons" *ngIf="form.controls.playlist_description.valid && (form.controls.playlist_description.dirty || form.controls.playlist_description.touched)">done</i>
+            </span>
+            <span class="form-control-feedback">
+              <i class="material-icons" *ngIf="form.controls.playlist_description.invalid && (form.controls.playlist_description.dirty || form.controls.playlist_description.touched)">clear</i>
+            </span> -->
+            <mat-error *ngIf="hasError('message', 'required')">Message is required</mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="sendMessage(email)">Send Message</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger">Close</button>
       </div>
     </div>
   </div>

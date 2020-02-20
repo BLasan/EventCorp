@@ -10,7 +10,7 @@ export class RateUserService {
     constructor(private http: HttpClient) { }
 
     rate_user(rating:any,email:any){
-        alert(email)
+        // alert(email)
         return this.http.post(`${this._url}/add_rating`,{rating:rating,email:email});
     }
 

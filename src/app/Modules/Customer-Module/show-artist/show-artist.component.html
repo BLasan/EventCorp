@@ -1,0 +1,86 @@
+<div class="main-content">
+  <div class="container">
+    <div class="card">
+      <div class="card-header card-header-warning" >
+        <div class="row">
+          <div class="col-md-6 col-sm-6">
+            <h4 class="card-title">ARTISTS AVAILABLE</h4>
+          </div> 
+          <div class="col-md-6 col-sm-6">
+            <div class="row">
+              <div class="col-md-6 col-sm-6">
+                <!-- <p style="padding-top:20px;color:white">Search Products :</p> -->
+              </div>
+              <div class="col-md-6 col-sm-6">
+                <div class="form-group" style="padding-top:5px">
+                  <input type="text" placeholder="Search Here" class="form-control" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"/>
+                </div>    
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div class="card-content table-responsive table-full-width" [ngClass]="{'list-group':artist_array.length>15}">
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let artist of artist_array | searchArtist:searchText">
+              <td><a style="text-decoration: none;" href="{{artist.image_url}}" target="_blank"><img src="{{artist.image_url}}" style="height:50px;width:50px"></a></td>
+              <td style="font-size: medium;"><b>{{artist.user_name}}</b></td>
+              <td><i class="fa fa-phone"></i>{{artist.contact}}</td>
+              <td><i class="fa fa-envelope"></i>{{artist.email}}</td>
+              <td><i class="fa fa-map-marker"></i>{{artist.address1}},{{artist.address2}},{{artist.city}}</td>
+              <td> <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#myModal" (click)="getPlaylist(artist.email)">Songs</button>
+              
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="myModalLabel">Playlist</h5>
+                    </div>
+                    <div class="modal-body" *ngIf="isLoaded">
+                      <div *ngIf="playlist.length>0 && !isProcessing">
+                        <div class="list" *ngFor="let song of playlist">
+                          <p>{{song.name}}</p>  
+                        </div>
+                      </div>
+                    
+                    <div class="list" *ngIf="playlist.length==0 && !isProcessing">
+                      <p style="color:red"><b>No Playlist to display</b></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div></td>
+            </tr>
+
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="list" *ngFor="let song of playlist">
+              <p>{{song.name}}</p>
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div> -->
+
+  </div>
+</div>
+

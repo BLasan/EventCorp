@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {disable_playlist_uploader,disable_remove_files} from '../../../../scripts/disable_a_href';
+import {disable_remove_files} from '../../../../scripts/disable_a_href';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-add-playlist',
   templateUrl: './add-playlist.component.html',
@@ -17,6 +16,7 @@ export class AddPlaylistComponent implements OnInit {
   isUploading:boolean=false;
   audio_url:Array<{url:string,name:string,size:any}>=[];
   refUrlArray:any=[];
+  file_count:any;
   constructor(private database:AngularFirestore,private storage:AngularFireStorage) { }
 
   ngOnInit() {
@@ -25,7 +25,17 @@ export class AddPlaylistComponent implements OnInit {
       playlist_description:new FormControl('',[Validators.required])
     });
 
+    this.get_count();
     //disable_playlist_uploader();
+  }
+
+  //get file count
+  get_count(){
+    this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').doc('playlist').get().then(doc=>{
+      this.file_count=doc.data().length;
+    }).catch(err=>{
+      console.log(err);
+    })
   }
 
   upload_files(event){
@@ -76,27 +86,31 @@ export class AddPlaylistComponent implements OnInit {
   
   //remove files from the storage
   try{
-    for(var i=0;i<50;i++){
+    for(var i=0;i<this.file_count;i++){
       var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
-      this.storage.ref(audio_id).delete();
+      this.storage.ref(audio_id).delete().forEach(()=>{
+
+      }).catch(err=>{
+        console.log(err)
+      })
     }
   }catch(ex){
     console.log(ex);
   }
-
+  
   //upload files 
   for(var i=0;i<this.audio_files.length;i++){
     var audio_id="artist-playlist/"+localStorage.getItem('user_name')+"/"+"audio"+i;
     var storageRef=this.storage.ref(audio_id);
     var storageRef1=this.storage.ref(audio_id);
     storageRef.put(this.audio_files.item(i)).then(snapshot=>{
-      alert("Storage Up"+i);
+      //alert("Storage Up"+i);
       storageRef1.getDownloadURL().subscribe(url=>{
-        alert("storageURL"+i);  
+        //alert("storageURL"+i);  
         var obj={url:url,name:snapshot.metadata.name,size:snapshot.metadata.size};
         _this.audio_url.push(obj);
         console.log(url);
-        let data={playList_name:name,description:description,playlist:_this.audio_url,date:date};
+        let data={playList_name:name,description:description,playlist:_this.audio_url,date:date,length:_this.audio_files.length};
   
         //update to database
         _this.database.collection('register_user').doc(localStorage.getItem('user_name')).collection('my_playlist').doc('playlist').set(data).then(()=>{

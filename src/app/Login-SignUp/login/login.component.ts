@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   validation:any;
   checked:any;
   form: any;
+  isRegistered:boolean=false;
   isTrue:boolean=true;
   constructor(private login_service:LoginService,private _db:AngularFirestore,private auth:AngularFireAuth,private cookie:CookieService) { }
 
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
       user_name:new FormControl(user_name_val,[Validators.required]),
       password:new FormControl('',[Validators.required])
     });  
+
   }
 
 
@@ -48,6 +50,9 @@ export class LoginComponent implements OnInit {
   login_validate(){
     this.isLoading=true;
     var _this=this;
+    this.isInValid=false;
+    this.isTrue=false;
+    this.isRegistered=false;
     let email=(<HTMLInputElement>document.getElementById('user_name')).value;
     let password=(<HTMLInputElement>document.getElementById('password')).value;
     let remember_token=(<HTMLInputElement>document.getElementById('remember_user')).checked;
@@ -56,11 +61,12 @@ export class LoginComponent implements OnInit {
     var hash=CryptoJS.SHA256(password).toString();
 
     //set cookies
-    var email_hash=CryptoJS.SHA256(email).toString();
+    //var email_hash=CryptoJS.SHA256(email).toString();
     if(this.checked) this.cookie.put("user_name",email);
     else this.cookie.remove('user_name');
 
     console.log(email);
+
     //get credentials validation
     // this._db.collection('register_user').doc(email).update({active_status:'login'})
     // this._db.firestore.collection('register_user').doc(email).get().then((doc)=>{
@@ -85,19 +91,22 @@ export class LoginComponent implements OnInit {
         if(docs.empty){
           _this.isTrue=false;
           _this.isLoading=false;
+          _this.isRegistered=false;
+          password_ele.value="";
         }
         else{
+          _this.isRegistered=true;
           docs.forEach(doc=>{
             if(doc.data().id===email){
-              _this.isLoading=false;
-
-              _this._db.collection('register_user').doc(email).update({active_status:"login"}).then(()=>{
+              _this._db.collection('register_user').doc(doc.id).update({active_status:"login"}).then(()=>{
                 _this.isTrue=true;
+                _this.isLoading=false;
                 localStorage.setItem('loggedIn','true');
                 localStorage.setItem('nameId',doc.data().user_name);
-                localStorage.setItem('user_name',email);
+                localStorage.setItem('user_name',doc.id);
                 localStorage.setItem('role',doc.data().role);
                 localStorage.setItem('authToken',email);
+                redirect_to(doc.data().role);
               }).catch(err=>{
                 _this.isTrue=false;
                 console.log(err);
@@ -112,17 +121,24 @@ export class LoginComponent implements OnInit {
         }
       })
     }
+
+    //ordinary user ans admin
     else{
+
     //get user credentials
     this._db.firestore.collection("register_user").doc(email)
     .get().then(function(doc) {
       if(!doc.exists){
         _this.isTrue=false;
         _this.isLoading=false;
+        _this.isRegistered=false;
+        password_ele.value="";
       }
       else{
+        _this.isRegistered=true;
         if(doc.data().profile_status==="Active" && doc.data().password===hash && doc.data().verification){
           _this.isTrue=true;
+        
           if(_this.checked) _this.login_service.activateRememberUser(email);
           else _this.login_service.destroyRememberUser();
 
@@ -130,11 +146,13 @@ export class LoginComponent implements OnInit {
           _this.auth.auth.signInWithEmailAndPassword(email,hash).then((user)=>{
             _this.isLoading=false;
             _this._db.firestore.collection('register_user').doc(email).update({active_status:'login',uId:user.user.uid,remember_me:_this.checked}).then(()=>{
+              
               //store data
               localStorage.setItem('loggedIn','true');
               localStorage.setItem('nameId',doc.data().user_name);
               localStorage.setItem('user_name',email);
               localStorage.setItem('role',doc.data().role);
+
               //get user token
               user.user.getIdToken().then(user=>{
                 localStorage.setItem('authToken',user.toString());

@@ -1,6 +1,6 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="card">
+    <div class="card" *ngIf="isLoaded && events_array.length>0">
       <div class="card-header card-header-warning" >
         <div class="row">
           <div class="col-md-6 col-sm-6">
@@ -36,12 +36,14 @@
               <td>{{events.sender_name}}</td>
               <td>{{events.date}}</td>
               <td>{{events.time}}</td>
-              <td>{{events.venue[0]}}</td>
+              <td *ngIf="isLoaded && events.venue[0]">{{events.venue[0].name}}</td>
+              <td *ngIf="isLoaded && !events.venue[0]">.....</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    <h1 align="center" class="blink" style="color: red;" *ngIf="isLoaded && events_array.length==0"><b>No Events</b></h1>
   </div>
 </div>
 

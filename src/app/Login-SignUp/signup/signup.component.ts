@@ -2,11 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {states} from '../../../scripts/state_data.js';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {confirmPassword} from '../../services/confirm-password.service';
-import { stringify } from '@angular/core/src/util';
-import {validContact} from '../../services/contact_validation.service'
 import { MatSelect } from '@angular/material';
-import { state } from '@angular/animations';
-import { SignupService } from 'app/services/signup.service.js';
 import CryptoJS from 'crypto-js';
 import {redirect_to_login} from '../../../scripts/signup_validation';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -30,7 +26,7 @@ export class SignupComponent implements OnInit {
   user_name:string;
   isError:boolean=false;
   user_emails:any=[];
-  constructor(private _signup:SignupService,private db:AngularFirestore,private firebaseAuth:AngularFireAuth,private sendMail:SendMailService) { }
+  constructor(private db:AngularFirestore,private firebaseAuth:AngularFireAuth,private sendMail:SendMailService) { }
 
   ngOnInit() {
     this.states=states;
@@ -50,6 +46,7 @@ export class SignupComponent implements OnInit {
   
   }
 
+  //get the selected values
   ngAfterViewInit() {
 
   this.roleSelect.valueChange.subscribe(value => {
@@ -92,6 +89,7 @@ export class SignupComponent implements OnInit {
   
   //signup
   signUp(){
+    this.isError=false;
     let user_email= (<HTMLInputElement>document.getElementById('user_email')).value;
     console.log(user_email+" "+this.user_emails.filter(x=>console.log(x)));
     if(this.user_emails.filter(x=>x===user_email)){
@@ -114,17 +112,6 @@ export class SignupComponent implements OnInit {
       this.success=false;
       //alert("User Already Exists");
     }
-
-    // this._signup.signup(user_data).subscribe(data=>{
-    //   this.success=data;
-      
-    //   if(this.success.success==true){
-    //     redirect_to_login();
-    //   }
-
-    //   else this.success=false;
-
-    // });
   }
 
   submit(user_data:any){
@@ -132,6 +119,7 @@ export class SignupComponent implements OnInit {
     var _this=this;
     this.firebaseAuth.auth.createUserWithEmailAndPassword(user_data.email,user_data.password).then(value=>{
         console.log("Successfull "+value.user.providerId);
+
         //generating link
         var hash_link=CryptoJS.SHA256(value.user.uid).toString()+"?email"+CryptoJS.SHA256(user_data.email).toString()+"&&password"+CryptoJS.SHA256(user_data.password).toString();
         let _link="http://localhost:4200/email-verify/"+hash_link;
@@ -173,7 +161,7 @@ export class SignupComponent implements OnInit {
             // value.user.sendEmailVerification().then(success=>{
             // console.log(success);
           _this.db.collection('register_user').doc(user_data.email).update({verification_link:hash_link,uId:CryptoJS.SHA256(value.user.uid).toString()}).then(()=>{
-            const email_message_to_reporter={
+            const email_message={
               to: user_data.email,
               from:'eventCorp@gmail.com',
               subject: "Verify Your Email",
@@ -183,7 +171,7 @@ export class SignupComponent implements OnInit {
 
           //send mail to reporter
           try{
-              _this.sendMail.sendEmail(email_message_to_reporter).subscribe((data)=>{
+              _this.sendMail.sendEmail(email_message).subscribe((data)=>{
                 var _returnedData:any=data;
                 if(_returnedData.success===true){
                   console.log("Sent to the reporter");
@@ -205,11 +193,7 @@ export class SignupComponent implements OnInit {
             _this.isError=true;
             _this.success=true;
           })
-            // }).catch(err=>{
-            //     console.log(err);
-            //     _this.isError=true;
-            //     _this.success=true;
-            // })
+  
         }).catch(err=>{
             console.log(err);
             _this.isError=true;

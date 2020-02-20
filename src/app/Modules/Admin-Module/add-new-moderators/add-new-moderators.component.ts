@@ -4,7 +4,6 @@ import CryptoJS from 'crypto-js';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { SendMailService } from 'app/services/sendEmail.service';
-import {redirect_to_login} from '../../../../scripts/signup_validation';
 @Component({
   selector: 'app-add-new-moderators',
   templateUrl: './add-new-moderators.component.html',
@@ -71,6 +70,7 @@ export class AddNewModeratorsComponent implements OnInit {
       console.log(err);
     })
   }
+  
   //create moderator
   createModerator(){
     var _this=this;
@@ -236,7 +236,7 @@ export class AddNewModeratorsComponent implements OnInit {
 
 //generate message
 getMessage(id){
-  let message="<html><head><title></title></head><body>"+"Your account has been created by"+localStorage.getItem("nameId")+"To Login to the system please use the following credentials"+"<br><hr>"+"<b>ID :</b>"+id+"<br>"+"Password :"+this.form.get('password').value+"<br><br>"+"<b> Best Regards</b> <br> EventCorp Team";
+  let message="<html><head><title></title></head><body>"+"Your account has been created by "+localStorage.getItem("nameId")+".To Login to the system please use the following credentials"+"<br><hr>"+"<b>ID :</b>"+id+"<br>"+"Password :"+this.form.get('password').value+"<br><br>"+"<b> Best Regards</b> <br> EventCorp Team";
   return message;
 }
 

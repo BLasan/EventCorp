@@ -34,9 +34,11 @@ import { MyChatsComponent } from './my-chats/my-chats.component';
 import { ViewAllProductsComponent } from 'app/Modules/Supplier-Module/view-all-products/view-all-products.component';
 import { SearchItemsPipe } from 'app/Modules/Supplier-Module/searchItems.pipe';
 import { ViewAllEventsComponent } from 'app/Modules/Organizer-Module/view-all-events/view-all-events.component';
-import { ViewUserEventsComponent } from './view-user-events/view-user-events.component';
+import { ViewUserEventsComponent } from 'app/shared-components/view-user-events/view-user-events.component';
 import { BookedEventsComponent } from './booked-events/booked-events.component';
 import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
+import { UserLocationComponent } from './user-location/user-location.component';
+//import { SearchArtistPipe } from 'app/Modules/Customer-Module/searchArtist.pipe';
 
 
 @NgModule({
@@ -51,7 +53,10 @@ import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
     SearchItemsPipe,
     ViewAllEventsComponent,
     BookedEventsComponent,
-    SearchBookedEventsPipe
+    SearchBookedEventsPipe,
+    UserLocationComponent,
+    //SearchArtistPipe,
+    //ViewUserEventsComponent
   ],
   imports: [
     CommonModule,
@@ -87,6 +92,8 @@ import { SearchBookedEventsPipe } from './searchBookedEvents.pipe';
     ViewAllProductsComponent,
     SearchItemsPipe,
     ViewAllEventsComponent,
+    BookedEventsComponent,
+    UserLocationComponent,
   ]
 })
 export class SharedComponentsModule { }

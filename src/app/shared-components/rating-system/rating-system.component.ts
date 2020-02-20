@@ -67,7 +67,7 @@ export class RatingSystemComponent implements OnInit {
   image_url:string="assets/img/faces/pro_img.png";
   prevRate:any=0;
   comments_array:Array<{comment:string,date:any,user_name:string,id:string}>=[];
-  constructor(private rating:RateUserService,private booking:BookingService,private _snackBar:MatSnackBar,private _comment:CommentsService,private route:ActivatedRoute,private database:AngularFirestore) { }
+  constructor(private _snackBar:MatSnackBar,private route:ActivatedRoute,private database:AngularFirestore) { }
 
   ngOnInit() {
     disable_report_comments()
@@ -76,8 +76,7 @@ export class RatingSystemComponent implements OnInit {
     this.viewer=localStorage.getItem('user_name');
     this.organizer_name=localStorage.getItem('nameId');
     this.user_role=localStorage.getItem('role');
-  //  alert(this.user_role);
-
+ 
     if(localStorage.getItem('status'))
     this.requestStatus=localStorage.getItem('status');
     else
@@ -116,7 +115,6 @@ export class RatingSystemComponent implements OnInit {
         var user_role=doc.data().role;
         _this.user_count=_this.user_count+1;
         _this.currentRate=Math.ceil((_this.currentRate+_this.prevRate)/_this.user_count);
-       // alert(_this.searched_user_email)
          _this.database.collection('ratings').doc(_this.searched_user_email).set({rating:_this.currentRate,user_count:_this.user_count,role:user_role,image_url:doc.data().image_url,name:doc.data().user_name,email:_this.searched_user_email}).then(doc=>{
          _this._snackBar.open("Successfully Rated","Done", {
             duration: 2000,
@@ -143,7 +141,7 @@ export class RatingSystemComponent implements OnInit {
     // this.rating.rate_user(this.currentRate,this.searched_user_email).subscribe(data=>{
     //   this.success=data;
     //   if(this.success.success==true){
-    //     // alert(this.currentRate)
+    //    
     //     this._snackBar.open("Successfully Rated","Done", {
     //       duration: 2000,
     //     });
@@ -165,34 +163,34 @@ export class RatingSystemComponent implements OnInit {
   }
 
   load(){
-    // alert("Hello")
+    
     add_comment_script();
   }
 
 
-  //load calendar
-  openCalendar(event:any){
-    this.getData().subscribe(data=>{
-      if(data.length>1) calendar(data);
-      else calendar({});
-    })
-  }
+  // //load calendar
+  // openCalendar(event:any){
+  //   this.getData().subscribe(data=>{
+  //     if(data.length>1) calendar(data);
+  //     else calendar({});
+  //   })
+  // }
 
 
-    //load calendar data
-    getData():Observable<any[]>{  
+  //   //load calendar data
+  //   getData():Observable<any[]>{  
 
-      return this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').valueChanges().pipe(
-        tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
-        map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
-          let data:any=event;
-          if(data.paid===true){
-            var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
-            return obj;
-          }
-        }))
-      );
-    }
+  //     return this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').valueChanges().pipe(
+  //       tap(events=> console.log(events)), //this is added to observe the data which are retrieving from the database and passed to the 'events' array
+  //       map(events => events.map(event => { //the data retrived from the database are retrieved as timestamp. So here it's getting map to a date format 
+  //         let data:any=event;
+  //         if(data.paid===true){
+  //           var obj={title:data.event_name,start:new Date(data.date),constraint:data.sender_name};
+  //           return obj;
+  //         }
+  //       }))
+  //     );
+  //   }
 
   postComment(){
    // let user_id=this.search_token;
@@ -338,7 +336,7 @@ export class RatingSystemComponent implements OnInit {
           _this.isLoaded=true;
         }
         else{
-         // alert("Empty Data");
+       
         } 
     }).catch(function(error) {
     console.log("Error getting document:", error);
@@ -352,12 +350,10 @@ export class RatingSystemComponent implements OnInit {
      console.log(this.searched_user_email)
      var docRef = this.database.firestore.collection('register_user').doc(this.searched_user_email);
      docRef.get().then(function(doc) {
-      //  alert("UseData:"+doc.data().role)
         if(doc.data()){
           // _this.search_user_data.push(doc.data());
           _this.search_user_name=doc.data().user_name;
           _this.search_user_role=doc.data().role;
-         // alert(_this.search_user_role)
           if(_this.search_user_role==='artist') _this.load_artist_playlist();
           else if(_this.search_user_role!=='artist') _this.load_user_events();   
 
@@ -509,8 +505,7 @@ export class RatingSystemComponent implements OnInit {
     let object={date:date,user_email:user_email,status:status,user_name:user_name,view:false};
     this.database.collection('register_user').doc(this.searched_user_email).update({status:'Rejected'});
     this.database.collection('register_user').doc(this.searched_user_email).collection('bookings').doc(localStorage.getItem('user_name')).set(object).then(()=>{
-      // localStorage.removeItem('searched_user_email');
-      // localStorage.removeItem('isBookingReq');
+  
     }).catch(err=>{
       console.log(err)
     })

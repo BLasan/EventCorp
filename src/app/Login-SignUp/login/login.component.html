@@ -123,57 +123,55 @@
 </div> -->
     <!--  <a href="dashboard" id="redirect_to" style="display: none"></a>  -->
 
-    <div class="main-content container-fluid">
-        <div class="container">
-            <div class="d-flex justify-content-center h-100">
-                  <div class="user_card">
-                      <div class="card-header">
-                          <h3>Log In</h3>
-                    </div>
-                    <div class="card-body">
-                          <form #form1 [formGroup]="form">
-                              <h6 *ngIf="!isTrue"><div class="alert alert-danger" role="alert" style="text-align: center">Credentials Not Matched!</div></h6>
-                              <!-- <h6 *ngIf="session_timeout"><div class="alert alert-warning" role="alert" style="text-align: center">Session Expired!</div></h6> -->
-                              <div class="input-group form-group">
-                                  <div class="input-group-prepend">
-                                      <span class="input-group-text"><img src="https://img.icons8.com/material/24/000000/gender-neutral-user--v1.png"></span>
-                                  </div>
-                                  <input type="text" name="user_name" id="user_name" class="form-control input_user" placeholder="username" formControlName="user_name">
-                              </div>
-                              <div class="input-group form-group">
-                                  <div class="input-group-prepend">
-                                      <span class="input-group-text"><img src="https://img.icons8.com/material/24/000000/key.png"></span>
-                                  </div>
-                                  <input type="password" name="password" id="password" class="form-control input_pass"  placeholder="password" formControlName="password" (keyup.enter)="login_validate()">
-                              </div>
-                              <div class="row align-item-center form-check" style="padding-bottom: 10px;">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" value="" id="remember_user">
-                                        Remember Me
-                                    <span class="form-check-sign" >
-                                        <span class="check" ></span>
-                                    </span>
-                                </label>
-                              </div>
-                              <div class="d-flex justify-content-center login_container">
-                                <button type="button" *ngIf="!isLoading" name="button" class="btn login_btn" (click)="login_validate()">Login</button>
-                                <button type="button" *ngIf="isLoading" name="button"  class="btn login_btn" disabled>Loading...</button>
+<div class="main-content container-fluid">
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="user_card">
+                <div class="card-header">
+                    <h3>Log In</h3>
+                </div>
+                <div class="card-body">
+                    <form #form1 [formGroup]="form">
+                        <h6 *ngIf="!isLoading && !isTrue && isRegistered"><div class="alert alert-danger" role="alert" style="text-align: center">Credentials Not Matched!</div></h6>
+                        <h6 *ngIf="!isLoading && !isTrue && !isRegistered"><div class="alert alert-danger" role="alert" style="text-align: center">User Not Exists.Please Register!</div></h6>
+                        <!-- <h6 *ngIf="session_timeout"><div class="alert alert-warning" role="alert" style="text-align: center">Session Expired!</div></h6> -->
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="https://img.icons8.com/material/24/000000/gender-neutral-user--v1.png"></span>
                             </div>
-                              <div class="form-group">
-                                <a href="enter-email-reset-password" style="margin-left:100px;margin-top:15px;">Forget Password?</a>
-                              </div>
-                              <div class="card-footer">
-                                <div class="d-flex justify-content-center links">
-                                  Don't have an account?<a href="signup">Sign Up</a>
-                              </div>
-                              </div>
-                          </form>
-                      </div>
-                      
-                      
-                      
-                    </div>
-                  </div>
+                            <input type="text" name="user_name" id="user_name" class="form-control input_user" placeholder="username" formControlName="user_name">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><img src="https://img.icons8.com/material/24/000000/key.png"></span>
+                            </div>
+                            <input type="password" name="password" id="password" class="form-control input_pass"  placeholder="password" formControlName="password" (keyup.enter)="login_validate()">
+                        </div>
+                        <div class="row align-item-center form-check" style="padding-bottom: 10px;">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" value="" id="remember_user">
+                                    Remember Me
+                                <span class="form-check-sign" >
+                                    <span class="check" ></span>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="d-flex justify-content-center login_container">
+                            <button type="button" *ngIf="!isLoading" name="button" class="btn login_btn" (click)="login_validate()">Login</button>
+                            <button type="button" *ngIf="isLoading" name="button"  class="btn login_btn" disabled>Loading...</button>
+                        </div>
+                        <div class="form-group">
+                            <a href="enter-email-reset-password" style="margin-left:100px;margin-top:15px;">Forget Password?</a>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-center links">
+                                Don't have an account?<a href="signup">Sign Up</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>    
             </div>
-        </div> 
+        </div>
+    </div>
+</div> 
     

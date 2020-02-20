@@ -38,7 +38,10 @@
               <td><a style="text-decoration: none;" href="{{items.image_url}}" target="_blank"><img src="{{items.image_url}}" style="height:50px;width:50px"></a></td>
               <td>{{items.code}}</td>
               <td>{{items.item_name}}</td>
-              <td>{{items.item_type}}</td>
+              <td *ngIf="items.item_type==='CH'">Chair</td>
+              <td *ngIf="items.item_type==='TB'">Table</td>
+              <td *ngIf="items.item_type==='LT'">Lights</td>
+              <td *ngIf="items.item_type==='MC'">Musical Items</td>
               <td>{{items.price}}</td>
               <td>{{items.quantity}}</td>
               <td class="text-danger"><b><a style="text-decoration: none;color:red" href="#" (click)="remove(items.code,$event)">REMOVE</a></b></td>

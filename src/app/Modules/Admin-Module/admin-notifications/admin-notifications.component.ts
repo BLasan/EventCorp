@@ -37,15 +37,6 @@ export class AdminNotificationsComponent implements OnInit {
 
     this.get_realtime_notifications();
     
-    // this._realtime_data.get_realtime().subscribe(data=>{
-    //   console.log(data);
-    //   this.data=data;
-    //   console.log(this.data.length);
-    // });
-
-
-    // this.data=this._realtime_data.realtime_update();
-    // console.log(this.data);
   }
 
 
@@ -62,21 +53,6 @@ export class AdminNotificationsComponent implements OnInit {
         duration: 2000,
       });
     })
-    // this._realtime_data.update_view(user_id).subscribe(data=>{
-    //   this.update_success=data;
-    //   if(this.update_success.success){
-    //     // this._realtime_data.get_realtime().subscribe(data=>{
-    //     //   console.log(data);
-    //     //   this.data=data;
-    //     //   console.log(this.data.length);
-    //     // });
-    //   }
-    //   else{
-    //     this._snackBar.open("Deletion Unsuccessfull","Try again!", {
-    //       duration: 2000,
-    //     });
-    //   }
-    // });
   }
 
   //get realtime notifications

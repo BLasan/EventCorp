@@ -29,6 +29,13 @@ export class AuthGuardCustomerService implements CanActivate {
     return true;
     else if(path==='/upcomming-events')
     return true;
+    else if(path==='/show-artists') 
+    return true;
+    else if(path==='/show-providers')
+    return true;
+    else if(path==='/show-venue'){
+      return true;
+    }
     else {
       this.router.navigate(['/page-not-found']);
       return false;

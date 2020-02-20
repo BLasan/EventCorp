@@ -37,8 +37,13 @@ import { PaymentUsersComponent } from './Modules/Organizer-Module/payment-users/
 import { AuthGuardPaymentService } from './services/Authentication/authGuard_payment.service';
 import { ViewLocationComponent } from './shared-components/view-location/view-location.component';
 import { AuthGuardLocationService } from './services/Authentication/authGuardLocation.service';
-import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+//import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardResetPasswordService } from './services/Authentication/authGuard_reset_password.service';
+import { ShowProvidersComponent } from './Modules/Customer-Module/show-providers/show-providers.component';
+import { AuthGuardViewLocationService } from './services/Authentication/authGuard_view_location.service';
+import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
+import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
+import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
 
 //var role=getRole();
 // if(role=='artist'){
@@ -50,10 +55,14 @@ const routes: Routes =[
     redirectTo: 'home',
     pathMatch: 'full',
   },
-
   {
     path:'email-verify/:link',
     component:EmailVerifyComponent
+  },
+  {
+    path:'view-bill/:name/:email/:city/:date/:time/:amount/:id/:user_name',
+    component:ViewBillComponent,
+    canActivate:[AuthGuardViewUserEventsService]
   },
   {
     path:'enter-email-reset-password',
@@ -63,6 +72,16 @@ const routes: Routes =[
     path:'reset-password/:link/:uid/:email',
     component:ResetPasswordFirebaseComponent,
     canActivate:[AuthGuardResetPasswordService],
+  },
+  {
+    path:'view-location/:uid',
+    component:ViewLocationComponent,
+    canActivate:[AuthGuardViewLocationService],
+  },
+  {
+    path:'view-user-events/:uid',
+    component:ViewUserEventsComponent,
+    canActivate:[AuthGuardViewUserEventsService],
   },
   // {
   //   path:'reset-password',
@@ -185,9 +204,9 @@ const routes: Routes =[
     component:ViewLocationComponent,
     canActivate:[AuthGuardLocationService],
   },
-  { path:'view-events/:uid' , 
-    component:ViewUserEventsComponent
-  },
+  // { path:'view-events/:uid' , 
+  //   component:ViewUserEventsComponent
+  // },
 
 
   // {
@@ -255,19 +274,10 @@ const routes: Routes =[
   //     loadChildren: './layouts/location-owner-layout/location-owner-layout.module#LocationOwnerLayoutModule'
   // }]},
 
-  
-  {
-    path:'page-not-found',
-    component:ErrorPageComponent
-  },
-  {
-    path:'chat-app',
-    component:OnlineChatComponent
-  },
-  {
-    path:'**',
-    component:ErrorPageComponent
-  }
+  //   {
+  //   path:'chat-app',
+  //   component:OnlineChatComponent
+  // },
 
 ];
 
