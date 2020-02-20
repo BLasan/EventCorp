@@ -57,6 +57,8 @@ export class PaymentUsersComponent implements OnInit {
     let booking_id=this._id;
     var btn=document.getElementById('checkout_user');
 
+
+
     //error handelling
     // try{
     //   count_id=(<HTMLElement>document.getElementById('notification_count_id'));
@@ -76,6 +78,7 @@ export class PaymentUsersComponent implements OnInit {
       _this.database.firestore.collection('register_user').doc(localStorage.getItem('user_name')).collection('bookings').doc(this.booking_id).update({view:true}).then(()=>{
          _this.database.firestore.collection('register_user').doc(_this.item_email).collection('bookings').doc(_this._id).update({paid:true}).then(()=>{
            console.log("Success");
+         
           //redirect to the url
          // count_id.innerHTML=_count.toString();     //update count
           btn.click();

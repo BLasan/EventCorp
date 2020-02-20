@@ -95,7 +95,7 @@ export class RatingSystemComponent implements OnInit {
     this.loadComments();
     this.load_view_settings();
     this.load_supplier_items();
-   // this.load_user_events();
+    this.load_user_events();
     //localStorage.removeItem('status');
     // localStorage.removeItem('searched_user_email');
     //localStorage.removeItem('isBookingReq');

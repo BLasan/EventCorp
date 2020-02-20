@@ -75,7 +75,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     //this.filteredBanksMulti.next(this.toppingList.slice());
     this.form=new FormGroup({
       event_name:new FormControl('',Validators.required),
-      // venue:new FormControl('',[Validators.required]),
+      location:new FormControl('',[Validators.required]),
       date:new FormControl('',[Validators.required]),
       time:new FormControl('',[Validators.required])
     });
@@ -175,6 +175,7 @@ export class OrganizerEventsComponent implements OnInit,AfterViewInit,OnDestroy{
     let date=this.form.get('date').value;
     let date_string=new Date(date).getFullYear()+"-"+(new Date(date).getMonth()+1)+"-"+new Date(date).getDate();
     let time=this.form.get('time').value;
+    let location=this.form.get('location').value;
     //let time_string=new Date(time).getHours()+":"+new Date(time).getMinutes()+":"+new Date(time).getSeconds();
     let today=new Date();
     let event_id=localStorage.getItem('user_name')+"@"+today+event_name;

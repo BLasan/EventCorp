@@ -27,6 +27,10 @@
                 <input matInput type="time" placeholder="Time" id="time" name="time" formControlName='time'>
                 <mat-error *ngIf="hasError('time', 'required')"><small>Time is required</small></mat-error>
               </mat-form-field>
+              <!-- <mat-form-field>
+                <input matInput placeholder="Location" id="location" name="location" formControlName='location'>
+                <mat-error *ngIf="hasError('location', 'required')"><small>Location is required</small></mat-error>
+              </mat-form-field>   -->
               <div class="row" style="margin-top:5px">
                 <div class="col-md-4 col-sm-4">
                   <a id="artist_select" href="" (click)="loadArtist()" title="Select Artists">Select Artists</a>
