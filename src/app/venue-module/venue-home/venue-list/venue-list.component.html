@@ -1,22 +1,24 @@
 <div class="main-content">
   <div class="container-fluid">
 
+    <!-- filtering out venues by name -->
     <div class="row">
       <div class="col-md-4">
         <div class="input-group">
-            <div class="input-group-append">
-                <div class="input-group-text"><i class="material-icons">
-                    search
-                  </i>
-                </div>
-              </div>
+          <div class="input-group-append">
+            <div class="input-group-text"><i class="material-icons">
+                search
+              </i>
+            </div>
+          </div>
           <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
             placeholder="Search by name..." (keyup)="searchByName()">
-          
+
         </div>
       </div>
 
-      <div class="col-md-4 filter-by-age">
+      <!-- filtering out by seating_capacity -->
+      <div class="col-md-4">
         <div class="row">
           <div class="col-md-auto filter-title">
             <span>Filter by Seating Capacity</span>
@@ -33,99 +35,25 @@
 
     </div>
 
+    <!-- loading venue tiles -->
     <div class="list-group users-list">
-
       <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
-
-        <div class="row">
+        <div class="row tile">
           <div class="col-md-1 image-col">
-            <img class="image" src="./../../../assets/img/building.jpg">
+            <img class="image" src="{{ item.payload.doc.data().photo1 }}">
           </div>
           <div class="col-md-5 text-col">
             <h5 class="mb-1">{{item.payload.doc.data().v_name}}</h5>
-            <small>{{item.payload.doc.data().fee}}</small>
+            <small>Fee - Rs. {{item.payload.doc.data().fee}}</small>
+            <small style="margin-left: 30px;">Seating Capacity - {{item.payload.doc.data().seating_capacity}}</small>
           </div>
           <div class="col col-md-6 actions-col">
             <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">Profile</button>
-            <!-- <button class="btn btn-outline-primary action" (click)="" type="button">Event
-              Calendar</button>
-            <button class="btn btn-outline-primary action" (click)="" type="button">Delete</button> -->
+
           </div>
         </div>
       </div>
     </div>
-    <!-- <mat-card>          
-            <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
-                <mat-card-title>{{comment.Name}}</mat-card-title>
-                <mat-card-subtitle>{{comment.fee}}</mat-card-subtitle>
-              </mat-card-header>
-              <div class="col card-buttons">
-                <button mat-raised-button color="primary">View Profile</button>
-                <button mat-raised-button color="primary" class="b2">View Event Calendar</button>
-                <button mat-raised-button color="primary" class="b3">Book Now</button>
-
-              </div>
-        
-        </mat-card> -->
-
-    <!-- </mat-list-item>      
-    </mat-list> -->
-
-    <!-- <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field> -->
-
-    <!-- <div class="list-group users-list">
-      <div *ngFor="let item of items" class="list-group-item list-group-item-action flex-column align-items-start">
-        <div class="row">
-          <div class="col col-md-2 image-col">
-            <img class="image" [src]="item.payload.doc.data().avatar">
-          </div>
-          <div class="col col-md-8 text-col">
-            <h5 class="mb-1">{{item.payload.doc.data().name}} {{item.payload.doc.data().surname}}</h5>
-            <small>Age: {{item.payload.doc.data().age}}</small>
-          </div>
-          <div class="col col-md-2 actions-col">
-            <button class="btn btn-outline-primary action" (click)="viewDetails(item)" type="button">
-              <ion-icon class="icon" name="arrow-round-forward"></ion-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-    <!-- <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    
-      <ng-container matColumnDef="Name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="ac">
-        <th mat-header-cell *matHeaderCellDef> AC </th>
-        <td mat-cell *matCellDef="let element"> {{element.ac}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="car_parking">
-        <th mat-header-cell *matHeaderCellDef> Car Parking </th>
-        <td mat-cell *matCellDef="let element"> {{element.car_parking}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="fee">
-        <th mat-header-cell *matHeaderCellDef> Fee </th>
-        <td mat-cell *matCellDef="let element"> {{element.fee}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="seating_capacity">
-        <th mat-header-cell *matHeaderCellDef> Seating Capacity </th>
-        <td mat-cell *matCellDef="let element"> {{element.seating_capacity}} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table> -->
-
 
   </div>
 </div>

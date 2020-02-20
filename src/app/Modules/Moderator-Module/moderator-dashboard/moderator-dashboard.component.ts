@@ -15,7 +15,6 @@ export class ModeratorDashboardComponent implements OnInit {
   @ViewChild('roleSelect') roleSelect:MatSelect;
   ageValue: number = 0;
   searchValue: string = "";
-  // items: Array<any>;
   name_filtered_items: Array<any>;
   age_filtered_items: Array<any>;
   user_profile:any=[];
@@ -31,91 +30,18 @@ export class ModeratorDashboardComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-    // this.getData();
-    // this.form=new FormGroup({
-    //   filter_role:new FormControl('',[])
-    // })
+  ngOnInit() {    
     this.getUsers();
   }
 
-  // ngAfterViewInit(){
-  //   this.roleSelect.valueChange.subscribe(val=>{
-  //     console.log(val)
-  //   })
-  // }
-
-  getArtistData(){
-    this.role = "artist";
-    this.moderatorService.getArtists()
-    .subscribe(result => {
-      this.items = result;
-      this.resultLength = result.length;
-      console.log("\nresultLengeth - "+this.resultLength);
-      console.log("\nresult - "+this.items);
-      // this.age_filtered_items = result;
-      // this.name_filtered_items = result;
-    })
+  activateUser(userId){
+    console.log("going to deactive this guy - ", userId);
+    this.db.collection('register_user').doc(userId).update({profile_status:'Active'});
   }
 
-  getVenueData(){
-    this.role = "venue";
-    this.moderatorService.getVenues()
-    .subscribe(result => {
-      this.items = result;
-      this.resultLength = result.length;
-      console.log("\nresultLengeth - "+this.resultLength);
-      console.log("\nresult - "+this.items);
-      // this.age_filtered_items = result;
-      // this.name_filtered_items = result;
-    })
-  }
-
-  getOrganizerData(){
-    this.role = "organizer";
-    this.moderatorService.getOrganizers()
-    .subscribe(result => {
-      this.items = result;
-      this.resultLength = result.length;
-      console.log("\nresultLengeth - "+this.resultLength);
-      console.log("\nresult - "+this.items);
-      // this.age_filtered_items = result;
-      // this.name_filtered_items = result;
-    })
-  }
-
-  getSupplierData(){
-    this.role = "supplier";
-    this.moderatorService.getSuppliers()
-    .subscribe(result => {
-      this.items = result;
-      this.resultLength = result.length;
-      console.log("\nresultLengeth - "+this.resultLength);
-      console.log("\nresult - "+this.items);
-      // this.age_filtered_items = result;
-      // this.name_filtered_items = result;
-    })
-  }
-
-  myFunction() {
-    // Declare variables
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById('myInput');
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementById('searchByText');
-    console.log("ul - "+ul + " li - "+li);
-  
-    // Loop through all list items, and hide those who don't match the search query
-    for (i = 0; i < li.length; i++) {
-      a = li[i].getElementsByTagName("a")[0];
-      txtValue = a.textContent || a.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        li[i].style.display = "";
-      } else {
-        li[i].style.display = "none";
-      }
-    }
+  deactivateUser(userId){
+    console.log("going to deactive this guy - ", userId);
+    this.db.collection('register_user').doc(userId).update({profile_status:'Deleted'});
   }
 
   getUsers(){

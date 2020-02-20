@@ -25,7 +25,7 @@ import { AuthGuardSupplierService } from './services/Authentication/athGuard_sup
 import { ResetPasswordComponent } from './Modules/reset-password/reset-password.component';
 import { ResetPasswordFirebaseComponent } from './Modules/reset-password-firebase/reset-password-firebase.component';
 import { AuthGuardCustomerService } from './services/Authentication/authGuard_customer.service';
-import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
+// import { VenueCalendarComponent } from './venue-module/venue-calendar/venue-calendar.component';
 // import { VenueProfileComponent } from './venue-profile/venue-profile.component';
 import { AuthGuardVenueOwnerService } from './services/Authentication/authGuard_venueOwner.service';
 import { LocationOwnerLayoutComponent } from './layouts/location-owner-layout/location-owner-layout.component';
@@ -44,6 +44,10 @@ import { AuthGuardViewLocationService } from './services/Authentication/authGuar
 import { ViewUserEventsComponent } from './shared-components/view-user-events/view-user-events.component';
 import { AuthGuardViewUserEventsService } from './services/Authentication/authGuardViewUserEvents.service';
 import { ViewBillComponent } from './Modules/Organizer-Module/view-bill/view-bill.component';
+import { VenueListComponent } from "./venue-module/venue-home/venue-list/venue-list.component";
+import { VenueProfileComponent } from './venue-profile/venue-profile.component';
+import { VenueProfileResolver } from './venue-profile/venue-profile.resolver';
+
 
 //var role=getRole();
 // if(role=='artist'){
@@ -204,6 +208,17 @@ const routes: Routes =[
     component:ViewLocationComponent,
     canActivate:[AuthGuardLocationService],
   },
+  // {
+  //   path:'venueList',
+  //   component:VenueListComponent
+  // },
+  // {
+  //   path:'venueProfile',
+  //   component:VenueProfileComponent
+  // },
+  // { path: 'details/:id', component: VenueProfileComponent, resolve:{data : VenueProfileResolver} },
+
+
   // { path:'view-events/:uid' , 
   //   component:ViewUserEventsComponent
   // },
@@ -228,7 +243,7 @@ const routes: Routes =[
   // }]},
 
   // {path: 'venueProfile' , component: VenueProfileComponent},
-  {path: 'venueCalendar' , component: VenueCalendarComponent},
+  // {path: 'venueCalendar' , component: VenueCalendarComponent},
   // {
   //   path:'location_owner',
   //   component:LocationOwnerLayoutComponent

@@ -1,0 +1,55 @@
+<div class="main-content">
+  <div class="container-fluid">
+
+    <!-- heading -->
+    <h3>User Comments</h3>
+    
+    
+    <div class="row">
+      <div class="comments">
+        <div class="list-group users-list">
+
+          <!-- loading comments -->
+          <div *ngFor="let comment of comments"  
+            class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="row">
+              <div class="col-md-9">
+                <mat-accordion>
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header class="header">
+                      <mat-panel-title>
+                        {{ comment.comments[0].comment}}
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div>
+                      <b>Commented User's Name - </b>{{ comment.comments[0].user_name }}
+                    </div>
+                    <div>
+                      <b>Commented User's Email - </b> {{ comment.sender_mail }}
+                    </div>
+                    <div>
+                      <b>Date -</b> {{ comment.comments[0].date }}
+                    </div>
+
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+
+              <!-- buttons -->
+              <div class="col-md-3 actions-col">
+                <button style="margin-left: 10px;" type="button" class="btn btn-danger"
+                  (click)="deleteUser(comment.sender_mail,comment.id)">Delete User</button>
+                <button type="button" class="btn btn-primary"
+                  style="background-color: rgb(110, 115, 192); border-color: blue;"
+                  (click)="deleteComment(comment.sender_mail,comment.id)">Delete Comment</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

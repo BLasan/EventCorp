@@ -21,6 +21,7 @@ import {
   MatCardModule,
   MatListModule,
   MatChipsModule,
+  MatExpansionModule
   // MatTableModule
 } from "@angular/material";
 
@@ -33,6 +34,7 @@ import { ModeratorService } from 'app/services/moderator.service';
 import { ModeratorQueriesComponent } from 'app/Modules/Moderator-Module/moderator-queries/moderator-queries.component';
 import { QueryReplyDialogComponent } from 'app/Modules/Moderator-Module/query-reply-dialog/query-reply-dialog.component';
 import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
+import { UserCommentsComponent } from '../../Modules/Moderator-Module/user-comments/user-comments.component';
 
 
 
@@ -60,6 +62,7 @@ import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
     MatIconModule,
     MatSliderModule,
     MatCarouselModule,
+    MatExpansionModule
   ],
   declarations: [
    ModeratorDashboardComponent,
@@ -69,6 +72,7 @@ import { FilterPipe } from 'app/Modules/Moderator-Module/filter.pipe';
    ModeratorQueriesComponent,
   //  QueryReplyDialogComponent,
    FilterPipe,
+   UserCommentsComponent
   //  BookedEventsComponent
   ],
   providers: [ModeratorService],
