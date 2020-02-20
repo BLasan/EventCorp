@@ -43,6 +43,7 @@ export class ContactUsComponent implements OnInit{
 
   //get data
   submitQuery(){
+    var _this=this;
     let name=this.form.get('name').value;
     let email=this.form.get('email').value;
     let contact=this.form.get('contact').value;
@@ -62,6 +63,7 @@ export class ContactUsComponent implements OnInit{
         var _returnedData:any=data;
         if(_returnedData.success===true){
           console.log("Sent to the reporter");
+          _this.form.reset();
         }
         else{
           console.log("Error sending mail");
