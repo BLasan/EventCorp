@@ -62,17 +62,8 @@ export class VenueProfileComponent implements OnInit {
     this.upSvc.pushUpload(this.currentUpload)
   }
 
-  //   trackHero(index, comment) {
-  //     console.log(comment.id);
-  //     // return comment ? comment.id : undefined;
-
-  // }
-
   openReportCommentsDialog(i) {
-    // console.log("Comment ID - "+comment);
-    const dialogConfig = new MatDialogConfig();
-    // console.log("Real Comment iD - "+this.comments.uid);
-    // dialogConfig.disableClose = true;
+    const dialogConfig = new MatDialogConfig();    
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
@@ -84,16 +75,18 @@ export class VenueProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    //routing data to profile
     this.route.data.subscribe(routeData => {
       let data = routeData['data'];
       if (data) {
         this.item = data.payload.data();
         this.item.id = data.payload.id;
         console.log(this.item);
-        // this.createForm();
       }
     });
 
+    //getting comments
     this.db.collection('Venues').doc(this.item.id).collection('comments').valueChanges()
       .subscribe(result => {
         this.comments = result;

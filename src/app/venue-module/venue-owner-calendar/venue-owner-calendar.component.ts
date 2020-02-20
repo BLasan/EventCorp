@@ -35,12 +35,14 @@ export class VenueOwnerCalendarComponent implements OnInit {
 
   getData() {
 
+    //getting the venue name
     this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
       .subscribe(output => {
         this.outputResult = output.payload.data();
         this.our_venue = this.outputResult.nameToSearch;
         console.log("ddddddddddddddddddd", this.our_venue);
 
+        //filtering out the events relavent to this profiles venue
         this.db.collection('events', ref => ref.where('accepted', '==', 1).where('nameToSearch', '==', this.our_venue)).valueChanges().pipe(
           tap(events => console.log("filtered - ", events)),
           map(events => events.map(event => {

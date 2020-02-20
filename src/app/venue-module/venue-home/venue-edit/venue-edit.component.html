@@ -1,5 +1,7 @@
 <div class="main-content">
   <div class="container-fluid">
+
+    <!-- form -->
     <div class="formz" *ngIf='!success'>
       <form class="edit-form" [formGroup]="myForm1" [hidden]="success" (ngSubmit)="onSubmit(myForm1.value)">
 
@@ -18,24 +20,11 @@
           <input matInput placeholder="Telephone Number" formControlName="tel_no">
         </mat-form-field>
 
-
-        <!-- <mat-form-field>
-            <input matInput [matDatepicker]="picker1" placeholder="Start date" formControlName = "event_start">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-          </mat-form-field> -->
-
         <mat-form-field>
           <input matInput placeholder="Air Conditioned?" formControlName="ac">
         </mat-form-field>
 
-        <!-- <mat-form-field>
-            <input matInput [matDatepicker]="picker2" placeholder="End date" formControlName = "event_end">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field> -->
-
-        <mat-form-field>
+         <mat-form-field>
           <input matInput placeholder="Car Parking Available?" formControlName="car_parking">
         </mat-form-field>
 
@@ -47,11 +36,13 @@
           <input matInput placeholder="Number of Seats" formControlName="seating_capacity">
         </mat-form-field>
 
-
+        <!-- submit button -->
         <button mat-raised-button color="primary" type="submit" [disabled]="myForm1.invalid">Submit</button>
 
       </form>
     </div>
+
+    <!-- success message -->
     <div *ngIf="success" class="notification is-success">
       Successfully updated!
     </div>

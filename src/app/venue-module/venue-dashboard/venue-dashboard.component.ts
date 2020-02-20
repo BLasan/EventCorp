@@ -28,31 +28,24 @@ export class VenueDashboardComponent implements OnInit {
     this.totalBookings();
   }
 
+  //getting requests
   getRequests() {
 
     this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
       .subscribe(output => {
         this.outputResult = output.payload.data();
         this.our_venue = this.outputResult.nameToSearch;
-        // console.log("ddddddddddddddddddd", this.our_venue);
         
         this.db.collection('events', ref => ref.where('accepted', '==', 0).where('nameToSearch', '==', this.our_venue)).snapshotChanges()
           .subscribe(result => {
-            // console.log("dsdgsdgsgsgsgsg - ", this.our_venue);
             this.items = result;
             this.itemCount = result.length;
           })
       })
 
-    // this.db.collection('events',ref => ref.where('accepted','==',0).where('nameToSearch','==',this.our_venue)).snapshotChanges()
-    // .subscribe(result => {
-    //   console.log("dsdgsdgsgsgsgsg - ",this.our_venue);
-    //   this.items = result;
-    //   this.itemCount = result.length;
-    // })
-
   }
 
+  //getting the number of total bookings for statistics
   totalBookings() {
 
     this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges()
@@ -67,14 +60,9 @@ export class VenueDashboardComponent implements OnInit {
             this.total_Bookings = result.length;
           })
       })
-
-    // this.db.collection('events', ref => ref.where('accepted', '==', 1).where('v_name', '==', 'St. Joesphs College Sports Complex')).snapshotChanges()
-    //   .subscribe(result => {
-    //     // this.items = result;
-    //     this.total_Bookings = result.length;
-    //   })
   }
 
+  //accepting a request
   acceptRequest(itemid) {
     this.db.collection('events').doc(itemid).update({
       accepted: 1,
@@ -82,6 +70,7 @@ export class VenueDashboardComponent implements OnInit {
     console.log(itemid);
   }
 
+  //declining a request
   declineRequest(itemid) {
     this.db.collection('events').doc(itemid).update({
       accepted: 2,

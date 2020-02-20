@@ -34,8 +34,8 @@ export class VenueEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.createForm();
 
+    //getting the necessary data to fill the edit form
     var docRef = this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').snapshotChanges();
     docRef.subscribe(resultss => {
       this.item = resultss.payload.data();
@@ -44,81 +44,28 @@ export class VenueEditComponent implements OnInit {
         console.log("Document data:", this.item.id);
         this.createForm();
 
-      // if (doc.exists) {
-      //     console.log("Document data:", doc.data());
-      // } else {
-      //     // doc.data() will be undefined in this case
-      //     console.log("No such document!");
-      // }
   });
-  // this.createForm();
+  
+  }  
 
-    // this.db.collection('register_user').doc(this.loginService.currentUser()).collection("venue").doc("hall").get()
-    //   .then(function(doc) {
-    //     if (doc.exists) {
-    //         console.log("Document data:", doc.data());
-    //     } else {
-    //         // doc.data() will be undefined in this case
-    //         console.log("No such document!");
-    //     }
-        // this.itemz = result;
-        // console.log("itemz - ",this.itemz);
-        // this.venue_name = result.data().v_name;
-        // console.log("result - ", this.venue_name);
-        // this.firebaseService.getVenueDocId(this.venue_name)
-        // .subscribe(output => {
-        //   this.itemId = output.id;
-        //   console.log("output ID - ",this.itemId);
-        // })
-        // this.db.collection("Venues").get().subscribe(function (querySnapshot) {
-        //   querySnapshot.forEach(function (doc) {
-        //     // this.venueId = doc.data().venue_name;
-        //     console.log(this.venue_name);
-        //     if (doc.data().nameToSearch == this.venue_name) {
-        //       this.itemId = doc.id;
-        //       console.log("found doc id ------- > ", this.itemId);
-        //     }
-        //     // doc.data() is never undefined for query doc snapshots
-        //     console.log(doc.id, " => ", doc.data());
-        //   });
-        // });
-      // })
-    // this.route.data.subscribe(routeData => {
-    //   let data = routeData['data'];
-    //   if (data) {
-    //     this.item = data.payload.data();
-    //     this.item.id = data.payload.id;
-    //     this.createForm();
-    //   }
-    // })
-  }
+  // findVenueID(vname) {
+  //   this.db.collection("Venues").get().subscribe(function (querySnapshot) {
+  //     querySnapshot.forEach(function (doc) {
+  //       console.log(vname);
+  //       if (doc.data().nameToSearch == vname) {
+  //         this.itemId = doc.id;
+  //         console.log("found doc id ------- > ", this.itemId);
+  //       }
+  //       console.log(doc.id, " => ", doc.data());
+  //     });
+  //   });
 
-  // upload_image(){
-  //   this.isRemoved=true;
-  //   image_uploader();
   // }
 
-  findVenueID(vname) {
-    this.db.collection("Venues").get().subscribe(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        // this.venueId = doc.data().venue_name;
-        console.log(vname);
-        if (doc.data().nameToSearch == vname) {
-          this.itemId = doc.id;
-          console.log("found doc id ------- > ", this.itemId);
-        }
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-      });
-    });
-
-  }
-
+  //creating the form with loaded data
   createForm() {
     this.myForm1 = this.fb.group({
-      // name: [this.item.name, Validators.required],
-      // surname: [this.item.surname, Validators.required],
-      // age: [this.item.age, Validators.required]
+      
       v_name: [this.item.v_name, Validators.required],
       nameToSearch: [this.item.v_name.toLowerCase(), Validators.required],
       venue_address: [this.item.venue_address, Validators.required],
@@ -130,25 +77,11 @@ export class VenueEditComponent implements OnInit {
     });
   }
 
-  onSubmit(value) {
-    // value.avatar = this.item.avatar;
-    // value.age = Number(value.age);
-    // this.firebaseService.updateUser(this.item.id, value);
+  //submitting the edited form
+  onSubmit(value) {    
     console.log("onsubmit id - ",this.item.id);
     this.firebaseService.updateUser(this.item.id, value);
     this.success = true;
-
-    // .then(
-    //   res => {
-    //     this.router.navigate(['/home']);
-    //   }
-    // )
-    // this.db.collection('register_user').doc(this.loginService.currentUser())
-    //   .get().subscribe(result => {
-    //     this.venue_name = result.data().v_name;
-    //     console.log("result - ", this.venue_name);
-    //     this.findVenueID(this.venue_name);
-    //   })
 
   }
 

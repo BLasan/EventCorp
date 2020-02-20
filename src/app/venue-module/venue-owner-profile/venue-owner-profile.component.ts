@@ -34,26 +34,12 @@ export class VenueOwnerProfileComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog
   ) {
-    // console.log('Current User - ',loginService.currentUser())
-    // db.collection('register_user').doc(loginService.currentUser()).collection('venue').doc('hall').valueChanges()
-    // .pipe(first())
-    // .subscribe( snapshot => {
-    //   console.log('snapshot - ',snapshot)
-    //   this.user = snapshot
-    // });
+    
    }
 
-   ngOnInit() {
-    // this.route.data.subscribe(routeData => {
-    //   let data = routeData['data'];
-    //   if (data) {
-    //     this.item = data.payload.data();
-    //     this.item.id = data.payload.id;
-    //     console.log(this.item);
-    //     // this.createForm();
-    //   }
-    // });
+   ngOnInit() {    
 
+    //getting the venue data
     this.db.collection('register_user').doc(this.loginService.currentUser()).collection('venue').doc('hall').valueChanges()
     .pipe(first())
     .subscribe( snapshot => {
@@ -61,6 +47,7 @@ export class VenueOwnerProfileComponent implements OnInit {
       this.user = snapshot
     });
 
+    //getting the comments
     this.db.collection('register_user').doc(this.loginService.currentUser()).collection('comments').valueChanges()
     .subscribe(result => {
       this.comments = result;

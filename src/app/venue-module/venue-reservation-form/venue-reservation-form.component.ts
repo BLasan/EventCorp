@@ -6,6 +6,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { LoginService } from 'app/services/login.services';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
+interface Officer {
+  value: string;
+  viewValue: string;
+}
+
 
 @Component({
   selector: 'app-venue-reservation-form',
@@ -19,7 +24,12 @@ export class VenueReservationFormComponent implements OnInit {
   loading = false;
   success = false;
 
-  // name = new FormControl('');
+  officers: Officer[] = [
+    {value: 'Mr. Ajith Prasanna', viewValue: 'Mr. Ajith Prasanna'},
+    {value: 'Mr. Kapila De Silva', viewValue: 'Mr. Kapila De Silva'},
+    {value: 'Mr. Prasanna Rathnayake', viewValue: 'Mr. Prasanna Rathnayake'}
+  ];
+
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +38,7 @@ export class VenueReservationFormComponent implements OnInit {
 
   ngOnInit() {
 
+    //creating the form
     this.myForm = this.fb.group({
 
       title: ['', Validators.required],
@@ -37,32 +48,23 @@ export class VenueReservationFormComponent implements OnInit {
       start_time: ['', Validators.required],
       end_time: ['', Validators.required],
       hall: ['', Validators.required],
-      seats_number: ['', Validators.required],
+      seats_number_balcony: ['', Validators.required],
+      seats_number_odc: ['', Validators.required],
       person_name: ['', Validators.required],
       address: ['', Validators.required],
       tel_no: ['', Validators.required],
-      assigned_officer: ['', Validators.required],
-      // venue_owner: this.loginService.currentUser(),
-      // venue_name: "abc",
+      assigned_officer: ['', Validators.required],      
       accepted: 0
 
-    })
-
-    this.preloadData();     //storing data in the database is working even WITHOUT this function
+    })    
 
   }
 
+  //submitting the form
   async submitHandler() {
     this.loading = true;
 
     const formValue = this.myForm.value;
-
-    // try {
-    //   await this.afs.collection('register_user').doc(this.loginService.currentUser()).collection('MyEvents').add(formValue); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
-    //   this.success = true;
-    // } catch(err) {
-    //   console.error(err)
-    // }
 
     try {
       await this.afs.collection('events').add({
@@ -73,14 +75,15 @@ export class VenueReservationFormComponent implements OnInit {
         start_time: formValue.start_time,
         end_time: formValue.end_time,
         hall: formValue.hall,
-        seats_number: formValue.seats_number,
+        seats_number_balcony: formValue.seats_number_balcony,
+        seats_number_odc: formValue.seats_number_odc,
         person_name: formValue.person_name,
         address: formValue.address,
         tel_no: formValue.tel_no,
         assigned_officer: formValue.assigned_officer,
         nameToSearch: formValue.v_name.toLowerCase(),
         accepted: 0
-      }); //here add() is used to add a document with an auto generated id. To add a form with user specific id, u need to use doc('user-specific-doc-id').set(formValue)
+      }); 
       this.success = true;
     } catch (err) {
       console.error(err)
@@ -88,14 +91,6 @@ export class VenueReservationFormComponent implements OnInit {
 
     this.loading = false;
   }
-
-  preloadData() {           //storing data in the database is working even WITHOUT this function
-    this.afs.doc('events/Kjn0JWBKdOnUlBwuE93S').valueChanges().pipe(
-      tap(data => {
-        this.myForm.patchValue(data)
-      })
-    )
-      .subscribe()
-  }
+  
 
 }
