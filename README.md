@@ -12,3 +12,10 @@ suppliers.
 - To provide a platform where all partitions can be interacted (Artists,Suppliers,Venue Owners and organizers). So this will ease the event organizing procedure as they can
   search users from this platform (artists,suppliers and venue owners) and get to know about them without searching here and there.
 
+### Features
+
+- Online Chat (Firebase realtime listening)
+- PayHere Payment Gateway (Sandbox)
+- User Search
+- File uploading (Images, Videos & MP3s)
+- Bill generating
