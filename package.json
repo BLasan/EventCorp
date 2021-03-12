@@ -84,7 +84,7 @@
     "html-to-pdfmake": "^1.2.1",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "location-href": "^1.0.0",
     "moment": "2.22.1",
     "mongodb": "^3.5.0",
