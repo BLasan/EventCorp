@@ -47,7 +47,7 @@
     "@types/googlemaps": "^3.39.2",
     "@types/jest": "^25.1.2",
     "acorn": "^6.4.0",
-    "ajv": "6.4.0",
+    "ajv": "6.12.3",
     "angular-bootstrap-md": "^7.5.4",
     "angular-calendar": "^0.27.21",
     "angular-css-flex-layout": "0.0.2",
